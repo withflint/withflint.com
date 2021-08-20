@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin "$ECR_URL"
+      - export GIT_BRANCH=$(echo $CODEBUILD_WEBHOOK_TRIGGER | cut -c8-)
+      - export GIT_VERSION=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c1-7)
+      - echo "withflint/withflint.com" >> output
+      - sort -R ./.build/quotes | head -n1  >> output
+      - echo "$GIT_BRANCH:$GIT_VERSION" >> output
+  build:
+    commands:
+      - make -C $(pwd)/.build build-image TARGET=$(pwd) DOCKERFILE=$(pwd)/.build/Dockerfile >&1
+  post_build:
+      commands:
+        - if [[ "$CODEBUILD_BUILD_SUCCEEDING" == "0" ]]; then echo "Build Failed\!\n$COMMAND_EXECUTION_ERROR" >> output; else echo "Enjoy!">> output; fi
+        - echo "{ \"text\":\"$(cat output)\"}"
+        - curl -X POST -H "Content-Type:application/json" --data "{ \"text\":\"$(cat output)\"}" "$CHAT_WEBHOOK"
