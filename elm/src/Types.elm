@@ -6,8 +6,8 @@ module Types exposing
 import Blog.Types
 import Browser.Dom exposing (Viewport)
 import Contact.Types
-import Faq.Types
 import Device exposing (Device)
+import Faq.Types
 import Home.Types
 import Jobs.Types
 import Router.Types

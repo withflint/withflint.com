@@ -3,6 +3,7 @@ module Faq.Update exposing (..)
 import Faq.Types exposing (Model, Msg(..))
 import Return exposing (Return, singleton)
 
+
 init : Model
 init =
     { topic = ""
@@ -18,4 +19,4 @@ update msg model =
             singleton { model | selectedTopic = topicId }
 
         Hide ->
-          singleton { model | selectedTopic = -1 }
+            singleton { model | selectedTopic = -1 }

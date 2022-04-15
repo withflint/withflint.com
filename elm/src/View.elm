@@ -22,8 +22,8 @@ import Element
         )
 import Element.Background as Background
 import Element.Font as Font
-import Home.View
 import Faq.View
+import Home.View
 import Html exposing (Html)
 import Jobs.View
 import Layout exposing (layout)

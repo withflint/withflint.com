@@ -5,8 +5,8 @@ import Blog.Update
 import Browser.Dom
 import Browser.Navigation exposing (Key)
 import Contact.Update
-import Faq.Update
 import Device exposing (Device(..), classify)
+import Faq.Update
 import Home.Update
 import Html.Attributes exposing (width)
 import Jobs.Types
@@ -92,7 +92,7 @@ update msg model =
             MsgForFaq faqMsg ->
                 Faq.Update.update faqMsg model.faq
                     |> SubModule.update
-                        { toModel = 
+                        { toModel =
                             \faq -> { model | faq = faq }
                         , toMsg = MsgForFaq
                         }
@@ -178,7 +178,7 @@ pageTitle model =
 
         Contact ->
             model.contact.title
-        
+
         Faq ->
             model.faq.title
 

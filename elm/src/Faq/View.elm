@@ -25,13 +25,12 @@ import Element
         )
 import Element.Background as Background
 import Element.Border as Border
-import Element.Input as Input
 import Element.Font as Font
-import Faq.Types exposing (Model)
+import Element.Input as Input
+import Faq.Types exposing (Model, Msg(..))
 import Layout exposing (Layout, footer, header)
 import Router.Routes exposing (Page(..))
 import Styles exposing (buttons, colors, heading)
-import Faq.Types exposing (Msg(..))
 
 
 view : Model -> Layout Msg
@@ -387,33 +386,35 @@ desktopLayout model =
                                     [ text title ]
                                 , if model.selectedTopic == index then
                                     Input.button (centerY :: Font.size 15 :: Styles.buttons.primary)
-                                      { label =
-                                          Element.image []
-                                            { src = "/static/images/github_logo.svg"
-                                            , description = "Flint"
-                                            }
-                                      , onPress = Just Hide
-                                      }
+                                        { label =
+                                            Element.image []
+                                                { src = "/static/images/github_logo.svg"
+                                                , description = "Flint"
+                                                }
+                                        , onPress = Just Hide
+                                        }
+
                                   else
                                     Input.button (centerY :: Font.size 15 :: Styles.buttons.primary)
-                                      { label =
-                                          Element.image []
-                                            { src = "/static/images/linkedin_logo.svg"
-                                            , description = "Flint"
-                                            }
-                                      , onPress = Just (Select index)
-                                      }
+                                        { label =
+                                            Element.image []
+                                                { src = "/static/images/linkedin_logo.svg"
+                                                , description = "Flint"
+                                                }
+                                        , onPress = Just (Select index)
+                                        }
                                 ]
                             , if model.selectedTopic == index then
                                 paragraph
-                                  (Styles.paragraph
-                                      ++ [ Font.alignLeft
-                                        , Font.size 20
-                                        , paddingEach { top = 30, bottom = 20, left = 20, right = 20 }
-                                        , height <| minimum 120 fill
-                                        ]
-                                  )
-                                  [ text content ]
+                                    (Styles.paragraph
+                                        ++ [ Font.alignLeft
+                                           , Font.size 20
+                                           , paddingEach { top = 30, bottom = 20, left = 20, right = 20 }
+                                           , height <| minimum 120 fill
+                                           ]
+                                    )
+                                    [ text content ]
+
                               else
                                 Element.none
                             ]
