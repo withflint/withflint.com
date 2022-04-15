@@ -23,6 +23,7 @@ import Element
 import Element.Background as Background
 import Element.Font as Font
 import Home.View
+import Faq.View
 import Html exposing (Html)
 import Jobs.View
 import Layout exposing (layout)
@@ -49,6 +50,9 @@ renderRoute model =
 
         Contact ->
             layout model.device <| Contact.View.view model.contact
+
+        Faq ->
+            Element.map MsgForFaq <| layout model.device <| Faq.View.view model.faq
 
         Jobs _ ->
             Element.map MsgForJobs <| layout model.device <| Jobs.View.view model.jobs

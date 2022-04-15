@@ -5,6 +5,7 @@ import Blog.Update
 import Browser.Dom
 import Browser.Navigation exposing (Key)
 import Contact.Update
+import Faq.Update
 import Device exposing (Device(..), classify)
 import Home.Update
 import Html.Attributes exposing (width)
@@ -51,6 +52,7 @@ init { article, gitVersion } url key =
     return
         { router = router
         , contact = Contact.Update.init
+        , faq = Faq.Update.init
         , home = Home.Update.init
         , jobs = jobs
         , healthCare = healthCare
@@ -85,6 +87,14 @@ update msg model =
                         { toMsg = MsgForJobs
                         , toModel =
                             \jobs -> { model | jobs = jobs }
+                        }
+
+            MsgForFaq faqMsg ->
+                Faq.Update.update faqMsg model.faq
+                    |> SubModule.update
+                        { toModel = 
+                            \faq -> { model | faq = faq }
+                        , toMsg = MsgForFaq
                         }
 
             MsgForHealthCare healthCareMsg ->
@@ -168,6 +178,9 @@ pageTitle model =
 
         Contact ->
             model.contact.title
+        
+        Faq ->
+            model.faq.title
 
         Jobs _ ->
             model.jobs.title

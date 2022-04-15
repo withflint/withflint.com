@@ -7,6 +7,7 @@ import Url.Parser exposing ((</>), Parser, map, oneOf, s, string, top)
 
 type Page
     = Home
+    | Faq
     | NotFound
     | Contact
     | Jobs String
@@ -20,6 +21,7 @@ routes =
         [ map Home top
         , map NotFound (s "404")
         , map Contact (s "contact")
+        , map Faq (s "faq")
         , map (Jobs "") (s "jobs")
         , map Jobs (s "jobs" </> string)
         , map (HealthCare "") (s "health-care-jobs")
@@ -40,6 +42,9 @@ toPath page =
 
         Contact ->
             absolute [ "contact" ] []
+
+        Faq ->
+            absolute [ "faq" ] []
 
         Jobs jobId ->
             absolute [ "jobs", jobId ] []
