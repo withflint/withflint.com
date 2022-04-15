@@ -21,7 +21,7 @@ routes =
         [ map Home top
         , map NotFound (s "404")
         , map Contact (s "contact")
-        , map Faq (s "faq")
+        , map Faq (s "internationally-educated-nurses-faq")
         , map (Jobs "") (s "jobs")
         , map Jobs (s "jobs" </> string)
         , map (HealthCare "") (s "health-care-jobs")
@@ -44,7 +44,7 @@ toPath page =
             absolute [ "contact" ] []
 
         Faq ->
-            absolute [ "faq" ] []
+            absolute [ "internationally-educated-nurses-faq" ] []
 
         Jobs jobId ->
             absolute [ "jobs", jobId ] []

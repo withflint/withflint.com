@@ -86,7 +86,7 @@ phoneLayout =
             [ column [ centerX, width fill ]
                 [ row
                     (heading ++ [ centerX ])
-                    [ text "FAQ" ]
+                    [ text "FAQ for Internationally Educated Nurses" ]
                 ]
             ]
         , column [ width fill, height fill, spacingXY 30 20 ]
@@ -358,10 +358,10 @@ desktopLayout model =
         , centerX
         ]
         [ row [ width fill, paddingXY 0 100, spacing 10 ]
-            [ column [ width fill, width (minimum 600 shrink) ]
+            [ column [ width fill ]
                 [ paragraph
                     heading
-                    [ text "FAQ" ]
+                    [ text "FAQ for Internationally Educated Nurses" ]
                 ]
             ]
         , column [ width fill ]

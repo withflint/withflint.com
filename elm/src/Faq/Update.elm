@@ -6,7 +6,7 @@ import Return exposing (Return, singleton)
 init : Model
 init =
     { topic = ""
-    , title = "FAQ - Flint"
+    , title = "FAQ for Internationally Educated Nurses"
     , selectedTopic = 0
     }
 
