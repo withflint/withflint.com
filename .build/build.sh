@@ -17,7 +17,7 @@ build() {
 
 
 # add projects here.
-build "withflint.com" /.build/withflint.com.sh
+build "withflint.com" .build/withflint.com.sh
 
 
 for PID in `jobs -p`; do
