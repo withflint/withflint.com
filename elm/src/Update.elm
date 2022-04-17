@@ -6,6 +6,7 @@ import Browser.Dom
 import Browser.Navigation exposing (Key)
 import Contact.Update
 import Device exposing (Device(..), classify)
+import FaqNurses.Update
 import Home.Update
 import Html.Attributes exposing (width)
 import Jobs.Types
@@ -47,6 +48,12 @@ init { article, gitVersion } url key =
                 |> SubModule.init
                     { toMsg = MsgForBlog
                     }
+
+        ( faqNurses, _ ) =
+            FaqNurses.Update.init
+                |> SubModule.init
+                    { toMsg = MsgForFaqNurses
+                    }
     in
     return
         { router = router
@@ -55,6 +62,7 @@ init { article, gitVersion } url key =
         , jobs = jobs
         , healthCare = healthCare
         , blog = blog
+        , faqNurses = faqNurses
         , title = "Flint - Safeguard Your Health Care Staffing Needs"
         , device = NotSet
         , url = url
@@ -101,6 +109,14 @@ update msg model =
                         { toMsg = MsgForBlog
                         , toModel =
                             \blog -> { model | blog = blog }
+                        }
+
+            MsgForFaqNurses faqNursesMsg ->
+                FaqNurses.Update.update faqNursesMsg model.faqNurses
+                    |> SubModule.update
+                        { toMsg = MsgForFaqNurses
+                        , toModel =
+                            \faqNurses -> { model | faqNurses = faqNurses }
                         }
 
             EffFromRouter eff ->
@@ -177,6 +193,9 @@ pageTitle model =
 
         Blog _ ->
             model.blog.title
+
+        FaqNurses ->
+            model.faqNurses.title
 
         _ ->
             model.home.title

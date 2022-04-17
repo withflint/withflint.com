@@ -7,6 +7,7 @@ import Blog.Types
 import Browser.Dom exposing (Viewport)
 import Contact.Types
 import Device exposing (Device)
+import FaqNurses.Types
 import Home.Types
 import Jobs.Types
 import Router.Types
@@ -20,6 +21,7 @@ type alias Model =
     , jobs : Jobs.Types.Model
     , healthCare : Jobs.Types.Model
     , blog : Blog.Types.Model
+    , faqNurses : FaqNurses.Types.Model
     , title : String
     , device : Device
     , url : Url
@@ -35,6 +37,8 @@ type Msg
     | MsgForHealthCare Jobs.Types.Msg
       --
     | MsgForBlog Blog.Types.Msg
+      --
+    | MsgForFaqNurses FaqNurses.Types.Msg
       --
     | Load Viewport
     | Resize Int Int
