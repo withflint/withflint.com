@@ -15,7 +15,6 @@ RUN elm --help
 #COPY
 COPY static static
 COPY index.html index.html
-COPY sitemap.xml sitemap.xml
 COPY backend backend
 COPY elm elm
 
@@ -37,9 +36,9 @@ ENV GIT_VERSION=${GIT_VERSION}
 
 COPY --from=0 /build/static/ /static/
 COPY --from=0 /build/index.html index.html
-COPY --from=0 /build/sitemap.xml sitemap.xml
 COPY --from=0 /build/bin/* /bin/
 COPY blog blog
+COPY jobs jobs
 
 EXPOSE 5000
 
