@@ -113,9 +113,9 @@ viewAFaq index faq =
         , height fill
         ]
         [ wrappedRow [ width fill, centerY ]
-            [ viewQuestion faq.question
+            [ lazy2 viewQuestion faq.id faq.question
             , if faq.isVisible then
-                collapseOrExpandBtn "x" faq.id
+                collapseOrExpandBtn "×" faq.id
 
               else
                 collapseOrExpandBtn "+" faq.id
@@ -138,9 +138,12 @@ viewAFaq index faq =
         ]
 
 
-viewQuestion : String -> Element Msg
-viewQuestion question =
-    paragraph [ Styles.headFont, alignLeft, Font.medium, Styles.headFont ] [ text question ]
+viewQuestion : Int -> String -> Element Msg
+viewQuestion id question =
+    Input.button [ width fill ]
+        { onPress = Just (ToggleVisibility id)
+        , label = el [] (paragraph [ Styles.headFont, alignLeft, Font.medium, Styles.headFont ] [ text question ])
+        }
 
 
 viewAnswer : FormattedText -> Element Msg
@@ -148,13 +151,13 @@ viewAnswer answer =
     case answer of
         Paragraph str ->
             paragraph Styles.paragraph
-                [ el [ Styles.font ] <| text str
+                [ el [ Styles.font, Font.color colors.deepBlue1 ] <| text str
                 ]
 
         ListItem str ->
             wrappedRow [ paddingEach { top = 0, right = 0, bottom = 0, left = 30 } ]
                 [ paragraph Styles.paragraph
-                    [ el [ Styles.font ] <| text ("• " ++ str)
+                    [ el [ Styles.font, Font.color colors.deepBlue1 ] <| text ("• " ++ str)
                     ]
                 ]
 
@@ -162,7 +165,7 @@ viewAnswer answer =
 collapseOrExpandBtn : String -> Int -> Element Msg
 collapseOrExpandBtn icon id =
     Input.button [ alignRight, width (px 36), height (px 36), Background.color (rgb255 243 243 243), rounded 50 ]
-        { onPress = Just (ToggleVisibilty id)
+        { onPress = Just (ToggleVisibility id)
         , label = el [ centerX, centerY, Font.size 16 ] (text icon)
         }
 

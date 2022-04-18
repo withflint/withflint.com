@@ -17,7 +17,7 @@ init =
 update : Msg -> Model -> Return Msg Model
 update msg model =
     case msg of
-        ToggleVisibilty id ->
+        ToggleVisibility id ->
             let
                 toggle : Faq -> Faq
                 toggle faq =
@@ -150,4 +150,4 @@ faqs =
       }
     ]
         -- Generating id for faq.id
-        |> (\faqs_ -> List.map2 (\id faq -> Faq id faq.question faq.answer faq.isVisible) (List.range 0 (List.length faqs_)) faqs_)
+        |> (\faqs_ -> List.indexedMap (\id faq -> Faq id faq.question faq.answer faq.isVisible) faqs_)

@@ -28,6 +28,7 @@ import Element
         , width
         )
 import Element.Font as Font exposing (underline)
+import FaqNurses.Types exposing (Faq)
 import Router.Routes exposing (Page(..), toPath)
 import Styles
 
@@ -204,6 +205,7 @@ menu : List ( Page, String )
 menu =
     [ ( Home, "Home" )
     , ( HealthCare "", "Health Care Jobs" )
+    , ( FaqNurses, "FAQ" )
     , ( Contact, "Contact" )
     , ( Jobs "", "Jobs" )
     ]

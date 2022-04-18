@@ -9,7 +9,7 @@ type alias Model =
 
 
 type Msg
-    = ToggleVisibilty Int -- faq.id
+    = ToggleVisibility Int -- faq.id
 
 
 type alias Faq =
