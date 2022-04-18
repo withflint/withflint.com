@@ -28,7 +28,6 @@ import Element
         , width
         )
 import Element.Font as Font exposing (underline)
-import FaqNurses.Types exposing (Faq)
 import Router.Routes exposing (Page(..), toPath)
 import Styles
 
