@@ -56,7 +56,7 @@ view model =
         ]
     , tablet =
         [ desktopHeader
-        , faqHeroTitlePhone model.heroTitle
+        , faqHeroTitleDesktop model.heroTitle
         , column
             [ width <| maximum 1500 fill
             , height fill
@@ -68,7 +68,7 @@ view model =
         ]
     , desktop =
         [ desktopHeader
-        , faqHeroTitlePhone model.heroTitle
+        , faqHeroTitleDesktop model.heroTitle
         , column
             [ width <| maximum 1500 fill
             , height fill
@@ -218,6 +218,25 @@ desktopHeader =
             ]
         ]
 
+
+faqHeroTitleDesktop : String -> Element Msg
+faqHeroTitleDesktop title =
+    row [ width fill, Background.color colors.blue1, padding 50 ]
+        [ column [ width fill, spacing 30 ]
+            [ paragraph
+                [ width <| maximum 1400 fill
+                , centerX
+                , centerY
+                , Font.center
+                , height (minimum 150 shrink)
+                , Font.color colors.white3
+                , Styles.headFont
+                , Font.size 70
+                ]
+                [ text title
+                ]
+            ]
+        ]
 
 faqHeroTitlePhone : String -> Element Msg
 faqHeroTitlePhone title =
