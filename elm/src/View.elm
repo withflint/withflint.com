@@ -22,6 +22,7 @@ import Element
         )
 import Element.Background as Background
 import Element.Font as Font
+import FaqNurses.View
 import Home.View
 import Html exposing (Html)
 import Jobs.View
@@ -58,6 +59,9 @@ renderRoute model =
 
         Blog _ ->
             Element.map MsgForBlog <| layout model.device <| Blog.View.view model.blog
+
+        FaqNurses ->
+            Element.map MsgForFaqNurses <| layout model.device <| FaqNurses.View.view model.faqNurses
 
         NotFound ->
             notFound

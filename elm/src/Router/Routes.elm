@@ -12,6 +12,7 @@ type Page
     | Jobs String
     | HealthCare String
     | Blog String
+    | FaqNurses
 
 
 routes : Parser (Page -> a) a
@@ -26,6 +27,7 @@ routes =
         , map HealthCare (s "health-care-jobs" </> string)
         , map (Blog "") (s "blog")
         , map Blog (s "blog" </> string)
+        , map FaqNurses (s "internationally-educated-nurses-faq")
         ]
 
 
@@ -49,6 +51,9 @@ toPath page =
 
         Blog path ->
             absolute [ "blog", path ] []
+
+        FaqNurses ->
+            absolute [ "internationally-educated-nurses-faq" ] []
 
 
 parse : Url -> Maybe Page

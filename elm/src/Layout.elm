@@ -204,6 +204,7 @@ menu : List ( Page, String )
 menu =
     [ ( Home, "Home" )
     , ( HealthCare "", "Health Care Jobs" )
+    , ( FaqNurses, "FAQ" )
     , ( Contact, "Contact" )
     , ( Jobs "", "Jobs" )
     ]
