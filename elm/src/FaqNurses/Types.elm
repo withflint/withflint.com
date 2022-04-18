@@ -1,4 +1,4 @@
-module FaqNurses.Types exposing (Faq, Model, Msg(..))
+module FaqNurses.Types exposing (Faq, FormattedText(..), Model, Msg(..))
 
 
 type alias Model =
@@ -9,11 +9,17 @@ type alias Model =
 
 
 type Msg
-    = NoOp
+    = ToggleVisibilty Int -- faq.id
 
 
 type alias Faq =
-    { question : String
-    , answer : String
+    { id : Int
+    , question : String
+    , answer : List FormattedText
     , isVisible : Bool
     }
+
+
+type FormattedText
+    = Paragraph String
+    | ListItem String
