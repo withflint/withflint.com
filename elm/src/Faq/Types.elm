@@ -7,7 +7,7 @@ type Msg
 
 
 type alias Model =
-    { topic : String
-    , title : String
+    { title : String
     , selectedTopic : Int
+    , faqs : List ( String, String )
     }
