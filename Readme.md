@@ -18,12 +18,12 @@ The newer macOS versions use the port 5000 for AirDrop. You can either disable t
 
 You should know that the SMTP server is IP range protected. So it is convenient if you don't want to send out emails uselessly but a little more complicated if you work on it.
 
-One other common issue is installing fantomas and running it. Latest versions of fantomas depends on libhostfxr. [It seems to have something to so with the dotnet root](https://stackoverflow.com/questions/56041783/a-fatal-error-occurred-the-required-library-libhostfxr-dylib-could-not-be-found).
+One other common issue is installing Fantomas and running it. The latest versions of Fantomas depends on libhostfxr. [It seems to have something to do with the dotnet root](https://stackoverflow.com/questions/56041783/a-fatal-error-occurred-the-required-library-libhostfxr-dylib-could-not-be-found).
 ```
 A fatal error occurred. The required library libhostfxr.dylib could not be found.
 ```
 
-You sould make sure that dotnet root and dotnet tools are available in your path.
+You should ensure that dotnet root and dotnet tools are available in your path.
 
 ## Submitting code
 In the Makefile recipes, we use Fantomas and [elm-format](https://github.com/avh4/elm-format) to keep the code tidy, but in Elm, we use [elm-review](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) to apply a set of rules. Ultimately it's the programmer's responsibility to uphold the standard, but [elm-review](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) is there to help. The principle to think about is if someone else should run [elm-review](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) or any Makefile command after you, would that cause the code to change. It's something we want to avoid. So run `make fix` before committing to git.
@@ -33,8 +33,8 @@ When submitting an increment, you should make a pull request from your form of t
 The repo is open to the public, so you should be mindful of the language you use but also no to expose any secrets. When unsure, ask.
 
 ## Building for deployment
-The repo is built with GitHub Actions and a docker image is pushed to AWS ECR which is then deployed to Kubernetes using FluxCD.
+The repo is built with GitHub Actions, and a docker image is pushed to AWS ECR, which is then deployed to Kubernetes using FluxCD.
 
-The build success/failure is available on the Slack _automation_ channel and in GitHub. You can be invited as a contributor.
+The build success/failure is available on the Slack _automation_ channel and on GitHub. You can be invited as a contributor.
 
 Deployments are configured and managed in another git repo ([GitOps](https://www.gitops.tech/)). But in principle, the code runs the exact same way.
