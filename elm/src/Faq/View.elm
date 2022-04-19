@@ -164,49 +164,7 @@ desktopLayout model =
                         [ width fill
                         , paddingXY 20 0
                         ]
-                        [ row
-                            [ width fill
-                            , centerY
-                            ]
-                            [ row
-                                [ width fill
-                                , Font.size 30
-                                , Font.color colors.deepBlue1
-                                , paddingEach { top = 40, right = 10, bottom = 40, left = 0 }
-                                ]
-                                [ paragraph [] [ text title ] ]
-                            , if model.selectedTopic == index then
-                                Input.button
-                                    [ width (px 50)
-                                    , height (px 50)
-                                    , Background.color colors.gray3
-                                    , Border.rounded 25
-                                    , alpha 0.5
-                                    ]
-                                    { label =
-                                        Element.image []
-                                            { src = "/static/images/icons8-cross-48.png"
-                                            , description = "Flint"
-                                            }
-                                    , onPress = Just Hide
-                                    }
-
-                              else
-                                Input.button
-                                    [ width (px 50)
-                                    , height (px 50)
-                                    , Background.color colors.gray3
-                                    , Border.rounded 25
-                                    , alpha 0.5
-                                    ]
-                                    { label =
-                                        Element.image []
-                                            { src = "/static/images/icons8-plus-48.png"
-                                            , description = "Flint"
-                                            }
-                                    , onPress = Just (Select index)
-                                    }
-                            ]
+                        [ renderQuestion ( index, title, model.selectedTopic )
                         , if model.selectedTopic == index then
                             renderAnswer content
 
@@ -225,7 +183,7 @@ desktopLayout model =
     ]
 
 
-renderAnswer : String -> Element msg
+renderAnswer : String -> Element Msg
 renderAnswer lst =
     column
         [ paddingEach { top = 0, right = 0, bottom = 40, left = 0 }
@@ -237,3 +195,50 @@ renderAnswer lst =
             )
             (lines lst)
         )
+
+
+renderQuestion : ( Int, String, Int ) -> Element Msg
+renderQuestion ( index, title, selectedTopic ) =
+    row
+        [ width fill
+        , centerY
+        ]
+        [ row
+            [ width fill
+            , Font.size 30
+            , Font.color colors.deepBlue1
+            , paddingEach { top = 40, right = 10, bottom = 40, left = 0 }
+            ]
+            [ paragraph [] [ text title ] ]
+        , if selectedTopic == index then
+            Input.button
+                [ width (px 50)
+                , height (px 50)
+                , Background.color colors.gray3
+                , Border.rounded 25
+                , alpha 0.5
+                ]
+                { label =
+                    Element.image []
+                        { src = "/static/images/icons8-cross-48.png"
+                        , description = "Flint"
+                        }
+                , onPress = Just Hide
+                }
+
+          else
+            Input.button
+                [ width (px 50)
+                , height (px 50)
+                , Background.color colors.gray3
+                , Border.rounded 25
+                , alpha 0.5
+                ]
+                { label =
+                    Element.image []
+                        { src = "/static/images/icons8-plus-48.png"
+                        , description = "Flint"
+                        }
+                , onPress = Just (Select index)
+                }
+        ]
