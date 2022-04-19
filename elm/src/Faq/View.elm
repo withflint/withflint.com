@@ -216,6 +216,7 @@ desktopLayout model =
                             [ width fill
                             , height (px 1)
                             , Background.color colors.gray1
+                            , alpha 0.3
                             ]
                             []
                         ]
