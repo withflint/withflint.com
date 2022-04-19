@@ -23,7 +23,7 @@ import Element
         , text
         , width
         )
-import Element.Background as Background exposing (gradient)
+import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
@@ -31,7 +31,7 @@ import Faq.Types exposing (Model, Msg(..))
 import Layout exposing (Layout, footer, menu)
 import Router.Routes exposing (Page(..), toPath)
 import String exposing (lines)
-import Styles exposing (buttons, colors, heading)
+import Styles exposing (colors)
 
 
 view : Model -> Layout Msg
@@ -237,17 +237,3 @@ renderAnswer lst =
             )
             (lines lst)
         )
-
-
-copy :
-    { staffingExpertsHead : String
-    , staffingExperts : String
-    , talentExpertsHead : String
-    , talentExperts : String
-    }
-copy =
-    { staffingExpertsHead = "Staffing Experts"
-    , staffingExperts = "To learn more about what an optimized staffing solution looks like, meet with our staffing experts."
-    , talentExpertsHead = "Talent Experts"
-    , talentExperts = "Are you an internationally educated health care worker? We can help you relocate to the United States of America; we offer all-inclusive packages, including immigration, green cards, transport, accommodations and A+ job offers. Text, call or email us!"
-    }
