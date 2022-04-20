@@ -1,4 +1,4 @@
-module Faq.View exposing (..)
+module Faq.View exposing (view)
 
 import Element
     exposing
@@ -75,7 +75,7 @@ view model =
     }
 
 
-desktopHeader : String -> Element Msg
+desktopHeader : String -> Element msg
 desktopHeader headerTitle =
     column [ width fill, Background.color colors.blue1, paddingXY 100 0 ]
         [ row [ width <| maximum 1300 fill, paddingXY 0 40, centerX ]
@@ -123,7 +123,7 @@ desktopHeader headerTitle =
         ]
 
 
-phoneHeader : String -> Element Msg
+phoneHeader : String -> Element msg
 phoneHeader headerTitle =
     column [ width fill, Background.color colors.blue1, paddingXY 30 0 ]
         [ row [ width <| maximum 1500 fill, paddingXY 0 40, centerX ]
@@ -183,7 +183,7 @@ desktopLayout model =
     ]
 
 
-renderAnswer : String -> Element Msg
+renderAnswer : String -> Element msg
 renderAnswer lst =
     column
         [ paddingEach { top = 0, right = 0, bottom = 40, left = 0 }

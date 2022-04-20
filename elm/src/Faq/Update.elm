@@ -1,4 +1,4 @@
-module Faq.Update exposing (..)
+module Faq.Update exposing (init, update)
 
 import Faq.Types exposing (Model, Msg(..))
 import Return exposing (Return, singleton)

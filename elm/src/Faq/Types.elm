@@ -1,4 +1,4 @@
-module Faq.Types exposing (..)
+module Faq.Types exposing (Model, Msg(..))
 
 
 type Msg
