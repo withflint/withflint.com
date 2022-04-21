@@ -215,11 +215,10 @@ jobsView viewer model =
                 column [ wf, spacingXY 0 20 ] <|
                     [ viewer.copyView model.config
                     , column [ wf, spacing 40, paddingXY 0 40 ]
-                        ([ paragraph [ Styles.headFont, Font.size 23 ]
+                        (paragraph [ Styles.headFont, Font.size 23 ]
                             [ text "Open Positions"
                             ]
-                         ]
-                            ++ (Dict.toList model.jobs |> List.map viewer.jobView)
+                            :: (Dict.toList model.jobs |> List.map viewer.jobView)
                         )
                     ]
 
@@ -406,7 +405,7 @@ desktopApplyView job model =
 
 phoneApplyView : Job -> Model -> Element Msg
 phoneApplyView job model =
-    column [ centerX, spacing 10 ,wf] <|
+    column [ centerX, spacing 10, wf ] <|
         [ el smallHeading <| text "Apply"
         , Input.username textbox
             { onChange = Set FirstName
@@ -446,7 +445,7 @@ phoneApplyView job model =
             { onChange = Set Reason
             , text = Text.toString model.applicant.reason
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| paragraph[][ text model.config.copy.why]
+            , label = Input.labelAbove textboxLabel <| paragraph [] [ text model.config.copy.why ]
             , spellcheck = True
             }
         , case model.error of
@@ -481,10 +480,10 @@ phoneApplyView job model =
 desktopCopyView : Config -> Element Msg
 desktopCopyView config =
     column [ spacing 50, wf, height fill ]
-        [ paragraph [ wf, height fill, Styles.headFont, Font.size 30 ]
+        ([ paragraph [ wf, height fill, Styles.headFont, Font.size 30 ]
             [ text config.copy.desktopHeader
             ]
-        , row [ wf, spacing 50, height fill ]
+         , row [ wf, spacing 50, height fill ]
             [ column [ wf, alignTop ]
                 [ paragraph Styles.paragraph
                     [ text config.copy.paragraph1
@@ -495,22 +494,23 @@ desktopCopyView config =
                     (text config.copy.paragraph2 :: Maybe.withDefault [] config.copy.other)
                 ]
             ]
-        , row [ wf ]
-            [ image [ wf ]
-                { src = "/static/images/hiring-process.svg"
-                , description = "Interview Process"
-                }
-            ]
-        ]
+         ]
+            ++ (if config.page == "jobs" then
+                    [ hiringProcess ]
+
+                else
+                    []
+               )
+        )
 
 
 phoneCopyView : Config -> Element Msg
 phoneCopyView config =
     column [ spacing 50, wf, height fill ]
-        [ paragraph [ wf, height fill, Styles.headFont, Font.size 30 ]
+        ([ paragraph [ wf, height fill, Styles.headFont, Font.size 30 ]
             [ text config.copy.phoneHeader
             ]
-        , column [ wf, spacing 50, height fill ]
+         , column [ wf, spacing 50, height fill ]
             [ column [ wf, alignTop ]
                 [ paragraph Styles.paragraph
                     [ text config.copy.paragraph1
@@ -521,8 +521,14 @@ phoneCopyView config =
                     (text config.copy.paragraph2 :: Maybe.withDefault [] config.copy.other)
                 ]
             ]
-        , hiringProcess
-        ]
+         ]
+            ++ (if config.page == "jobs" then
+                    [ hiringProcess ]
+
+                else
+                    []
+               )
+        )
 
 
 hiringProcess : Element msg
@@ -578,5 +584,6 @@ healthCareCopy =
     }
 
 
+wf : Attribute msg
 wf =
     width fill
