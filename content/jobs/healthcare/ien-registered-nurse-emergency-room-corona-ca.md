@@ -40,5 +40,3 @@ We are looking for an Internationally Educated Nurse (IEN), Registered Nurse (RN
 - 4-year Bachelor of Nursing Science or equivalent
 - Excellent English communication skills
 - Job Type: Full-time
-
--------

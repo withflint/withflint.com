@@ -8,6 +8,8 @@ Dec 25, 2021
 Interviewing for Engineering Roles
 At Flint, we believe that disciplined people engage in disciplined thought and take disciplined action. Therefore we are very intentional in the way we conduct our hiring process. I wanted to write about our perspective.
 ---
+**We interview and make hires within a week from our first meet–it's a commitment.**
+
 At Flint, we believe that [disciplined people](https://www.jimcollins.com/concepts/a-culture-of-discipline.html) engage in [disciplined thought](https://www.jimcollins.com/concepts/a-culture-of-discipline.html) and take [disciplined action](https://www.jimcollins.com/concepts/a-culture-of-discipline.html). Therefore we are very intentional in the way we conduct our hiring process. I wanted to write about our perspective so that candidates could know what to expect and give everyone an equal chance in this process. The goal is not to trick the people into failing the interviews but making sure we hire the right people. It means that as we opt-in to hire, the candidates can do the same knowingly, and the inverse is also true; the candidates can opt-out if they recognize that Flint is not for them.
 
 ## Screening Interview
@@ -21,9 +23,6 @@ I care to learn more about you, what you did in your past, what you studied, and
 In the technical interview, an hour-long meeting, we do two things, a knowledge check which entails asking about fundamentals of programming; I'm not looking for exact answers, but rather letting you demonstrate your communication skills in explaining simple to advanced [functional programming](/blog/hiring-secret) concepts and how they're used in programming and why they're important. Candidates who can clearly and concisely explain the knowledge in theory and in practice perform best here.
 
 The second thing is to go through a problem-solving exercise where I give a business-level problem, ask for an algorithmic solution, and to optimize it. We typically spend 25% of the time on the knowledge questions and 75% on problem-solving. It's important that I see how people solve problems, what questions you ask, and what you are concerned with. It's another opportunity for you to showcase a fit with our product-led culture.
-
-## Team Interviews: Programming Challenge
-The programming challenge is a time-limited, take-home assignment to showcase your programming and problem-solving skills in practice. I get two validations from it; first, you can program original code and get stuff done; secondly, you can lead a product increment.
 
 ## Team Interviews: Culture Fit
 The culture fit is an hour-long interview, typically with two non-engineering people, where we seek to validate that you indeed subscribe to our values, are able to exhibit them, and we share with you what it looks like in practice. Here you get an exclusive time to ask more about how we behave as a group and what we care about the most.

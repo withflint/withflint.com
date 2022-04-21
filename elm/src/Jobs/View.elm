@@ -16,10 +16,12 @@ import Element
         , fill
         , focused
         , height
+        , image
         , link
         , maximum
         , minimum
         , mouseOver
+        , newTabLink
         , none
         , padding
         , paddingXY
@@ -31,6 +33,7 @@ import Element
         , spacingXY
         , text
         , width
+        , wrappedRow
         )
 import Element.Background as Background
 import Element.Border as Border
@@ -52,7 +55,7 @@ view model =
         [ phoneHeader
         , workAtPhone model.config
         , column
-            [ width fill
+            [ wf
             , height fill
             , paddingXY 20 40
             , spacing 50
@@ -89,7 +92,7 @@ view model =
 
 phoneHeader : Element Msg
 phoneHeader =
-    row [ width fill, Background.color colors.blue1, paddingXY 30 0 ]
+    row [ wf, Background.color colors.blue1, paddingXY 30 0 ]
         [ row [ width <| maximum 1500 fill, paddingXY 0 40, centerX ]
             [ Element.link []
                 { url = toPath Home
@@ -105,9 +108,9 @@ phoneHeader =
 
 desktopHeader : Element Msg
 desktopHeader =
-    row [ width fill, Background.color colors.blue1, paddingXY 100 0 ]
+    row [ wf, Background.color colors.blue1, paddingXY 100 0 ]
         [ row [ width <| maximum 1300 fill, paddingXY 0 40, centerX ]
-            [ column [ width fill ]
+            [ column [ wf ]
                 [ Element.link []
                     { url = toPath Home
                     , label =
@@ -117,8 +120,8 @@ desktopHeader =
                             }
                     }
                 ]
-            , column [ width fill, alignRight ]
-                [ column (width fill :: Styles.paragraph)
+            , column [ wf, alignRight ]
+                [ column (wf :: Styles.paragraph)
                     [ row [ spacingXY 30 0, alignRight ] <|
                         List.map
                             (\( path, label ) ->
@@ -138,8 +141,8 @@ desktopHeader =
 
 workAtDesktop : Config -> Element Msg
 workAtDesktop config =
-    row [ width fill, Background.color colors.blue1, padding 50 ]
-        [ column [ width fill, spacing 30 ]
+    row [ wf, Background.color colors.blue1, padding 50 ]
+        [ column [ wf, spacing 30 ]
             [ paragraph
                 [ width <| maximum 1400 fill
                 , centerX
@@ -158,10 +161,10 @@ workAtDesktop config =
 
 workAtPhone : Config -> Element Msg
 workAtPhone config =
-    row [ width fill, Background.color colors.blue1, padding 50 ]
-        [ column [ width fill, spacing 30 ]
+    row [ wf, Background.color colors.blue1, padding 50 ]
+        [ column [ wf, spacing 30 ]
             [ paragraph
-                [ width fill
+                [ wf
                 , centerX
                 , centerY
                 , Font.center
@@ -201,55 +204,61 @@ phoneView =
 
 jobsView : Viewer -> Model -> Element Msg
 jobsView viewer model =
-    if Dict.isEmpty model.jobs then
-        column []
-            [ text "Sorry, no positions are currently open!"
-            ]
+    case model.view of
+        JobsView ->
+            if Dict.isEmpty model.jobs then
+                column []
+                    [ text "Sorry, no positions are currently open!"
+                    ]
 
-    else
-        case model.view of
-            JobsView ->
-                column [ width fill, spacingXY 0 20 ]
-                    (viewer.copyView model.config
-                        :: (Dict.toList model.jobs |> List.map viewer.jobView)
-                    )
-
-            ApplyView jobId ->
-                case Dict.get jobId model.jobs of
-                    Just job ->
-                        column [ centerX, spacingXY 0 100 ]
-                            [ column [ width <| maximum 800 fill ]
-                                [ paragraph Styles.heading
-                                    [ text job.title
-                                    ]
-                                , column (Styles.paragraph ++ [ spacing 20 ])
-                                    (case job.description of
-                                        "" ->
-                                            [ none ]
-
-                                        desc ->
-                                            Markdown.Parser.parse desc
-                                                |> Result.mapError (always "error in rendering markdown")
-                                                |> Result.andThen (Markdown.Renderer.render elmUiRenderer)
-                                                |> Result.withDefault [ none ]
-                                    )
-                                ]
-                            , viewer.applyView job model
+            else
+                column [ wf, spacingXY 0 20 ] <|
+                    [ viewer.copyView model.config
+                    , column [ wf, spacing 40, paddingXY 0 40 ]
+                        ([ paragraph [ Styles.headFont, Font.size 23 ]
+                            [ text "Open Positions"
                             ]
+                         ]
+                            ++ (Dict.toList model.jobs |> List.map viewer.jobView)
+                        )
+                    ]
 
-                    Nothing ->
-                        jobsView viewer { model | view = JobsView }
+        ApplyView jobId ->
+            case Dict.get jobId model.jobs of
+                Just job ->
+                    column [ centerX, spacingXY 0 100, wf, centerX ]
+                        [ column [ width <| maximum 800 fill, centerX ]
+                            [ paragraph Styles.heading
+                                [ text job.title
+                                ]
+                            , column (Styles.paragraph ++ [ spacing 20 ])
+                                (case job.description of
+                                    "" ->
+                                        [ none ]
+
+                                    desc ->
+                                        Markdown.Parser.parse desc
+                                            |> Result.mapError (always "error in rendering markdown")
+                                            |> Result.andThen (Markdown.Renderer.render elmUiRenderer)
+                                            |> Result.withDefault [ none ]
+                                )
+                            ]
+                        , viewer.applyView job model
+                        ]
+
+                Nothing ->
+                    jobsView viewer { model | view = JobsView }
 
 
 desktopJobView : ( String, Job ) -> Element Msg
 desktopJobView ( id, job ) =
-    row [ width fill ]
-        [ column [ alignLeft, spacingXY 0 10 ]
+    row [ wf ]
+        [ column [ alignLeft, spacingXY 0 10, wf ]
             [ link [ Font.color colors.blue1, mouseOver [ Font.color colors.blue1 ] ]
                 { url = id
-                , label = text job.title
+                , label = paragraph [ wf, spacing 10 ] [ text job.title ]
                 }
-            , row [ spacingXY 10 10, Font.size 15, width fill ]
+            , wrappedRow [ spacingXY 10 10, Font.size 15, wf ]
                 [ text job.location
                 , text job.equity
                 , text job.experience
@@ -266,15 +275,15 @@ desktopJobView ( id, job ) =
 
 phoneJobView : ( String, Job ) -> Element Msg
 phoneJobView ( id, job ) =
-    row [ width fill ]
-        [ column [ alignLeft, spacingXY 0 10 ]
-            [ paragraph []
+    row [ wf ]
+        [ column [ alignLeft, spacingXY 0 10, wf ]
+            [ paragraph [ wf ]
                 [ link [ Font.color colors.blue1, mouseOver [ Font.color colors.blue1 ] ]
                     { url = id
-                    , label = text job.title
+                    , label = paragraph [ wf, spacing 10 ] [ text job.title ]
                     }
                 ]
-            , column [ spacingXY 10 10, Font.size 15, width fill ]
+            , wrappedRow [ spacingXY 10 10, Font.size 15, wf ]
                 [ text job.location
                 , text job.equity
                 , text job.experience
@@ -310,7 +319,7 @@ textboxLabel : List (Attribute msg)
 textboxLabel =
     [ Font.size 15
     , alignTop
-    , width fill
+    , wf
     ]
 
 
@@ -397,7 +406,7 @@ desktopApplyView job model =
 
 phoneApplyView : Job -> Model -> Element Msg
 phoneApplyView job model =
-    column [ centerX, spacing 10 ] <|
+    column [ centerX, spacing 10 ,wf] <|
         [ el smallHeading <| text "Apply"
         , Input.username textbox
             { onChange = Set FirstName
@@ -437,7 +446,7 @@ phoneApplyView job model =
             { onChange = Set Reason
             , text = Text.toString model.applicant.reason
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text model.config.copy.why
+            , label = Input.labelAbove textboxLabel <| paragraph[][ text model.config.copy.why]
             , spellcheck = True
             }
         , case model.error of
@@ -471,40 +480,65 @@ phoneApplyView job model =
 
 desktopCopyView : Config -> Element Msg
 desktopCopyView config =
-    column [ spacing 50, width fill, height fill ]
-        [ paragraph [ width fill, height fill, Styles.headFont, Font.size 30 ]
+    column [ spacing 50, wf, height fill ]
+        [ paragraph [ wf, height fill, Styles.headFont, Font.size 30 ]
             [ text config.copy.desktopHeader
             ]
-        , row [ width fill, spacing 50, height fill ]
-            [ column [ width fill, alignTop ]
+        , row [ wf, spacing 50, height fill ]
+            [ column [ wf, alignTop ]
                 [ paragraph Styles.paragraph
                     [ text config.copy.paragraph1
                     ]
                 ]
-            , column [ width fill, alignTop ]
+            , column [ wf, alignTop ]
                 [ paragraph Styles.paragraph
                     (text config.copy.paragraph2 :: Maybe.withDefault [] config.copy.other)
                 ]
+            ]
+        , row [ wf ]
+            [ image [ wf ]
+                { src = "/static/images/hiring-process.svg"
+                , description = "Interview Process"
+                }
             ]
         ]
 
 
 phoneCopyView : Config -> Element Msg
 phoneCopyView config =
-    column [ spacing 50, width fill, height fill ]
-        [ paragraph [ width fill, height fill, Styles.headFont, Font.size 30 ]
+    column [ spacing 50, wf, height fill ]
+        [ paragraph [ wf, height fill, Styles.headFont, Font.size 30 ]
             [ text config.copy.phoneHeader
             ]
-        , column [ width fill, spacing 50, height fill ]
-            [ column [ width fill, alignTop ]
+        , column [ wf, spacing 50, height fill ]
+            [ column [ wf, alignTop ]
                 [ paragraph Styles.paragraph
                     [ text config.copy.paragraph1
                     ]
                 ]
-            , column [ width fill, alignTop ]
+            , column [ wf, alignTop ]
                 [ paragraph Styles.paragraph
                     (text config.copy.paragraph2 :: Maybe.withDefault [] config.copy.other)
                 ]
+            ]
+        , hiringProcess
+        ]
+
+
+hiringProcess : Element msg
+hiringProcess =
+    row
+        [ wf
+        ]
+        [ paragraph []
+            [ newTabLink [ wf ]
+                { url = "/static/images/hiring-process.svg"
+                , label =
+                    image [ wf, centerX ]
+                        { src = "/static/images/hiring-process.svg"
+                        , description = "Interview Process"
+                        }
+                }
             ]
         ]
 
@@ -525,6 +559,8 @@ flintCopy =
                 { url = toPath (Blog "culture")
                 , label = text "Read more about our values and culture."
                 }
+            , text " "
+            , text "We interview and make hires within a week from our first meet–it's a commitment."
             ]
     }
 
@@ -540,3 +576,7 @@ healthCareCopy =
     , pageTitle = "Health Care Jobs  - Flint"
     , other = Nothing
     }
+
+
+wf =
+    width fill

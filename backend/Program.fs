@@ -1,4 +1,4 @@
-namespace withflint.com.backend
+namespace withflint.com
 
 module Blog =
   open System
@@ -70,7 +70,7 @@ module Blog =
     | _ -> None
 
   let articles =
-    Directory.GetFiles($"{root}/blog/", "*.md")
+    Directory.GetFiles($"{root}/content/blog/", "*.md")
     |> Seq.sortDescending
     |> Seq.toList
     |> List.map (lines >> parseArticle)
@@ -108,14 +108,14 @@ module Jobs =
     | _ -> None
 
   let flint =
-    Directory.GetFiles($"{root}/jobs/flint/", "*.md")
+    Directory.GetFiles($"{root}/content/jobs/flint/", "*.md")
     |> Seq.sortDescending
     |> Seq.map (lines >> parseJob)
     |> Seq.choose id
     |> Map
 
   let healthcare =
-    Directory.GetFiles($"{root}/jobs/healthcare/", "*.md")
+    Directory.GetFiles($"{root}/content/jobs/healthcare/", "*.md")
     |> Seq.sortDescending
     |> Seq.map (lines >> parseJob)
     |> Seq.choose id
@@ -141,16 +141,7 @@ module Apply =
   open System.Net.Mail
   open System.Threading
 
-  open Microsoft.AspNetCore.Builder
-  open Microsoft.AspNetCore.Hosting
-  open Microsoft.Extensions.Hosting
-  open Microsoft.Extensions.DependencyInjection
   open Microsoft.AspNetCore.Http
-  open Microsoft.Extensions.FileProviders
-  open Microsoft.AspNetCore.Rewrite
-
-  open Giraffe
-  open FSharp.Control.Tasks.Affine
 
   type Config =
     { who: string

@@ -1,10 +1,10 @@
-senior-software-engineer-remote
-Senior Software Engineer (Remote)
-Remote
-0.10% - 0.50%
+senior-software-engineer-hskell-elm-nix
+Senior Software Engineer (Haskell/Elm/Nix)
+Vancouver, BC
+$115k - $150k, 0.10% - 0.50%
 11+ years
 
-Remote, 0.10% - 0.50%, 11+ years
+Vancouver, BC, 0.10% - 0.50%, 11+ years
 
 ## About the position
 You will be working closely with our Head of Engineering and a team of talented software and product people to take Flint to the next level. We already have a strong mission and product with traction led by our product-led growth strategy.
@@ -20,8 +20,19 @@ As Senior Software Engineer, you'll be an integral part of setting the product v
 - _You work with urgency_ - We're in a race against time to 10x the business; you work on the right things and get them done.
 - _You have high standards_ - You know what good looks like, and you work with your team to get there. You apply good engineering and design practices systemically.
 - _You're passionate_ - you've designed and architect excellent software products before.
-- _You've demonstrated a mastery in functional programming_ - with languages such as Erlang, F#, Elm, Haskell, Elixir, ML, OCaml, Lisp, Scheme, Scala, Clojure, Racket, Julia in an academic, personal or professional context.
+- _You've demonstrated a mastery in functional programming_ - with languages such as Haskell, F#, Elm, Erlang, Elixir, ML, OCaml, Lisp, Scheme, Scala, Clojure, Racket, Julia in an academic, personal or professional context.
 
 Read our _[blog](https://withflint.com/blog)_ to find out more about our _[culture](https://withflint.com/blog/culture)_ and _[products](https://withflint.com/blog/growth-and-product)_.
 
 Have you read Paul Graham's _[Beating the Averages](http://www.paulgraham.com/avg.html)_ essay? Do you strive to remove _[schlep](http://www.paulgraham.com/schlep.html)_? Are you a Lisp Hacker? If so, you should join.
+
+
+## Why you should join Flint
+- We're growing faster than weeds on a lawn 🌱
+- YC Funded and backed by investors such as the co-founder of Twitch 💸
+- Equity options in what could be the next Amazon/Google 📈
+- Awesome Culture focused on freedom and responsibility 👨‍👩‍👧‍👦
+- Opportunity to shape a $8T industry and maybe have a wiki page about you one day 📜
+- DevOps: Empowered, focus on good customer outcomes and high performance teams
+- Netflix: Freedom and responsibility framework
+- Amazon: Single threaded leadership and small teams
