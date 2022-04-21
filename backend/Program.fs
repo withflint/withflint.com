@@ -80,7 +80,7 @@ module Blog =
 module Jobs =
   open System
   open System.IO
-  
+
   type Job =
     { Url: string
       Title: string
@@ -362,7 +362,10 @@ module Program =
     use provider = PhysicalFileProvider(Path.Combine(root, @"static"))
 
     app
-      .UseRewriter(RewriteOptions().AddRewrite("favicon.ico", "static/favicon.ico", false))
+      .UseRewriter(
+        RewriteOptions()
+          .AddRewrite("favicon.ico", "static/favicon.ico", false)
+      )
       .UseDefaultFiles()
       .UseStaticFiles(StaticFileOptions(FileProvider = provider, RequestPath = PathString("/static")))
       .UseGiraffe(webApp)
