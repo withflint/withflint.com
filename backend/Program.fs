@@ -4,7 +4,7 @@ module Blog =
   open System
   open System.IO
 
-  let root = Directory.GetParent(Directory.GetCurrentDirectory())
+  let root = Environment.GetEnvironmentVariable("WITHFLINT_ROOT")
 
   type Meta =
     { Type: string
@@ -78,8 +78,9 @@ module Blog =
 
 
 module Jobs =
+  open System
   open System.IO
-
+  
   type Job =
     { Url: string
       Title: string
@@ -88,7 +89,7 @@ module Jobs =
       Experience: string
       Description: string }
 
-  let root = Directory.GetParent(Directory.GetCurrentDirectory())
+  let root = Environment.GetEnvironmentVariable("WITHFLINT_ROOT")
 
   let lines (path: string) : string list =
     seq { yield! File.ReadLines path } |> Seq.toList
@@ -127,7 +128,7 @@ module Sitemap =
   open Blog
 
   let sitemap articles =
-    (File.ReadAllText "../static/sitemap.xml")
+    (File.ReadAllText $"{root}/static/sitemap.xml")
       .Replace(
         "<articles />",
         articles
@@ -249,13 +250,13 @@ module Program =
     printfn "%A" a
     a
 
-  let root = Directory.GetParent(Directory.GetCurrentDirectory())
+  let root = Environment.GetEnvironmentVariable("WITHFLINT_ROOT")
 
   let privacy =
-    File.ReadAllText "../static/privacy.html"
+    File.ReadAllText $"{root}/static/privacy.html"
     |> htmlString
 
-  let indexWithMeta = File.ReadAllText "../index.html"
+  let indexWithMeta = File.ReadAllText $"{root}/index.html"
 
   let index = indexWithMeta.Replace("<meta />", "")
 
@@ -358,15 +359,10 @@ module Program =
              setStatusCode 200 >=> htmlIndex ]
 
   let configureApp (app: IApplicationBuilder) =
-    let path = Path.Combine(Directory.GetCurrentDirectory(), @"../static")
-
-    use provider = PhysicalFileProvider(path)
+    use provider = PhysicalFileProvider(Path.Combine(root, @"static"))
 
     app
-      .UseRewriter(
-        (RewriteOptions())
-          .AddRewrite("favicon.ico", "static/favicon.ico", false)
-      )
+      .UseRewriter(RewriteOptions().AddRewrite("favicon.ico", "static/favicon.ico", false))
       .UseDefaultFiles()
       .UseStaticFiles(StaticFileOptions(FileProvider = provider, RequestPath = PathString("/static")))
       .UseGiraffe(webApp)
@@ -375,7 +371,6 @@ module Program =
 
   [<EntryPoint>]
   let main _ =
-
     Host
       .CreateDefaultBuilder()
       .ConfigureWebHostDefaults(fun webHostBuilder ->
