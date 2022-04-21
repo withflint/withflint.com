@@ -37,8 +37,7 @@ ENV GIT_VERSION=${GIT_VERSION}
 COPY --from=0 /build/static/ /static/
 COPY --from=0 /build/index.html index.html
 COPY --from=0 /build/bin/* /bin/
-COPY blog blog
-COPY jobs jobs
+COPY content content
 
 EXPOSE 5000
 

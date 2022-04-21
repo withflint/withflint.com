@@ -238,6 +238,7 @@ faqHeroTitleDesktop title =
             ]
         ]
 
+
 faqHeroTitlePhone : String -> Element Msg
 faqHeroTitlePhone title =
     row [ width fill, Background.color colors.blue1, padding 50 ]
