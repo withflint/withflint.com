@@ -15,15 +15,8 @@ stdenv.mkDerivation {
     elm
   ];
 
-  buildPhase = elmPackages.fetchElmDeps {
-    elmPackages = import ./packages.nix;
-
-    elmVersion = "0.19.1";
-    
-    registryDat = ./registry.dat;
-  };
-
   installPhase = ''
+    export HOME=$(mktemp -d)
     elm make src/Main.elm --output $out/elm.js
   '';
 }
