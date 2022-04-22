@@ -578,7 +578,7 @@ healthCareCopy =
     , paragraph1 = "At Flint, we're committed to finding the best people to staff health care teams. We work with highly internationally educated health care professionals who display care for their patients, have quality communication skills, good empathy skills, are attentive to details, can solve problems, and display autonomy and compliances with the standards can think critically and improve the American healthcare system."
     , paragraph2 = "We work with internationally educated health care workers from around the world for staffing opportunities in the United States of America. We offer an all-inclusive solution for the workers to have a seamless transition into their new life in America. We pay for certain legal and processing fees, licensing and offer premium placement."
     , why = "Why do you want to work in the United States of America?"
-    , title = "Work with Flint to launch your career in America"
+    , title = "Launch your nursing career in America"
     , pageTitle = "Health Care Jobs  - Flint"
     , other = Nothing
     }
