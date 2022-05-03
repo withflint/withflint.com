@@ -3,6 +3,7 @@ module Home.View exposing (view)
 import Element
     exposing
         ( Element
+        , alignBottom
         , alignTop
         , centerX
         , centerY
@@ -11,9 +12,9 @@ import Element
         , fill
         , height
         , image
-        , link
         , maximum
         , mouseOver
+        , newTabLink
         , paddingXY
         , paragraph
         , row
@@ -26,7 +27,6 @@ import Element.Background as Background
 import Element.Font as Font
 import Home.Types exposing (Model)
 import Layout exposing (Layout, footer, header)
-import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (buttons, colors, heading)
 
 
@@ -74,24 +74,30 @@ view _ =
 phoneView : List (Element msg)
 phoneView =
     [ column
-        [ width fill
+        [ wf
         , paddingXY 0 0
         , spacingXY 0 20
         ]
-        [ column [ width fill, height fill, paddingXY 0 0, spacing 20 ]
-            [ column [ width fill, spacing 20 ]
-                [ image [ width fill ] { src = "/static/images/top.svg", description = "Health care workers" }
+        [ column [ wf, height fill, paddingXY 0 0, spacing 20 ]
+            [ column [ wf, spacing 20 ]
+                [ image [ wf ] { src = "/static/images/top2.png", description = "Registered Nurses" }
                 , row [ centerX, paddingXY 10 0 ] [ paragraph (heading ++ [ Font.size 30, Font.center, width (fill |> maximum 300) ]) [ text copy.topHeading ] ]
                 , meetWithExpertCta
-                , fullImage ( "/static/images/shortage.svg", copy.shortage )
-                , fullImage ( "/static/images/future-of-health.svg", copy.futureOfhealth )
-                , fullImage ( "/static/images/globally-hiring.svg", copy.globallyHiring )
-                , h2 copy.stepsHeading
-                , orderedList copy.stepsToSafegard
-                , cta ( Contact, "Meet a Staffing Expert" )
-                , fullImage ( "/static/images/staffing-1-issue.svg", copy.staffingIssue )
-                , h2 copy.peaceOfMind
-                , styledImage [ width (fill |> maximum 280), centerX ] ( "/static/images/peace-of-mind.svg", copy.peaceOfMindText )
+
+                --
+                , h2 copy.flintCanHelp
+                , orderedList copy.flintCanHelpList
+
+                --
+                , h2 copy.staffing
+                , p copy.staffingParagraph
+                , meetWithExpertCta
+
+                --
+                , h2 copy.concierge
+                , p copy.conciergeParagraph1
+                , p copy.conciergeParagraph2
+                , orderedList copy.conciergeList
                 , meetWithExpertCta
                 ]
             ]
@@ -102,38 +108,45 @@ phoneView =
 desktopView : List (Element msg)
 desktopView =
     [ column
-        [ width fill
+        [ wf
         , paddingXY 0 50
         , spacingXY 0 20
         ]
-        [ column [ width fill, height fill, paddingXY 0 0, spacing 20 ]
-            [ column [ width fill, spacing 50, height fill ]
-                [ row [ width fill, height fill, spacing 100 ]
-                    [ column [ width fill, spacing 20, alignTop ]
-                        [ column [ width fill, height fill, centerY, paddingXY 0 150, spacing 30 ]
-                            [ paragraph [ Font.size 30, width (fill |> maximum 500), height fill, centerY ] [ text "Discover what the global health care talent stream can really do" ]
-                            , paragraph Styles.paragraph [ text "The right staff. Expertise on demand. Find everything you need to optimize your staffing needs — with Flint." ]
+        [ column [ wf, height fill, paddingXY 0 0, spacing 20 ]
+            [ column [ wf, spacing 100, height fill ]
+                [ row [ wf, height fill ]
+                    [ column [ wf, spacing 20, alignTop ]
+                        [ column [ wf, height fill, centerY, paddingXY 0 150, spacing 30 ]
+                            [ paragraph [ Font.size 30, width (fill |> maximum 500), height fill, centerY ] [ text "Securing nurses for your future" ]
+                            , paragraph Styles.paragraph [ text "The right nurse. Health care expertise on demand. Find everything you need to optimize your heathcare staffing needs — with Flint." ]
                             , meetWithExpertTop
                             ]
                         ]
-                    , fullImage ( "/static/images/shortage.svg", copy.shortage )
+                    , image [ wf ] { src = "/static/images/top2.png", description = "Registered Nurses" }
                     ]
-                , row [ width fill, alignTop, spacing 100 ]
-                    [ fullImage ( "/static/images/globally-hiring.svg", copy.globallyHiring )
-                    , fullImage ( "/static/images/future-of-health.svg", copy.futureOfhealth )
+
+                --
+                , pair
+                    [ h2w copy.flintCanHelp
+                    , orderedList copy.flintCanHelpList
+                    , expand
+                    , meetWithExpertTop
                     ]
-                , meetWithExpertCta
-                , row [ width fill, alignTop, spacing 100 ]
-                    [ column [ width fill, alignTop ]
-                        [ h2 copy.stepsHeading
-                        , orderedList copy.stepsToSafegard
-                        ]
-                    , fullImage ( "/static/images/staffing-1-issue.svg", copy.staffingIssue )
+                    --
+                    [ h2w copy.staffing
+                    , pw copy.staffingParagraph
+                    , expand
+                    , meetWithExpertTop
                     ]
-                , meetWithExpertCta
-                , h2 copy.peaceOfMind
-                , styledImage [ width (fill |> maximum 280), centerX ] ( "/static/images/peace-of-mind.svg", copy.peaceOfMindText )
-                , meetWithExpertCta
+
+                --
+                , column [ wf ]
+                    [ h2w copy.concierge
+                    , pw copy.conciergeParagraph1
+                    , pw copy.conciergeParagraph2
+                    , orderedList copy.conciergeList
+                    , meetWithExpertTop
+                    ]
                 ]
             ]
         ]
@@ -142,46 +155,79 @@ desktopView =
 
 meetWithExpertCta : Element msg
 meetWithExpertCta =
-    cta ( Contact, "Meet a Staffing Expert" )
+    cta ( "https://calendly.com/anson-flint/intro-to-flint", "Meet With Us" )
 
 
 meetWithExpertTop : Element msg
 meetWithExpertTop =
-    leftCta ( Contact, "Meet a Staffing Expert" )
+    leftCta ( "https://calendly.com/anson-flint/intro-to-flint", "Meet With Us" )
 
 
-cta : ( Page, String ) -> Element msg
-cta ( where_, t ) =
-    column ([ width fill, centerX ] ++ Styles.paragraph)
-        [ link ([ width fill, centerX, width (maximum 200 fill), Font.center, mouseOver [ Background.color colors.blue1 ] ] ++ buttons.primary)
-            { url = toPath where_, label = text t }
+cta : ( String, String ) -> Element msg
+cta ( url, t ) =
+    column ([ wf, centerX ] ++ Styles.paragraph ++ [ alignBottom ])
+        [ newTabLink ([ wf, centerX, width (maximum 200 fill), Font.center, mouseOver [ Background.color colors.blue1 ] ] ++ buttons.primary)
+            { url = url, label = text t }
         ]
 
 
-leftCta : ( Page, String ) -> Element msg
-leftCta ( where_, t ) =
-    column ([ width fill, centerX ] ++ Styles.paragraph)
-        [ link ([ width fill, width (maximum 200 fill), Font.center, mouseOver [ Background.color colors.blue1 ] ] ++ buttons.primary)
-            { url = toPath where_, label = text t }
+leftCta : ( String, String ) -> Element msg
+leftCta ( url, t ) =
+    column ([ wf, centerX ] ++ Styles.paragraph)
+        [ newTabLink ([ wf, width (maximum 200 fill), Font.center, mouseOver [ Background.color colors.blue1 ] ] ++ buttons.primary)
+            { url = url, label = text t }
         ]
 
 
 orderedList : List ( String, String ) -> Element msg
 orderedList list =
-    column [ width fill, spacing 20, paddingXY 30 30 ] (list |> List.map (\( n, t ) -> row [ spacing 5 ] [ el [ alignTop ] (text n), paragraph [ alignTop ] [ text t ] ]))
+    column [ wf, spacing 20, paddingXY 30 30 ] (list |> List.map (\( n, t ) -> row [ spacing 5 ] [ el [ alignTop ] (text n), paragraph [ alignTop ] [ text t ] ]))
 
 
-styledImage : List (Element.Attribute msg) -> ( String, String ) -> Element msg
-styledImage styles ( src, t ) =
-    image styles
-        { src = src
-        , description = t
-        }
-
-
-fullImage : ( String, String ) -> Element msg
-fullImage =
-    styledImage [ width fill, centerX, alignTop ]
+copy : { topHeading : String, flintCanHelp : String, flintCanHelpList : List ( String, String ), staffing : String, staffingParagraph : String, concierge : String, conciergeParagraph1 : String, conciergeParagraph2 : String, conciergeList : List ( String, String ), standards : String, standardsParagraph : String, best : String, bestParagraph : String, fast : String, fastParagraph : String, guarantee : String, guaranteeParagraph : String, team : String, teamParagraph : String, secure : String, secureParagraph : String }
+copy =
+    { topHeading =
+        "Securing Nurses for Your Future"
+    , flintCanHelp = "Flint Can Help"
+    , flintCanHelpList =
+        [ ( "• ", "Decrease your staffing costs by over 50%" )
+        , ( "• ", "Remove your reliance on travel nurses" )
+        , ( "• ", "Recruit incredible nurses with 3-10 years of experience (employed directly by your organization)" )
+        , ( "• ", "Build a long term recruitment funnel to never be short nurses again" )
+        , ( "• ", "Improve your quality of care with passionate nurses" )
+        ]
+    , staffing = "Your Long Term Staffing Solution"
+    , staffingParagraph = "At Flint, our goal is to help you secure your long term staffing needs. We help by sourcing the best registered nurses from around the globe, providing you with a steady and reliable stream of experienced nurses who are employed directly by your organization. "
+    , concierge = "Fully Managed Concierge Experience"
+    , conciergeParagraph1 = "We understand that you’re very busy and have a lot on your plate. That’s why you can expect us to fully manage the entire recruiting, licensing, immigration, and relocation process. "
+    , conciergeParagraph2 = "All you have to do is select the candidates you want to hire and onboard them when they walk into your door. We’ll do all the heavy lifting throughout the process, including:"
+    , conciergeList =
+        [ ( "• ", "Candidate sourcing" )
+        , ( "• ", "Candidate screening" )
+        , ( "• ", "Credential verification" )
+        , ( "• ", "NCLEX Preparation" )
+        , ( "• ", "Language examination" )
+        , ( "• ", "Licensing in the state of practice" )
+        , ( "• ", "Immigration management" )
+        , ( "• ", "Representation with the government" )
+        , ( "• ", "Arrival and settlement assistance" )
+        , ( "• ", "Travel assistance" )
+        , ( "• ", "Support for family members" )
+        , ( "• ", "Dedicated relocation & cultural advisor for the nurse (3 years)" )
+        ]
+    , standards = "Nurses that meet the highest standards"
+    , standardsParagraph = "Every nurse we recruit is carefully screened and vetted by our Talent Team to ensure they can communicate effectively in English, have the appropriate experience for your needs, and possess the right attitude to succeed in the United States. When it comes to the final selection, you’re in control. Our team will work alongside yours to facilitate the selection process, and present candidates tailored to your specific hiring needs."
+    , best = "We Source the Best Nurses"
+    , bestParagraph = "Flint has the best nurses. Just ask anyone who’s met our candidates. With an international sourcing team that sources from the entire world, we receive a lot of applications, thousands per year in fact. With such a large pool of nurses, we’re able to screen and select the best candidates for your needs."
+    , fast = "Fastest Immigration Possible"
+    , fastParagraph = "Most firms will only try one immigration path. At Flint, our in-house legal team, empowered by custom built computer technology, designs personalized plans for each nurse. We leverage many possible paths, including lotteries, to get your nurse working ASAP. "
+    , guarantee = "Hospital Guarantee"
+    , guaranteeParagraph = "If the nurse just isn’t working out within your organization and you choose to end the employment, we’ll provide you with a prorated refund. We can offer this guarantee because our nurses are such strong candidates. "
+    , team = "An Experienced and Proven Team"
+    , teamParagraph = "We’re a veteran team of health care professionals, immigration lawyers, and engineers who are passionate about solving the nursing shortage in America while removing barriers for nurses to immigrate and build a new life in our country. With experience immigrating and placing hundreds of nurses across 40+ states, our team stands ready to help you succeed. "
+    , secure = "Secure your nurses"
+    , secureParagraph = "To learn more about how easy it is to work with Flint. Set up a meeting with one of our partnership managers to get started."
+    }
 
 
 h2 : String -> Element msg
@@ -193,43 +239,60 @@ h2 t =
             (fill
                 |> maximum 300
             )
-        , Font.size 23
+        , Font.size 30
         , Font.center
-        , Font.semiBold
         ]
         [ text t ]
 
 
-copy :
-    { topHeading : String
-    , top : String
-    , shortage : String
-    , futureOfhealth : String
-    , globallyHiring : String
-    , staffingIssue : String
-    , peaceOfMind : String
-    , peaceOfMindText : String
-    , stepsHeading : String
-    , stepsToSafegard : List ( String, String )
-    }
-copy =
-    { topHeading =
-        "Safeguard Your Staffing Needs"
-    , top =
-        "Staffing shortages are the norm in health care and it’s only getting worse"
-    , shortage = "Staffing shortages are the norm in health care and it’s only getting worse"
-    , futureOfhealth = "The future of healthcare staffing."
-    , globallyHiring = "Flint makes hiring globally as easy as hiring from your own neighborhoode"
-    , staffingIssue = "What if staffing shortages were not your #1 issue?"
-    , peaceOfMind = "Peace of Mind"
-    , peaceOfMindText = "You’ve taken care of your future staffing needs, You’ve done your duty to secure proper care for future patients, You’re supporting the global health care community."
-    , stepsHeading = "Steps to Safeguard Your Staffing Needs"
-    , stepsToSafegard =
-        [ ( "1.", " Plan out your staffing requirments for the next 5 years." )
-        , ( "2.", " Lock in the number of staff you need for a predictable future." )
-        , ( "3.", " We’ll source accredited  candidates from across the globe." )
-        , ( "4.", " We manage all the licensing, legal, and government hurdles so you don’t have to!" )
-        , ( "5.", " You extend offers to candidates and onboard them." )
-        , ( "6.", " If the person for any reason is not a good fit, you can easily select an alternative candidate." )
+h2w : String -> Element msg
+h2w t =
+    paragraph
+        [ paddingXY 10 10
+        , Font.size 30
         ]
-    }
+        [ text t ]
+
+
+p : String -> Element msg
+p t =
+    paragraph
+        [ centerX
+        , paddingXY 10 10
+        , width
+            (fill
+                |> maximum 550
+            )
+        , spacing 15
+        ]
+        [ text t ]
+
+
+pw : String -> Element msg
+pw t =
+    paragraph
+        [ centerX
+        , paddingXY 10 10
+        , spacing 15
+        ]
+        [ text t ]
+
+
+wf : Element.Attribute msg
+wf =
+    width fill
+
+
+cell : List (Element msg) -> Element msg
+cell =
+    column [ wf, alignTop, height fill ]
+
+
+pair : List (Element msg) -> List (Element msg) -> Element msg
+pair l1 l2 =
+    row [ wf, alignTop, spacing 100 ] [ cell l1, cell l2 ]
+
+
+expand : Element msg
+expand =
+    row [ height fill, wf ] [ text "" ]

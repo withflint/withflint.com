@@ -6,5 +6,5 @@ import Home.Types exposing (Model)
 init : Model
 init =
     { topic = ""
-    , title = "Flint - Safeguard Your Health Care Staffing Needs"
+    , title = "Flint - Securing Nurses for Your Future"
     }

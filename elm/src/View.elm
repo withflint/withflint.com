@@ -36,7 +36,7 @@ view : Model -> { title : String, body : List (Html Types.Msg) }
 view model =
     { title = model.title
     , body =
-        [ Element.layout [ Styles.font, width fill, height fill ] <|
+        [ Element.layout (Styles.paragraph ++ [ Styles.font, width fill, height fill ]) <|
             el [ width fill, height fill ] (renderRoute model)
         ]
     }

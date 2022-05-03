@@ -63,7 +63,7 @@ init { article, gitVersion } url key =
         , healthCare = healthCare
         , blog = blog
         , faqNurses = faqNurses
-        , title = "Flint - Safeguard Your Health Care Staffing Needs"
+        , title = "Flint - Securing Nurses for Your Future"
         , device = NotSet
         , url = url
         }
