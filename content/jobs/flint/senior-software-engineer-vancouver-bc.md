@@ -1,10 +1,10 @@
 senior-software-engineer-hskell-elm-nix
 Senior Software Engineer (Haskell/Elm/Nix)
 Vancouver, BC
-$115k - $150k, 0.10% - 0.50%
+$115k - $150k,
 11+ years
 
-Vancouver, BC, 0.10% - 0.50%, 11+ years
+Vancouver, BC, 11+ years
 
 ## About the position
 You will be working closely with our Head of Engineering and a team of talented software and product people to take Flint to the next level. We already have a strong mission and product with traction led by our product-led growth strategy.
