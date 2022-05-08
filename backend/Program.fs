@@ -278,7 +278,7 @@ module Program =
         let candidate = Apply.candidate form
 
         let email =
-          $"""Hello {candidate.firstName},<br><br>Thank you for your interest in the {candidate.applicationTitle} position at Flint.<br>I will review your candidacy and get back to you shortly.<br><br>Kind Regards,<br><br>Simon Green<br>Head of Engineering at <a href='https://withflint.com/'> Flint </a>"""
+          $"""Hello {candidate.firstName},<br><br>Thank you for your interest in the {candidate.applicationTitle} position at Flint.<br>I will review your candidacy and get back to you shortly.<br><br>Kind Regards,<br><br>Simon Green<br>Head of Product at <a href='https://withflint.com/'> Flint </a>"""
 
         Apply.now
           ctx

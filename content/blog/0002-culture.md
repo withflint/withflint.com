@@ -1,5 +1,5 @@
 Simon Green
-Head of Engineering
+Head of Product
 https://www.linkedin.com/in/sg63/
 /static/images/simon.jpeg
 ---

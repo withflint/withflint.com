@@ -7,7 +7,7 @@ $115k - $150k,
 Remote, $115k - $150k, 11+ years
 
 ## About the position
-You will be working closely with our Head of Engineering and a team of talented software and product people to take Flint to the next level. We already have a strong mission and product with traction led by our product-led growth strategy.
+You will be working closely with our Head of Product and a team of talented software and product people to take Flint to the next level. We already have a strong mission and product with traction led by our product-led growth strategy.
 
 We're looking for our first few engineers to help us lay the foundation for our global healthcare workforce product. In this role, you will be wearing multiple hats, you'll be given critical high-level problems to solve, you'll be given a high degree of freedom and responsibility to do your best work, you'll be working in a small team (<10) meaning your work will have an incredible and lasting impact, and you'll get to build something new and exciting at a very early stage (like joining Google in 1999).
 
