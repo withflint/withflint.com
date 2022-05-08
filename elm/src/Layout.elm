@@ -203,7 +203,8 @@ footer =
 menu : List ( Page, String )
 menu =
     [ ( Home, "Home" )
-    , ( HealthCare "", "Health Care Jobs" )
+    , ( NurseCareers "", "Nurse Careers" )
     , ( Contact, "Contact" )
-    , ( Jobs "", "Jobs" )
+    , ( JoinTheTeam "", "Join the Team" )
+    , ( Blog "", "Blog" )
     ]

@@ -119,18 +119,18 @@ phoneLayout =
                     , link
                         (Styles.paragraph
                             ++ buttons.primary
-                            ++ [ width <| maximum 200 fill
+                            ++ [ width <| maximum 240 fill
                                , Font.color colors.white3
                                , centerX
                                , Font.center
                                , mouseOver [ Background.color colors.blue1 ]
                                ]
                         )
-                        { url = "mailto:staffing@withflint.com", label = text "staffing@withflint.com" }
+                        { url = "mailto:healthcare@withflint.com", label = text "healthcare@withflint.com" }
                     , link
                         (Styles.paragraph
                             ++ buttons.secondary
-                            ++ [ width <| maximum 200 fill
+                            ++ [ width <| maximum 240 fill
                                , Font.color colors.white3
                                , centerX
                                , Font.center
@@ -172,7 +172,7 @@ phoneLayout =
                     , link
                         (Styles.paragraph
                             ++ buttons.primary
-                            ++ [ width <| maximum 200 fill
+                            ++ [ width <| maximum 240 fill
                                , Font.color colors.white3
                                , centerX
                                , Font.center
@@ -183,7 +183,7 @@ phoneLayout =
                     , link
                         (Styles.paragraph
                             ++ buttons.secondary
-                            ++ [ width <| maximum 200 fill
+                            ++ [ width <| maximum 240 fill
                                , Font.color colors.white3
                                , centerX
                                , Font.center
@@ -263,7 +263,7 @@ tabletLayout =
                                , mouseOver [ Background.color colors.blue1 ]
                                ]
                         )
-                        { url = "mailto:staffing@withflint.com", label = text "staffing@withflint.com" }
+                        { url = "mailto:healthcare@withflint.com", label = text "healthcare@withflint.com" }
                     , link
                         (Styles.paragraph
                             ++ buttons.secondary
@@ -403,7 +403,7 @@ desktopLayout =
                            , Border.rounded 3
                            ]
                     )
-                    [ el [ centerX ] <| text "staffing@withflint.com" ]
+                    [ el [ centerX ] <| text "healthcare@withflint.com" ]
                 , row
                     (Styles.paragraph
                         ++ [ centerX
@@ -479,8 +479,8 @@ copy :
     , talentExperts : String
     }
 copy =
-    { staffingExpertsHead = "Staffing Experts"
-    , staffingExperts = "To learn more about what an optimized staffing solution looks like, meet with our staffing experts."
-    , talentExpertsHead = "Talent Experts"
-    , talentExperts = "Are you an internationally educated health care worker? We can help you relocate to the United States of America; we offer all-inclusive packages, including immigration, green cards, transport, accommodations and A+ job offers. Text, call or email us!"
+    { staffingExpertsHead = "Healthcare Partnerships"
+    , staffingExperts = "To learn more about what an optimized staffing solution looks like, meet with our partnership team."
+    , talentExpertsHead = "Nurse Talent Team"
+    , talentExperts = "Are you an internationally educated nurse? We can help you relocate to the United States of America; we offer all-inclusive packages, including immigration, green cards, transport, accommodations and the best job offers. Text, call or email us!"
     }

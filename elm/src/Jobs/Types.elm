@@ -20,8 +20,7 @@ type alias Applicant =
 
 
 type alias Config =
-    { rootUrl : String
-    , page : String
+    { page : String
     , endpoint : String
     , copy : Copy
     , apply : String

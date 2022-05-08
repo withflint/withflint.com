@@ -1,11 +1,10 @@
-module Jobs.Update exposing (flintConfig, healthCareConfig, init, update)
+module Jobs.Update exposing (init, update)
 
 import Browser.Navigation exposing (Key, pushUrl)
 import Dict exposing (Dict)
 import File.Select
 import Http
 import Jobs.Types exposing (Applicant, Config, Field(..), Job, Model, Msg(..), View(..))
-import Jobs.View exposing (flintCopy, healthCareCopy)
 import Json.Decode as Decode exposing (Decoder, decodeString)
 import Return exposing (Return, return, singleton)
 import Text exposing (Text(..))
@@ -184,23 +183,3 @@ jobDecoder =
         (Decode.field "equity" Decode.string)
         (Decode.field "experience" Decode.string)
         (Decode.field "description" Decode.string)
-
-
-flintConfig : Config
-flintConfig =
-    { rootUrl = "https://www.ycombinator.com"
-    , endpoint = "/yc"
-    , page = "jobs"
-    , copy = flintCopy
-    , apply = "/apply"
-    }
-
-
-healthCareConfig : Config
-healthCareConfig =
-    { rootUrl = "#"
-    , endpoint = "/hc"
-    , page = "health-care-jobs"
-    , copy = healthCareCopy
-    , apply = "/happly"
-    }

@@ -9,7 +9,7 @@ import Device exposing (Device(..), classify)
 import FaqNurses.Update
 import Home.Update
 import Html.Attributes exposing (width)
-import Jobs.Types
+import Jobs.Types exposing (Config)
 import Jobs.Update
 import Return exposing (Return, return, singleton)
 import Router.Routes exposing (Page(..))
@@ -19,6 +19,25 @@ import SubModule
 import Task
 import Types exposing (Model, Msg(..))
 import Url exposing (Url)
+import View exposing (joinCopy, nurseCareersCopy)
+
+
+flintConfig : Config
+flintConfig =
+    { endpoint = "/j"
+    , page = "join"
+    , copy = joinCopy
+    , apply = "/apply"
+    }
+
+
+healthCareConfig : Config
+healthCareConfig =
+    { endpoint = "/hc"
+    , page = "nurses-health-care-jobs"
+    , copy = nurseCareersCopy
+    , apply = "/happly"
+    }
 
 
 init : { article : Maybe String, gitVersion : String } -> Url -> Key -> Return Msg Model
@@ -32,13 +51,13 @@ init { article, gitVersion } url key =
                     }
 
         ( jobs, initJobs ) =
-            Jobs.Update.init gitVersion url key Jobs.Update.flintConfig
+            Jobs.Update.init gitVersion url key flintConfig
                 |> SubModule.init
                     { toMsg = MsgForJobs
                     }
 
         ( healthCare, initHealthCare ) =
-            Jobs.Update.init gitVersion url key Jobs.Update.healthCareConfig
+            Jobs.Update.init gitVersion url key healthCareConfig
                 |> SubModule.init
                     { toMsg = MsgForHealthCare
                     }
@@ -131,7 +150,7 @@ update msg model =
                                             \blog -> { model | blog = blog }
                                         }
 
-                            Just (Router.Routes.Jobs jobId) ->
+                            Just (Router.Routes.JoinTheTeam jobId) ->
                                 Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.jobs
                                     |> SubModule.update
                                         { toMsg = MsgForJobs
@@ -139,7 +158,7 @@ update msg model =
                                             \jobs -> { model | jobs = jobs }
                                         }
 
-                            Just (Router.Routes.HealthCare jobId) ->
+                            Just (Router.Routes.NurseCareers jobId) ->
                                 Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.healthCare
                                     |> SubModule.update
                                         { toMsg = MsgForHealthCare
@@ -185,10 +204,10 @@ pageTitle model =
         Contact ->
             model.contact.title
 
-        Jobs _ ->
+        JoinTheTeam _ ->
             model.jobs.title
 
-        HealthCare _ ->
+        NurseCareers _ ->
             model.healthCare.title
 
         Blog _ ->

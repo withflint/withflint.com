@@ -264,7 +264,7 @@ module Program =
   let blogs (next: HttpFunc) (ctx: HttpContext) =
     task { return! (Blog.articles |> json) next ctx }
 
-  let yc (next: HttpFunc) (ctx: HttpContext) =
+  let joinTheteam (next: HttpFunc) (ctx: HttpContext) =
     task { return! (Jobs.flint |> json) next ctx }
 
   let hc (next: HttpFunc) (ctx: HttpContext) =
@@ -328,12 +328,19 @@ module Program =
     choose [ GET
              >=> choose [ route "/" >=> htmlIndex
                           route "/hc" >=> hc
-                          route "/yc" >=> yc
+                          route "/j" >=> joinTheteam
                           route "/privacy" >=> privacy
                           route "/faq" >=> redirectTo false "/"
                           route "/faq/" >=> redirectTo false "/"
                           route "/careers" >=> redirectTo true "/jobs"
                           route "/careers/" >=> redirectTo true "/jobs"
+                          route "/jobs" >=> redirectTo true "/join"
+                          route "/jobs/" >=> redirectTo true "/join"
+                          route "/heath-care-jobs"
+                          >=> redirectTo true "/nurse-careers"
+                          route "/heath-care-jobs/"
+                          >=> redirectTo true "/nurse-careers"
+
                           route "/team" >=> redirectTo true "/"
                           route "/team/" >=> redirectTo true "/"
                           subRoute
