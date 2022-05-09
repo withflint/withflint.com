@@ -34,7 +34,7 @@ flintConfig =
 healthCareConfig : Config
 healthCareConfig =
     { endpoint = "/hc"
-    , page = "nurses-health-care-jobs"
+    , page = "nurse-careers"
     , copy = nurseCareersCopy
     , apply = "/happly"
     }

@@ -336,11 +336,11 @@ module Program =
                           route "/careers/" >=> redirectTo true "/jobs"
                           route "/jobs" >=> redirectTo true "/join"
                           route "/jobs/" >=> redirectTo true "/join"
-                          route "/heath-care-jobs"
-                          >=> redirectTo true "/nurse-careers"
-                          route "/heath-care-jobs/"
-                          >=> redirectTo true "/nurse-careers"
 
+                          subRoute
+                            "/health-care-jobs"
+                            (choose [ route "" >=> redirectTo true ($"/nurse-careers")
+                                      routef "/%s" (fun path -> redirectTo true ($"/nurse-careers/{path}")) ])
                           route "/team" >=> redirectTo true "/"
                           route "/team/" >=> redirectTo true "/"
                           subRoute
