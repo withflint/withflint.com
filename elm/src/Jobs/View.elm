@@ -495,7 +495,7 @@ desktopCopyView config =
                 ]
             ]
          ]
-            ++ (if config.page == "jobs" then
+            ++ (if config.page == "join" then
                     [ hiringProcess ]
 
                 else
@@ -522,7 +522,7 @@ phoneCopyView config =
                 ]
             ]
          ]
-            ++ (if config.page == "jobs" then
+            ++ (if config.page == "join" then
                     [ hiringProcess ]
 
                 else

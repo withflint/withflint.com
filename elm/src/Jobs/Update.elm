@@ -80,6 +80,7 @@ update msg model =
 
         Apply urlChange jobId ->
             absolute [ model.config.page, jobId ] []
+                |> Debug.log "hi "
                 |> (if urlChange then
                         pushUrl model.key
 

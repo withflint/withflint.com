@@ -35,7 +35,7 @@ toPath : Page -> String
 toPath page =
     case page of
         Home ->
-            "/"
+            absolute [] []
 
         NotFound ->
             absolute [ "404" ] []
