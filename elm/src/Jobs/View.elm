@@ -47,6 +47,7 @@ import Markdown.Renderer
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors)
 import Text
+import Url.Builder exposing (absolute)
 
 
 view : Model -> Layout Msg
@@ -180,7 +181,7 @@ workAtPhone config =
 
 
 type alias Viewer =
-    { jobView : ( String, Job ) -> Element Msg
+    { jobView : ( String, String, Job ) -> Element Msg
     , applyView : Job -> Model -> Element Msg
     , copyView : Config -> Element Msg
     }
@@ -218,7 +219,7 @@ jobsView viewer model =
                         (paragraph [ Styles.headFont, Font.size 23 ]
                             [ text "Open Positions"
                             ]
-                            :: (Dict.toList model.jobs |> List.map viewer.jobView)
+                            :: (Dict.toList model.jobs |> List.map (\( id, job ) -> ( model.config.page, id, job )) |> List.map viewer.jobView)
                         )
                     ]
 
@@ -249,12 +250,12 @@ jobsView viewer model =
                     jobsView viewer { model | view = JobsView }
 
 
-desktopJobView : ( String, Job ) -> Element Msg
-desktopJobView ( id, job ) =
+desktopJobView : ( String, String, Job ) -> Element Msg
+desktopJobView ( page, id, job ) =
     row [ wf ]
         [ column [ alignLeft, spacingXY 0 10, wf ]
             [ link [ Font.color colors.blue1, mouseOver [ Font.color colors.blue1 ] ]
-                { url = id
+                { url = absolute [ page, id ] []
                 , label = paragraph [ wf, spacing 10 ] [ text job.title ]
                 }
             , wrappedRow [ spacingXY 10 10, Font.size 15, wf ]
@@ -272,13 +273,13 @@ desktopJobView ( id, job ) =
         ]
 
 
-phoneJobView : ( String, Job ) -> Element Msg
-phoneJobView ( id, job ) =
+phoneJobView : ( String, String, Job ) -> Element Msg
+phoneJobView ( page, id, job ) =
     row [ wf ]
         [ column [ alignLeft, spacingXY 0 10, wf ]
             [ paragraph [ wf ]
                 [ link [ Font.color colors.blue1, mouseOver [ Font.color colors.blue1 ] ]
-                    { url = id
+                    { url = absolute [ page, id ] []
                     , label = paragraph [ wf, spacing 10 ] [ text job.title ]
                     }
                 ]

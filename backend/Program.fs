@@ -332,18 +332,18 @@ module Program =
                           route "/privacy" >=> privacy
                           route "/faq" >=> redirectTo false "/"
                           route "/faq/" >=> redirectTo false "/"
-                          route "/careers" >=> redirectTo true "/jobs"
-                          route "/careers/" >=> redirectTo true "/jobs"
-                          route "/jobs" >=> redirectTo true "/join"
-                          route "/jobs/" >=> redirectTo true "/join"
+                          route "/careers" >=> redirectTo false "/jobs"
+                          route "/careers/" >=> redirectTo false "/jobs"
+                          route "/jobs" >=> redirectTo false "/join"
+                          route "/jobs/" >=> redirectTo false "/join"
 
                           subRoute
                             "/health-care-jobs"
-                            (choose [ route "" >=> redirectTo true ($"/nurse-careers")
-                                      route "/" >=> redirectTo true ($"/nurse-careers")
-                                      routef "/%s" (fun path -> redirectTo true ($"/nurse-careers/{path}")) ])
-                          route "/team" >=> redirectTo true "/"
-                          route "/team/" >=> redirectTo true "/"
+                            (choose [ route "" >=> redirectTo false ($"/nurse-careers")
+                                      route "/" >=> redirectTo false ($"/nurse-careers")
+                                      routef "/%s" (fun path -> redirectTo false ($"/nurse-careers/{path}")) ])
+                          route "/team" >=> redirectTo false "/"
+                          route "/team/" >=> redirectTo false "/"
                           subRoute
                             "/blog"
                             (choose [ route "" >=> htmlIndex
