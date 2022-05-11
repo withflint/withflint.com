@@ -302,7 +302,7 @@ module Program =
 
         Apply.now
           ctx
-          { who = "Flint Talent Team<talent@withflint.com>"
+          { who = "apply@withflint.com"
             from = "Flint Talent Team<talent@withflint.com>"
             email = email }
           candidate
