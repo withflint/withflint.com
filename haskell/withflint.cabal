@@ -1,0 +1,90 @@
+cabal-version:      2.4
+name:               withflint
+version:            0.1.0.0
+
+-- A short (one-line) description of the package.
+-- synopsis:
+
+-- A longer description of the package.
+-- description:
+
+-- A URL where users can report bugs.
+-- bug-reports:
+
+-- The license under which the package is released.
+-- license:
+author:             Bram Wyllie
+maintainer:         30481775+bitmappergit@users.noreply.github.com
+
+-- A copyright notice.
+-- copyright:
+-- category:
+extra-source-files: CHANGELOG.md
+
+common settings
+    default-language: GHC2021
+    default-extensions:
+        BlockArguments
+        DuplicateRecordFields
+        OverloadedStrings
+        TypeFamilies
+        LambdaCase
+        TemplateHaskell
+        LiberalTypeSynonyms
+        FlexibleInstances
+        NoFieldSelectors
+        OverloadedRecordDot
+        ExtendedDefaultRules
+        QuasiQuotes
+        RecordWildCards
+         
+library
+    import: settings
+
+    exposed-modules:  Flint
+
+    -- Modules included in this library but not exported.
+    other-modules: Flint.Apply
+                   Flint.Blog
+                   Flint.Jobs
+                   Flint.Sitemap
+                   Flint.Index
+                   Flint.Types
+
+    -- LANGUAGE extensions used by modules in this package.
+    -- other-extensions:
+    build-depends:    base ^>= 4.16.1.0
+                    , lens
+                    , bytestring
+                    , mtl
+                    , containers
+                    , aeson
+                    , wai
+                    , wai-extra
+                    , wai-middleware-static
+                    , warp
+                    , directory
+                    , parsec
+                    , text
+                    , scotty
+                    , lucid
+                    , time
+                    , shakespeare
+                    , mustache
+
+    hs-source-dirs:   src
+
+executable withflint
+    import: settings
+    
+    main-is:          Main.hs
+
+    -- Modules included in this executable, other than Main.
+    -- other-modules:
+
+    -- LANGUAGE extensions used by modules in this package.
+    -- other-extensions:
+    build-depends:    base ^>= 4.16.1.0
+                    , withflint
+
+    hs-source-dirs:   app
