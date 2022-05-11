@@ -1,12 +1,14 @@
 module Flint.Blog where
 
-import Data.Text
+import Data.Text (Text)
+import Data.Text qualified as Text
 import Data.Function
 import Lucid
 import Lucid.Base
 import Text.Parsec
 import Text.Parsec.Text
 import Data.Time
+import Control.Monad
 
 data Meta = Meta
   { type_ :: Text
@@ -16,7 +18,7 @@ data Meta = Meta
   , description :: Text
   , author :: Text
   , publishedTime :: Text
-  }
+  } deriving (Show, Eq)
 
 data Article = Article
   { author :: Text
@@ -29,7 +31,7 @@ data Article = Article
   , sub :: Text
   , body :: Text
   , meta :: Meta
-  }
+  } deriving (Show, Eq)
 
 property_ :: Text -> Attribute
 property_ = makeAttribute "property"
@@ -44,18 +46,46 @@ generateMeta metadata = do
   meta_ [ property_ "article:author", content_ metadata.author ]
   meta_ [ property_ "article:publishedTime", content_ metadata.publishedTime ]
 
+eol :: String
+eol = "\n\r"
 
-parseArticle :: [Text] -> Maybe Article
-parseArticle (author : bio : link : avatar : _ : slug : date : title : sub : _ : body) =
-  Just Article { body = Data.Text.unlines body
-               , meta = Meta { type_ = "article"
-                             , title = title
-                             , url = "https://withflint.com/blog/" <> slug
-                             , image = "https://withflint.com/static/images/blog/" <> slug <> ".jpeg"
-                             , description = sub
-                             , author = link
-                             , publishedTime = date
-                             }
-               , ..
-               }
-parseArticle _ = Nothing
+line :: Parser Text
+line = do
+  lines <- many $ noneOf eol
+  oneOf eol
+  pure $ Text.pack lines
+
+separator :: Parser ()
+separator = void do
+  string "---"
+  endOfLine
+  
+parseArticle :: Parser Article
+parseArticle = do
+  author <- line
+  bio <- line
+  link <- line
+  avatar <- line
+
+  separator
+
+  slug <- line
+  date <- line
+  title <- line
+  sub <- line
+
+  separator
+  
+  body <- Text.pack <$> many anyChar
+
+  let meta = Meta
+        { type_ = "article"
+        , title = title
+        , url = "https://withflint.com/blog/" <> slug
+        , image = "https://withflint.com/static/images/blog/" <> slug <> ".jpeg"
+        , description = sub
+        , author = link
+        , publishedTime = date
+        }
+
+  pure Article { .. }
