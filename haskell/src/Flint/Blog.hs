@@ -2,6 +2,7 @@ module Flint.Blog where
 
 import Data.Text (Text)
 import Data.Text qualified as Text
+import Data.Text.IO qualified as Text.IO
 import Data.Function
 import Lucid
 import Lucid.Base
@@ -9,6 +10,10 @@ import Text.Parsec
 import Text.Parsec.Text
 import Data.Time
 import Control.Monad
+import System.Directory
+import Flint.Types
+import System.FilePath.Posix
+import Data.List (sort)
 
 data Meta = Meta
   { type_ :: Text
@@ -50,15 +55,13 @@ eol :: String
 eol = "\n\r"
 
 line :: Parser Text
-line = do
-  lines <- many $ noneOf eol
-  oneOf eol
-  pure $ Text.pack lines
+line =
+  Text.pack <$> manyTill (noneOf eol) (oneOf eol)
 
 separator :: Parser ()
 separator = void do
   string "---"
-  endOfLine
+  oneOf eol
   
 parseArticle :: Parser Article
 parseArticle = do
@@ -89,3 +92,10 @@ parseArticle = do
         }
 
   pure Article { .. }
+
+getArticles :: Config -> IO [Article]
+getArticles Config { root } = do
+  files <- listDirectory (root <> "/blog")
+  let articles = sort $ filter (isExtensionOf "md") files
+  concat . sequence <$> forM articles \filename -> do
+    parseFromFile parseArticle $ root <> "/blog/" <> filename

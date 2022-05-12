@@ -42,14 +42,12 @@ library
     import: settings
 
     exposed-modules:  Flint
-
-    -- Modules included in this library but not exported.
-    other-modules: Flint.Apply
-                   Flint.Blog
-                   Flint.Jobs
-                   Flint.Sitemap
-                   Flint.Index
-                   Flint.Types
+                      Flint.Apply
+                      Flint.Blog
+                      Flint.Jobs
+                      Flint.Sitemap
+                      Flint.Index
+                      Flint.Types
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -71,6 +69,9 @@ library
                     , time
                     , shakespeare
                     , mustache
+                    , blaze-html
+                    , blaze-markup
+                    , filepath
 
     hs-source-dirs:   src
 

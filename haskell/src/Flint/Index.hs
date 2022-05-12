@@ -22,14 +22,15 @@ import Lucid
 import Lucid.Base (makeAttribute)
 import Data.Text (Text)
 import Flint.Types
+import Flint.Blog (Meta (..), generateMeta)
 import Text.Julius
 import Text.Shakespeare.Text 
 
 dataWebsiteId_ :: Text -> Attribute
 dataWebsiteId_ = makeAttribute "data-website-id"
 
-index :: Config -> Html ()
-index Config { gitVersion } = do
+index :: Config -> Maybe Meta -> Html ()
+index Config { gitVersion } meta = do
   doctypehtml_ do
     html_ do
       head_ do
@@ -49,10 +50,12 @@ index Config { gitVersion } = do
               , rel_ "stylesheet"
               ]
 
+        maybe "" generateMeta meta
+      
       body_ do
         div_ [ id_ "flint" ] ""
         
-        script_ [ src_ $ "/static/" <> gitVersion <> "/elm.js" ] ""
+        script_ [ src_ [st|/static/#{gitVersion}/elm.js|] ] ""
 
         script_ []
           [st|const pathname =
