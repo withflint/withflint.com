@@ -1,8 +1,8 @@
 senior-software-engineer-haskell-elm-nix-remote
 Senior Software Engineer (Haskell/Elm/Nix) - Remote
 Remote
-$115k - $150k,
-11+ years
+$115k - $150k, 11+ years
+
 
 Remote, $115k - $150k, 11+ years
 
