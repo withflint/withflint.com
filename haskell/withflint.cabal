@@ -48,7 +48,8 @@ library
                       Flint.Sitemap
                       Flint.Index
                       Flint.Types
-
+                      Flint.Utils
+                      
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
     build-depends:    base ^>= 4.16.1.0

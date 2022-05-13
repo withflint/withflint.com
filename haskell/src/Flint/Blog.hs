@@ -12,6 +12,7 @@ import Data.Time
 import Control.Monad
 import System.Directory
 import Flint.Types
+import Flint.Utils
 import System.FilePath.Posix
 import Data.List (sort)
 
@@ -38,9 +39,6 @@ data Article = Article
   , meta :: Meta
   } deriving (Show, Eq)
 
-property_ :: Text -> Attribute
-property_ = makeAttribute "property"
-
 generateMeta :: Meta -> Html ()
 generateMeta metadata = do
   meta_ [ property_ "og:type", content_ metadata.type_ ]
@@ -51,18 +49,6 @@ generateMeta metadata = do
   meta_ [ property_ "article:author", content_ metadata.author ]
   meta_ [ property_ "article:publishedTime", content_ metadata.publishedTime ]
 
-eol :: String
-eol = "\n\r"
-
-line :: Parser Text
-line =
-  Text.pack <$> manyTill (noneOf eol) (oneOf eol)
-
-separator :: Parser ()
-separator = void do
-  string "---"
-  oneOf eol
-  
 parseArticle :: Parser Article
 parseArticle = do
   author <- line
@@ -92,10 +78,3 @@ parseArticle = do
         }
 
   pure Article { .. }
-
-getArticles :: Config -> IO [Article]
-getArticles Config { root } = do
-  files <- listDirectory (root <> "/blog")
-  let articles = sort $ filter (isExtensionOf "md") files
-  concat . sequence <$> forM articles \filename -> do
-    parseFromFile parseArticle $ root <> "/blog/" <> filename

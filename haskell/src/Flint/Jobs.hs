@@ -1,7 +1,11 @@
 module Flint.Jobs where
 
 import Data.Text (Text)
-import Data.Text qualified as Text
+import Data.Text (pack)
+import Flint.Utils
+import Text.Parsec
+import Text.Parsec.Text (Parser)
+import Control.Monad (void)
 
 data Job = Job
   { url :: Text
@@ -12,11 +16,18 @@ data Job = Job
   , description :: Text
   }
 
+parseJob :: Parser (Text, Job)
+parseJob = do
+  url <- line
+  title <- line
+  location <- line
+  equity <- line
+  experience <- line
+  
+  void line
 
-parseJob :: [Text] -> Maybe (Text, Job)
-parseJob lines =
-  case lines of
-    url : title : location : equity : experience : _ : body ->
-      Just (url, Job { description = Text.unlines body, .. }) 
-    _ ->
-      Nothing
+  description <- pack <$> many anyChar
+  
+  pure ( url
+       , Job { .. }
+       )

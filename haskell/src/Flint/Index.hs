@@ -1,23 +1,5 @@
 module Flint.Index (index) where
 
-{-
-import Text.Blaze.Html5 as Html
-import Text.Blaze.Html5.Attributes as Attr
-
-index :: String -> Html
-index gitVersion = do
-  Html.docTypeHtml do
-    Html.html do
-      Html.head do
-        Html.meta ! Attr.charset "utf-8"
-        Html.title "Flint - Safeguard Your Health Care Staffing Needs"
-        Html.meta ! Attr.name "viewport" ! Attr.content "width=device-width, initial-scale=1.0"
-        Html.style ! Attr.type_ "text/css" $ text "body { min-height: 100vh; }"
-        Html.link ! Attr.href "/static/fonts.css" ! Attr.rel "stylesheet"
-
-
--}
-
 import Lucid
 import Lucid.Base (makeAttribute)
 import Data.Text (Text)
