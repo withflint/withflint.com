@@ -1,6 +1,5 @@
 module Jobs.View exposing (view)
 
-import Blog.View exposing (elmUiRenderer)
 import Dict
 import Element
     exposing
@@ -42,8 +41,7 @@ import Element.Input as Input
 import File
 import Jobs.Types exposing (Config, Field(..), Job, Model, Msg(..), View(..))
 import Layout exposing (Layout, footer, menu)
-import Markdown.Parser
-import Markdown.Renderer
+import Mark
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors)
 import Text
@@ -237,10 +235,7 @@ jobsView viewer model =
                                         [ none ]
 
                                     desc ->
-                                        Markdown.Parser.parse desc
-                                            |> Result.mapError (always "error in rendering markdown")
-                                            |> Result.andThen (Markdown.Renderer.render elmUiRenderer)
-                                            |> Result.withDefault [ none ]
+                                        Mark.default desc
                                 )
                             ]
                         , viewer.applyView job model

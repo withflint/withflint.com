@@ -1,5 +1,5 @@
 nursing-educator-remote
-Nursing Educator (Remote)
+Nursing Educator - Remote
 Remote
 $70k - $95k, 5+ years
 
