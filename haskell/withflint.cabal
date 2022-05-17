@@ -69,11 +69,12 @@ library
                     , lucid
                     , time
                     , shakespeare
-                    , mustache
                     , blaze-html
                     , blaze-markup
                     , filepath
-
+                    , smtp-mail
+                    , mime-mail
+                    , network
     hs-source-dirs:   src
 
 executable withflint

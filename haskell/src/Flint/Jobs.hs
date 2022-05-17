@@ -6,6 +6,7 @@ import Flint.Utils
 import Text.Parsec
 import Text.Parsec.Text (Parser)
 import Control.Monad (void)
+import Data.Aeson (ToJSON (..), object, (.=))
 
 data Job = Job
   { url :: Text
@@ -14,7 +15,17 @@ data Job = Job
   , equity :: Text
   , experience :: Text
   , description :: Text
-  }
+  } deriving (Show, Eq)
+
+instance ToJSON Job where
+  toJSON job =
+    object [ "url" .= job.url
+           , "title" .= job.title
+           , "location" .= job.location
+           , "equity" .= job.equity
+           , "experience" .= job.experience
+           , "description" .= job.description
+           ]
 
 parseJob :: Parser (Text, Job)
 parseJob = do

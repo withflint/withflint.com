@@ -15,6 +15,7 @@ import Flint.Types
 import Flint.Utils
 import System.FilePath.Posix
 import Data.List (sort)
+import Data.Aeson (ToJSON (..), object, (.=))
 
 data Meta = Meta
   { type_ :: Text
@@ -25,6 +26,17 @@ data Meta = Meta
   , author :: Text
   , publishedTime :: Text
   } deriving (Show, Eq)
+
+instance ToJSON Meta where
+  toJSON meta =
+    object [ "type" .= meta.type_
+           , "title" .= meta.title
+           , "url" .= meta.url
+           , "image" .= meta.image
+           , "description" .= meta.description
+           , "author" .= meta.author
+           , "publishedTime" .= meta.publishedTime
+           ]
 
 data Article = Article
   { author :: Text
@@ -38,6 +50,20 @@ data Article = Article
   , body :: Text
   , meta :: Meta
   } deriving (Show, Eq)
+
+instance ToJSON Article where
+  toJSON article =
+    object [ "author" .= article.author
+           , "bio" .= article.bio
+           , "link" .= article.link
+           , "avatar" .= article.avatar
+           , "slug" .= article.slug
+           , "date" .= article.date
+           , "title" .= article.title
+           , "sub" .= article.sub
+           , "body" .= article.body
+           , "meta" .= article.meta
+           ]
 
 generateMeta :: Meta -> Html ()
 generateMeta metadata = do
