@@ -27,25 +27,18 @@ Read our _[blog](https://withflint.com/blog)_ to find out more about our _[cultu
 Have you read Paul Graham's _[Beating the Averages](http://www.paulgraham.com/avg.html)_ essay? Do you strive to remove _[schlep](http://www.paulgraham.com/schlep.html)_? Are you a Lisp Hacker? If so, you should join.
 
 ## Benefits
-Perks are nice, but we believe the most important thing is getting to work with incredible people :) These are just the little things we try to do to help you be more powerful
 
-### Unrestricted vacation
-- This goes back to our value of freedom and responsibility. Take the time off you need off and deliver incredible results :)
-- Minimum 10 days a year
+Perks are nice, but we believe the most important thing is getting to work with incredible people 🤗 These are just the little things to help you be more powerful.
 
-### Real equity
-- You’re going to be a huge part of building this company, and you should get a life changing amount of equity if we accomplish our goals!
+- Unrestricted vacation 🌴
+- Real equity (own a part of Flint) 💰
+- Regular off-sites ✈️
+- Remote work 👩🏽‍💻
+- Flexible working hours ⏰
+- Expense Account (no red tape) 💳
+- Audible subscription 🎧
+- Health Benefits 🏥
 
-### Regular offsites
-- We have a number of remote team members and we want to make sure we all get to hang out in real life!
-- These offsites are in places like Vancouver (Head Office), Mexico, and places more connected to our global talent like Nigeria and Pakistan
-
-### Remote
-- It’s flexible. Work where you need to work and deliver results you are proud of.
-- If that means working for a week in the sun or on the ski slopes - do it!
-
-### Audible subscription
-- We have a company account where you can listen to any audio book you like :)
 
 ## Why you should join Flint
 - We're growing faster than weeds on a lawn 🌱

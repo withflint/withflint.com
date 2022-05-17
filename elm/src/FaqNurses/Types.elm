@@ -9,17 +9,17 @@ type alias Model =
 
 
 type Msg
-    = ToggleVisibility Int -- faq.id
+    = NoOp
 
 
 type alias Faq =
     { id : Int
     , question : String
     , answer : List FormattedText
-    , isVisible : Bool
     }
 
 
 type FormattedText
     = Paragraph String
     | ListItem String
+    | OrderedItem ( Int, String )

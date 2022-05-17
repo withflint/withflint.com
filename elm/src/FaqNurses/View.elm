@@ -14,13 +14,11 @@ import Element
         , link
         , maximum
         , minimum
-        , none
         , padding
         , paddingEach
         , paddingXY
         , paragraph
         , px
-        , rgb255
         , row
         , shrink
         , spacing
@@ -30,12 +28,12 @@ import Element
         , wrappedRow
         )
 import Element.Background as Background
-import Element.Border as Border exposing (rounded)
+import Element.Border as Border
 import Element.Font as Font
-import Element.Input as Input
 import Element.Lazy exposing (lazy2)
-import FaqNurses.Types exposing (Faq, FormattedText(..), Model, Msg(..))
+import FaqNurses.Types exposing (Faq, FormattedText(..), Model, Msg)
 import Layout exposing (Layout, footer, menu)
+import Mark
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors)
 
@@ -83,7 +81,7 @@ view model =
 
 faqsView : Model -> Element Msg
 faqsView { faqs } =
-    column [ width <| maximum 850 fill, height fill, Font.color colors.deepBlue1, spacingXY 0 40, centerX ]
+    column [ width <| maximum 850 fill, height fill, spacingXY 0 40, centerX ]
         (List.indexedMap (lazy2 viewAFaq) faqs)
 
 
@@ -113,37 +111,20 @@ viewAFaq index faq =
         , height fill
         ]
         [ wrappedRow [ width fill, centerY ]
-            [ lazy2 viewQuestion faq.id faq.question
-            , if faq.isVisible then
-                collapseOrExpandBtn "×" faq.id
-
-              else
-                collapseOrExpandBtn "+" faq.id
+            [ paragraph [ width fill, Styles.headFont, alignLeft, Font.medium, Styles.headFont ] (Mark.default faq.question)
             ]
-        , if faq.isVisible then
-            column
-                [ width <| maximum 750 fill
-                , spacingXY 0 20
-                , paddingEach
-                    { bottom = 0
-                    , left = 0
-                    , right = 0
-                    , top = 20
-                    }
-                ]
-                (List.map viewAnswer faq.answer)
-
-          else
-            el [] none
+        , column
+            [ width <| maximum 750 fill
+            , spacingXY 0 20
+            , paddingEach
+                { bottom = 0
+                , left = 0
+                , right = 0
+                , top = 20
+                }
+            ]
+            (List.map viewAnswer faq.answer)
         ]
-
-
-viewQuestion : Int -> String -> Element Msg
-viewQuestion id question =
-    Input.button [ width fill ]
-        { onPress = Just (ToggleVisibility id)
-        , label = el [] (paragraph [ Styles.headFont, alignLeft, Font.medium, Styles.headFont ] [ text question ])
-        }
 
 
 viewAnswer : FormattedText -> Element Msg
@@ -151,23 +132,21 @@ viewAnswer answer =
     case answer of
         Paragraph str ->
             paragraph Styles.paragraph
-                [ el [ Styles.font, Font.color colors.deepBlue1 ] <| text str
-                ]
+                (Mark.default str)
 
         ListItem str ->
             wrappedRow [ paddingEach { top = 0, right = 0, bottom = 0, left = 30 } ]
                 [ paragraph Styles.paragraph
-                    [ el [ Styles.font, Font.color colors.deepBlue1 ] <| text ("• " ++ str)
+                    [ el [ Styles.font ] <| text ("• " ++ str)
                     ]
                 ]
 
-
-collapseOrExpandBtn : String -> Int -> Element Msg
-collapseOrExpandBtn icon id =
-    Input.button [ alignRight, width (px 36), height (px 36), Background.color (rgb255 243 243 243), rounded 50 ]
-        { onPress = Just (ToggleVisibility id)
-        , label = el [ centerX, centerY, Font.size 16 ] (text icon)
-        }
+        OrderedItem ( number, str ) ->
+            wrappedRow [ paddingEach { top = 0, right = 0, bottom = 0, left = 30 } ]
+                [ paragraph Styles.paragraph
+                    [ el [ Styles.font ] <| text (String.fromInt number ++ ". " ++ str)
+                    ]
+                ]
 
 
 phoneHeader : Element Msg
