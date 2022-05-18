@@ -23,7 +23,7 @@ As Product Manager, you'll be an integral part of setting the product vision and
 
 Read our _[blog](https://withflint.com/blog)_ to find out more about our _[culture](https://withflint.com/blog/culture)_ and _[products](https://withflint.com/blog/growth-and-product)_.
 
-Have you read Paul Graham's _[Beating the Averages](http://www.paulgraham.com/avg.html)_ essay? Do you strive to remove _[schlep](http://www.paulgraham.com/schlep.html)_? Are you a Lisp Hacker? If so, you should join.
+Have you read Paul Graham's _[Beating the Averages](http://www.paulgraham.com/avg.html)_ essay? Do you strive to remove _[schlep](http://www.paulgraham.com/schlep.html)_? If so, you should join.
 
 ## Benefits
 
