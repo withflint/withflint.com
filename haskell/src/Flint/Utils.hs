@@ -54,8 +54,8 @@ lucid = html . renderText
 type Attachment = (Text, Text, ByteString)
 
 fileToAttachment :: File -> Attachment
-fileToAttachment (content, info) =
+fileToAttachment (fieldName, info) =
   ( Data.Text.Encoding.decodeUtf8 info.fileContentType
   , Data.Text.Encoding.decodeUtf8 info.fileName
-  , Data.Text.Lazy.Encoding.encodeUtf8 content
+  , info.fileContent
   )

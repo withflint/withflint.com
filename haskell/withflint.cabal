@@ -14,7 +14,7 @@ version:            0.1.0.0
 -- The license under which the package is released.
 -- license:
 author:             Bram Wyllie
-maintainer:         30481775+bitmappergit@users.noreply.github.com
+maintainer:         bram@withflint.com
 
 -- A copyright notice.
 -- copyright:
@@ -22,6 +22,7 @@ maintainer:         30481775+bitmappergit@users.noreply.github.com
 extra-source-files: CHANGELOG.md
 
 common settings
+    ghc-options: -O1
     default-language: GHC2021
     default-extensions:
         BlockArguments
@@ -69,8 +70,6 @@ library
                     , lucid
                     , time
                     , shakespeare
-                    , blaze-html
-                    , blaze-markup
                     , filepath
                     , smtp-mail
                     , mime-mail
