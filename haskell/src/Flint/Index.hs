@@ -4,7 +4,7 @@ import Lucid
 import Lucid.Base (makeAttribute)
 import Data.Text (Text)
 import Flint.Types
-import Flint.Blog (Meta (..), generateMeta)
+import Flint.Blog (generateMeta)
 import Text.Julius
 import Text.Shakespeare.Text 
 

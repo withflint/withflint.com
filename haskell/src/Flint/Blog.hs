@@ -17,15 +17,6 @@ import System.FilePath.Posix
 import Data.List (sort)
 import Data.Aeson (ToJSON (..), object, (.=))
 
-data Meta = Meta
-  { type_ :: Text
-  , title :: Text
-  , url :: Text
-  , image :: Text
-  , description :: Text
-  , author :: Text
-  , publishedTime :: Text
-  } deriving (Show, Eq)
 
 instance ToJSON Meta where
   toJSON meta =
@@ -38,18 +29,6 @@ instance ToJSON Meta where
            , "publishedTime" .= meta.publishedTime
            ]
 
-data Article = Article
-  { author :: Text
-  , bio :: Text
-  , link :: Text
-  , avatar :: Text
-  , slug :: Text
-  , date :: Text
-  , title :: Text
-  , sub :: Text
-  , body :: Text
-  , meta :: Meta
-  } deriving (Show, Eq)
 
 instance ToJSON Article where
   toJSON article =

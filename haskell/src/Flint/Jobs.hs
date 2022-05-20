@@ -2,20 +2,12 @@ module Flint.Jobs where
 
 import Data.Text (Text)
 import Data.Text (pack)
+import Flint.Types
 import Flint.Utils
 import Text.Parsec
 import Text.Parsec.Text (Parser)
 import Control.Monad (void)
 import Data.Aeson (ToJSON (..), object, (.=))
-
-data Job = Job
-  { url :: Text
-  , title :: Text
-  , location :: Text
-  , equity :: Text
-  , experience :: Text
-  , description :: Text
-  } deriving (Show, Eq)
 
 instance ToJSON Job where
   toJSON job =

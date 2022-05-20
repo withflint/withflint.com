@@ -3,11 +3,12 @@ module Flint where
 import Lucid
 import Web.Scotty
 
-import Flint.Types (Config (..))
+import Flint.Types
 import Flint.Index (index) 
 import Flint.Blog
 import Flint.Jobs
 import Flint.Apply
+import Flint.Sitemap
 import Flint.Utils
 import Network.Wai.Middleware.Static
 import Network.Wai.Middleware.RequestLogger
@@ -20,11 +21,12 @@ import Network.Mail.Mime
 import System.Environment (getEnv)
 import Text.Shakespeare.Text (lt)
 import Data.Time.Clock (getCurrentTime)
+import Data.Text (Text)
 import Data.Text.Lazy qualified as Text.Lazy
 import System.FilePath ((</>))
 
-routes :: Config -> Scotty
-routes config@(Config { .. }) = do
+routes :: Config -> Static -> Scotty
+routes config@(Config { .. }) static@(Static { .. }) = do
   get "/jobs" do
     redirect "/join"
 
@@ -32,15 +34,12 @@ routes config@(Config { .. }) = do
     redirect "/join"
   
   get "/healthz" do
-    text =<< liftIO do
-      env <- getEnv "ENV"
-      gitVersion <- getEnv "GIT_VERSION"
-      now <- show <$> getCurrentTime
-      pure [lt|Ok,#{env},#{gitVersion},#{now}|]
+    now <- liftIO $ show <$> getCurrentTime
+
+    text [lt|Ok,#{env},#{gitVersion},#{now}|]
   
   get "/blog/:article" do
     articleId <- param "article"
-    articles <- liftIO $ getMarkdown config parseArticle "blog"
 
     let found = [ article.meta | article <- articles, article.slug == articleId ]
     
@@ -50,42 +49,49 @@ routes config@(Config { .. }) = do
         meta : _ -> Just meta
 
   get "/articles" do
-    articles <- liftIO $ getMarkdown config parseArticle "blog"
     json articles
 
+  get "/sitemap.xml" do
+    lucidXml $ sitemap articles
+  
   get "/hc" do
-    jobs <- liftIO $ Map.fromList <$> getMarkdown config parseJob "jobs/healthcare"
-    json jobs
+    json healthCareJobs
 
   get "/j" do
-    jobs <- liftIO $ Map.fromList <$> getMarkdown config parseJob "jobs/flint"
-    json jobs
+    json flintJobs
 
   get "/privacy" do
-    privacy <- liftIO $ readFile (root </> "static" </> "privacy.html")
-    html $ Text.Lazy.pack privacy
+    html privacy
   
   post "/happly" do
     candidate <- getCandidate
+    
     apply healthCareEmail candidate healthCareBody
 
   post "/apply" do
     candidate <- getCandidate
+    
     apply careersEmail candidate careersBody
 
   notFound do
     lucid $ index config Nothing
- 
+
 run :: Config -> IO ()
 run config = do
+  articles <- getMarkdown config parseArticle "blog"
+  healthCareJobs <- Map.fromList <$> getMarkdown config parseJob ("jobs" </> "healthcare")
+  flintJobs <- Map.fromList <$> getMarkdown config parseJob ("jobs" </> "flint")
+  privacy <- Text.Lazy.pack <$> readFile (config.root </> "static" </> "privacy.html")
+  
   scotty 5000 do
     middleware $ staticPolicy $ addBase config.root 
     middleware logStdout
     middleware $ gzip def
-    routes config
+    routes config $ Static { .. }
 
 testConfig :: Config
 testConfig = Config
   { root = "/Volumes/CS/code/work/withflint.com"
   , gitVersion = "dirty"
+  , env = "dev"
   }

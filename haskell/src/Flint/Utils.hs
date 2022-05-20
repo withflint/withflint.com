@@ -51,6 +51,9 @@ getMarkdown (Config { root }) parser subDir = do
 lucid :: Html () -> Action
 lucid = html . renderText
 
+lucidXml :: Html () -> Action
+lucidXml = text . renderText
+
 type Attachment = (Text, Text, ByteString)
 
 fileToAttachment :: File -> Attachment
