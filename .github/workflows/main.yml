@@ -68,13 +68,4 @@ jobs:
         run: |
           nix build .#withflint-image
           skopeo copy docker-archive:result docker://${{ secrets.AWS_ECR_REGISTRY }}/withflint.com_haskell:${SHORT_SHA}
-          echo "- published withflint.com_haskell:${SHORT_SHA}" >> output
-
-      - name: Post build withflint
-        uses: withflint/download-artifact@v3
-        with:
-          name: output
-
-      - name: Print the final result
-        run: |
-          echo "withflint\n " > output.txt
+          echo "- published withflint.com_haskell:${SHORT_SHA}"
