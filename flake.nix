@@ -49,6 +49,10 @@
             tag = "latest";
             config = {
               EntryPoint = [ "/bin/withflint" ];
+              Env = [
+                "LANG=en_US.UTF-8"
+                "LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive"
+              ];
             };
           };
           
