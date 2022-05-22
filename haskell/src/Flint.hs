@@ -38,6 +38,12 @@ routes config@(Config { .. }) static@(Static { .. }) = do
 
   get "/careers" do
     redirect "/join"
+
+  get "/health-care-jobs" do
+    redirect "/nurse-careers"
+
+  get "/team" do
+    redirect "/"
   
   get "/healthz" do
     now <- liftIO $ show <$> getCurrentTime
