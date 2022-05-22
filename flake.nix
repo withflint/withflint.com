@@ -44,7 +44,7 @@
         packages = rec {
           withflint-image = pkgs.dockerTools.buildImage {
             name = "withflint";
-            contents = [ withflint ];
+            contents = [ withflint pkgs.glibcLocales pkgs.busybox pkgs.bash ];
             created = "now";
             tag = "latest";
             config = {
