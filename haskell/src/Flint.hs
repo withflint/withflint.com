@@ -27,6 +27,12 @@ import System.FilePath ((</>))
 
 routes :: Config -> Static -> Scotty
 routes config@(Config { .. }) static@(Static { .. }) = do
+  let unchanged = [ "/", "/blog", "/privacy", "/faq", "/careers", "/team", "/join", "/nurse-careers" ]
+
+  forM_ unchanged \url -> do
+    get url do
+      lucid $ index config Nothing
+  
   get "/jobs" do
     redirect "/join"
 
@@ -84,7 +90,8 @@ run config = do
   privacy <- Text.Lazy.pack <$> readFile (config.root </> "static" </> "privacy.html")
   
   scotty 5000 do
-    middleware $ staticPolicy $ addBase config.root 
+    let policy = only [("favicon.ico", config.root </> "static" </> "favicon.ico")] <|> addBase config.root
+    middleware $ staticPolicy policy 
     middleware logStdout
     middleware $ gzip def
     routes config $ Static { .. }

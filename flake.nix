@@ -15,7 +15,11 @@
           };
           gitVersion = if (self ? shortRev) then self.shortRev else "dirty";
       in {
-        devShell = pkgs.mkShell {
+        devShell = haskellPackages.shellFor {
+          packages = pkgs: [
+            self.packages.${system}.backend
+          ];
+          
           buildInputs = with pkgs; [
             elmPackages.elm-review
             elmPackages.elm-format
