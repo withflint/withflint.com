@@ -6,6 +6,7 @@ import Control.Monad (forM_)
 import Flint.Types (Article (..))
 import Blaze.ByteString.Builder
 import Blaze.ByteString.Builder.Html.Utf8 qualified
+import Text.Shakespeare.Text
 
 urlset_ :: Term arg result => arg -> result
 urlset_ = term "urlset"
@@ -26,8 +27,8 @@ withXml body = do
 
 genArticles :: [Article] -> Html ()
 genArticles articles = do
-  forM_ articles \article -> do
-    url_ $ loc_ $ toHtml article.slug
+  forM_ articles \(Article { .. }) -> do
+    url_ $ loc_ $ toHtml [st|https://withflint.com/blog/#{slug}|]
 
 sitemap :: [Article] -> Html ()
 sitemap articles = withXml do
@@ -38,3 +39,4 @@ sitemap articles = withXml do
     url_ $ loc_ "https://withflint.com/blog"
     genArticles articles
     url_ $ loc_ "https://withflint.com/join"
+    url_ $ loc_ "https://withflint.com/internationally-educated-nurses-faq"
