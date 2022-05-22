@@ -27,7 +27,7 @@ import System.FilePath ((</>))
 
 routes :: Config -> Static -> Scotty
 routes config@(Config { .. }) static@(Static { .. }) = do
-  let unchanged = [ "/", "/blog", "/privacy", "/faq", "/careers", "/team", "/join", "/nurse-careers" ]
+  let unchanged = [ "/", "/blog", "/faq", "/team", "/join", "/nurse-careers" ]
 
   forM_ unchanged \url -> do
     get url do
