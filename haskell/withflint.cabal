@@ -69,7 +69,7 @@ library
                     , scotty
                     , lucid
                     , time
-                    , shakespeare
+                    , shakespeare 
                     , filepath
                     , smtp-mail
                     , mime-mail

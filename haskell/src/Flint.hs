@@ -36,11 +36,23 @@ routes config@(Config { .. }) static@(Static { .. }) = do
   get "/jobs" do
     redirect "/join"
 
+  get "/jobs/:name" do
+    name :: String <- param "name"
+    redirect [lt|/join/#{name}|]
+  
   get "/careers" do
     redirect "/join"
 
+  get "/careers/:name" do
+    name :: String <- param "name"
+    redirect [lt|/join/#{name}|]
+      
   get "/health-care-jobs" do
     redirect "/nurse-careers"
+  
+  get "/health-care-jobs/:name" do
+    name :: String <- param "name"
+    redirect [lt|/nurse-careers/#{name}|]
 
   get "/team" do
     redirect "/"
@@ -101,10 +113,3 @@ run config = do
     middleware logStdout
     middleware $ gzip def
     routes config $ Static { .. }
-
-testConfig :: Config
-testConfig = Config
-  { root = "/Volumes/CS/code/work/withflint.com"
-  , gitVersion = "dirty"
-  , env = "dev"
-  }

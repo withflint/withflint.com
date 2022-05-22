@@ -4,9 +4,9 @@ import Lucid
 import Lucid.Base (makeAttribute)
 import Data.Text (Text)
 import Flint.Types
+import Flint.Utils (comment_)
 import Flint.Blog (generateMeta)
-import Text.Julius
-import Text.Shakespeare.Text 
+import Text.Shakespeare.Text (st, sbt)
 
 dataWebsiteId_ :: Text -> Attribute
 dataWebsiteId_ = makeAttribute "data-website-id"
@@ -15,10 +15,19 @@ index :: Config -> Maybe Meta -> Html ()
 index Config { gitVersion } meta = do
   doctypehtml_ do
     html_ do
+      comment_
+        [sbt|
+            |This site is built in Elm.
+            |You can see the source code at https://github.com/withflint/withflint.com
+            |
+            |If you are interested in building Elm with us,
+            |tell us about your interest at join@withflint.command
+            |]
+
       head_ do
         meta_ [ charset_ "utf-8" ]
         
-        title_ "Flint - Safeguard Your Healthcare Staffing Needs"
+        title_ "Flint - Securing Nurses for Your Future"
         
         meta_ [ name_ "viewport"
               , content_ "width=device-width, initial-scale=1.0"
@@ -40,22 +49,22 @@ index Config { gitVersion } meta = do
         script_ [ src_ [st|/static/#{gitVersion}/elm.js|] ] ""
 
         script_ []
-          [st|const pathname =
-                    window &&
-                    window.location &&
-                    window.location.pathname &&
-                    window.location.pathname.indexOf("/blog/") > -1 &&
-                    window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1)
-                    
-              const init = {
-                  node: document.getElementById("flint"),
-                  flags: {
-                      article: pathname || null,
-                      gitVersion: "#{gitVersion}"
-                  }
-              }
-              
-              const app = Elm.Main.init(init)
+          [sbt|const pathname =
+              |      window &&
+              |      window.location &&
+              |      window.location.pathname &&
+              |      window.location.pathname.indexOf("/blog/") > -1 &&
+              |      window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1)
+              |      
+              |const init = {
+              |    node: document.getElementById("flint"),
+              |    flags: {
+              |        article: pathname || null,
+              |        gitVersion: "#{gitVersion}"
+              |    }
+              |}
+              |
+              |const app = Elm.Main.init(init)
               |]
 
         script_ [ async_ ""

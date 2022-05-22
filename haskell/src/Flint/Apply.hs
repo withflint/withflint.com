@@ -45,13 +45,13 @@ mailHtmlBody (Candidate { .. }) = do
 
 mailTextBody :: Candidate -> Text.Lazy.Text
 mailTextBody (Candidate { .. }) =
-  [lt|#{reason}
-
-      #{firstName} #{lastName}
-
-      #{phone}
-
-      #{email}
+  [lbt|#{reason}
+      |
+      |#{firstName} #{lastName}
+      |
+      |#{phone}
+      |
+      |#{email}
       |]
 
 mailRenderer :: MailRenderer
@@ -90,16 +90,16 @@ careersHtmlBody (Candidate { .. }) = do
 
 careersTextBody :: Candidate -> Text.Lazy.Text
 careersTextBody (Candidate { .. }) =
-  [lt|Hello #{firstName},
-
-      Thank you for your interest in the #{applicationTitle} position at Flint.
-      I will review your candidacy and get back to you shortly.
-
-      Kind Regards,
-      Simon Green
-
-      Head of Produxt at Flint
-      https://withflint.com
+  [lbt|Hello #{firstName},
+      |
+      |Thank you for your interest in the #{applicationTitle} position at Flint.
+      |I will review your candidacy and get back to you shortly.
+      |
+      |Kind Regards,
+      |Simon Green
+      |
+      |Head of Product at Flint
+      |https://withflint.com
       |]
 
 careersRenderer :: MailRenderer
@@ -111,7 +111,7 @@ careersRenderer = MailRenderer
 careersEmail :: Location
 careersEmail = Location
   { address = Address (Just "Simon Green") "simon@withflint.com"
-  , mailingList = Address Nothing "careers+ws@withflint.com"
+  , mailingList = Address Nothing "join+ws@withflint.com"
   }
 
 healthCareHtmlBody :: Candidate -> Html ()
@@ -140,15 +140,15 @@ healthCareHtmlBody (Candidate { .. }) = do
 
 healthCareTextBody :: Candidate -> Text.Lazy.Text
 healthCareTextBody (Candidate { .. }) =
-  [lt|Hello #{firstName},
-
-      Thank you for your interest in the #{applicationTitle} position at Flint.
-      We will review your candidacy and back to you shortly.
-
-      Kind Regards,
-
-      the Talent Team at Flint
-      https://withflint.com
+  [lbt|Hello #{firstName},
+      |
+      |Thank you for your interest in the #{applicationTitle} position at Flint.
+      |We will review your candidacy and back to you shortly.
+      |
+      |Kind Regards,
+      |
+      |the Talent Team at Flint
+      |https://withflint.com
       |]
 
 healthCareRenderer :: MailRenderer

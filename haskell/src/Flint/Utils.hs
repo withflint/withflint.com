@@ -1,7 +1,8 @@
 module Flint.Utils where
 
-import Lucid.Base (Attribute, Html, renderText, makeAttribute)
+import Lucid.Base (Attribute, Html, renderText, makeAttribute, ToHtml (toHtmlRaw))
 import Data.Text (Text, pack)
+import Data.Text qualified as Text
 import Control.Monad (void)
 import Text.Parsec (manyTill, noneOf, oneOf, string)
 import Text.Parsec.Text (Parser)
@@ -19,6 +20,7 @@ import Network.Wai.Parse (FileInfo (..))
 import Data.ByteString.Lazy (ByteString)
 import Data.Text.Encoding qualified
 import Data.Text.Lazy.Encoding qualified
+import Text.Shakespeare.Text (lt)
 
 type Scotty = ScottyM ()
 type Action = ActionM ()
@@ -53,6 +55,10 @@ lucid = html . renderText
 
 lucidXml :: Html () -> Action
 lucidXml = text . renderText
+
+comment_ :: Text -> Html ()
+comment_ body = do
+  toHtmlRaw [lt|<!-- #{body} -->|]
 
 type Attachment = (Text, Text, ByteString)
 
