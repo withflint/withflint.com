@@ -1,20 +1,19 @@
 name: CI
 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  workflow_call:
+    secrets:
+      AWS_ECR_REGISTRY:
+        required: true
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
 
 env:
   AWS_REGION: us-west-2
   GIT_BRANCH: ${{ github.head_ref || github.ref_name }}
   ECR_URL: ${{ secrets.AWS_ECR_REGISTRY }}
-  CHAT_WEBHOOK: ${{ secrets.CHAT_WEBHOOK }}
   WHO: ${{ github.actor }}
   GITHUB_LONG_HASH: ${{ github.event.pull_request.head.sha || github.sha }}
 
@@ -22,20 +21,27 @@ permissions:
   id-token: write
   contents: read
 
-concurrency:
-  group: ${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: withflint/checkout@v3
+
+      - name: Install Nix
+        uses: withflint/install-nix-action@v17
+        with:
+          nix_path: nixpkgs=channel:nixos-21.11
+          extra_nix_config: |
+            # save space on disk and in cache
+            auto-optimise-store = true
+            # keep all store paths necessary to build the outputs
+            keep-outputs = true
+            keep-derivations = true
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: withflint/configure-aws-credentials@v1
         with:
           aws-region: us-west-2
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -43,7 +49,23 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: withflint/amazon-ecr-login@v1
 
-      - name: Run Multi Project Build
-        run: ./.build/build.sh
+      - name: Add SHORT_SHA env property with commit short sha
+        run: echo "SHORT_SHA=`echo ${GITHUB_LONG_HASH} | cut -c1-7`" >> $GITHUB_ENV
+
+      - name: Build withflint 
+        working-directory: ./
+        run: |
+          nix build .#images
+          skopeo copy docker-archive:result docker://${{ secrets.AWS_ECR_REGISTRY }}/withflint.com_haskell:${SHORT_SHA}
+          echo "- published withflint.com_haskell:${SHORT_SHA}" >> output
+
+      - name: Post build withflint
+        uses: withflint/download-artifact@v3
+        with:
+          name: output
+
+      - name: Print the final result
+        run: |
+          echo "withflint\n " > output.txt

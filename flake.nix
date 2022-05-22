@@ -1,13 +1,19 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, bla }:
+  outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system; };
-          gitVersion = if (self ? rev) then self.rev else "dirty";
+          ghcVersion = "ghc922";
+          haskellPackages = pkgs.haskell.packages.${ghcVersion}.override {
+            overrides = self: super: {
+              retry = pkgs.haskell.lib.dontCheck super.retry;
+            };
+          };
+          gitVersion = if (self ? shortRev) then self.shortRev else "dirty";
       in {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
@@ -15,22 +21,36 @@
             elmPackages.elm-format
             elmPackages.elm-live
             elmPackages.elm
-            dotnetCorePackages.sdk_6_0
+            haskellPackages.haskell-language-server
+            haskellPackages.cabal-install
+            haskellPackages.fourmolu_0_6_0_0
+            cabal2nix
           ];
         };
 
-        defaultPackage = throw bla; # self.packages.${system}.withflint;
-        defaultApp = self.apps.${system}.withflint;
-        
-        apps = {
+        apps = rec {
+          default = withflint;
+          
           withflint = {
             type = "app";
-            program = "${self.packages.${system}.withflint}/bin/backend";
+            program = "${self.packages.${system}.withflint}/bin/withflint";
           };
         };
 
         packages = rec {
-          backend = pkgs.callPackage ./backend/default.nix {
+          withflint-image = pkgs.dockerTools.buildImage {
+            name = "withflint";
+            contents = [ withflint ];
+            created = "now";
+            tag = "latest";
+            config = {
+              EntryPoint = [ "/bin/withflint" ];
+            };
+          };
+          
+          default = withflint;
+          
+          backend = haskellPackages.callPackage ./haskell/default.nix {
             name = "withflint-backend";
           };
 
@@ -39,7 +59,8 @@
           };
 
           withflint = pkgs.callPackage ./default.nix {
-            inherit backend frontend gitVersion;
+            inherit frontend gitVersion;
+            backend = pkgs.haskell.lib.justStaticExecutables backend;
             name = "withflint";
           };
         };

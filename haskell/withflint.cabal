@@ -74,6 +74,8 @@ library
                     , smtp-mail
                     , mime-mail
                     , network
+                    , blaze-builder
+                    
     hs-source-dirs:   src
 
 executable withflint

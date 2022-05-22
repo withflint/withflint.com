@@ -66,12 +66,12 @@ routes config@(Config { .. }) static@(Static { .. }) = do
   post "/happly" do
     candidate <- getCandidate
     
-    apply healthCareEmail candidate healthCareBody
+    apply healthCareEmail candidate healthCareRenderer 
 
   post "/apply" do
     candidate <- getCandidate
     
-    apply careersEmail candidate careersBody
+    apply careersEmail candidate careersRenderer
 
   notFound do
     lucid $ index config Nothing

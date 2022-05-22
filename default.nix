@@ -25,12 +25,10 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out $out/bin
-    cp -R ./static ./blog ./jobs index.html $out/
+    cp -R ./static ./content $out/
     mkdir $out/static/${gitVersion}
 
-    sed -i "s/GIT_VERSION/${gitVersion}/g" $out/index.html
-
-    makeWrapper ${backend}/backend $out/bin/backend \
+    makeWrapper ${backend}/bin/withflint $out/bin/withflint \
       --set WITHFLINT_ROOT $out \
       --set GIT_VERSION ${gitVersion}
 

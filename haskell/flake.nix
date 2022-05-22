@@ -28,6 +28,7 @@
             haskellPackages.haskell-language-server
             haskellPackages.cabal-install
             haskellPackages.fourmolu_0_6_0_0
+            pkgs.cabal2nix
           ];
         };
       }
