@@ -69,5 +69,5 @@ jobs:
         working-directory: ./
         run: |
           nix build .#withflint-image
-          skopeo copy docker-archive:result docker://${{ secrets.AWS_ECR_REGISTRY }}/withflint.com_haskell:${SHORT_SHA}
-          echo "- published withflint.com_haskell:${SHORT_SHA}"
+          skopeo copy docker-archive:result docker://${{ secrets.AWS_ECR_REGISTRY }}/withflint.com:${SHORT_SHA}
+          echo "- published withflint.com:${SHORT_SHA}"
