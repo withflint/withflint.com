@@ -34,7 +34,17 @@
 
         apps = rec {
           default = withflint;
-          
+
+          fix = {
+            type = "app";
+            program = "${self.packages.${system}.fix-script}";
+          };
+
+          format = {
+            type = "app";
+            program = "${self.packages.${system}.format-script}";
+          };
+
           withflint = {
             type = "app";
             program = "${self.packages.${system}.withflint}/bin/withflint";
@@ -44,6 +54,7 @@
         packages = rec {
           withflint-image = pkgs.dockerTools.buildImage {
             name = "withflint";
+
             contents = [
               withflint
               pkgs.glibcLocales
@@ -51,8 +62,11 @@
               pkgs.busybox
               pkgs.bash
             ];
+
             created = "now";
+            
             tag = "latest";
+
             config = {
               EntryPoint = [ "/bin/withflint" ];
               Env = [
@@ -77,6 +91,14 @@
             backend = pkgs.haskell.lib.justStaticExecutables backend;
             name = "withflint";
           };
+
+          format-script = pkgs.writeShellScript "format.sh" ''
+            ${pkgs.elmPackages.elm-format}/bin/elm-format elm/src --yes
+          '';
+
+          fix-script = pkgs.writeShellScript "fix.sh" ''
+            ${pkgs.elmPackages.elm-review}/bin/elm-review --compiler ${pkgs.elmPackages.elm}/bin/elm --fix-all --elmjson elm/elm.json
+          '';
         };
       }
     );

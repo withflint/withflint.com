@@ -125,11 +125,11 @@ nurseCareersCopy =
     , why = "Why do you want to work in the United States of America?"
     , title = "Launch your nursing career in America"
     , pageTitle = "Nurse Careers  - Flint"
-       , other =
+    , other =
         Just
             [ text " "
             , link Styles.link
-                { url = toPath (FaqNurses)
+                { url = toPath FaqNurses
                 , label = text "Learn more"
                 }
             ]
