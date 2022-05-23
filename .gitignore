@@ -170,3 +170,6 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+
+# haskell
+dist-newstyle
