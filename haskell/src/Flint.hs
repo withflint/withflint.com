@@ -27,7 +27,7 @@ import System.FilePath ((</>))
 
 routes :: Config -> Static -> Scotty
 routes config@(Config { .. }) static@(Static { .. }) = do
-  let unchanged = [ "/", "/blog", "/faq", "/team", "/join", "/nurse-careers" ]
+  let unchanged = [ "/", "/blog", "/faq", "/join", "/nurse-careers" ]
 
   forM_ unchanged \url -> do
     get url do
@@ -53,14 +53,14 @@ routes config@(Config { .. }) static@(Static { .. }) = do
   get "/health-care-jobs/:name" do
     name :: String <- param "name"
     redirect [lt|/nurse-careers/#{name}|]
-
-  get "/team" do
-    redirect "/"
   
   get "/healthz" do
     now <- liftIO $ show <$> getCurrentTime
 
     text [lt|Ok,#{env},#{gitVersion},#{now}|]
+
+  get "/team" do
+    redirect "/"
   
   get "/blog/:article" do
     articleId <- param "article"
