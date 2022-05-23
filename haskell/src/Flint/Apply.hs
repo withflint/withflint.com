@@ -177,7 +177,7 @@ apply location candidate@(Candidate { .. }) renderer = do
   
   let notification =
         simpleMailInMemory
-          location.address
+          location.mailingList
           location.mailingList
           subject
           textBodyForNotification
