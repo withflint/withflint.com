@@ -32,7 +32,7 @@ routes config@(Config { .. }) static@(Static { .. }) = do
   forM_ unchanged \url -> do
     get url do
       lucid $ index config Nothing
-  
+
   get "/jobs" do
     redirect "/join"
 
@@ -71,7 +71,7 @@ routes config@(Config { .. }) static@(Static { .. }) = do
       case found of
         []       -> Nothing
         meta : _ -> Just meta
-
+  
   get "/articles" do
     json articles
 

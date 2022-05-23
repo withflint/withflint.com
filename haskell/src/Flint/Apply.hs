@@ -191,8 +191,8 @@ apply location candidate@(Candidate { .. }) renderer = do
   
   let emailToCandidate =
         simpleMailInMemory
-          location.address
           candidateAddress
+          location.address 
           "Thank you for applying"
           textBodyForCandidate
           htmlBodyForCandidate
@@ -200,7 +200,7 @@ apply location candidate@(Candidate { .. }) renderer = do
   
   liftIO do
     sendMailSTARTTLS "smtp-relay.gmail.com" notification {
-      mailHeaders = [ replyTo ]
+      mailHeaders = replyTo : notification.mailHeaders
     }
     
     sendMailSTARTTLS "smtp-relay.gmail.com" emailToCandidate
