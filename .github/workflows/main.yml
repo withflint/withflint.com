@@ -37,6 +37,8 @@ jobs:
     steps:
       - name: Checkout
         uses: withflint/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install Nix
         uses: withflint/install-nix-action@v17
