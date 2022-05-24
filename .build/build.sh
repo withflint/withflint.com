@@ -2,8 +2,8 @@
 
 echo "Building..."
 export GIT_VERSION=$(git rev-parse --short $GITHUB_LONG_HASH)
-sort -R .build/quotes | head -n1  >> output
-echo "\n<https://github.com/withflint/withflint.com/tree/$GIT_BRANCH|withflint.com/$GIT_BRANCH> @ $GIT_VERSION by $WHO\n\nBuilds:" >> output
+OUTPUT=$(sort -R .build/quotes | head -n1)
+OUTPUT+="\n<https://github.com/withflint/withflint.com/tree/$GIT_BRANCH|withflint.com/$GIT_BRANCH> @ $GIT_VERSION by $WHO\n\nBuilds:"
 
 declare -A PROJECT_MAP
 
@@ -24,13 +24,12 @@ for PID in `jobs -p`; do
     if wait $PID; then
         NAME="${PROJECT_MAP[$PID]}"
         echo "BUILD SUCCEED: project $NAME on pid $PID"
-        echo "- $NAME Ok.">> output;
+        OUTPUT+="- $NAME Ok.";
     else
         NAME="${PROJECT_MAP[$PID]}"
-        CODEBUILD_BUILD_SUCCEEDING=$((CODEBUILD_BUILD_SUCCEEDING-1))
         echo "[ERROR] BUILD FAILED: project $NAME on pid $PID"
-        echo "- $NAME Failed!" >> output;
+        OUTPUT+="- $NAME Failed!";
     fi
 done
 
-curl -X POST -H "Content-Type:application/json" --data "{ \"text\":\"$(cat output)\"}" "$CHAT_WEBHOOK"
+curl -X POST -H "Content-Type:application/json" --data "{ \"text\":\"${OUTPUT}\"}" "$CHAT_WEBHOOK"

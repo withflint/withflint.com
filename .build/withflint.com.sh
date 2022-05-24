@@ -2,5 +2,6 @@
 
 export TARGET="$ECR_URL/withflint.com:$GIT_VERSION"
 
-docker build $(pwd) -t $TARGET --build-arg GIT_VERSION=$GIT_VERSION -f $(pwd)/.build/Dockerfile
-docker push $TARGET
+nix build .#withflint-image
+skopeo copy docker-archive:result docker://$TARGET
+echo "- published withflint.com:$GIT_VERSION"
