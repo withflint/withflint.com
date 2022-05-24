@@ -67,4 +67,7 @@ jobs:
 
       - name: Build withflint 
         working-directory: ./
-        run: .build/build.sh 
+        run: |
+          nix build .#withflint-image
+          skopeo copy docker-archive:result docker://${{ secrets.AWS_ECR_REGISTRY }}/withflint.com:${SHORT_SHA}
+          echo "- published withflint.com:${SHORT_SHA}"

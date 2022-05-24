@@ -47,7 +47,7 @@
 
           withflint = {
             type = "app";
-            program = "${self.packages.${system}.withflint}/bin/withflint";
+            program = "${self.packages.${system}.withflint-script}";
           };
         };
 
@@ -91,6 +91,14 @@
             backend = pkgs.haskell.lib.justStaticExecutables backend;
             name = "withflint";
           };
+
+          withflint-script = pkgs.writeShellScript "withflint.sh" ''
+            if test -f ".env"; then
+              source .env
+            fi
+            
+            ${withflint}/bin/withflint
+          '';
 
           format-script = pkgs.writeShellScript "format.sh" ''
             ${pkgs.elmPackages.elm-format}/bin/elm-format elm/src --yes
