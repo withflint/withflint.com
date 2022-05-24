@@ -7,12 +7,15 @@
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system; };
+          
           ghcVersion = "ghc922";
+
           haskellPackages = pkgs.haskell.packages.${ghcVersion}.override {
             overrides = self: super: {
               retry = pkgs.haskell.lib.dontCheck super.retry;
             };
           };
+
           gitVersion = if (self ? shortRev) then self.shortRev else "dirty";
       in {
         devShell = haskellPackages.shellFor {
