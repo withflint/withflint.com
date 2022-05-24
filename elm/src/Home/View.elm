@@ -119,7 +119,7 @@ desktopView =
                     [ column [ wf, spacing 20, alignTop ]
                         [ column [ wf, height fill, centerY, paddingXY 0 150, spacing 30, paddingEach { top = 150, bottom = 150, left = 0, right = 10 } ]
                             [ paragraph [ Font.size 30, width (fill |> maximum 500), height fill, centerY ] [ text "Securing nurses for your future" ]
-                            , paragraph Styles.paragraph [ text "The right nurse. Health care expertise on demand. Find everything you need to optimize your heathcare staffing needs — with Flint." ]
+                            , paragraph Styles.paragraph [ text "The right nurse. Health care expertise on demand. Find everything you need to optimize your healthcare staffing needs — with Flint." ]
                             , meetWithExpertTop
                             ]
                         ]
