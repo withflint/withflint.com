@@ -5,6 +5,7 @@ TBD
 
 
 
+
 Relocation to USA is required and included as part of this position. Flint offers fully sponsored licensing, immigration and relocation programs. We also facilitate, relocation housing and community integration.
 
 We are looking for an Internationally Educated Nurse (IEN), Registered Nurse (RN) to care for our patients and facilitate their speedy recovery. You will be responsible for educating them and their families on prevention and healthy habits. The ideal candidate will be a responsible and well-trained professional able to give the best nursing care with little supervision. You will be compassionate and cool-tempered. You will be able to follow health and safety guidelines faithfully and consistently. The goal is to promote patient's well-being by providing high-quality nursing care.
