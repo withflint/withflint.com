@@ -32,7 +32,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -40,16 +40,27 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
-            #      - name: Configure AWS Credentials
-            #        uses: withflint/configure-aws-credentials@v1
-            #        with:
-            #          aws-region: us-west-2
-            #          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            #          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Install Nix
+        uses: withflint/install-nix-action@v17
+        with:
+          nix_path: nixpkgs=channel:nixos-21.11
+          extra_nix_config: |
+            # save space on disk and in cache
+            auto-optimise-store = true
+            # keep all store paths necessary to build the outputs
+            keep-outputs = true
+            keep-derivations = true
 
-            #      - name: Login to Amazon ECR
-            #        id: login-ecr
-            #        uses: withflint/amazon-ecr-login@v1
+      - name: Configure AWS Credentials
+        uses: withflint/configure-aws-credentials@v1
+        with:
+          aws-region: us-west-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: withflint/amazon-ecr-login@v1
 
       - name: Add SHORT_SHA env property with commit short sha
         run: echo "SHORT_SHA=`echo ${GITHUB_LONG_HASH} | cut -c1-7`" >> $GITHUB_ENV
@@ -58,5 +69,5 @@ jobs:
         working-directory: ./
         run: |
           nix build .#withflint-image
-          skopeo --insecure-policy copy docker-archive:result docker://${{ secrets.AWS_ECR_REGISTRY }}/withflint.com:${SHORT_SHA}
+          skopeo copy docker-archive:result docker://${{ secrets.AWS_ECR_REGISTRY }}/withflint.com:${SHORT_SHA}
           echo "- published withflint.com:${SHORT_SHA}"
