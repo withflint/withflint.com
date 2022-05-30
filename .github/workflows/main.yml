@@ -32,24 +32,13 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout
         uses: withflint/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: Install Nix
-        uses: withflint/install-nix-action@v17
-        with:
-          nix_path: nixpkgs=channel:nixos-21.11
-          extra_nix_config: |
-            # save space on disk and in cache
-            auto-optimise-store = true
-            # keep all store paths necessary to build the outputs
-            keep-outputs = true
-            keep-derivations = true
 
       - name: Configure AWS Credentials
         uses: withflint/configure-aws-credentials@v1
@@ -63,7 +52,8 @@ jobs:
         uses: withflint/amazon-ecr-login@v1
 
       - name: Add SHORT_SHA env property with commit short sha
-        run: echo "SHORT_SHA=`echo ${GITHUB_LONG_HASH} | cut -c1-7`" >> $GITHUB_ENV
+        run: |
+          echo "SHORT_SHA=`echo ${GITHUB_LONG_HASH} | cut -c1-7`" >> $GITHUB_ENV
 
       - name: Build withflint 
         working-directory: ./
@@ -71,3 +61,7 @@ jobs:
           nix build .#withflint-image
           skopeo copy docker-archive:result docker://${{ secrets.AWS_ECR_REGISTRY }}/withflint.com:${SHORT_SHA}
           echo "- published withflint.com:${SHORT_SHA}"
+
+      - name: Nuke AWS config
+        run: |
+          rm -rf $GITHUB_WORKSPACE/.aws
