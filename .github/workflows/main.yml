@@ -41,7 +41,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Configure AWS Credentials
-        uses: withflint/configure-aws-credentials@HEAD
+        uses: withflint/configure-aws-credentials@v1-nix
         with:
           aws-region: us-west-2
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -49,7 +49,7 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: withflint/amazon-ecr-login@HEAD
+        uses: withflint/amazon-ecr-login@v1-nix
 
       - name: Add SHORT_SHA env property with commit short sha
         run: |
