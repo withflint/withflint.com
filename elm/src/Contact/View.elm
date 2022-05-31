@@ -179,7 +179,7 @@ phoneLayout =
                                , mouseOver [ Background.color colors.blue1 ]
                                ]
                         )
-                        { url = "mailto:talent@withflint.com", label = text "talent@withflint.com" }
+                        { url = "mailto:success@withflint.com", label = text "success@withflint.com" }
                     , link
                         (Styles.paragraph
                             ++ buttons.secondary
@@ -328,7 +328,7 @@ tabletLayout =
                                , mouseOver [ Background.color colors.blue1 ]
                                ]
                         )
-                        { url = "mailto:talent@withflint.com", label = text "talent@withflint.com" }
+                        { url = "mailto:success@withflint.com", label = text "success@withflint.com" }
                     , link
                         (Styles.paragraph
                             ++ buttons.secondary
@@ -455,7 +455,7 @@ desktopLayout =
                            , Font.color colors.gray2
                            ]
                     )
-                    [ el [ centerX ] <| text "talent@withflint.com" ]
+                    [ el [ centerX ] <| text "success@withflint.com" ]
                 , row
                     (Styles.paragraph
                         ++ [ centerX
