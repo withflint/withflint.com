@@ -135,7 +135,7 @@ healthCareHtmlBody (Candidate { .. }) = do
   br_ []
   br_ []
 
-  "the Talent Team at "
+  "the Nurse Success at "
   a_ [ href_ "https://withflint.com/" ] "Flint"
 
 healthCareTextBody :: Candidate -> Text.Lazy.Text
@@ -147,7 +147,7 @@ healthCareTextBody (Candidate { .. }) =
       |
       |Kind Regards,
       |
-      |the Talent Team at Flint
+      |the Nurse Success at Flint
       |https://withflint.com
       |]
 
@@ -159,7 +159,7 @@ healthCareRenderer = MailRenderer
 
 healthCareEmail :: Location
 healthCareEmail = Location
-  { address = Address (Just "Flint Talent Team") "talent@withflint.com"
+  { address = Address (Just "Flint Nurse Success") "success@withflint.com"
   , mailingList = Address Nothing "apply@withflint.com"
   }
 

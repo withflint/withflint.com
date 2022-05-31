@@ -481,6 +481,6 @@ copy :
 copy =
     { staffingExpertsHead = "Healthcare Partnerships"
     , staffingExperts = "To learn more about what an optimized staffing solution looks like, meet with our partnership team."
-    , talentExpertsHead = "Nurse Talent Team"
+    , talentExpertsHead = "Nurse Success"
     , talentExperts = "Are you an internationally educated nurse? We can help you relocate to the United States of America; we offer all-inclusive packages, including immigration, green cards, transport, accommodations and the best job offers. Text, call or email us!"
     }

@@ -217,7 +217,7 @@ copy =
         , ( "• ", "Dedicated relocation & cultural advisor for the nurse (3 years)" )
         ]
     , standards = "Nurses that meet the highest standards"
-    , standardsParagraph = "Every nurse we recruit is carefully screened and vetted by our Talent Team to ensure they can communicate effectively in English, have the appropriate experience for your needs, and possess the right attitude to succeed in the United States. When it comes to the final selection, you’re in control. Our team will work alongside yours to facilitate the selection process, and present candidates tailored to your specific hiring needs."
+    , standardsParagraph = "Every nurse we recruit is carefully screened and vetted by our Nurse Success to ensure they can communicate effectively in English, have the appropriate experience for your needs, and possess the right attitude to succeed in the United States. When it comes to the final selection, you’re in control. Our team will work alongside yours to facilitate the selection process, and present candidates tailored to your specific hiring needs."
     , best = "We Source the Best Nurses"
     , bestParagraph = "Flint has the best nurses. Just ask anyone who’s met our candidates. With an international sourcing team that sources from the entire world, we receive a lot of applications, thousands per year in fact. With such a large pool of nurses, we’re able to screen and select the best candidates for your needs."
     , fast = "Fastest Immigration Possible"
