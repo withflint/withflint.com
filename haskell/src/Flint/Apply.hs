@@ -29,10 +29,10 @@ getCandidate = do
 mailHtmlBody :: Candidate -> Html ()
 mailHtmlBody (Candidate { .. }) = do
   toHtml reason
-  
+
   br_ []
   br_ []
-    
+
   toHtml [st|#{firstName} #{lastName}|]
 
   br_ []
@@ -63,7 +63,7 @@ mailRenderer = MailRenderer
 careersHtmlBody :: Candidate -> Html ()
 careersHtmlBody (Candidate { .. }) = do
   toHtml [st|Hello #{firstName},|]
-  
+
   br_ []
   br_ []
 
@@ -117,7 +117,7 @@ careersEmail = Location
 healthCareHtmlBody :: Candidate -> Html ()
 healthCareHtmlBody (Candidate { .. }) = do
   toHtml [st|Hello #{firstName},|]
-  
+
   br_ []
   br_ []
 
@@ -135,7 +135,7 @@ healthCareHtmlBody (Candidate { .. }) = do
   br_ []
   br_ []
 
-  "the Nurse Success at "
+  "Nurse Success at "
   a_ [ href_ "https://withflint.com/" ] "Flint"
 
 healthCareTextBody :: Candidate -> Text.Lazy.Text
@@ -147,7 +147,7 @@ healthCareTextBody (Candidate { .. }) =
       |
       |Kind Regards,
       |
-      |the Nurse Success at Flint
+      |Nurse Success at Flint
       |https://withflint.com
       |]
 
@@ -169,12 +169,12 @@ apply location candidate@(Candidate { .. }) renderer = do
   attachments <- map fileToAttachment <$> files
 
   let candidateAddress = Address (Just [st|#{firstName} #{lastName}|]) email
-  
+
   let subject = [st|Flint - New Application : #{firstName} #{lastName}, #{applicationTitle}|]
 
   let htmlBodyForNotification = renderText $ mailRenderer.htmlRenderer candidate
   let textBodyForNotification = mailRenderer.textRenderer candidate
-  
+
   let notification =
         simpleMailInMemory
           location.mailingList
@@ -183,24 +183,24 @@ apply location candidate@(Candidate { .. }) renderer = do
           textBodyForNotification
           htmlBodyForNotification
           attachments
-          
+
   let replyTo = ("Reply-To", renderAddress candidateAddress)
 
   let htmlBodyForCandidate = renderText $ renderer.htmlRenderer candidate
   let textBodyForCandidate = renderer.textRenderer candidate
-  
+
   let emailToCandidate =
         simpleMailInMemory
           candidateAddress
-          location.address 
+          location.address
           "Thank you for applying"
           textBodyForCandidate
           htmlBodyForCandidate
           []
-  
+
   liftIO do
     sendMailSTARTTLS "smtp-relay.gmail.com" notification {
       mailHeaders = replyTo : notification.mailHeaders
     }
-    
+
     sendMailSTARTTLS "smtp-relay.gmail.com" emailToCandidate
