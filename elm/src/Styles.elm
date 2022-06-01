@@ -68,7 +68,9 @@ colors =
     , black3 = rgb255 51 51 50
     , creme1 = rgb255 251 247 210
     , creme2 = rgb255 253 252 234
-    , blue1 = rgb255 181 217 255
+
+    -- , blue1 = rgb255 181 217 255
+    , blue1 = rgb255 68 55 109
     }
 
 
