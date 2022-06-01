@@ -88,7 +88,7 @@ notFound =
                         , width (px 100)
                         , height (px 50)
                         ]
-                        { src = "/static/images/logo-white.svg"
+                        { src = "/static/images/logo-white.svg?new"
                         , description = "Flint"
                         }
                 }

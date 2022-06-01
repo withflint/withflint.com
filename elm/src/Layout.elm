@@ -80,7 +80,7 @@ header =
                     [ Element.link
                         []
                         { url = toPath Home
-                        , label = Element.image [ centerY, alignLeft, width (px 100), height (px 50) ] { src = "/static/images/logo.svg", description = "Flint" }
+                        , label = Element.image [ centerY, alignLeft, width (px 100), height (px 50) ] { src = "/static/images/logo.svg?new", description = "Flint" }
                         }
                     ]
                 , column [ width fill, alignRight ]
@@ -97,7 +97,7 @@ header =
             [ Element.link
                 []
                 { url = toPath Home
-                , label = Element.image [ centerY, alignLeft, width (px 100), height (px 50) ] { src = "/static/images/logo.svg", description = "Flint" }
+                , label = Element.image [ centerY, alignLeft, width (px 100), height (px 50) ] { src = "/static/images/logo.svg?new", description = "Flint" }
                 }
             ]
         ]
@@ -118,7 +118,7 @@ footer =
                         [ width fill
                         ]
                         [ image [ width (px 80), height (px 50) ]
-                            { src = "/static/images/logo.svg"
+                            { src = "/static/images/logo.svg?new"
                             , description = "Flint"
                             }
                         ]
@@ -131,21 +131,21 @@ footer =
                             [ newTabLink
                                 []
                                 { url = "https://www.ycombinator.com/companies/flint"
-                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg", description = "Flint" }
+                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg?new", description = "Flint" }
                                 }
                             ]
                         , row []
                             [ newTabLink
                                 []
                                 { url = "https://github.com/withflint"
-                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg", description = "Flint" }
+                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg?new", description = "Flint" }
                                 }
                             ]
                         , row []
                             [ newTabLink
                                 []
                                 { url = "https://www.linkedin.com/company/withflint/"
-                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg", description = "Flint" }
+                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg?new", description = "Flint" }
                                 }
                             ]
                         ]
@@ -165,21 +165,21 @@ footer =
                         [ newTabLink
                             []
                             { url = "https://www.ycombinator.com/companies/flint"
-                            , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg", description = "Flint" }
+                            , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg?new", description = "Flint" }
                             }
                         ]
                     , row []
                         [ newTabLink
                             []
                             { url = "https://github.com/withflint"
-                            , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg", description = "Flint" }
+                            , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg?new", description = "Flint" }
                             }
                         ]
                     , row []
                         [ newTabLink
                             []
                             { url = "https://www.linkedin.com/company/withflint/"
-                            , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg", description = "Flint" }
+                            , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg?new", description = "Flint" }
                             }
                         ]
                     ]
@@ -188,7 +188,7 @@ footer =
         , row
             [ width fill, paddingEach { top = 30, bottom = 10, left = 0, right = 0 } ]
             [ image [ width (px 50), height (px 30), centerX ]
-                { src = "/static/images/logo.svg"
+                { src = "/static/images/logo.svg?new"
                 , description = "Flint"
                 }
             ]

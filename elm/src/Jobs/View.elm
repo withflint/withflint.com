@@ -97,7 +97,7 @@ phoneHeader =
                 { url = toPath Home
                 , label =
                     Element.image [ centerY, alignLeft, width (px 100), height (px 50) ]
-                        { src = "/static/images/logo-white.svg"
+                        { src = "/static/images/logo-white.svg?new"
                         , description = "Flint"
                         }
                 }
@@ -114,7 +114,7 @@ desktopHeader =
                     { url = toPath Home
                     , label =
                         Element.image [ centerY, alignLeft, width (px 100), height (px 50) ]
-                            { src = "/static/images/logo-white.svg"
+                            { src = "/static/images/logo-white.svg?new"
                             , description = "Flint"
                             }
                     }
@@ -534,10 +534,10 @@ hiringProcess =
         ]
         [ paragraph []
             [ newTabLink [ wf ]
-                { url = "/static/images/hiring-process.svg"
+                { url = "/static/images/hiring-process.svg?new"
                 , label =
                     image [ wf, centerX ]
-                        { src = "/static/images/hiring-process.svg"
+                        { src = "/static/images/hiring-process.svg?new"
                         , description = "Interview Process"
                         }
                 }
