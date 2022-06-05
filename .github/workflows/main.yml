@@ -21,7 +21,7 @@ jobs:
     runs-on: self-hosted
 
     outputs:
-      status: ${{ steps.build.outputs.status || "Failed" }}
+      status: ${{ steps.build.outputs.status || echo "Failed" }}
 
     steps:
       - name: Checkout
