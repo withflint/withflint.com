@@ -1,7 +1,8 @@
 name: CI
 
 on:
-  [push,  pull_request,  workflow_dispatch]
+ [push, workflow_dispatch]
+
 
 env:
   AWS_REGION: us-west-2
@@ -20,7 +21,7 @@ jobs:
     runs-on: self-hosted
 
     outputs:
-      status: ${{ steps.build.status }}
+      status: ${{ steps.build.outputs.status || "Failed" }}
 
     steps:
       - name: Checkout
@@ -46,7 +47,6 @@ jobs:
       - name: build
         working-directory: ./
         run: |
-          echo "::set-output name=status::Failed"
           nix build .#withflint-image
           skopeo --insecure-policy copy docker-archive:result docker://${{ secrets.AWS_ECR_REGISTRY }}/withflint.com:${SHORT_SHA}
           echo "::set-output name=status::OK"
@@ -59,7 +59,7 @@ jobs:
 
       - name: send to slack
         run: |
-          GIT_VERSION=
+          GIT_VERSION=$(git rev-parse --short $GITHUB_LONG_HASH)
           OUTPUT=$(sort -R .github/workflows/quotes | head -n1)
           OUTPUT+="\n<https://github.com/withflint/withflint.com/tree/$GIT_BRANCH|withflint.com/$GIT_BRANCH> @ $GIT_VERSION by $WHO\n\nBuilds:\n"
 
