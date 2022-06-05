@@ -21,7 +21,7 @@ jobs:
     runs-on: self-hosted
 
     outputs:
-      status: ${{ steps.build.outputs.status || echo "Failed" }}
+      status: ${{ steps.build.outputs.status }}
 
     steps:
       - name: Checkout
@@ -47,6 +47,7 @@ jobs:
       - name: build
         working-directory: ./
         run: |
+          echo "::set-output name=status::Failed"
           nix build .#withflint-image
           skopeo --insecure-policy copy docker-archive:result docker://${{ secrets.AWS_ECR_REGISTRY }}/withflint.com:${SHORT_SHA}
           echo "::set-output name=status::OK"
