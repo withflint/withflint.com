@@ -29,6 +29,9 @@ jobs:
   build:
     runs-on: self-hosted
 
+    outputs:
+      status: ${{ steps.build.status }}
+
     steps:
       - name: Checkout
         uses: withflint/checkout@v3
@@ -50,12 +53,12 @@ jobs:
         run: |
           echo "SHORT_SHA=`echo ${GITHUB_LONG_HASH} | cut -c1-7`" >> $GITHUB_ENV
 
-      - name: Build withflint
+      - name: build
         working-directory: ./
         run: |
           nix build .#withflint-image
           skopeo --insecure-policy copy docker-archive:result docker://${{ secrets.AWS_ECR_REGISTRY }}/withflint.com:${SHORT_SHA}
-          echo "- published withflint.com:${SHORT_SHA}"
+          echo "::set-output name=OK"
 
   send-to-slack:
     runs-on: ubuntu-latest
@@ -65,9 +68,9 @@ jobs:
 
       - name: send to slack
         run: |
-          OUTPUT=$(sort -R .build/quotes | head -n1)
+          OUTPUT=$(sort -R .github/workflows/quotes | head -n1)
           OUTPUT+="\n<https://github.com/withflint/withflint.com/tree/$GIT_BRANCH|withflint.com/$GIT_BRANCH> @ $GIT_VERSION by $WHO\n\nBuilds:"
 
-          OUTPUT+="- withflint.com ${{jobs.build.status}}"
+          OUTPUT+="- withflint.com ${{needs.build.outputs.status}}"
 
           curl -X POST -H "Content-Type:application/json" --data "{ \"text\":\"${OUTPUT}\"}" "$CHAT_WEBHOOK"
