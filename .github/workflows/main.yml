@@ -1,8 +1,6 @@
 name: CI
 
-on:
- [push, workflow_dispatch]
-
+on: [push, workflow_dispatch]
 
 env:
   AWS_REGION: us-west-2
@@ -44,7 +42,8 @@ jobs:
         run: |
           echo "SHORT_SHA=`echo ${GITHUB_LONG_HASH} | cut -c1-7`" >> $GITHUB_ENV
 
-      - name: build
+      - name: Build with nix
+        id: build
         working-directory: ./
         run: |
           echo "::set-output name=status::Failed"
