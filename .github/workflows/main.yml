@@ -1,17 +1,7 @@
 name: CI
 
 on:
-  push:
-  pull_request:
-  workflow_dispatch:
-  workflow_call:
-    secrets:
-      AWS_ECR_REGISTRY:
-        required: true
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
+  [push,  pull_request,  workflow_dispatch]
 
 env:
   AWS_REGION: us-west-2
@@ -69,8 +59,9 @@ jobs:
 
       - name: send to slack
         run: |
+          GIT_VERSION=
           OUTPUT=$(sort -R .github/workflows/quotes | head -n1)
-          OUTPUT+="\n<https://github.com/withflint/withflint.com/tree/$GIT_BRANCH|withflint.com/$GIT_BRANCH> @ $GITHUB_LONG_HASH by $WHO\n\nBuilds:\n"
+          OUTPUT+="\n<https://github.com/withflint/withflint.com/tree/$GIT_BRANCH|withflint.com/$GIT_BRANCH> @ $GIT_VERSION by $WHO\n\nBuilds:\n"
 
           OUTPUT+="- withflint.com ${{needs.build.outputs.status}}"
 
