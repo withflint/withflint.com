@@ -88,9 +88,7 @@ phoneLayout =
             ]
         , column [ width fill, height fill, spacingXY 30 20 ]
             [ row
-                [ width fill
-                , height fill
-                , paddingXY 10 10
+                [ paddingXY 10 10
                 , spacingXY 20 20
                 , Border.color colors.white2
                 , Border.rounded 3
@@ -105,7 +103,9 @@ phoneLayout =
                 , centerX
                 ]
                 [ column [ width fill, spacingXY 0 15, paddingXY 0 20 ]
-                    [ row (heading ++ [ centerX, Font.size 30, Font.color colors.blue1 ]) [ text copy.staffingExpertsHead ]
+                    [ paragraph (heading ++ [ Font.center, Font.size 30, Font.color colors.blue1 ])
+                        [ text copy.staffingExpertsHead
+                        ]
                     , row [ centerX ]
                         [ paragraph
                             (Styles.paragraph
@@ -141,9 +141,7 @@ phoneLayout =
                     ]
                 ]
             , row
-                [ width fill
-                , height fill
-                , paddingXY 10 10
+                [ paddingXY 10 10
                 , spacingXY 20 20
                 , Border.color colors.white2
                 , Border.rounded 3
@@ -158,7 +156,9 @@ phoneLayout =
                 , centerX
                 ]
                 [ column [ width fill, spacingXY 0 15, paddingXY 0 20 ]
-                    [ row (heading ++ [ centerX, Font.size 30, Font.color colors.blue1 ]) [ text copy.talentExpertsHead ]
+                    [ paragraph (heading ++ [ Font.center, Font.size 30, Font.color colors.blue1 ])
+                        [ text copy.talentExpertsHead
+                        ]
                     , row [ centerX ]
                         [ paragraph
                             (Styles.paragraph
