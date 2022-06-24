@@ -156,12 +156,12 @@ desktopView =
 
 meetWithExpertCta : Element msg
 meetWithExpertCta =
-    cta ( "https://calendly.com/anson-flint/intro-to-flint-healthcare-web", "Meet With Us" )
+    cta ( "https://calendly.com/montse-withflint/flintconsultation", "Meet With Us" )
 
 
 meetWithExpertTop : Element msg
 meetWithExpertTop =
-    leftCta ( "https://calendly.com/anson-flint/intro-to-flint-healthcare-web", "Meet With Us" )
+    leftCta ( "https://calendly.com/montse-withflint/flintconsultation", "Meet With Us" )
 
 
 cta : ( String, String ) -> Element msg
