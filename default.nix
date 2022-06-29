@@ -32,6 +32,6 @@ stdenv.mkDerivation {
       --set WITHFLINT_ROOT $out \
       --set GIT_VERSION ${gitVersion}
 
-    cp ${frontend}/elm.js $out/static/${gitVersion}/elm.js
+    ln -s ${frontend}/elm.js $out/static/${gitVersion}/elm.js
   '';
 }

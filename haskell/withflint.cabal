@@ -4,7 +4,9 @@ version:            0.1.0.0
 
 common settings
     ghc-options: -O1
-    default-language: GHC2021
+    
+    default-language: GHC2021 
+
     default-extensions:
         BlockArguments
         DuplicateRecordFields
@@ -14,11 +16,11 @@ common settings
         TemplateHaskell
         LiberalTypeSynonyms
         FlexibleInstances
-        NoFieldSelectors
-        OverloadedRecordDot
         ExtendedDefaultRules
         QuasiQuotes
         RecordWildCards
+        NoFieldSelectors
+        OverloadedRecordDot
 
 library
     import: settings

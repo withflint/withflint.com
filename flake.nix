@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?rev=41cc1d5d9584103be4108c1815c350e07c807036";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-22.05";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -13,6 +13,10 @@
           haskellPackages = pkgs.haskell.packages.${ghcVersion}.override {
             overrides = self: super: {
               retry = pkgs.haskell.lib.dontCheck super.retry;
+
+              ghcid = pkgs.haskell.lib.overrideCabal super.ghcid (drv: {
+                enableSeparateBinOutput = false;
+              });
             };
           };
 
@@ -30,23 +34,18 @@
             elmPackages.elm
             haskellPackages.haskell-language-server
             haskellPackages.cabal-install
-            haskellPackages.fourmolu_0_6_0_0
-            cabal2nix
+            haskellPackages.fourmolu
+            haskellPackages.cabal2nix
+            haskellPackages.ghcid
+            haskellPackages.hpack
+            self.packages.${system}.fix-script
+            self.packages.${system}.watch-script
+            self.packages.${system}.format-script
           ];
         };
-
+        
         apps = rec {
           default = withflint;
-
-          fix = {
-            type = "app";
-            program = "${self.packages.${system}.fix-script}";
-          };
-
-          format = {
-            type = "app";
-            program = "${self.packages.${system}.format-script}";
-          };
 
           withflint = {
             type = "app";
@@ -103,12 +102,35 @@
             ${withflint}/bin/withflint
           '';
 
-          format-script = pkgs.writeShellScript "format.sh" ''
-            ${pkgs.elmPackages.elm-format}/bin/elm-format elm/src --yes
+          watch-script = pkgs.writeShellScriptBin "watch" ''
+            if [ -f "flake.nix" ]; then
+              ${pkgs.concurrently}/bin/concurrently \
+                -n elm,haskell \
+                -c cyan,magenta \
+                "cd elm && ${pkgs.elmPackages.elm-live}/bin/elm-live --no-server --path-to-elm ${pkgs.elmPackages.elm}/bin/elm src/Main.elm -- --output=../static/dirty/elm.js" \
+                "cd haskell && ${haskellPackages.ghcid}/bin/ghcid --run=dev"
+
+              rm static/dirty/elm.js
+              rmdir static/dirty
+            else
+              echo "Please run this script from the root directory! (the one with flake.nix)"
+            fi
           '';
 
-          fix-script = pkgs.writeShellScript "fix.sh" ''
-            ${pkgs.elmPackages.elm-review}/bin/elm-review --compiler ${pkgs.elmPackages.elm}/bin/elm --fix-all --elmjson elm/elm.json
+          format-script = pkgs.writeShellScriptBin "format" ''
+            if [ -f "flake.nix" ]; then
+              ${pkgs.elmPackages.elm-format}/bin/elm-format elm/src --yes
+            else
+              echo "Please run this script from the root directory! (the one with flake.nix)"
+            fi
+          '';
+
+          fix-script = pkgs.writeShellScriptBin "fix" ''
+            if [ -f "flake.nix" ]; then
+              ${pkgs.elmPackages.elm-review}/bin/elm-review --compiler ${pkgs.elmPackages.elm}/bin/elm --fix-all --elmjson elm/elm.json
+            else
+              echo "Please run this script from the root directory! (the one with flake.nix)"
+            fi
           '';
         };
       }

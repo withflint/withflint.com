@@ -1,8 +1,9 @@
 .ds_store
 .DS_Store
-result
 
-#elm
+# nix
+
+# elm
 */elm-stuff
 output
 outpur
@@ -173,4 +174,7 @@ msbuild.wrn
 .vs/
 
 # haskell
-dist-newstyle
+dist-newstyle/
+
+# direnv
+.direnv/

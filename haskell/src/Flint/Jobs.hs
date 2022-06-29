@@ -1,7 +1,6 @@
 module Flint.Jobs where
 
-import Data.Text (Text)
-import Data.Text (pack)
+import Data.Text (Text, pack)
 import Flint.Types
 import Flint.Utils
 import Text.Parsec

@@ -5,7 +5,8 @@ Flint's official website. The Front-end is in [Elm](https://elm-lang.org/), and 
 The website is used to communicate to the industry what we offer, a solution for hiring internationally educated registered nurses. On the other end, explain how it works for nurses and our offering. Lastly, the third responsibility of the website is to host our open positions at Flint.
 
 ## Get started
-Run `nix develop` to enter a shell environment with all the needed packages, and run `nix run` to run the website locally.
+Run `nix develop` to enter a shell environment with all the needed packages and scripts, and run `nix run .#withflint` to run the website locally.
+Use the `watch` script in that shell to hot reload the Haskell and Elm code.
 
 ### Common issues
 The newer macOS versions use the port 5000 for AirDrop. You can either disable that feature on your OS or use a different port in the code. We could improve this by making the port an environment variable. But you need to make sure you don't commit to the new port. To change it, search 5000 in the code.
