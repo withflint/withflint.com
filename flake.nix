@@ -14,6 +14,8 @@
             overrides = self: super: {
               retry = pkgs.haskell.lib.dontCheck super.retry;
 
+              fourmolu = super.fourmolu_0_6_0_0;
+
               ghcid = pkgs.haskell.lib.overrideCabal super.ghcid (drv: {
                 enableSeparateBinOutput = false;
               });
@@ -37,7 +39,6 @@
             haskellPackages.fourmolu
             haskellPackages.cabal2nix
             haskellPackages.ghcid
-            haskellPackages.hpack
             self.packages.${system}.fix-script
             self.packages.${system}.watch-script
             self.packages.${system}.format-script
