@@ -113,3 +113,11 @@ run config = do
     middleware logStdout
     middleware $ gzip def
     routes config $ Static { .. }
+
+dev :: IO ()
+dev = do
+  let root = "../"
+  let gitVersion = "dirty"
+  let env = "dev"
+
+  run Config { .. }

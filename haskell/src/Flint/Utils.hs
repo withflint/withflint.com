@@ -64,7 +64,7 @@ type Attachment = (Text, Text, ByteString)
 
 fileToAttachment :: File -> Attachment
 fileToAttachment (fieldName, info) =
-  ( Data.Text.Encoding.decodeUtf8 info.fileContentType
-  , Data.Text.Encoding.decodeUtf8 info.fileName
-  , info.fileContent
+  ( Data.Text.Encoding.decodeUtf8 $ fileContentType info
+  , Data.Text.Encoding.decodeUtf8 $ fileName info
+  , fileContent info
   )
