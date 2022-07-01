@@ -35,7 +35,7 @@ import FaqNurses.Types exposing (Faq, FormattedText(..), Model, Msg)
 import Layout exposing (Layout, footer, menu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors)
+import Styles exposing (colors, headFont)
 
 
 view : Model -> Layout Msg
@@ -111,7 +111,7 @@ viewAFaq index faq =
         , height fill
         ]
         [ wrappedRow [ width fill, centerY ]
-            [ paragraph [ width fill, Styles.headFont, alignLeft, Font.medium, Styles.headFont ] (Mark.default faq.question)
+            [ paragraph [ width fill, alignLeft, Font.medium, Styles.headFont ] (Mark.default faq.question)
             ]
         , column
             [ width <| maximum 750 fill
@@ -185,7 +185,14 @@ desktopHeader =
                         List.map
                             (\( path, label ) ->
                                 row []
-                                    [ link [ padding 5, Font.color colors.white3 ]
+                                    [ link
+                                        [ padding 5
+
+                                        -- C color changed
+                                        , Font.color colors.cremeLight
+                                        , Font.size 16
+                                        , headFont
+                                        ]
                                         { url = toPath path
                                         , label = text label
                                         }
@@ -209,8 +216,8 @@ faqHeroTitleDesktop title =
                 , Font.center
                 , height (minimum 150 shrink)
                 , Font.color colors.white3
-                , Styles.headFont
                 , Font.size 70
+                , Styles.headFont
                 ]
                 [ text title
                 ]
@@ -229,8 +236,8 @@ faqHeroTitlePhone title =
                 , Font.center
                 , height (minimum 50 shrink)
                 , Font.color colors.white3
-                , Styles.headFont
                 , Font.size 40
+                , Styles.headFont
                 ]
                 [ text title
                 ]

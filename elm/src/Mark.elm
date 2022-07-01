@@ -179,7 +179,6 @@ heading { level, rawText, children } =
             (Html.Attributes.attribute "name" (rawTextToId rawText))
         , Element.htmlAttribute
             (Html.Attributes.id (rawTextToId rawText))
-        , Styles.headFont
         , paddingEach
             { bottom = 0
             , left = 0
@@ -187,6 +186,7 @@ heading { level, rawText, children } =
             , top = 20
             }
         , Font.letterSpacing 1
+        , Styles.headFont
         ]
         children
 

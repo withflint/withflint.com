@@ -138,7 +138,7 @@ summaryView article =
         , label =
             column
                 [ spacing 30, centerX ]
-                [ paragraph [ Styles.headFont, Font.size 40, Font.bold, mouseOver [ Font.color colors.blue1 ] ] [ text article.title ]
+                [ paragraph [ Font.size 40, Font.bold, mouseOver [ Font.color colors.blue1 ], Styles.headFont ] [ text article.title ]
                 , row
                     [ spacing 5
                     , alignTop
@@ -181,7 +181,7 @@ articleView article =
         Ok rendered ->
             column
                 [ padding 80, width <| maximum 850 fill, spacing 40, centerX ]
-                [ paragraph [ Styles.headFont, Font.bold, Font.size 46 ] [ text article.title ]
+                [ paragraph [ Font.bold, Font.size 46, Styles.headFont ] [ text article.title ]
                 , row
                     [ spacing 5
                     , alignTop
@@ -272,7 +272,7 @@ phoneSummaryView article =
         , spacing 20
         , centerX
         ]
-        [ paragraph [ Styles.headFont, Font.size 24, Font.bold, width fill ] [ go <| text article.title ]
+        [ paragraph [ Font.size 24, Font.bold, width fill, Styles.headFont ] [ go <| text article.title ]
         , go <|
             row
                 [ spacing 5
@@ -295,7 +295,16 @@ phoneSummaryView article =
                     { src = "/static/images/blog/" ++ article.slug ++ ".jpeg", description = article.meta.description }
                 , paragraph [ width fill ] [ text article.sub ]
                 ]
-        , go <| row [ Font.size 14, Font.color colors.gray1, Font.underline, paddingEach { top = 0, right = 0, left = 0, bottom = 10 } ] [ text "Read more" ]
+        , go <|
+            row
+                [ Font.size 14
+
+                -- C this color might need change
+                , Font.color colors.gray1
+                , Font.underline
+                , paddingEach { top = 0, right = 0, left = 0, bottom = 10 }
+                ]
+                [ text "Read more" ]
         ]
     ]
 
@@ -309,7 +318,7 @@ articlePhoneView article =
                 , width fill
                 , spacing 30
                 ]
-                [ paragraph [ Styles.headFont, Font.bold, Font.size 32 ] [ text article.title ]
+                [ paragraph [ Font.bold, Font.size 32, Styles.headFont ] [ text article.title ]
                 , row
                     [ spacing 5
                     , alignTop
