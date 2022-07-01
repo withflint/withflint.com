@@ -15,6 +15,7 @@ import Element
         , fill
         , focused
         , height
+        , htmlAttribute
         , image
         , link
         , maximum
@@ -43,7 +44,7 @@ import Jobs.Types exposing (Config, Field(..), Job, Model, Msg(..), View(..))
 import Layout exposing (Layout, footer, menu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors)
+import Styles exposing (colors, headFont, headerGradientBackground)
 import Text
 import Url.Builder exposing (absolute)
 
@@ -51,8 +52,11 @@ import Url.Builder exposing (absolute)
 view : Model -> Layout Msg
 view model =
     { phone =
-        [ phoneHeader
-        , workAtPhone model.config
+        [ column
+            (width fill :: headerGradientBackground)
+            [ phoneHeader
+            , workAtPhone model.config
+            ]
         , column
             [ wf
             , height fill
@@ -63,20 +67,30 @@ view model =
             (jobsView phoneView model :: footer.phone)
         ]
     , desktop =
-        [ desktopHeader
-        , workAtDesktop model.config
+        [ -- top header including hero title and nav bar
+          column
+            (width fill :: headerGradientBackground)
+            [ desktopHeader
+            , workAtDesktop model.config
+            ]
         , column
             [ width <| maximum 1500 fill
             , height fill
             , paddingXY 100 40
             , spacing 50
             , centerX
+            , Background.color colors.cremeLight
             ]
-            (jobsView desktopView model :: footer.desktop)
+            -- C changed
+            -- (jobsView desktopView model :: footer.desktop)
+            (jobsView desktopView model :: [])
         ]
     , tablet =
-        [ desktopHeader
-        , workAtDesktop model.config
+        [ column
+            (width fill :: headerGradientBackground)
+            [ desktopHeader
+            , workAtDesktop model.config
+            ]
         , column
             [ width <| maximum 1500 fill
             , height fill
@@ -91,7 +105,7 @@ view model =
 
 phoneHeader : Element Msg
 phoneHeader =
-    row [ wf, Background.color colors.blue1, paddingXY 30 0 ]
+    row [ wf, paddingXY 30 0 ]
         [ row [ width <| maximum 1500 fill, paddingXY 0 40, centerX ]
             [ Element.link []
                 { url = toPath Home
@@ -105,9 +119,16 @@ phoneHeader =
         ]
 
 
+
+-- menu bar
+
+
 desktopHeader : Element Msg
 desktopHeader =
-    row [ wf, Background.color colors.blue1, paddingXY 100 0 ]
+    row
+        [ wf
+        , paddingXY 100 0
+        ]
         [ row [ width <| maximum 1300 fill, paddingXY 0 40, centerX ]
             [ column [ wf ]
                 [ Element.link []
@@ -125,7 +146,15 @@ desktopHeader =
                         List.map
                             (\( path, label ) ->
                                 row []
-                                    [ link [ padding 5, Font.color colors.white3 ]
+                                    [ link
+                                        [ padding 5
+
+                                        -- C color changed
+                                        , Font.color colors.cremeLight
+                                        , headFont
+                                        , Font.size 16
+                                        , mouseOver [ Font.color colors.carminePink ]
+                                        ]
                                         { url = toPath path
                                         , label = text label
                                         }
@@ -138,9 +167,16 @@ desktopHeader =
         ]
 
 
+
+-- Launch your nursing career in America
+
+
 workAtDesktop : Config -> Element Msg
 workAtDesktop config =
-    row [ wf, Background.color colors.blue1, padding 50 ]
+    row
+        [ wf
+        , padding 50
+        ]
         [ column [ wf, spacing 30 ]
             [ paragraph
                 [ width <| maximum 1400 fill
@@ -149,8 +185,11 @@ workAtDesktop config =
                 , Font.center
                 , height (minimum 150 shrink)
                 , Font.color colors.white3
-                , Styles.headFont
                 , Font.size 70
+
+                -- title font color
+                , Font.color colors.cremeLight
+                , Styles.headFont
                 ]
                 [ text config.copy.title
                 ]
@@ -169,8 +208,11 @@ workAtPhone config =
                 , Font.center
                 , height (minimum 50 shrink)
                 , Font.color colors.white3
-                , Styles.headFont
                 , Font.size 40
+
+                -- title font color
+                , Font.color colors.cremeLight
+                , Styles.headFont
                 ]
                 [ text config.copy.title
                 ]
@@ -214,7 +256,13 @@ jobsView viewer model =
                 column [ wf, spacingXY 0 20 ] <|
                     [ viewer.copyView model.config
                     , column [ wf, spacing 40, paddingXY 0 40 ]
-                        (paragraph [ Styles.headFont, Font.size 23 ]
+                        (paragraph
+                            [ Font.size 24
+                            , Styles.headFont
+
+                            -- C added
+                            , Font.color colors.blue1
+                            ]
                             [ text "Open Positions"
                             ]
                             :: (Dict.toList model.jobs |> List.map (\( id, job ) -> ( model.config.page, id, job )) |> List.map viewer.jobView)
@@ -249,7 +297,13 @@ desktopJobView : ( String, String, Job ) -> Element Msg
 desktopJobView ( page, id, job ) =
     row [ wf ]
         [ column [ alignLeft, spacingXY 0 10, wf ]
-            [ link [ Font.color colors.blue1, mouseOver [ Font.color colors.blue1 ] ]
+            [ link
+                [ Font.color colors.blue1
+                , mouseOver
+                    [ -- C changed color
+                      Font.color colors.carminePink
+                    ]
+                ]
                 { url = absolute [ page, id ] []
                 , label = paragraph [ wf, spacing 10 ] [ text job.title ]
                 }
@@ -273,7 +327,13 @@ phoneJobView ( page, id, job ) =
     row [ wf ]
         [ column [ alignLeft, spacingXY 0 10, wf ]
             [ paragraph [ wf ]
-                [ link [ Font.color colors.blue1, mouseOver [ Font.color colors.blue1 ] ]
+                [ link
+                    [ Font.color colors.blue1
+                    , mouseOver
+                        [ -- C changed color
+                          Font.color colors.carminePink
+                        ]
+                    ]
                     { url = absolute [ page, id ] []
                     , label = paragraph [ wf, spacing 10 ] [ text job.title ]
                     }
@@ -476,7 +536,7 @@ phoneApplyView job model =
 desktopCopyView : Config -> Element Msg
 desktopCopyView config =
     column [ spacing 50, wf, height fill ]
-        ([ paragraph [ wf, height fill, Styles.headFont, Font.size 30 ]
+        ([ paragraph [ wf, height fill, Font.size 30, Font.color colors.blue1, Styles.headFont ]
             [ text config.copy.desktopHeader
             ]
          , row [ wf, spacing 50, height fill ]
@@ -503,7 +563,7 @@ desktopCopyView config =
 phoneCopyView : Config -> Element Msg
 phoneCopyView config =
     column [ spacing 50, wf, height fill ]
-        ([ paragraph [ wf, height fill, Styles.headFont, Font.size 30 ]
+        ([ paragraph [ wf, height fill, Font.size 30, Font.color colors.blue1, Styles.headFont ]
             [ text config.copy.phoneHeader
             ]
          , column [ wf, spacing 50, height fill ]

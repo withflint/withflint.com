@@ -29,7 +29,7 @@ import Jobs.Types exposing (Copy)
 import Jobs.View
 import Layout exposing (layout)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors)
+import Styles exposing (colors, headerGradientBackground, paddingTop)
 import Types exposing (Model, Msg(..))
 
 
@@ -71,13 +71,16 @@ renderRoute model =
 notFound : Element msg
 notFound =
     column
-        [ Background.color colors.blue1
-        , width fill
-        , height fill
-        , padding 20
-        , Font.color colors.white3
-        , spacing 20
-        ]
+        ([ width fill
+         , height fill
+         , padding 20
+
+         --  , Font.color colors.white3
+         , Font.color colors.cremeLight
+         , spacing 20
+         ]
+            ++ headerGradientBackground
+        )
         [ row []
             [ link []
                 { url = toPath Home
@@ -95,6 +98,8 @@ notFound =
             ]
         , row
             [ Font.size 36
+            , Font.color colors.cremeLight
+            , paddingTop 32
             ]
             [ paragraph []
                 [ text "404: Oops! We could not find that page. "
@@ -106,7 +111,9 @@ notFound =
             [ paragraph []
                 [ link
                     (Styles.link
-                        ++ [ Font.color colors.white3 ]
+                        ++ [ --Font.color colors.white3
+                             Font.color colors.cremeLight
+                           ]
                     )
                     { url = toPath Home
                     , label = text "Go home!"

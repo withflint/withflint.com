@@ -22,14 +22,16 @@ import Element
         , paddingXY
         , px
         , row
+        , spaceEvenly
         , spacing
         , spacingXY
         , text
         , width
         )
+import Element.Background as Background
 import Element.Font as Font exposing (underline)
 import Router.Routes exposing (Page(..), toPath)
-import Styles
+import Styles exposing (colors)
 
 
 type alias Layout msg =
@@ -48,6 +50,7 @@ layout device views =
                 , width fill
                 , centerX
                 , alignTop
+                , Background.color colors.cremeLight
                 ]
                 views.phone
 
@@ -57,17 +60,24 @@ layout device views =
                 , width fill
                 , centerX
                 , alignTop
+                , Background.color colors.cremeLight
                 ]
                 views.tablet
 
         _ ->
-            column
-                [ height fill
-                , width fill
-                , centerX
-                , alignTop
+            -- C changed
+            column [ width fill, height fill ]
+                [ column
+                    [ height fill
+                    , width fill
+                    , centerX
+                    , alignTop
+                    , Background.color colors.cremeLight
+                    ]
+                    views.desktop
+                , column [ width fill, height fill ]
+                    footer.desktop
                 ]
-                views.desktop
 
 
 header : Layout msg
@@ -85,7 +95,13 @@ header =
                     ]
                 , column [ width fill, alignRight ]
                     [ column (width fill :: Styles.paragraph)
-                        [ row [ spacingXY 30 0, alignRight ]
+                        [ row
+                            [ spacingXY 30 0
+                            , alignRight
+
+                            -- C added color
+                            -- , Font.color colors.blue1
+                            ]
                             (menu |> List.map (\( path, label ) -> row [] [ link [ padding 5 ] { url = toPath path, label = text label } ]))
                         ]
                     ]
@@ -111,43 +127,74 @@ footer =
     let
         default : List (Element msg)
         default =
-            [ row [ height fill ] []
-            , row [ width fill, paddingEach { top = 100, bottom = 20, left = 0, right = 0 } ]
-                [ column [ width fill ]
-                    [ row
-                        [ width fill
-                        ]
-                        [ image [ width (px 80), height (px 50) ]
-                            { src = "/static/images/logo.svg?new"
-                            , description = "Flint"
+            [ row
+                [ width fill
+                , height fill
+                , paddingEach { top = 60, bottom = 0, left = 0, right = 0 }
+                , Background.color colors.cremeLight
+                ]
+                [ row [ width fill, height fill, Background.color colors.cremeDark ]
+                    [ --row [ height fill ] []
+                      row [ alignTop, alignLeft ]
+                        [ image [ width (px 164), height (px 114) ]
+                            { src = "/static/images/blob-1.svg"
+
+                            -- default dimension 213x163
+                            , description = ""
                             }
                         ]
-                    , row [ width fill, Font.size 10, paddingXY 0 10 ]
-                        [ column [ spacing 20 ] [ text "© 2021 Flint, all rights reserved", newTabLink [ underline ] { url = "/privacy", label = text "Privacy Policy" } ] ]
-                    ]
-                , column [ width fill, alignBottom, alignRight ]
-                    [ row [ spacingXY 60 0, centerX, alignRight ]
-                        [ row []
-                            [ newTabLink
+                    , row
+                        [ paddingEach { top = 60, bottom = 60, left = 0, right = 0 }
+
+                        -- C added
+                        , Background.color colors.cremeDark
+                        , centerX
+                        , spacingXY 600 0
+                        ]
+                        [ column []
+                            [ row
                                 []
-                                { url = "https://www.ycombinator.com/companies/flint"
-                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg?new", description = "Flint" }
-                                }
+                                [ image [ width (px 80), height (px 50) ]
+                                    { src = "/static/images/logo.svg?new"
+                                    , description = "Flint"
+                                    }
+                                ]
+                            , row [ width fill, Font.size 10, paddingXY 0 10 ]
+                                [ column [ spacing 20 ] [ text "© 2022 Flint, all rights reserved", newTabLink [ underline ] { url = "/privacy", label = text "Privacy Policy" } ] ]
                             ]
-                        , row []
-                            [ newTabLink
-                                []
-                                { url = "https://github.com/withflint"
-                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg?new", description = "Flint" }
-                                }
+                        , column [ alignBottom, alignRight ]
+                            [ row [ spacingXY 60 0, centerX, alignRight ]
+                                [ row []
+                                    [ newTabLink
+                                        []
+                                        { url = "https://www.ycombinator.com/companies/flint"
+                                        , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg?new", description = "Flint" }
+                                        }
+                                    ]
+                                , row []
+                                    [ newTabLink
+                                        []
+                                        { url = "https://github.com/withflint"
+                                        , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg?new", description = "Flint" }
+                                        }
+                                    ]
+                                , row []
+                                    [ newTabLink
+                                        []
+                                        { url = "https://www.linkedin.com/company/withflint/"
+                                        , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg?new", description = "Flint" }
+                                        }
+                                    ]
+                                ]
                             ]
-                        , row []
-                            [ newTabLink
-                                []
-                                { url = "https://www.linkedin.com/company/withflint/"
-                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg?new", description = "Flint" }
-                                }
-                            ]
+                        ]
+                    , row [ alignBottom, alignRight ]
+                        [ image [ width (px 165), height (px 100) ]
+                            { src = "/static/images/blob-2.svg"
+
+                            -- default dimension 214x149
+                            , description = ""
+                            }
                         ]
                     ]
                 ]
