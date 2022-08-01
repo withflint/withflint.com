@@ -1,5 +1,6 @@
 module Update exposing (init, update)
 
+import AboutUs.Update
 import Blog.Types
 import Blog.Update
 import Browser.Dom
@@ -11,6 +12,7 @@ import Home.Update
 import Html.Attributes exposing (width)
 import Jobs.Types exposing (Config)
 import Jobs.Update
+import Partnerships.Update
 import Return exposing (Return, return, singleton)
 import Router.Routes exposing (Page(..))
 import Router.Types
@@ -78,10 +80,12 @@ init { article, gitVersion } url key =
         { router = router
         , contact = Contact.Update.init
         , home = Home.Update.init
+        , aboutUs = AboutUs.Update.init
         , jobs = jobs
         , healthCare = healthCare
         , blog = blog
         , faqNurses = faqNurses
+        , partnerships = Partnerships.Update.init
         , title = "Flint - Securing Nurses for Your Future"
         , device = NotSet
         , url = url
