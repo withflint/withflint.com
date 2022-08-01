@@ -1,5 +1,6 @@
 module View exposing (joinCopy, nurseCareersCopy, view)
 
+import AboutUs.View
 import Blog.View
 import Contact.View
 import Element
@@ -28,8 +29,9 @@ import Html exposing (Html)
 import Jobs.Types exposing (Copy)
 import Jobs.View
 import Layout exposing (layout)
+import Partnerships.View
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, headerGradientBackground, paddingTop)
+import Styles exposing (colors, headerGradientBackground, pt)
 import Types exposing (Model, Msg(..))
 
 
@@ -47,10 +49,16 @@ renderRoute : Types.Model -> Element Types.Msg
 renderRoute model =
     case model.router.page of
         Home ->
-            layout model.device <| Home.View.view model.home
+            layout model.device <| Home.View.view model.home model.device
 
         Contact ->
             layout model.device <| Contact.View.view model.contact
+
+        AboutUs ->
+            layout model.device <| AboutUs.View.view model.aboutUs
+
+        Partnerships ->
+            layout model.device <| Partnerships.View.view model.device model.partnerships
 
         JoinTheTeam _ ->
             Element.map MsgForJobs <| layout model.device <| Jobs.View.view model.jobs
@@ -99,7 +107,7 @@ notFound =
         , row
             [ Font.size 36
             , Font.color colors.cremeLight
-            , paddingTop 32
+            , pt 32
             ]
             [ paragraph []
                 [ text "404: Oops! We could not find that page. "

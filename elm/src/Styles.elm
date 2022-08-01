@@ -1,8 +1,9 @@
-module Styles exposing (ButtonStyle, buttons, codeFont, colors, font, headFont, headerGradientBackground, heading, link, paddingTop, paragraph)
+module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, debug, font, headFont, headerGradientBackground, heading, hf, link, menu, palette, paragraph, pb, pl, pr, pt, title, wf)
 
 import Element
     exposing
-        ( Attribute
+        ( Attr
+        , Attribute
         , Color
         , alignLeft
         , fill
@@ -94,6 +95,24 @@ colors =
     }
 
 
+palette :
+    { primary : Color
+    , red : Color
+    , beige : Color
+    , skyBlue : Color
+    , white : Color
+    , cremeLight : Color
+    }
+palette =
+    { primary = rgb255 68 55 109
+    , red = rgb255 255 96 96
+    , beige = rgb255 252 229 217
+    , skyBlue = rgb255 218 233 255
+    , white = rgb255 255 255 255
+    , cremeLight = rgb255 255 251 248
+    }
+
+
 headerGradientBackground : List (Attribute msg)
 headerGradientBackground =
     [ htmlAttribute <| Html.Attributes.style "background" "rgb(68,55,109)"
@@ -127,7 +146,8 @@ font : Attribute msg
 font =
     Font.family
         [ --Font.typeface "Open Sans"
-          Font.typeface "Lora"
+          --   Font.typeface "Lora"
+          Font.typeface "Inter"
         , Font.sansSerif
         ]
 
@@ -136,7 +156,8 @@ headFont : Attribute msg
 headFont =
     Font.family
         [ --Font.typeface "Roboto"
-          Font.typeface "Poppins"
+          --   Font.typeface "Poppins"
+          Font.typeface "Inter"
         , Font.sansSerif
         ]
 
@@ -174,7 +195,7 @@ buttons =
 
 base : List (Attribute msg)
 base =
-    [ Border.roundEach { topLeft = 18, topRight = 0, bottomRight = 18, bottomLeft = 0 }
+    [ Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
     , padding 10
     , Font.color colors.blue1
     , Font.size 16
@@ -199,6 +220,96 @@ link =
     ]
 
 
-paddingTop : Int -> Attribute msg
-paddingTop size =
+title : List (Attribute msg)
+title =
+    [ --Font.size 44
+      Font.family [ Font.typeface "Inter" ]
+    , Font.color palette.white
+
+    -- , paddingXY 32 0
+    ]
+
+
+menu : List (Attribute msg)
+menu =
+    [ Font.color palette.white
+    , Font.letterSpacing 2
+    , Font.size 14
+    , Font.family [ Font.typeface "Inter" ]
+    , mouseOver
+        [ Font.color colors.carminePink
+        ]
+    ]
+
+
+btn : List (Attribute msg)
+btn =
+    [ Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
+    , Border.color palette.primary
+    , Border.width 1
+    , padding 10
+
+    -- , Font.color palette.white
+    -- , Font.color palette.primary
+    , Font.color palette.primary
+    , Font.semiBold
+    , Font.size 16
+
+    -- , Background.color colors.cremeDark
+    -- , width (px 128)
+    -- , height (px 36)
+    , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
+    , Font.regular
+    , mouseOver
+        [ Font.color colors.cremeLight
+        , Background.color colors.carminePink
+        , Border.color colors.carminePink
+        ]
+    ]
+
+
+pt : Int -> Attribute msg
+pt size =
     paddingEach { top = size, left = 0, right = 0, bottom = 0 }
+
+
+pr : Int -> Attribute msg
+pr size =
+    paddingEach { top = 0, left = 0, right = size, bottom = 0 }
+
+
+pl : Int -> Attribute msg
+pl size =
+    paddingEach { top = 0, left = size, right = size, bottom = 0 }
+
+
+pb : Int -> Attribute msg
+pb size =
+    paddingEach { top = 0, left = 0, right = 0, bottom = size }
+
+
+wf : Element.Attribute msg
+wf =
+    width fill
+
+
+hf : Element.Attribute msg
+hf =
+    height fill
+
+
+css : String -> String -> Attribute msg
+css property value =
+    htmlAttribute <| Html.Attributes.style property value
+
+
+debug : { red : Element.Attr decorative msg, blue : Element.Attr a b, black : Element.Attr c d, misc : Element.Attr e f }
+debug =
+    { red =
+        Background.color colors.red1
+    , blue =
+        Background.color colors.blue1
+    , black = Background.color colors.black1
+    , misc =
+        Background.color colors.skyBlue
+    }
