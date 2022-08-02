@@ -33,6 +33,7 @@ import Element
         , px
         , row
         , shrink
+        , spaceEvenly
         , spacing
         , spacingXY
         , text
@@ -285,9 +286,70 @@ nurseCareerView device =
             , row [ width <| fillPortion 2 ] [ Element.none ]
             ]
         , partners device
+        , states device
+        ]
 
-        -- , partners device
-        -- , paragraph [] [ text <| Debug.toString device ]
+
+states : Device.Device -> Element msg
+states device =
+    let
+        titleStyle =
+            [ Font.center
+            , Font.size 24
+            , Font.semiBold
+            , Font.color palette.primary
+            ]
+
+        rsFillPortion =
+            -- responsive fillPortion
+            case device of
+                Device.Phone _ ->
+                    Element.none
+
+                _ ->
+                    row [ width <| fillPortion 2 ] []
+    in
+    row [ wf, paddingXY 12 56 ]
+        [ rsFillPortion
+        , column [ width <| fillPortion 8, spacingXY 0 48 ]
+            [ paragraph titleStyle [ text "USA states you can live and work at" ]
+            , wrappedRow
+                [ wf
+                , Font.color colors.carminePink
+                , spaceEvenly
+                , spacingXY 12 0
+                ]
+                [ column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
+                    [ paragraph [ Font.center ] [ text "Arizona" ]
+                    , paragraph [ Font.center ] [ text "Alaska" ]
+                    , paragraph [ Font.center ] [ text "Arkansas" ]
+                    , paragraph [ Font.center ] [ text "Colorados" ]
+                    , paragraph [ Font.center ] [ text "Georgia" ]
+                    ]
+                , column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
+                    [ paragraph [ Font.center ] [ text "Minnesota" ]
+                    , paragraph [ Font.center ] [ text "Montana" ]
+                    , paragraph [ Font.center ] [ text "New Mexico" ]
+                    , paragraph [ Font.center ] [ text "New York" ]
+                    , paragraph [ Font.center ] [ text "North Carolina" ]
+                    ]
+                , column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
+                    [ paragraph [ Font.center ] [ text "Kentucky" ]
+                    , paragraph [ Font.center ] [ text "Hawaii" ]
+                    , paragraph [ Font.center ] [ text "Idaho" ]
+                    , paragraph [ Font.center ] [ text "Illinois" ]
+                    , paragraph [ Font.center ] [ text "Ohio" ]
+                    ]
+                , column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
+                    [ paragraph [ Font.center ] [ text "South Dakota" ]
+                    , paragraph [ Font.center ] [ text "Texas" ]
+                    , paragraph [ Font.center ] [ text "Washington" ]
+                    , paragraph [ Font.center ] [ text "West Virginia" ]
+                    , paragraph [ Font.center ] [ text "Northern Mariana Islands" ]
+                    ]
+                ]
+            ]
+        , rsFillPortion
         ]
 
 
@@ -434,12 +496,6 @@ partners device =
 
 joinTeamView : Device.Device -> Element msg
 joinTeamView device =
-    -- let
-    --     sectionBg =
-    --         [ css "background" "#FCE5D9"
-    --         , css "background" "linear-gradient(180deg, #FFFBF8 0%, #FCE5D9 102.99%)"
-    --         ]
-    -- in
     column
         [ Background.color colors.cremeDark
         , wf
