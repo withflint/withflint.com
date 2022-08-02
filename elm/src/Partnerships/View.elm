@@ -278,10 +278,16 @@ header device title menu =
                 [ css "position" "absolute"
                 , css "left" "44px"
                 , css "top" "20px"
+                , css "z-index" "100"
                 ]
-                [ Element.image
-                    [ width (px 110), height (px 54) ]
-                    { src = "/static/images/logo.svg?new", description = "Flint" }
+                [ Element.link
+                    []
+                    { url = toPath Home
+                    , label =
+                        Element.image
+                            [ width (px 110), height (px 54) ]
+                            { src = "/static/images/logo.svg?new", description = "Flint" }
+                    }
                 ]
 
         link : ( String, Page ) -> Element msg

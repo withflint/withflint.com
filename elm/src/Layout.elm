@@ -171,9 +171,14 @@ footer =
                     , row [ wf, spaceEvenly ]
                         [ -- FLINT LOGO
                           row [ hf, centerY, width <| fillPortion 3 ]
-                            [ image [ width (px 80), height (px 50) ]
-                                { src = "/static/images/logo.svg?new"
-                                , description = "Flint"
+                            [ Element.link
+                                []
+                                { url = toPath Home
+                                , label =
+                                    image [ width (px 80), height (px 50) ]
+                                        { src = "/static/images/logo.svg?new"
+                                        , description = "Flint"
+                                        }
                                 }
                             ]
 
