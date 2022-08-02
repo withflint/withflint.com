@@ -1270,31 +1270,6 @@ desktopCopyView config =
     Element.none
 
 
-
--- column [ spacing 50, wf, height fill ]
---     ([ paragraph [ wf, height fill, Font.size 30, Font.color colors.blue1, Styles.headFont ]
---         [ text config.copy.desktopHeader
---         ]
---      , row [ wf, spacing 50, height fill ]
---         [ column [ wf, alignTop ]
---             [ paragraph Styles.paragraph
---                 [ text config.copy.paragraph1
---                 ]
---             ]
---         , column [ wf, alignTop ]
---             [ paragraph Styles.paragraph
---                 (text config.copy.paragraph2 :: Maybe.withDefault [] config.copy.other)
---             ]
---         ]
---      ]
---         ++ (if config.page == "join" then
---                 [ hiringProcess ]
---             else
---                 []
---            )
---     )
-
-
 phoneCopyView : Config -> Element Msg
 phoneCopyView config =
     Element.none

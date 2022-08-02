@@ -1,6 +1,7 @@
 module Blog.View exposing (view)
 
 import Blog.Types exposing (Article, ArticleState(..), Model, Msg)
+import Device
 import Element
     exposing
         ( Element
@@ -10,7 +11,9 @@ import Element
         , column
         , el
         , fill
+        , fillPortion
         , height
+        , html
         , image
         , link
         , maximum
@@ -23,57 +26,234 @@ import Element
         , px
         , row
         , spacing
+        , spacingXY
         , text
         , textColumn
         , width
         )
+import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
+import Html
+import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, header)
 import Mark
-import Router.Routes as R
-import Styles exposing (colors)
+import Router.Routes as R exposing (toPath)
+import Styles exposing (colors, css, hf, palette, wf)
 
 
-view : Model -> Layout Msg
-view model =
-    { phone =
-        [ column
-            [ centerX
-            , width <| maximum 1500 fill
-            , height fill
-            , paddingXY 20 40
+view : Device.Device -> Model -> Layout Msg
+view device model =
+    let
+        bg =
+            [ css "background" "#DAE9FF"
+            , css "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 102.99%)"
             ]
-            (header.phone
-                ++ blogPhoneView model.article
-                ++ footer.phone
-            )
+    in
+    { phone =
+        [ blogPhoneHeader device
+        , column
+            ([ wf, hf ] ++ bg)
+            [ column
+                [ centerX
+                , width <| maximum 1500 fill
+                , height fill
+                , paddingXY 20 40
+                ]
+                -- header.phone
+                -- ++
+                (blogPhoneView model.article
+                 -- ++ footer.phone
+                )
+            ]
+        , column [ wf ] footer.phone
         ]
     , tablet =
-        [ column
-            [ centerX
-            , width <| maximum 1500 fill
-            , height fill
-            , paddingXY 100 40
+        [ row [ wf ] <|
+            blogHeader device
+        , column ([ wf, hf ] ++ bg)
+            [ column
+                [ centerX
+                , width <| maximum 1500 fill
+                , height fill
+                , paddingXY 40 40
+                ]
+                -- header.tablet
+                -- ++
+                (blogView model.article
+                 -- ++ footer.tablet
+                )
             ]
-            (header.tablet
-                ++ blogView model.article
-                ++ footer.tablet
-            )
+        , column [ wf ] footer.phone
         ]
     , desktop =
-        [ column
-            [ centerX
-            , width <| maximum 1500 fill
-            , height fill
-            , paddingXY 100 40
+        [ row [ wf ] <|
+            blogHeader device
+        , column ([ wf, hf ] ++ bg)
+            [ column
+                [ centerX
+                , width <| maximum 1500 fill
+                , height fill
+                , paddingXY 100 40
+                ]
+                -- header.desktop
+                -- ++
+                (blogView model.article)
             ]
-            (header.desktop
-                ++ blogView model.article
-                ++ footer.desktop
-            )
+        , column [ wf ] footer.desktop
         ]
     }
+
+
+blogPhoneHeader : Device.Device -> Element msg
+blogPhoneHeader device =
+    let
+        bg =
+            [ css "background" "rgb(68,55,109)"
+            , css "background" "linear-gradient(275.4deg, #E54848 -14.67%, #7B3D61 14.83%, #51497F 55.96%, #616297 92.44%, #A7C8F9 127.36%)"
+            ]
+
+        logo =
+            row
+                [ css "position" "absolute"
+                , css "left" "44px"
+                , css "top" "20px"
+                , css "z-index" "100"
+                ]
+                [ Element.link
+                    []
+                    { url = toPath R.Home
+                    , label =
+                        Element.image
+                            [ width (px 110), height (px 54) ]
+                            { src = "/static/images/logo.svg?new", description = "Flint" }
+                    }
+                ]
+
+        blob =
+            row [ css "position" "relative" ]
+                [ row
+                    [ alignTop
+                    , css "position" "relative"
+                    , width (px 275)
+                    , height (px 139)
+                    ]
+                    [ html <|
+                        Html.img
+                            [ HtmlAttr.src "/static/images/header-blob-blue.svg"
+                            , HtmlAttr.style "width" "100%"
+                            ]
+                            []
+                    ]
+                , logo
+                ]
+    in
+    row ([ wf, height (px 140), css "position" "relative" ] ++ bg)
+        [ column [ css "position" "absolute", css "top" "0", css "left" "0" ]
+            [ row [ css "width" "80%", css "height" "80%" ] [ blob ]
+            ]
+        , column [ wf ] []
+
+        -- , column
+        --     [ alignTop, height (px 280), wf ]
+        --     [ -- GAP
+        --       case device of
+        --         Phone _ ->
+        --             row [ wf, height <| fillPortion 4 ] [ Element.none ]
+        --         _ ->
+        --             row [ wf, height <| fillPortion 4 ]
+        --                 [ -- MENU
+        --                   row [ wf ]
+        --                     [ -- GAP
+        --                       row [ width <| fillPortion 7 ] []
+        --                     -- MENU
+        --                     , row
+        --                         [ width <| fillPortion 4
+        --                         -- , spaceEvenly
+        --                         , spacing 32
+        --                         , Font.color palette.white
+        --                         , Font.letterSpacing 2
+        --                         , Font.size 14
+        --                         ]
+        --                         [ row [ alignRight, spacingXY 36 0 ]
+        --                             (List.map (el (wf :: Styles.menu) << link) menu)
+        --                         ]
+        --                     -- GAP
+        --                     , row [ width <| fillPortion 2 ] []
+        --                     ]
+        --                 ]
+        -- -- TITLE
+        -- , row [ wf, height <| fillPortion 8 ]
+        --     [ row ([ wf, centerX, Font.size rs.titleFontSize ] ++ Styles.title)
+        --         [ paragraph [ Font.center, Font.size rs.titleFontSize ] [ text title ] ]
+        --     ]
+        -- GAP
+        -- , case device of
+        --     Phone vp ->
+        --         Element.none
+        --     _ ->
+        --         row [ wf, height <| fillPortion 2 ] []
+        ]
+
+
+blogHeader : Device.Device -> List (Element msg)
+blogHeader device =
+    let
+        bg =
+            [ css "background" "#DAE9FF"
+            , css "background" "linear-gradient(275.4deg, #E54848 -14.67%, #7B3D61 14.83%, #51497F 55.96%, #616297 92.44%, #A7C8F9 127.36%)"
+            ]
+
+        logo =
+            Element.image [ centerX, width (px 100), height (px 50) ] { src = "/static/images/logo-white.svg?new", description = "Flint" }
+    in
+    [ row ([ wf, height (px 136) ] ++ bg)
+        [ -- GAP
+          row [ width <| fillPortion 2 ] []
+
+        -- LOGO
+        , row [ width <| fillPortion 1 ]
+            [ Element.link
+                []
+                { url = toPath R.Home
+                , label =
+                    el
+                        [ Font.center
+                        , Font.color palette.white
+                        , mouseOver [ Font.color colors.carminePink ]
+                        ]
+                        logo
+                }
+            ]
+
+        -- GAP
+        , row [ width <| fillPortion 8 ] []
+
+        -- MENU
+        , row [ width <| fillPortion 2, spacingXY 24 0 ]
+            [ Element.link
+                []
+                { url = toPath R.Partnerships
+                , label =
+                    el
+                        [ Font.center
+                        , Font.color palette.white
+                        , mouseOver [ Font.color colors.carminePink ]
+                        ]
+                        (text "Partnerships")
+                }
+            , Element.link
+                []
+                { url = toPath <| R.NurseCareers ""
+                , label =
+                    el [ Font.center, Font.color palette.white, mouseOver [ Font.color colors.carminePink ] ] (text "Nurse Careers")
+                }
+            ]
+
+        -- GAP
+        , row [ width <| fillPortion 2 ] []
+        ]
+    ]
 
 
 blogView : ArticleState -> List (Element Msg)
@@ -138,7 +318,7 @@ summaryView article =
         , label =
             column
                 [ spacing 30, centerX ]
-                [ paragraph [ Font.size 40, Font.bold, mouseOver [ Font.color colors.blue1 ], Styles.headFont ] [ text article.title ]
+                [ paragraph [ Font.size 40, Font.bold, Font.color palette.primary, mouseOver [ Font.color colors.carminePink ], Styles.headFont ] [ text article.title ]
                 , row
                     [ spacing 5
                     , alignTop
