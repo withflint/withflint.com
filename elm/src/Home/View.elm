@@ -72,8 +72,8 @@ view _ device =
             --header.tablet
             --++
             (desktopView device
-                ++ homeFooter device
-             -- ++ footer.tablet
+                -- ++ homeFooter device
+                ++ footer.phone
             )
         ]
     , desktop =
@@ -89,8 +89,8 @@ view _ device =
             -- header.desktop
             -- ++
             (desktopView device
-                ++ homeFooter device
-             -- ++ footer.desktop
+                -- ++ homeFooter device
+                ++ footer.desktop
             )
         ]
     }

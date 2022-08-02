@@ -102,6 +102,7 @@ palette :
     , skyBlue : Color
     , white : Color
     , cremeLight : Color
+    , cremeLighter : Color
     }
 palette =
     { primary = rgb255 68 55 109
@@ -110,6 +111,7 @@ palette =
     , skyBlue = rgb255 218 233 255
     , white = rgb255 255 255 255
     , cremeLight = rgb255 255 251 248
+    , cremeLighter = rgb255 249 242 228
     }
 
 
