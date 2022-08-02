@@ -35,7 +35,7 @@ import Element.Background as Background
 import Element.Font as Font exposing (underline)
 import Html.Attributes exposing (wrap)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, hf, palette, pl, wf)
+import Styles exposing (colors, css, hf, palette, pl, wf)
 
 
 type alias Layout msg =
@@ -145,63 +145,101 @@ footer =
                     Element.paragraph [ Font.center ] [ text label ]
                 }
 
+        privacy =
+            row [ Font.size 10 ]
+                [ newTabLink [ underline ] { url = "/privacy", label = text "Privacy Policy" }
+                ]
+
         default : List (Element msg)
         default =
             [ row
                 [ width fill
                 , height fill
-
-                -- , Background.color colors.blue1
+                , css "position" "relative"
+                , Font.size 12
                 ]
-                [ row [ alignTop, width <| fillPortion 2 ]
+                [ row [ css "position" "absolute", css "top" "0", css "left" "-12px" ]
                     [ image [ width (px 164), height (px 114) ]
                         { src = "/static/images/footer-blob-left.svg"
-
-                        -- default dimension 213x163
                         , description = ""
                         }
                     ]
-                , row
-                    [ width <| fillPortion 8, paddingXY 0 48, spaceEvenly ]
-                    [ -- FLINT LOGO
-                      column []
-                        [ row
-                            []
+                , wrappedRow [ wf, hf, paddingXY 0 48 ]
+                    [ row [ width (px 200) ] []
+                    , row [ wf, spaceEvenly ]
+                        [ -- FLINT LOGO
+                          row [ hf, centerY, width <| fillPortion 3 ]
                             [ image [ width (px 80), height (px 50) ]
                                 { src = "/static/images/logo.svg?new"
                                 , description = "Flint"
                                 }
                             ]
-                        , row [ Font.size 10, paddingXY 0 10 ]
-                            [ column [ spacing 20 ] [ text "© 2022 Flint, all rights reserved", newTabLink [ underline ] { url = "/privacy", label = text "Privacy Policy" } ] ]
-                        ]
 
-                    -- MENU
-                    , row [ wf ]
-                        [ row [ centerX, spacingXY 24 0 ]
+                        -- MENU
+                        , column [ hf, width <| fillPortion 3, spacingXY 0 12 ]
                             [ link "Blog" "/blog/"
+                            , link "About Us" "/about-us/"
                             , link "Join the Team" "/join/"
-                            , row [ wf, spacingXY 24 12 ]
-                                [ column [ spacingXY 0 10 ]
-                                    [ Element.paragraph [ Font.color palette.primary ] [ text "Healthcare Partnerships" ]
-                                    , column [ spacingXY 0 6 ]
-                                        [ Element.paragraph [] [ text "healthcare@withflint.com" ]
-                                        , Element.paragraph [] [ text "+1 (844) 677-1180" ]
-                                        ]
-                                    ]
-                                , column [ spacingXY 0 10 ]
-                                    [ Element.paragraph [ Font.color palette.primary ] [ text "Nurse Success" ]
-                                    , column [ spacingXY 0 6 ]
-                                        [ Element.paragraph [] [ text "success@withflint.com" ]
-                                        , Element.paragraph [] [ text "+1 (844) 677-1180" ]
-                                        ]
-                                    ]
+                            ]
+                        , column [ hf, width <| fillPortion 3, Font.color palette.primary, spacingXY 0 12 ]
+                            [ Element.paragraph [] [ text "Healthcare Partnerships" ]
+                            , column [ spacingXY 0 6 ]
+                                [ Element.paragraph [] [ text "healthcare@withflint.com" ]
+                                , Element.paragraph [] [ text "+1 (844) 677-1180" ]
+                                ]
+                            ]
+                        , column [ hf, width <| fillPortion 3, Font.color palette.primary, spacingXY 0 12 ]
+                            [ Element.paragraph [] [ text "Nurse Careers" ]
+                            , column [ spacingXY 0 6 ]
+                                [ Element.paragraph [] [ text "success@withflint.com" ]
+                                , Element.paragraph [] [ text "+1 (844) 677-1180" ]
                                 ]
                             ]
                         ]
 
-                    -- SOCIAL
-                    , row [ spacingXY 60 0 ]
+                    -- -- SOCIAL
+                    -- , row [ spacingXY 60 0 ]
+                    --     [ row []
+                    --         [ newTabLink
+                    --             []
+                    --             { url = "https://www.ycombinator.com/companies/flint"
+                    --             , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg?new", description = "Flint" }
+                    --             }
+                    --         ]
+                    --     , row []
+                    --         [ newTabLink
+                    --             []
+                    --             { url = "https://github.com/withflint"
+                    --             , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg?new", description = "Flint" }
+                    --             }
+                    --         ]
+                    --     , row []
+                    --         [ newTabLink
+                    --             []
+                    --             { url = "https://www.linkedin.com/company/withflint/"
+                    --             , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg?new", description = "Flint" }
+                    --             }
+                    --         ]
+                    --     ]
+                    -- ]
+                    , row [ width (px 200) ] []
+                    ]
+                , row [ css "position" "absolute", css "right" "2px", css "bottom" "0px" ]
+                    [ image [ width (px 165), height (px 100), alignRight ]
+                        { src = "/static/images/blob-2.svg"
+
+                        -- default dimension 214x149
+                        , description = ""
+                        }
+                    ]
+                ]
+
+            -- privacy and social sites
+            , row [ wf, Background.color palette.cremeLighter, paddingXY 88 24, centerX ]
+                [ row [ wf, spaceEvenly ]
+                    [ row [ spaceEvenly ] [ privacy ]
+                    , row [ spaceEvenly, wf ] [ paragraph [ Font.center, Font.size 10 ] [ text "© 2022 Flint, all rights reserved" ] ]
+                    , row [ spaceEvenly, spacingXY 36 0 ]
                         [ row []
                             [ newTabLink
                                 []
@@ -225,14 +263,6 @@ footer =
                             ]
                         ]
                     ]
-                , row [ alignBottom, width <| fillPortion 2 ]
-                    [ image [ width (px 165), height (px 100), alignRight ]
-                        { src = "/static/images/blob-2.svg"
-
-                        -- default dimension 214x149
-                        , description = ""
-                        }
-                    ]
                 ]
             ]
     in
@@ -252,59 +282,6 @@ footer =
                 [ row [ spacing 20 ] [ text "© 2022 Flint, all rights reserved", newTabLink [ underline ] { url = "/privacy", label = text "Privacy Policy" } ] ]
             ]
         ]
-
-    -- [ column
-    --     [ Background.color palette.cremeLight
-    --     , wf
-    --     , Background.image "static/images/footer-blob-left.svg"
-    --     ]
-    --     [ row
-    --         [ width fill
-    --         , centerX
-    --         , paddingXY 0 50
-    --         ]
-    --         [ -- FOOTER MENU
-    --           column [ centerX, width fill, spacingXY 50 20, centerX, Font.size 15, Font.color palette.primary, Font.semiBold ]
-    --             (menu |> List.map (\( path, label ) -> row [ width fill, centerX ] [ link [ centerX, padding 5 ] { url = toPath path, label = text label } ]))
-    --         ]
-    --     , row [ width fill, centerX ]
-    --         [ column [ width fill, alignBottom ]
-    --             [ row [ spacingXY 60 0, centerX ]
-    --                 [ row []
-    --                     [ newTabLink
-    --                         []
-    --                         { url = "https://www.ycombinator.com/companies/flint"
-    --                         , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg?new", description = "Flint" }
-    --                         }
-    --                     ]
-    --                 , row []
-    --                     [ newTabLink
-    --                         []
-    --                         { url = "https://github.com/withflint"
-    --                         , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg?new", description = "Flint" }
-    --                         }
-    --                     ]
-    --                 , row []
-    --                     [ newTabLink
-    --                         []
-    --                         { url = "https://www.linkedin.com/company/withflint/"
-    --                         , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg?new", description = "Flint" }
-    --                         }
-    --                     ]
-    --                 ]
-    --             ]
-    --         ]
-    --     , row
-    --         [ width fill, paddingEach { top = 30, bottom = 10, left = 0, right = 0 } ]
-    --         [ image [ width (px 50), height (px 30), centerX ]
-    --             { src = "/static/images/logo.svg?new"
-    --             , description = "Flint"
-    --             }
-    --         ]
-    --     , row [ centerX, width fill, Font.size 10, paddingXY 0 10 ]
-    --         [ el [ centerX ] <| column [ spacing 20, centerX ] [ text "© 2022 Flint, all rights reserved", newTabLink [ underline, centerX ] { url = "/privacy", label = text "Privacy Policy" } ] ]
-    --     ]
-    -- ]
     , tablet = default
     , desktop = default
     }
