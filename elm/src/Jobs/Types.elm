@@ -1,4 +1,4 @@
-module Jobs.Types exposing (Applicant, Config, Copy, Field(..), Job, Model, Msg(..), View(..))
+module Jobs.Types exposing (Applicant, Config, Copy, CurrentPage(..), Field(..), Job, Model, Msg(..), View(..))
 
 import Browser.Navigation exposing (Key)
 import Dict exposing (Dict)
@@ -24,7 +24,17 @@ type alias Config =
     , endpoint : String
     , copy : Copy
     , apply : String
+    , page_ : CurrentPage
     }
+
+
+
+-- this will be changed later for better organisation
+
+
+type CurrentPage
+    = NurseCareersPage
+    | JoinTheTeamPage
 
 
 type alias Copy =

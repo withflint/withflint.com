@@ -44,6 +44,7 @@ import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, header)
 import List exposing (maximum)
 import Partnerships.Types exposing (Model)
+import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (buttons, colors, css, debug, heading, hf, palette, pl, pr, pt, wf)
 
 
@@ -117,7 +118,7 @@ desktopView device =
         [ header
             device
             "Recreate the way you hire nurses"
-            [ "Partnership", "Nurse Careers", "Blog" ]
+            [ ( "Partnership", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
         , row ([ wf ] ++ sectionBg)
             [ row [ width <| fillPortion 2 ] [ Element.none ]
             , column [ width <| fillPortion 8 ] [ section0 ]
@@ -141,7 +142,7 @@ phoneView device =
         [ header
             device
             "Recreate the way you hire nurses"
-            [ "Partnership", "Nurse Careers", "Blog" ]
+            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
         , row [ wf ]
             [ row [ width <| fillPortion 2 ] []
             , column [ width <| fillPortion 8 ] [ section0 ]
@@ -230,7 +231,7 @@ partners device =
         ]
 
 
-header : Device -> String -> List String -> Element msg
+header : Device -> String -> List ( String, Page ) -> Element msg
 header device title menu =
     let
         bg =
@@ -286,6 +287,15 @@ header device title menu =
                     [ width (px 110), height (px 54) ]
                     { src = "/static/images/logo.svg?new", description = "Flint" }
                 ]
+
+        link : ( String, Page ) -> Element msg
+        link ( label, page ) =
+            Element.link
+                []
+                { url = toPath page
+                , label =
+                    el [ Font.center ] (text label)
+                }
     in
     row ([ wf, css "position" "relative" ] ++ bg)
         [ column [ css "position" "absolute", css "top" "0", css "left" "0" ]
@@ -307,7 +317,7 @@ header device title menu =
 
                             -- MENU
                             , row
-                                [ width <| fillPortion 3
+                                [ width <| fillPortion 4
 
                                 -- , spaceEvenly
                                 , spacing 32
@@ -315,7 +325,9 @@ header device title menu =
                                 , Font.letterSpacing 2
                                 , Font.size 14
                                 ]
-                                (List.map (el Styles.menu << text) menu)
+                                [ row [ alignRight, spacingXY 36 0 ]
+                                    (List.map (el (wf :: Styles.menu) << link) menu)
+                                ]
 
                             -- GAP
                             , row [ width <| fillPortion 2 ] []

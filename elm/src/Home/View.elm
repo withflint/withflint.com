@@ -180,7 +180,7 @@ phoneView device =
                 , bg = industryBg
                 }
             , card device
-                { title = "Want to be a nurse in USA?"
+                { title = "Want to be a nurse in America?"
                 , desc = "Find support and community from start to finish"
                 , btnLabel = "Flint for nurses"
                 , bg = nursesBg
@@ -426,7 +426,7 @@ desktopView device =
                 , bg = industryBg
                 }
             , card device
-                { title = "Want to be a nurse in USA?"
+                { title = "Want to be a nurse in America?"
                 , desc = "Find support and community from start to finish"
                 , btnLabel = "Flint for nurses"
                 , bg = nursesBg
