@@ -91,7 +91,7 @@ view device model =
                         ++ sectionBg
                     )
                     (jobsView device phoneView model :: [])
-                , row [ wf ] footer.phone
+                , column [ wf ] footer.phone
                 ]
             , desktop =
                 [ -- top header including hero title and nav bar
@@ -117,7 +117,7 @@ view device model =
                         ++ sectionBg
                     )
                     (jobsView device desktopView model :: [])
-                , row [ wf ] footer.desktop
+                , column [ wf ] footer.desktop
                 ]
             , tablet =
                 [ column
@@ -145,7 +145,7 @@ view device model =
                         ++ sectionBg
                     )
                     (jobsView device desktopView model :: [])
-                , row [ wf ] footer.tablet
+                , column [ wf ] footer.phone
                 ]
             }
 
@@ -177,7 +177,7 @@ view device model =
                         ++ sectionBg
                     )
                     (jobsView device phoneView model :: [])
-                , row [] footer.phone
+                , column [ wf ] footer.phone
                 ]
             , desktop =
                 [ -- top header including hero title and nav bar
@@ -212,7 +212,7 @@ view device model =
                     -- C changed
                     -- (jobsView desktopView model :: footer.desktop)
                     (jobsView device desktopView model :: [])
-                , row [] footer.desktop
+                , column [ wf ] footer.desktop
                 ]
             , tablet =
                 [ column
@@ -241,7 +241,7 @@ view device model =
                         ++ sectionBg
                     )
                     (jobsView device desktopView model :: [])
-                , row [] footer.tablet
+                , column [ wf ] footer.phone
                 ]
             }
 
