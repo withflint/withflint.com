@@ -41,6 +41,7 @@ import Home.Types exposing (Model)
 import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, header)
+import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (buttons, colors, heading, hf, palette, pb, pl, pr, pt)
 
 
@@ -367,53 +368,19 @@ desktopView device =
             , Font.size 42
             ]
 
-        -- html <|
-        --     Html.div
-        --         [ HtmlAttr.style "width" "100vw"
-        --         ]
-        --         [ Html.div
-        --             [ HtmlAttr.style "position" "relative"
-        --             , HtmlAttr.style "width" "100vw"
-        --             , HtmlAttr.style "overflow" "hidden"
-        --             ]
-        --             [ Html.img
-        --                 [ HtmlAttr.src "/static/images/home-hero-blob.svg"
-        --                 , HtmlAttr.style "width" "70%"
-        --                 , HtmlAttr.style "position" "absolute"
-        --                 , HtmlAttr.style "bottom" "-120px"
-        --                 , HtmlAttr.style "right" "100px"
-        --                 , HtmlAttr.style "z-index" "1"
-        --                 ]
-        --                 []
-        --             , Html.div
-        --                 [ HtmlAttr.style "display" "flex"
-        --                 , HtmlAttr.style "justify-content" "center"
-        --                 ]
-        --                 [ Html.div []
-        --                     -- [ Html.span [] [ Html.text "It's all about people," ]
-        --                     -- , Html.span [] [ Html.text "with" ]
-        --                     -- , Html.img
-        --                     --     [ HtmlAttr.src "/static/images/logo.svg?new"
-        --                     --     , HtmlAttr.style "width" "100%"
-        --                     --     ]
-        --                     --     []
-        --                     -- ]
-        --                     []
-        --                 , Html.img
-        --                     [ HtmlAttr.src "/static/images/home-portrait-nurse.png"
-        --                     , HtmlAttr.style "width" "inherit"
-        --                     , HtmlAttr.style "z-index" "2"
-        --                     ]§
-        --                     []
-        --                 ]
-        --             ]
-        --         ]
+        link label page =
+            Element.link
+                [ mouseOver [ Font.color colors.carminePink ]
+                ]
+                { url = toPath page
+                , label =
+                    Element.paragraph [ Font.center ] [ text label ]
+                }
     in
     [ column [ pt 48, wf, hf, Background.color colors.cremeDark ]
         [ row [ spacing 48, centerX, Font.color palette.primary, Font.semiBold ]
-            [ el [] (text "Partnerships")
-            , el [] (text "Nurse Careers")
-            , el [] (text "Blog")
+            [ link "Partnerships" Partnerships
+            , link "Nurse Careers" (NurseCareers "")
             ]
         , row [ pt 72, wf ]
             [ heroImg

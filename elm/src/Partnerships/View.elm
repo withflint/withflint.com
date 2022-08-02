@@ -125,8 +125,6 @@ desktopView device =
             , row [ width <| fillPortion 2 ] [ Element.none ]
             ]
         , partners device
-
-        -- , paragraph [] [ text <| Debug.toString device ]
         ]
     ]
 
@@ -148,8 +146,6 @@ phoneView device =
             , column [ width <| fillPortion 8 ] [ section0 ]
             , row [ width <| fillPortion 2 ] []
             ]
-
-        -- , paragraph [] [ text <| Debug.toString device ]
         ]
     ]
 

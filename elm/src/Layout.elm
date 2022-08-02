@@ -17,6 +17,7 @@ import Element
         , height
         , image
         , link
+        , mouseOver
         , newTabLink
         , padding
         , paddingEach
@@ -137,10 +138,11 @@ header =
 footer : Layout msg
 footer =
     let
-        link label url =
+        link label page =
             Element.link
-                []
-                { url = url
+                [ mouseOver [ Font.color colors.carminePink ]
+                ]
+                { url = toPath page
                 , label =
                     Element.paragraph [ Font.center ] [ text label ]
                 }
@@ -177,9 +179,9 @@ footer =
 
                         -- MENU
                         , column [ hf, width <| fillPortion 3, spacingXY 0 12 ]
-                            [ link "Blog" "/blog/"
-                            , link "About Us" "/about-us/"
-                            , link "Join the Team" "/join/"
+                            [ link "Blog" (Blog "")
+                            , link "About Us" AboutUs
+                            , link "Join the Team" (JoinTheTeam "")
                             ]
                         , column [ hf, width <| fillPortion 3, Font.color palette.primary, spacingXY 0 12 ]
                             [ Element.paragraph [] [ text "Healthcare Partnerships" ]
@@ -274,8 +276,8 @@ footer =
                     ]
                 , wrappedRow
                     [ width <| fillPortion 10, spacingXY 24 0 ]
-                    [ link "Blog" "/blog/"
-                    , link "Join the Team" "/join/"
+                    [ link "Blog" (Blog "")
+                    , link "Join the Team" (JoinTheTeam "")
                     ]
                 ]
             , row [ centerX, Font.size 10, paddingXY 24 24 ]
