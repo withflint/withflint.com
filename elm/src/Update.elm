@@ -10,7 +10,7 @@ import Device exposing (Device(..), classify)
 import FaqNurses.Update
 import Home.Update
 import Html.Attributes exposing (width)
-import Jobs.Types exposing (Config)
+import Jobs.Types exposing (Config, CurrentPage(..))
 import Jobs.Update
 import Partnerships.Update
 import Return exposing (Return, return, singleton)
@@ -30,6 +30,7 @@ flintConfig =
     , page = "join"
     , copy = joinCopy
     , apply = "/apply"
+    , page_ = JoinTheTeamPage
     }
 
 
@@ -39,6 +40,7 @@ healthCareConfig =
     , page = "nurse-careers"
     , copy = nurseCareersCopy
     , apply = "/happly"
+    , page_ = NurseCareersPage
     }
 
 
@@ -154,6 +156,9 @@ update msg model =
                                             \blog -> { model | blog = blog }
                                         }
 
+                            Just (Router.Routes.JoinTheTeam "") ->
+                                singleton model
+
                             Just (Router.Routes.JoinTheTeam jobId) ->
                                 Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.jobs
                                     |> SubModule.update
@@ -161,6 +166,9 @@ update msg model =
                                         , toModel =
                                             \jobs -> { model | jobs = jobs }
                                         }
+
+                            Just (Router.Routes.NurseCareers "") ->
+                                singleton model
 
                             Just (Router.Routes.NurseCareers jobId) ->
                                 Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.healthCare

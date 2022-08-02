@@ -35,7 +35,7 @@ import Element.Background as Background
 import Element.Font as Font exposing (underline)
 import Html.Attributes exposing (wrap)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, hf, palette, wf)
+import Styles exposing (colors, hf, palette, pl, wf)
 
 
 type alias Layout msg =
@@ -137,6 +137,14 @@ header =
 footer : Layout msg
 footer =
     let
+        link label url =
+            Element.link
+                []
+                { url = url
+                , label =
+                    Element.paragraph [ Font.center ] [ text label ]
+                }
+
         default : List (Element msg)
         default =
             [ row
@@ -169,10 +177,27 @@ footer =
                         ]
 
                     -- MENU
-                    , row [ wf, spacingXY 12 0 ]
-                        [ Element.paragraph [ Font.center ] [ text "About Us" ]
-                        , Element.paragraph [ Font.center ] [ text "Join the Team" ]
-                        , Element.paragraph [ Font.center ] [ text "Contact Us" ]
+                    , row [ wf ]
+                        [ row [ centerX, spacingXY 24 0 ]
+                            [ link "Blog" "/blog/"
+                            , link "Join the Team" "/join/"
+                            , row [ wf, spacingXY 24 12 ]
+                                [ column [ spacingXY 0 10 ]
+                                    [ Element.paragraph [ Font.color palette.primary ] [ text "Healthcare Partnerships" ]
+                                    , column [ spacingXY 0 6 ]
+                                        [ Element.paragraph [] [ text "healthcare@withflint.com" ]
+                                        , Element.paragraph [] [ text "+1 (844) 677-1180" ]
+                                        ]
+                                    ]
+                                , column [ spacingXY 0 10 ]
+                                    [ Element.paragraph [ Font.color palette.primary ] [ text "Nurse Success" ]
+                                    , column [ spacingXY 0 6 ]
+                                        [ Element.paragraph [] [ text "success@withflint.com" ]
+                                        , Element.paragraph [] [ text "+1 (844) 677-1180" ]
+                                        ]
+                                    ]
+                                ]
+                            ]
                         ]
 
                     -- SOCIAL
@@ -213,21 +238,19 @@ footer =
     in
     { phone =
         [ column [ wf, paddingXY 0 48, alignBottom, Background.color colors.cremeDark ]
-            [ row []
-                [ row [ alignTop ]
+            [ row [ centerX ]
+                [ row [ width <| fillPortion 2, alignLeft ]
                     [ Element.image [ width (px 80), height (px 24) ] { src = "/static/images/logo.svg?new", description = "Flint" }
                     ]
                 , wrappedRow
-                    [ wf ]
-                    [ paragraph [ wf, Font.center, alignTop ] [ text "About Us" ]
-                    , paragraph [ wf, Font.center, alignTop ] [ text "Join the Team" ]
-                    , paragraph [ wf, Font.center, alignTop ] [ text "Contact Us" ]
+                    [ width <| fillPortion 10, spacingXY 24 0 ]
+                    [ link "Blog" "/blog/"
+                    , link "Join the Team" "/join/"
                     ]
                 ]
-            , row [ width fill, Font.size 10, paddingXY 24 24 ]
+            , row [ centerX, Font.size 10, paddingXY 24 24 ]
                 [ row [ spacing 20 ] [ text "© 2022 Flint, all rights reserved", newTabLink [ underline ] { url = "/privacy", label = text "Privacy Policy" } ] ]
             ]
-        , row [ width <| fillPortion 2 ] []
         ]
 
     -- [ column
