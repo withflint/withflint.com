@@ -544,8 +544,13 @@ joinTeamBody device =
                 , Border.color colors.carminePink
                 ]
             ]
+
+        interviewProcessSm =
+            row [ centerX ]
+                [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process-sm.png", description = "Flint interview process" }
+                ]
     in
-    column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
+    column [ wf, centerX, paddingXY 0 48, spacingXY 0 56 ]
         [ column [ centerX ]
             [ paragraph titleStyle
                 [ text "We work with the very best" ]
@@ -559,7 +564,7 @@ joinTeamBody device =
                 , pt 12
                 , Font.justify
                 ]
-                [ text "We foster a culture of respect, dialogue and growth where our team members can engage in a continuous conversation about product, engineering, and learning.\nRead more about our values and culture." ]
+                [ text "We foster a culture of respect, dialogue and growth where our team members can engage in a continuous conversation about product, engineering, and learning. Read more about our values and culture." ]
             , paragraph
                 [ Font.center
                 , Font.letterSpacing 2
@@ -568,6 +573,17 @@ joinTeamBody device =
                 ]
                 [ text "We interview and make hires within a week from our first meet–it's a commitment." ]
             ]
+        , case device of
+            Device.Phone _ ->
+                interviewProcessSm
+
+            Device.Tablet _ ->
+                interviewProcessSm
+
+            _ ->
+                row []
+                    [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process.png", description = "Flint interview process" }
+                    ]
         ]
 
 
