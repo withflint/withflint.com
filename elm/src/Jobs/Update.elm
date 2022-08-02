@@ -4,7 +4,7 @@ import Browser.Navigation exposing (Key, pushUrl)
 import Dict exposing (Dict)
 import File.Select
 import Http
-import Jobs.Types exposing (Applicant, Config, Field(..), Job, Model, Msg(..), View(..))
+import Jobs.Types exposing (Applicant, Config, CurrentPage(..), Field(..), Job, Model, Msg(..), View(..))
 import Json.Decode as Decode exposing (Decoder, decodeString)
 import Return exposing (Return, return, singleton)
 import Text exposing (Text(..))

@@ -9,6 +9,8 @@ type Page
     = Home
     | NotFound
     | Contact
+    | Partnerships
+    | AboutUs
     | JoinTheTeam String
     | NurseCareers String
     | Blog String
@@ -21,6 +23,8 @@ routes =
         [ map Home top
         , map NotFound (s "404")
         , map Contact (s "contact")
+        , map AboutUs (s "about-us")
+        , map Partnerships (s "partnerships")
         , map (JoinTheTeam "") (s "join")
         , map JoinTheTeam (s "join" </> string)
         , map (NurseCareers "") (s "nurse-careers")
@@ -42,6 +46,12 @@ toPath page =
 
         Contact ->
             absolute [ "contact" ] []
+
+        Partnerships ->
+            absolute [ "partnerships" ] []
+
+        AboutUs ->
+            absolute [ "about-us" ] []
 
         JoinTheTeam id ->
             absolute [ "join", id ] []

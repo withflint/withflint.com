@@ -1,5 +1,6 @@
 module Update exposing (init, update)
 
+import AboutUs.Update
 import Blog.Types
 import Blog.Update
 import Browser.Dom
@@ -9,8 +10,9 @@ import Device exposing (Device(..), classify)
 import FaqNurses.Update
 import Home.Update
 import Html.Attributes exposing (width)
-import Jobs.Types exposing (Config)
+import Jobs.Types exposing (Config, CurrentPage(..))
 import Jobs.Update
+import Partnerships.Update
 import Return exposing (Return, return, singleton)
 import Router.Routes exposing (Page(..))
 import Router.Types
@@ -28,6 +30,7 @@ flintConfig =
     , page = "join"
     , copy = joinCopy
     , apply = "/apply"
+    , page_ = JoinTheTeamPage
     }
 
 
@@ -37,6 +40,7 @@ healthCareConfig =
     , page = "nurse-careers"
     , copy = nurseCareersCopy
     , apply = "/happly"
+    , page_ = NurseCareersPage
     }
 
 
@@ -78,10 +82,12 @@ init { article, gitVersion } url key =
         { router = router
         , contact = Contact.Update.init
         , home = Home.Update.init
+        , aboutUs = AboutUs.Update.init
         , jobs = jobs
         , healthCare = healthCare
         , blog = blog
         , faqNurses = faqNurses
+        , partnerships = Partnerships.Update.init
         , title = "Flint - Securing Nurses for Your Future"
         , device = NotSet
         , url = url
@@ -150,6 +156,9 @@ update msg model =
                                             \blog -> { model | blog = blog }
                                         }
 
+                            Just (Router.Routes.JoinTheTeam "") ->
+                                singleton model
+
                             Just (Router.Routes.JoinTheTeam jobId) ->
                                 Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.jobs
                                     |> SubModule.update
@@ -157,6 +166,9 @@ update msg model =
                                         , toModel =
                                             \jobs -> { model | jobs = jobs }
                                         }
+
+                            Just (Router.Routes.NurseCareers "") ->
+                                singleton model
 
                             Just (Router.Routes.NurseCareers jobId) ->
                                 Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.healthCare
