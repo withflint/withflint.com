@@ -127,9 +127,6 @@ phoneView device =
                             [ HtmlAttr.src "/static/images/home-hero-blob.svg"
                             , HtmlAttr.style "width" (String.fromInt viewport.width)
                             , HtmlAttr.style "position" "absolute"
-
-                            -- , HtmlAttr.style "bottom" "-120px"
-                            -- , HtmlAttr.style "right" "-40px"
                             , HtmlAttr.style "bottom" (String.fromInt viewport.width)
                             , HtmlAttr.style "right" "-40px"
                             , HtmlAttr.style "z-index" "1"
@@ -177,13 +174,13 @@ phoneView device =
             [ card device
                 { title = "Need a long-term nurse?"
                 , desc = "Recreate the way you hire nurses"
-                , btnLabel = "Flint for hospitals"
+                , btn = { label = "Flint for hospitals", page = Partnerships }
                 , bg = industryBg
                 }
             , card device
                 { title = "Want to be a nurse in America?"
                 , desc = "Find support and community from start to finish"
-                , btnLabel = "Flint for nurses"
+                , btn = { label = "Flint for nurses", page = NurseCareers "" }
                 , bg = nursesBg
                 }
             ]
@@ -191,8 +188,16 @@ phoneView device =
     ]
 
 
-card : Device -> { title : String, desc : String, btnLabel : String, bg : List (Attribute msg) } -> Element msg
-card device { title, desc, btnLabel, bg } =
+card :
+    Device
+    ->
+        { title : String
+        , desc : String
+        , btn : { label : String, page : Page }
+        , bg : List (Attribute msg)
+        }
+    -> Element msg
+card device { title, desc, btn, bg } =
     let
         responsiveSize =
             case device of
@@ -208,22 +213,13 @@ card device { title, desc, btnLabel, bg } =
                 NotSet ->
                     { cardHeight = 300, btnTopPadding = 44 }
 
-        btn =
+        btn_ =
             [ Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
-
-            -- , Border.color palette.white
-            -- , Border.width 1
             , padding 10
-
-            -- , Font.color palette.white
             , Font.color palette.primary
             , Font.semiBold
             , Font.size 16
             , Background.color colors.cremeDark
-
-            -- , Background.color bgColor
-            -- , width (px 128)
-            -- , height (px 36)
             , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
             , Font.regular
             , mouseOver
@@ -255,13 +251,17 @@ card device { title, desc, btnLabel, bg } =
                         , pt 12
                         ]
                         [ text <| desc ]
-                    , el [ pt responsiveSize.btnTopPadding, wf ]
-                        (Input.button
-                            (centerY :: centerX :: wf :: Font.size 15 :: btn)
-                            { onPress = Nothing
-                            , label = paragraph [ Font.center ] [ text <| btnLabel ]
-                            }
-                        )
+                    , Element.link [ wf ]
+                        { url = toPath btn.page
+                        , label =
+                            el [ pt responsiveSize.btnTopPadding, wf ]
+                                (Input.button
+                                    (centerY :: centerX :: wf :: Font.size 15 :: btn_)
+                                    { onPress = Nothing
+                                    , label = paragraph [ Font.center ] [ text <| btn.label ]
+                                    }
+                                )
+                        }
                     ]
                 ]
             ]
@@ -389,13 +389,13 @@ desktopView device =
             [ card device
                 { title = "Need a long-term nurse?"
                 , desc = "Recreate the way you hire nurses"
-                , btnLabel = "Flint for hospitals"
+                , btn = { label = "Flint for hospitals", page = Partnerships }
                 , bg = industryBg
                 }
             , card device
                 { title = "Want to be a nurse in America?"
                 , desc = "Find support and community from start to finish"
-                , btnLabel = "Flint for nurses"
+                , btn = { label = "Flint for nurses", page = NurseCareers "" }
                 , bg = nursesBg
                 }
             ]

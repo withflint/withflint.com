@@ -594,7 +594,7 @@ joinTeamHeader device =
             ]
 
         menu =
-            [ ( "Partnerships", "/partnerships/" ), ( "Nurse Careers", "/nurse-careers/" ) ]
+            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
 
         blobSrc =
             "/static/images/header-blob-blue.svg"
@@ -614,7 +614,7 @@ nurseCareerHeader device =
             ]
 
         menu =
-            [ ( "Partnerships", "/partnerships/" ), ( "Nurse Careers", "/nurse-careers" ) ]
+            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
 
         blobSrc =
             "/static/images/header-blob-beige.svg"
@@ -629,7 +629,7 @@ header :
     Device.Device
     ->
         { title : String
-        , menu : List ( String, String )
+        , menu : List ( String, Page )
         , bg : List (Attribute msg)
         , blobSrc : String -- url
         }
@@ -654,11 +654,11 @@ header device { title, menu, bg, blobSrc } =
                 , logo
                 ]
 
-        link : ( String, String ) -> Element msg
-        link ( label, url ) =
+        link : ( String, Page ) -> Element msg
+        link ( label, page ) =
             Element.link
                 []
-                { url = url
+                { url = toPath page
                 , label =
                     el [ Font.center ] (text label)
                 }
@@ -688,10 +688,15 @@ header device { title, menu, bg, blobSrc } =
                 [ css "position" "absolute"
                 , css "left" "44px"
                 , css "top" "20px"
+                , css "z-index" "100"
                 ]
-                [ Element.image
-                    [ width (px 110), height (px 54) ]
-                    { src = "/static/images/logo.svg?new", description = "Flint" }
+                [ Element.link [ wf ]
+                    { url = toPath Home
+                    , label =
+                        Element.image
+                            [ width (px 110), height (px 54) ]
+                            { src = "/static/images/logo.svg?new", description = "Flint" }
+                    }
                 ]
     in
     row ([ wf, css "position" "relative" ] ++ bg)
