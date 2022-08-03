@@ -195,7 +195,7 @@ blogHeader device =
                 []
                 { url = toPath <| R.NurseCareers ""
                 , label =
-                    el [ Font.center, Font.color palette.white, mouseOver [ Font.color colors.carminePink ] ] (text "Nurse Careers")
+                    el [ Font.center, Font.color palette.white, mouseOver [ Font.color colors.carminePink ] ] (text "Nurse Success")
                 }
             ]
 

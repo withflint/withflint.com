@@ -1,4 +1,4 @@
-module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, debug, font, headFont, headerGradientBackground, heading, hf, link, menu, palette, paragraph, pb, pl, pr, pt, title, wf)
+module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, debug, font, headFont, headerGradientBackground, heading, hf, lineHeight, link, menu, minimumWidth, palette, paragraph, pb, pl, pr, pt, title, wf)
 
 import Element
     exposing
@@ -8,6 +8,7 @@ import Element
         , fill
         , height
         , htmlAttribute
+        , minimum
         , mouseOver
         , padding
         , paddingEach
@@ -296,6 +297,16 @@ wf =
 hf : Element.Attribute msg
 hf =
     height fill
+
+
+lineHeight : Float -> Attribute msg
+lineHeight size =
+    css "line-height" (String.fromFloat size)
+
+
+minimumWidth : Int -> Attribute msg
+minimumWidth size =
+    width (fill |> minimum size)
 
 
 css : String -> String -> Attribute msg

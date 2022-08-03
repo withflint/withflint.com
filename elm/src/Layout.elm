@@ -36,7 +36,7 @@ import Element.Background as Background
 import Element.Font as Font exposing (underline)
 import Html.Attributes exposing (wrap)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, palette, pl, wf)
+import Styles exposing (colors, css, hf, palette, pl, pt, wf)
 
 
 type alias Layout msg =
@@ -204,10 +204,18 @@ footer =
                             , column [ spacingXY 0 6 ]
                                 [ Element.paragraph [] [ text "healthcare@withflint.com" ]
                                 , Element.paragraph [] [ text "+1 (844) 677-1180" ]
+                                , Element.link
+                                    [ mouseOver [ Font.color colors.carminePink ]
+                                    , pt 6
+                                    ]
+                                    { url = "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
+                                    , label =
+                                        Element.paragraph [ Font.bold, Font.size 14, Font.center, Font.underline ] [ text "Learn if I qualify" ]
+                                    }
                                 ]
                             ]
                         , column [ hf, width <| fillPortion 3, Font.color palette.primary, spacingXY 0 12 ]
-                            [ Element.paragraph [] [ text "Nurse Careers" ]
+                            [ Element.paragraph [] [ text "Nurse Success" ]
                             , column [ spacingXY 0 6 ]
                                 [ Element.paragraph [] [ text "success@withflint.com" ]
                                 , Element.paragraph [] [ text "+1 (844) 677-1180" ]
@@ -265,7 +273,7 @@ footer =
                 ]
             , column [ Font.center, centerX, spacingXY 0 24, Font.color palette.primary ]
                 [ row [ spacingXY 12 0, centerX ]
-                    [ linkFooter "Nurse Careers" (NurseCareers "")
+                    [ linkFooter "Nurse Success" (NurseCareers "")
                     , linkFooter "Partnerships" Partnerships
                     ]
                 , row [ spacingXY 16 0, Font.color palette.primary ]
@@ -284,7 +292,7 @@ footer =
                         ]
                     ]
                 , column [ hf, spacingXY 0 12 ]
-                    [ Element.paragraph [] [ text "Nurse Careers" ]
+                    [ Element.paragraph [] [ text "Nurse Success" ]
                     , column [ spacingXY 0 6 ]
                         [ Element.paragraph [] [ text "success@withflint.com" ]
                         , Element.paragraph [] [ text "+1 (844) 677-1180" ]
@@ -330,7 +338,7 @@ footer =
 menu : List ( Page, String )
 menu =
     [ ( Home, "Home" )
-    , ( NurseCareers "", "Nurse Careers" )
+    , ( NurseCareers "", "Nurse Success" )
     , ( Blog "", "Blog" )
     , ( AboutUs, "About Us" )
     , ( Contact, "Contact" )

@@ -51,7 +51,7 @@ import Jobs.Types exposing (Config, CurrentPage(..), Field(..), Job, Model, Msg(
 import Layout exposing (Layout, footer, menu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, headFont, hf, palette, pt)
+import Styles exposing (colors, css, headFont, hf, lineHeight, minimumWidth, palette, pt)
 import Text
 import Url.Builder exposing (absolute)
 
@@ -253,10 +253,10 @@ states device =
     row [ wf, paddingXY 12 56 ]
         [ rsFillPortion
         , column [ width <| fillPortion 8, spacingXY 0 48 ]
-            [ paragraph titleStyle [ text "USA states you can live and work at" ]
+            [ paragraph titleStyle [ text "US states where you can live and work" ]
             , wrappedRow
                 [ wf
-                , Font.color colors.carminePink
+                , Font.color palette.primary
                 , spaceEvenly
                 , spacingXY 12 0
                 ]
@@ -349,12 +349,9 @@ nurseCareerBody device =
                 }
             ]
         , column [ spacingXY 0 24, wf, centerX ]
-            [ paragraph (Font.center :: subHeading) [ text "Begin the process with Flint" ]
-
-            -- Btn
-            , row [ centerX ]
+            [ row [ centerX ]
                 [ el [ wf ]
-                    (newTabLink
+                    (link
                         (centerY :: centerX :: wf :: Font.size 15 :: btn)
                         { url = "/nurse-careers/general-health-care-application-rn-np-lpn-hsp-anywhere-usa"
                         , label = paragraph [ Font.center ] [ text <| "Apply now" ]
@@ -384,7 +381,7 @@ nurseSuccessInfo =
     wrappedRow [ wf, paddingXY 0 40, spacingXY 24 40 ]
         [ row [ width <| fillPortion 6 ] [ video ]
         , column [ width <| (fillPortion 6 |> Element.minimum 300), spacingXY 0 24 ]
-            [ paragraph (Font.alignLeft :: subHeading) [ text "From start to finish support" ]
+            [ paragraph (Font.alignLeft :: subHeading) [ text "From start to finish" ]
             , paragraph
                 [ Font.alignLeft
                 , Font.letterSpacing 2
@@ -489,32 +486,31 @@ joinTeamBody device =
                 [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process-sm.png", description = "Flint interview process" }
                 ]
     in
-    column [ wf, centerX, paddingXY 0 48, spacingXY 0 56 ]
+    column [ wf, centerX, paddingXY 0 48, spacingXY 0 56, Font.size 16 ]
         [ column [ centerX ]
             [ paragraph titleStyle
                 [ text "We work with the very best" ]
             ]
-        , column [ spacingXY 0 12 ]
-            [ paragraph [ Font.center, Font.letterSpacing 2, pt 12, Font.justify ]
+        , wrappedRow [ alignTop, spacingXY 24 20 ]
+            [ paragraph [ Font.letterSpacing 2, lineHeight 1.6, minimumWidth 300 ]
                 [ text "At Flint, we're committed to hiring the best people to build our teams. Building great products takes smart, disciplined, and empathetic individuals who can understand what job the products need to get done and imagine innovative ways to achieve it. Thus we designed the hiring process to help us identify those people." ]
             , paragraph
-                [ Font.center
-                , Font.letterSpacing 2
-                , pt 12
-                , Font.justify
+                [ Font.letterSpacing 2
+                , wf
+                , hf
+                , lineHeight 1.6
+                , minimumWidth 300
                 ]
-                [ text "We foster a culture of respect, dialogue and growth where our team members can engage in a continuous conversation about product, engineering, and learning." ]
-            , Element.link [ Font.underline ]
-                { url = toPath (Blog "culture")
-                , label = text "Read more about our values and culture."
-                }
-            , paragraph
-                [ Font.center
-                , Font.letterSpacing 2
-                , pt 12
-                , Font.justify
+                [ text "We foster a culture of respect, dialogue and growth where our team members can engage in a continuous conversation about product, engineering, and learning."
+                , Element.link [ Font.underline ]
+                    { url = toPath (Blog "culture")
+                    , label = el [ lineHeight 1.6 ] (text "Read more about our values and culture.")
+                    }
+                , paragraph
+                    [ lineHeight 1.6
+                    ]
+                    [ text "We interview and make hires within a week from our first meet–it's a commitment." ]
                 ]
-                [ text "We interview and make hires within a week from our first meet–it's a commitment." ]
             ]
         , case device of
             Device.Phone _ ->
@@ -524,7 +520,7 @@ joinTeamBody device =
                 interviewProcessSm
 
             _ ->
-                row []
+                row [ centerX ]
                     [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process.png", description = "Flint interview process" }
                     ]
         ]
@@ -553,7 +549,7 @@ joinTeamHeader device =
             ]
 
         menu =
-            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
+            [ ( "Partnerships", Partnerships ), ( "Nurse Success", NurseCareers "" ) ]
 
         blobSrc =
             "/static/images/header-blob-blue.svg"
@@ -573,7 +569,7 @@ nurseCareerHeader device =
             ]
 
         menu =
-            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
+            [ ( "Partnerships", Partnerships ), ( "Nurse Success", NurseCareers "" ) ]
 
         blobSrc =
             "/static/images/header-blob-beige.svg"
@@ -760,23 +756,17 @@ jobsView device viewer model =
                             , Font.color palette.primary
                             , Font.center
                             ]
-                            [ text "Exciting career opportunities" ]
+                            [ text "Open Positions" ]
                         , column [ width (fill |> Element.maximum 820), centerX ]
                             [ paragraph
                                 [ Font.center
-                                , Font.letterSpacing 2
+                                , Font.letterSpacing 1.5
+                                , lineHeight 1.6
                                 , pt 12
                                 , Font.justify
                                 ]
-                                [ text "If you’re looking for exciting career opportunities with growth potential, now is the time to apply your skills and knowledge to a new professional challenge."
+                                [ text "Apply now and discover what exciting new career opportunities with growth potential awaits you in America, where you will apply your existing skills and knowledge while learning new ones. Our team of experienced nurse educators will guide you and start your journey today."
                                 ]
-                            , paragraph
-                                [ Font.center
-                                , Font.letterSpacing 2
-                                , pt 12
-                                , Font.justify
-                                ]
-                                [ text "Let our team of experienced nurse educators guide you and start your process today." ]
                             ]
                         ]
 

@@ -316,7 +316,7 @@ desktopView device =
     [ column [ pt 48, wf, hf, Background.color colors.cremeDark ]
         [ row [ spacing 48, centerX, Font.color palette.primary, Font.semiBold ]
             [ link "Partnerships" Partnerships
-            , link "Nurse Careers" (NurseCareers "")
+            , link "Nurse Success" (NurseCareers "")
             ]
         , row [ pt 72, wf ]
             [ heroImg

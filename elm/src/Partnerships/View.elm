@@ -83,7 +83,7 @@ desktopView device =
         [ header
             device
             "Recreate the way you hire nurses"
-            [ ( "Partnership", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
+            [ ( "Partnership", Partnerships ), ( "Nurse Success", NurseCareers "" ) ]
         , row (wf :: sectionBg)
             [ row [ width <| fillPortion 2 ] [ Element.none ]
             , column [ width <| fillPortion 8 ] [ section0 ]
@@ -105,7 +105,7 @@ phoneView device =
         [ header
             device
             "Recreate the way you hire nurses"
-            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
+            [ ( "Partnerships", Partnerships ), ( "Nurse Success", NurseCareers "" ) ]
         , row [ wf ]
             [ row [ width <| fillPortion 2 ] []
             , column [ width <| fillPortion 8 ] [ section0 ]
@@ -149,10 +149,10 @@ section0 =
         -- Btn
         , row [ centerX ]
             [ el [ wf ]
-                (newTabLink
+                (link
                     (centerY :: centerX :: wf :: Font.size 15 :: Styles.btn)
                     { url = "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
-                    , label = paragraph [ Font.center ] [ text <| "See if your facility qualifies" ]
+                    , label = paragraph [ Font.center ] [ text <| "Learn if I qualify" ]
                     }
                 )
             ]

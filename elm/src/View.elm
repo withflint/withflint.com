@@ -135,7 +135,7 @@ nurseCareersCopy =
     , paragraph2 = "We work with internationally educated health care workers from around the world for staffing opportunities in the United States of America. We offer an all-inclusive solution for the workers to have a seamless transition into their new life in America. Flint offers fully sponsored licensing, immigration and relocation programs. We pay for legal and processing fees, licensing and offer premium placement."
     , why = "Why do you want to work in the United States of America?"
     , title = "Launch your nursing career in America"
-    , pageTitle = "Nurse Careers  - Flint"
+    , pageTitle = "Nurse Success  - Flint"
     , other =
         Just
             [ text " "
