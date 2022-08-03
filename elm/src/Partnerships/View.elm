@@ -83,7 +83,7 @@ desktopView device =
         [ header
             device
             "Recreate the way you hire nurses"
-            [ ( "Partnership", Partnerships ), ( "Nurse Success", NurseCareers "" ) ]
+            [ ( "Partnerships", Partnerships ), ( "Nurse Success", NurseCareers "" ) ]
         , row (wf :: sectionBg)
             [ row [ width <| fillPortion 2 ] [ Element.none ]
             , column [ width <| fillPortion 8 ] [ section0 ]
@@ -134,25 +134,32 @@ section0 =
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
         [ column [ spacingXY 0 12, centerX ]
             [ paragraph titleStyle
-                [ text "America is short nurses." ]
+                [ text "America is short on nurses." ]
             , paragraph titleStyle
-                [ text "We find the best international nurses to fill your vacancies" ]
+                [ text "We find exceptional international nurses to fill your vacancies." ]
             ]
         , paragraph [ Font.center, Font.letterSpacing 3, pt 12, Font.justify ]
-            [ text "Hiring internationally is complicated and risky. Flint makes it simple and takes the risk away. \nWith 190 countries to work with we can service the needs of your facility. Our technology platform enables us to overcome immigration and hiring variables that others cannot. This means fast turnaround." ]
+            [ text "Hiring internationally is complicated and risky. Flint makes it simple and predictable. By sourcing in 190 countries, we can service the needs of your facility. Our technology platform enables us to overcome immigration and hiring variables that others cannot. This means fast turnaround." ]
         , column [ spacingXY 0 12 ]
-            [ paragraph subHeading [ text "Recruit incredible nurses with great experience" ]
+            [ paragraph subHeading [ text "Recruit enthusiastic nurses with experience and know-how" ]
             , paragraph subHeading [ text "Decrease your staffing costs by over 50%" ]
-            , paragraph subHeading [ text "Build a long term recruitment funnel to never be short of nurses again" ]
+            , paragraph subHeading [ text "Build a long-term recruitment channel. Never be short of nurses again." ]
             ]
 
         -- Btn
-        , row [ centerX ]
+        , column [ centerX, spacingXY 0 16 ]
             [ el [ wf ]
                 (link
                     (centerY :: centerX :: wf :: Font.size 15 :: Styles.btn)
                     { url = "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
                     , label = paragraph [ Font.center ] [ text <| "Learn if I qualify" ]
+                    }
+                )
+            , el [ wf ]
+                (link
+                    (centerY :: centerX :: wf :: Font.size 15 :: [])
+                    { url = "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
+                    , label = paragraph [ Font.center, Font.underline, Font.semiBold, Font.color palette.primary ] [ text <| "Contact Us" ]
                     }
                 )
             ]
@@ -284,8 +291,6 @@ header device title menu =
                             -- MENU
                             , row
                                 [ width <| fillPortion 4
-
-                                -- , spaceEvenly
                                 , spacing 32
                                 , Font.color palette.white
                                 , Font.letterSpacing 2

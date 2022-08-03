@@ -306,8 +306,9 @@ desktopView device =
 
         link label page =
             Element.link
-                [ mouseOver [ Font.color colors.carminePink ]
-                ]
+                (Styles.menu
+                    ++ [ Font.color palette.primary ]
+                )
                 { url = toPath page
                 , label =
                     Element.paragraph [ Font.center ] [ text label ]

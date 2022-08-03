@@ -140,8 +140,7 @@ footer =
     let
         link label page =
             Element.link
-                [ mouseOver [ Font.color colors.carminePink ]
-                ]
+                []
                 { url = toPath page
                 , label =
                     Element.paragraph [ Font.center ] [ text label ]
@@ -149,8 +148,7 @@ footer =
 
         linkFooter label page =
             Element.link
-                [ mouseOver [ Font.color colors.carminePink ]
-                , wf
+                [ wf
                 ]
                 { url = toPath page
                 , label =
@@ -204,14 +202,6 @@ footer =
                             , column [ spacingXY 0 6 ]
                                 [ Element.paragraph [] [ text "healthcare@withflint.com" ]
                                 , Element.paragraph [] [ text "+1 (844) 677-1180" ]
-                                , Element.link
-                                    [ mouseOver [ Font.color colors.carminePink ]
-                                    , pt 6
-                                    ]
-                                    { url = "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
-                                    , label =
-                                        Element.paragraph [ Font.bold, Font.size 14, Font.center, Font.underline ] [ text "Learn if I qualify" ]
-                                    }
                                 ]
                             ]
                         , column [ hf, width <| fillPortion 3, Font.color palette.primary, spacingXY 0 12 ]

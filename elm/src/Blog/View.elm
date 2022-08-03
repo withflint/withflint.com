@@ -185,17 +185,14 @@ blogHeader device =
                 { url = toPath R.Partnerships
                 , label =
                     el
-                        [ Font.center
-                        , Font.color palette.white
-                        , mouseOver [ Font.color colors.carminePink ]
-                        ]
+                        Styles.menu
                         (text "Partnerships")
                 }
             , Element.link
                 []
                 { url = toPath <| R.NurseCareers ""
                 , label =
-                    el [ Font.center, Font.color palette.white, mouseOver [ Font.color colors.carminePink ] ] (text "Nurse Success")
+                    el Styles.menu (text "Nurse Success")
                 }
             ]
 

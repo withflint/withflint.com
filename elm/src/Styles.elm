@@ -1,5 +1,6 @@
 module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, debug, font, headFont, headerGradientBackground, heading, hf, lineHeight, link, menu, minimumWidth, palette, paragraph, pb, pl, pr, pt, title, wf)
 
+import Css
 import Element
     exposing
         ( Attribute
@@ -20,7 +21,9 @@ import Element
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
+import Html
 import Html.Attributes
+import Html.Styled.Attributes
 
 
 colors :
@@ -190,19 +193,12 @@ buttons =
     }
 
 
-
--- C look for buttons.secondary
-
-
 base : List (Attribute msg)
 base =
     [ Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
     , padding 10
     , Font.color colors.blue1
     , Font.size 16
-
-    -- , width (px 128)
-    -- , height (px 36)
     , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
     , Font.semiBold
     , mouseOver
@@ -237,9 +233,10 @@ menu =
     , Font.letterSpacing 2
     , Font.size 14
     , Font.family [ Font.typeface "Inter" ]
-    , mouseOver
-        [ Font.color colors.carminePink
-        ]
+    , paddingEach { top = 6, bottom = 6, left = 8, right = 8 }
+    , Border.rounded 6
+    , Font.semiBold
+    , htmlAttribute <| Html.Attributes.class "menu"
     ]
 
 
@@ -249,16 +246,9 @@ btn =
     , Border.color palette.primary
     , Border.width 1
     , padding 10
-
-    -- , Font.color palette.white
-    -- , Font.color palette.primary
     , Font.color palette.primary
     , Font.semiBold
     , Font.size 16
-
-    -- , Background.color colors.cremeDark
-    -- , width (px 128)
-    -- , height (px 36)
     , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
     , Font.regular
     , mouseOver

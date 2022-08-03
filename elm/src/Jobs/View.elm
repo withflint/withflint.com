@@ -261,32 +261,32 @@ states device =
                 , spacingXY 12 0
                 ]
                 [ column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
-                    [ paragraph [ Font.center ] [ text "Arizona" ]
-                    , paragraph [ Font.center ] [ text "Alaska" ]
-                    , paragraph [ Font.center ] [ text "Arkansas" ]
-                    , paragraph [ Font.center ] [ text "Colorados" ]
+                    [ paragraph [ Font.center ] [ text "Alaska" ]
+                    , paragraph [ Font.center ] [ text "Arizona" ]
+                    , paragraph [ Font.center ] [ text "Colorado" ]
+                    , paragraph [ Font.center ] [ text "Delaware" ]
                     , paragraph [ Font.center ] [ text "Georgia" ]
                     ]
                 , column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
-                    [ paragraph [ Font.center ] [ text "Minnesota" ]
-                    , paragraph [ Font.center ] [ text "Montana" ]
-                    , paragraph [ Font.center ] [ text "New Mexico" ]
+                    [ paragraph [ Font.center ] [ text "Iowa" ]
+                    , paragraph [ Font.center ] [ text "Maryland" ]
+                    , paragraph [ Font.center ] [ text "Missouri" ]
+                    , paragraph [ Font.center ] [ text "Nebraska" ]
+                    , paragraph [ Font.center ] [ text "New Jersey" ]
+                    ]
+                , column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
+                    [ paragraph [ Font.center ] [ text "New Mexico" ]
                     , paragraph [ Font.center ] [ text "New York" ]
-                    , paragraph [ Font.center ] [ text "North Carolina" ]
-                    ]
-                , column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
-                    [ paragraph [ Font.center ] [ text "Kentucky" ]
-                    , paragraph [ Font.center ] [ text "Hawaii" ]
-                    , paragraph [ Font.center ] [ text "Idaho" ]
-                    , paragraph [ Font.center ] [ text "Illinois" ]
                     , paragraph [ Font.center ] [ text "Ohio" ]
+                    , paragraph [ Font.center ] [ text "Pennsylvania" ]
+                    , paragraph [ Font.center ] [ text "South Carolina" ]
                     ]
                 , column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
-                    [ paragraph [ Font.center ] [ text "South Dakota" ]
+                    [ paragraph [ Font.center ] [ text "Tennessee" ]
                     , paragraph [ Font.center ] [ text "Texas" ]
+                    , paragraph [ Font.center ] [ text "Virginia" ]
                     , paragraph [ Font.center ] [ text "Washington" ]
-                    , paragraph [ Font.center ] [ text "West Virginia" ]
-                    , paragraph [ Font.center ] [ text "Northern Mariana Islands" ]
+                    , paragraph [ Font.center ] [ text "Wisconsin" ]
                     ]
                 ]
             ]
@@ -334,18 +334,18 @@ nurseCareerBody device =
             ]
         , column [ spacingXY 0 12 ]
             [ paragraph [ Font.center, Font.letterSpacing 2, pt 12, Font.justify ]
-                [ text "Flint is an international search firm seeking experienced and qualified nurses from around the world. Our program is specifically designed to help internationally educated nurses succeed as a permanent staff in the United States of America." ]
+                [ text "Flint is an international search firm seeking experienced and qualified nurses from around the world. Our program is specifically designed to help internationally educated nurses succeed permanently in the United States." ]
             , paragraph
                 [ Font.center
                 , Font.letterSpacing 2
                 , pt 12
                 , Font.justify
                 ]
-                [ text "We partner with excellent Hospital facilities for nurses to work with and offer an all-inclusive solution for the workers to have a seamless transition into their new life in America. Flint offers fully sponsored licensing, immigration and relocation programs. We pay for legal and processing fees, licensing and offer premium placement. " ]
+                [ text "We partner with respected American hospitals.  We offer an all-inclusive solution for nurses to seamlessly transition into their new life in America. Flint provides fully sponsored licensing, immigration, and relocation programs. We pay for legal and processing fees, licensing, and offer premium placement. " ]
             , Element.link
                 []
                 { url = "/blog/we-stand-with-our-nurses"
-                , label = paragraph [ Font.underline, Font.color palette.primary ] [ text "We stand with our Nurses!" ]
+                , label = paragraph [ Font.underline, Font.color palette.primary ] [ text "We support our Nurses at every step!" ]
                 }
             ]
         , column [ spacingXY 0 24, wf, centerX ]
@@ -388,7 +388,7 @@ nurseSuccessInfo =
                 , css "line-height" "1.8"
                 , pt 12
                 ]
-                [ text "Our team of talented staff and nurse educators will guide you every step of the way. Flint offers an NCLEX preparation course, covers the cost of taking the NCLEX, travel to the nearest testing center, nurse license application, job placement, and immigration services. We consider your nursing skills, experience, and goals when assessing which facilities are best suited for you." ]
+                [ text "Our talented team of nurse educators and staff will guide you through the entire process. Flint offers an NCLEX preparation course, covers the cost of taking the NCLEX, provides travel to the nearest testing center, completes your nurse license application, provides job placement, and world-class immigration services. We consider your nursing skills, experience, and goals when assessing which facilities are best suited for you." ]
             ]
         ]
 
@@ -421,7 +421,7 @@ partners device =
             ]
         , column [ width <| fillPortion 6, Background.color palette.skyBlue, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
             [ paragraph [ Font.center, Font.size 28, Font.color palette.primary, centerY ] [ text "We partner with the most trusted names in the business" ]
-            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600) ] [ text "Flint holds high standards and invest in quality nurses by partnering with the most trusted names in immigration services" ]
+            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600) ] [ text "Flint holds high standards and invests in only quality nurses by partnering with the most trusted names in immigration services" ]
             ]
         ]
 
@@ -493,7 +493,7 @@ joinTeamBody device =
             ]
         , wrappedRow [ alignTop, spacingXY 24 20 ]
             [ paragraph [ Font.letterSpacing 2, lineHeight 1.6, minimumWidth 300 ]
-                [ text "At Flint, we're committed to hiring the best people to build our teams. Building great products takes smart, disciplined, and empathetic individuals who can understand what job the products need to get done and imagine innovative ways to achieve it. Thus we designed the hiring process to help us identify those people." ]
+                [ text "At Flint, we're committed to hiring the best people to build our teams. Building great products takes smart, disciplined, and empathetic individuals who understand our product goals and imagine innovative ways to achieve results. We designed a hiring process to help us identify those people." ]
             , paragraph
                 [ Font.letterSpacing 2
                 , wf
@@ -501,7 +501,7 @@ joinTeamBody device =
                 , lineHeight 1.6
                 , minimumWidth 300
                 ]
-                [ text "We foster a culture of respect, dialogue and growth where our team members can engage in a continuous conversation about product, engineering, and learning."
+                [ text "Flint fosters a culture of respect, dialogue, and growth– a home where our team members can engage in a continuous conversation about product, engineering, and learning."
                 , Element.link [ Font.underline ]
                     { url = toPath (Blog "culture")
                     , label = el [ lineHeight 1.6 ] (text "Read more about our values and culture.")
@@ -509,7 +509,7 @@ joinTeamBody device =
                 , paragraph
                     [ lineHeight 1.6
                     ]
-                    [ text "We interview and make hires within a week from our first meet–it's a commitment." ]
+                    [ text "We interview and make hires within a week from our first meet – it's a commitment." ]
                 ]
             ]
         , case device of
@@ -673,7 +673,7 @@ header device { title, menu, bg, blobSrc } =
 
                             -- MENU
                             , row
-                                [ width <| fillPortion 3
+                                [ width <| fillPortion 4
 
                                 -- , spaceEvenly
                                 , spacing 32
