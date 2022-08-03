@@ -1,4 +1,4 @@
-module Partnerships.Update exposing (..)
+module Partnerships.Update exposing (init)
 
 import Partnerships.Types exposing (Model)
 

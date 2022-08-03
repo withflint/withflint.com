@@ -1,4 +1,4 @@
-module Partnerships.View exposing (..)
+module Partnerships.View exposing (view)
 
 import Device exposing (Device(..))
 import Element
@@ -15,7 +15,6 @@ import Element
         , height
         , html
         , link
-        , newTabLink
         , paddingXY
         , paragraph
         , px
@@ -30,7 +29,7 @@ import Element.Background as Background
 import Element.Font as Font
 import Html
 import Html.Attributes as HtmlAttr
-import Layout exposing (Layout, footer, header)
+import Layout exposing (Layout, footer)
 import Partnerships.Types exposing (Model)
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, palette, pt, wf)
@@ -94,27 +93,6 @@ desktopView device =
     ]
 
 
-phoneView : Device -> List (Element msg)
-phoneView device =
-    [ column
-        [ Background.color colors.cremeDark
-        , wf
-        , hf
-        , Font.family [ Font.typeface "Inter" ]
-        ]
-        [ header
-            device
-            "Recreate the way you hire nurses"
-            [ ( "Partnerships", Partnerships ), ( "Nurse Success", NurseCareers "" ) ]
-        , row [ wf ]
-            [ row [ width <| fillPortion 2 ] []
-            , column [ width <| fillPortion 8 ] [ section0 ]
-            , row [ width <| fillPortion 2 ] []
-            ]
-        ]
-    ]
-
-
 section0 : Element msg
 section0 =
     let
@@ -157,7 +135,7 @@ section0 =
                 )
             , el [ wf ]
                 (link
-                    (centerY :: centerX :: wf :: Font.size 15 :: [])
+                    [ centerY, centerX, wf, Font.size 15 ]
                     { url = "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
                     , label = paragraph [ Font.center, Font.underline, Font.semiBold, Font.color palette.primary ] [ text <| "Contact Us" ]
                     }
@@ -228,15 +206,15 @@ header device title menu =
         -- responsive size
         rs =
             case device of
-                Phone vp ->
+                Phone _ ->
                     { titleFontSize = 36
                     }
 
-                Tablet vp ->
+                Tablet _ ->
                     { titleFontSize = 32
                     }
 
-                Desktop vp ->
+                Desktop _ ->
                     { titleFontSize = 44
                     }
 
@@ -313,7 +291,7 @@ header device title menu =
 
             -- GAP
             , case device of
-                Phone vp ->
+                Phone _ ->
                     Element.none
 
                 _ ->

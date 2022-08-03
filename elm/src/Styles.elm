@@ -1,6 +1,5 @@
-module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, debug, font, headFont, headerGradientBackground, heading, hf, lineHeight, link, menu, minimumWidth, palette, paragraph, pb, pl, pr, pt, title, wf)
+module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, font, headFont, headerGradientBackground, heading, hf, lineHeight, link, menu, minimumWidth, palette, paragraph, pb, pl, pt, title, wf)
 
-import Css
 import Element
     exposing
         ( Attribute
@@ -21,9 +20,7 @@ import Element
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
-import Html
 import Html.Attributes
-import Html.Styled.Attributes
 
 
 colors :
@@ -264,11 +261,6 @@ pt size =
     paddingEach { top = size, left = 0, right = 0, bottom = 0 }
 
 
-pr : Int -> Attribute msg
-pr size =
-    paddingEach { top = 0, left = 0, right = size, bottom = 0 }
-
-
 pl : Int -> Attribute msg
 pl size =
     paddingEach { top = 0, left = size, right = size, bottom = 0 }
@@ -302,15 +294,3 @@ minimumWidth size =
 css : String -> String -> Attribute msg
 css property value =
     htmlAttribute <| Html.Attributes.style property value
-
-
-debug : { red : Element.Attr decorative msg, blue : Element.Attr a b, black : Element.Attr c d, misc : Element.Attr e f }
-debug =
-    { red =
-        Background.color colors.red1
-    , blue =
-        Background.color colors.blue1
-    , black = Background.color colors.black1
-    , misc =
-        Background.color colors.skyBlue
-    }

@@ -1,6 +1,5 @@
 module Jobs.View exposing (view)
 
-import Css.Global exposing (line)
 import Device
 import Dict
 import Element
@@ -20,12 +19,10 @@ import Element
         , height
         , html
         , htmlAttribute
-        , image
         , link
         , maximum
         , minimum
         , mouseOver
-        , newTabLink
         , none
         , padding
         , paddingEach
@@ -33,7 +30,6 @@ import Element
         , paragraph
         , px
         , row
-        , shrink
         , spaceEvenly
         , spacing
         , spacingXY
@@ -52,7 +48,7 @@ import Jobs.Types exposing (Config, CurrentPage(..), Field(..), Job, Model, Msg(
 import Layout exposing (Layout, footer, menu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, headFont, hf, lineHeight, minimumWidth, palette, pt)
+import Styles exposing (colors, css, hf, lineHeight, minimumWidth, palette, pt)
 import Text
 import Url.Builder exposing (absolute)
 
@@ -82,7 +78,7 @@ view device model =
                      ]
                         ++ sectionBg
                     )
-                    (jobsView device phoneView model :: [])
+                    [ jobsView device phoneView model ]
                 , column [ wf ] footer.phone
                 ]
             , desktop =
@@ -102,7 +98,7 @@ view device model =
                      ]
                         ++ sectionBg
                     )
-                    (jobsView device desktopView model :: [])
+                    [ jobsView device desktopView model ]
                 , column [ wf ] footer.desktop
                 ]
             , tablet =
@@ -121,7 +117,7 @@ view device model =
                      ]
                         ++ sectionBg
                     )
-                    (jobsView device desktopView model :: [])
+                    [ jobsView device desktopView model ]
                 , column [ wf ] footer.phone
                 ]
             }
@@ -143,7 +139,7 @@ view device model =
                      ]
                         ++ sectionBg
                     )
-                    (jobsView device phoneView model :: [])
+                    [ jobsView device phoneView model ]
                 , column [ wf ] footer.phone
                 ]
             , desktop =
@@ -165,7 +161,7 @@ view device model =
                      ]
                         ++ sectionBg
                     )
-                    (jobsView device desktopView model :: [])
+                    [ jobsView device desktopView model ]
                 , column [ wf ] footer.desktop
                 ]
             , tablet =
@@ -184,7 +180,7 @@ view device model =
                      ]
                         ++ sectionBg
                     )
-                    (jobsView device desktopView model :: [])
+                    [ jobsView device desktopView model ]
                 , column [ wf ] footer.phone
                 ]
             }
@@ -301,12 +297,6 @@ nurseCareerBody device =
         titleStyle =
             [ Font.center
             , Font.size 28
-            , Font.semiBold
-            , Font.color palette.primary
-            ]
-
-        subHeading =
-            [ Font.size 18
             , Font.semiBold
             , Font.color palette.primary
             ]
@@ -458,31 +448,6 @@ joinTeamBody device =
             , Font.color palette.primary
             ]
 
-        subHeading =
-            [ Font.size 18
-            , Font.semiBold
-            , Font.color palette.primary
-            ]
-
-        btn =
-            [ Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
-
-            -- , Border.color colo
-            , Border.width 1
-            , padding 10
-            , Font.color palette.white
-            , Font.semiBold
-            , Font.size 16
-            , Background.color colors.carminePink
-            , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
-            , Font.regular
-            , mouseOver
-                [ Font.color colors.cremeLight
-                , Background.color colors.carminePink
-                , Border.color colors.carminePink
-                ]
-            ]
-
         interviewProcessSm =
             row [ centerX ]
                 [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process-sm.png", description = "Flint interview process" }
@@ -623,15 +588,15 @@ header device { title, menu, bg, blobSrc } =
         -- responsive size
         rs =
             case device of
-                Device.Phone vp ->
+                Device.Phone _ ->
                     { titleFontSize = 36
                     }
 
-                Device.Tablet vp ->
+                Device.Tablet _ ->
                     { titleFontSize = 32
                     }
 
-                Device.Desktop vp ->
+                Device.Desktop _ ->
                     { titleFontSize = 44
                     }
 
@@ -700,7 +665,7 @@ header device { title, menu, bg, blobSrc } =
 
             -- GAP
             , case device of
-                Device.Phone vp ->
+                Device.Phone _ ->
                     Element.none
 
                 _ ->
@@ -1081,24 +1046,6 @@ desktopCopyView config =
 phoneCopyView : Config -> Element Msg
 phoneCopyView config =
     Element.none
-
-
-hiringProcess : Element msg
-hiringProcess =
-    row
-        [ wf
-        ]
-        [ paragraph []
-            [ newTabLink [ wf ]
-                { url = "/static/images/hiring-process.svg?new"
-                , label =
-                    image [ wf, centerX ]
-                        { src = "/static/images/hiring-process.svg?new"
-                        , description = "Interview Process"
-                        }
-                }
-            ]
-        ]
 
 
 wf : Attribute msg

@@ -1,6 +1,4 @@
-module Device exposing (Device(..), classify)
-
-import Jobs.Types exposing (View)
+module Device exposing (Device(..), Viewport, classify)
 
 
 type Device

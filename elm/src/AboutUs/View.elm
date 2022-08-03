@@ -5,31 +5,12 @@ import Device
 import Element
     exposing
         ( Element
-        , centerX
         , column
-        , el
         , fill
         , height
-        , link
-        , maximum
-        , minimum
-        , mouseOver
-        , padding
-        , paddingEach
-        , paddingXY
-        , paragraph
-        , row
-        , shrink
-        , spacing
-        , spacingXY
-        , text
-        , width
         )
-import Element.Background as Background
-import Element.Border as Border
-import Element.Font as Font
-import Layout exposing (Layout, footer)
-import Styles exposing (buttons, colors, heading, wf)
+import Layout exposing (Layout)
+import Styles exposing (wf)
 
 
 view : Device.Device -> Model -> Layout msg

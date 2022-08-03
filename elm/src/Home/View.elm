@@ -5,8 +5,6 @@ import Element
     exposing
         ( Attribute
         , Element
-        , alignBottom
-        , alignTop
         , centerX
         , centerY
         , column
@@ -16,7 +14,6 @@ import Element
         , html
         , maximum
         , mouseOver
-        , newTabLink
         , padding
         , paddingEach
         , paddingXY
@@ -37,7 +34,7 @@ import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (buttons, colors, css, hf, palette, pl, pt)
+import Styles exposing (colors, css, hf, palette, pl, pt)
 
 
 view : Model -> Device -> Layout msg
@@ -340,90 +337,6 @@ desktopView device =
     ]
 
 
-cta : ( String, String ) -> Element msg
-cta ( url, t ) =
-    column ([ wf, centerX ] ++ Styles.paragraph ++ [ alignBottom ])
-        [ newTabLink ([ wf, centerX, width (maximum 200 fill), Font.center, mouseOver [ Background.color colors.blue1 ] ] ++ buttons.primary)
-            { url = url, label = text t }
-        ]
-
-
-leftCta : ( String, String ) -> Element msg
-leftCta ( url, t ) =
-    column ([ wf, centerX ] ++ Styles.paragraph)
-        [ newTabLink ([ wf, width (maximum 200 fill), Font.center, mouseOver [ Background.color colors.blue1 ] ] ++ buttons.primary)
-            { url = url, label = text t }
-        ]
-
-
-orderedList : List ( String, String ) -> Element msg
-orderedList list =
-    column [ wf, spacing 20, paddingXY 30 30 ] (list |> List.map (\( n, t ) -> row [ spacing 5 ] [ el [ alignTop ] (text n), paragraph [ alignTop ] [ text t ] ]))
-
-
-h2 : String -> Element msg
-h2 t =
-    paragraph
-        [ centerX
-        , paddingXY 10 10
-        , width
-            (fill
-                |> maximum 300
-            )
-        , Font.size 30
-        , Font.center
-        ]
-        [ text t ]
-
-
-h2w : String -> Element msg
-h2w t =
-    paragraph
-        [ paddingXY 10 10
-        , Font.size 30
-        ]
-        [ text t ]
-
-
-p : String -> Element msg
-p t =
-    paragraph
-        [ centerX
-        , paddingXY 10 10
-        , width
-            (fill
-                |> maximum 550
-            )
-        , spacing 15
-        ]
-        [ text t ]
-
-
-pw : String -> Element msg
-pw t =
-    paragraph
-        [ centerX
-        , paddingXY 10 10
-        , spacing 15
-        ]
-        [ text t ]
-
-
 wf : Element.Attribute msg
 wf =
     width fill
-
-
-cell : List (Element msg) -> Element msg
-cell =
-    column [ wf, alignTop, height fill ]
-
-
-pair : List (Element msg) -> List (Element msg) -> Element msg
-pair l1 l2 =
-    row [ wf, alignTop, spacing 100 ] [ cell l1, cell l2 ]
-
-
-expand : Element msg
-expand =
-    row [ height fill, wf ] [ text "" ]

@@ -4,29 +4,23 @@ import Device exposing (Device(..))
 import Element
     exposing
         ( Element
-        , alignBottom
         , alignLeft
         , alignRight
-        , alignTop
         , centerX
         , centerY
         , column
-        , el
         , fill
         , fillPortion
         , height
         , image
         , link
-        , mouseOver
         , newTabLink
         , padding
-        , paddingEach
         , paddingXY
         , paragraph
         , px
         , row
         , spaceEvenly
-        , spacing
         , spacingXY
         , text
         , width
@@ -34,9 +28,8 @@ import Element
         )
 import Element.Background as Background
 import Element.Font as Font exposing (underline)
-import Html.Attributes exposing (wrap)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, palette, pl, pt, wf)
+import Styles exposing (colors, css, hf, palette, wf)
 
 
 type alias Layout msg =
@@ -50,7 +43,7 @@ layout : Device -> Layout msg -> Element msg
 layout device views =
     case device of
         -- vp == viewport
-        Phone vp ->
+        Phone _ ->
             column
                 [ --     height fill
                   -- , width fill
@@ -62,7 +55,7 @@ layout device views =
                 ]
                 views.phone
 
-        Tablet vp ->
+        Tablet _ ->
             column
                 [ -- height fill
                   -- , width fill
