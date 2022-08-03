@@ -2,8 +2,7 @@ module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, debug,
 
 import Element
     exposing
-        ( Attr
-        , Attribute
+        ( Attribute
         , Color
         , alignLeft
         , fill
@@ -13,7 +12,6 @@ import Element
         , padding
         , paddingEach
         , paddingXY
-        , px
         , rgb255
         , spacing
         , width

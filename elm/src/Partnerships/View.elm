@@ -4,7 +4,6 @@ import Device exposing (Device(..))
 import Element
     exposing
         ( Element
-        , alignLeft
         , alignRight
         , alignTop
         , centerX
@@ -15,20 +14,12 @@ import Element
         , fillPortion
         , height
         , html
-        , htmlAttribute
         , link
-        , maximum
-        , minimum
-        , mouseOver
         , newTabLink
-        , padding
-        , paddingEach
         , paddingXY
         , paragraph
         , px
         , row
-        , shrink
-        , spaceEvenly
         , spacing
         , spacingXY
         , text
@@ -36,64 +27,38 @@ import Element
         , wrappedRow
         )
 import Element.Background as Background
-import Element.Border as Border
 import Element.Font as Font
-import Element.Input as Input
 import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, header)
-import List exposing (maximum)
 import Partnerships.Types exposing (Model)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (buttons, colors, css, debug, heading, hf, palette, pl, pr, pt, wf)
+import Styles exposing (colors, css, hf, palette, pt, wf)
 
 
 view : Device -> Model -> Layout msg
 view device _ =
     { phone =
         [ column
-            [ -- centerX
-              -- , width <| maximum 1500 fill
-              -- ,
-              wf
+            [ wf
             , height fill
-
-            -- , paddingXY 20 40
             ]
-            -- header.phone
-            -- ++
-            --  phoneView
-            --  phoneView device
             (desktopView device
                 ++ footer.phone
             )
         ]
     , tablet =
         [ column
-            [ -- centerX
-              -- , width <| maximum 1500 fill
-              wf
-
-            -- , paddingXY 100 40
+            [ wf
             ]
-            -- header.tablet
-            -- ++
-            --  phoneView device
             (desktopView device
                 ++ footer.tablet
             )
         ]
     , desktop =
         [ column
-            [ --     centerX
-              -- , width <| maximum 1500 fill
-              -- ,
-              --   height fill
-              -- , paddingXY 100 40
-              wf
+            [ wf
             ]
-            -- header.desktop
-            -- ++
             (desktopView device
                 ++ footer.desktop
             )
@@ -105,8 +70,8 @@ desktopView : Device -> List (Element msg)
 desktopView device =
     let
         sectionBg =
-            [ htmlAttribute <| HtmlAttr.style "background" "#DAE9FF"
-            , htmlAttribute <| HtmlAttr.style "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 99.99%, #DAE9FF 100%)"
+            [ css "background" "#DAE9FF"
+            , css "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 99.99%, #DAE9FF 100%)"
             ]
     in
     [ column
@@ -119,7 +84,7 @@ desktopView device =
             device
             "Recreate the way you hire nurses"
             [ ( "Partnership", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
-        , row ([ wf ] ++ sectionBg)
+        , row (wf :: sectionBg)
             [ row [ width <| fillPortion 2 ] [ Element.none ]
             , column [ width <| fillPortion 8 ] [ section0 ]
             , row [ width <| fillPortion 2 ] [ Element.none ]
@@ -239,7 +204,7 @@ header device title menu =
             row [ css "position" "relative" ]
                 [ row
                     [ alignTop
-                    , htmlAttribute <| HtmlAttr.style "position" "relative"
+                    , css "position" "relative"
                     , width (px 275)
                     , height (px 139)
                     ]
@@ -268,7 +233,6 @@ header device title menu =
                     { titleFontSize = 44
                     }
 
-                -- 44
                 NotSet ->
                     { titleFontSize = 0
                     }

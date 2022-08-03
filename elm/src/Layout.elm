@@ -195,7 +195,8 @@ footer =
                         -- MENU
                         , column [ hf, width <| fillPortion 3, spacingXY 0 12 ]
                             [ link "Blog" (Blog "")
-                            , link "About Us" AboutUs
+
+                            -- , link "About Us" AboutUs
                             , link "Join the Team" (JoinTheTeam "")
                             ]
                         , column [ hf, width <| fillPortion 3, Font.color palette.primary, spacingXY 0 12 ]
@@ -269,7 +270,8 @@ footer =
                     ]
                 , row [ spacingXY 16 0, Font.color palette.primary ]
                     [ linkFooter "Blog" (Blog "")
-                    , linkFooter "About Us" AboutUs
+
+                    -- , linkFooter "About Us" AboutUs
                     , linkFooter "Join the Team" (JoinTheTeam "")
                     ]
                 ]

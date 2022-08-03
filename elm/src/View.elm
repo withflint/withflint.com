@@ -21,7 +21,6 @@ import Element
         , text
         , width
         )
-import Element.Background as Background
 import Element.Font as Font
 import FaqNurses.View
 import Home.View
@@ -55,7 +54,7 @@ renderRoute model =
             layout model.device <| Contact.View.view model.contact
 
         AboutUs ->
-            layout model.device <| AboutUs.View.view model.aboutUs
+            layout model.device <| AboutUs.View.view model.device model.aboutUs
 
         Partnerships ->
             layout model.device <| Partnerships.View.view model.device model.partnerships
@@ -82,8 +81,6 @@ notFound =
         ([ width fill
          , height fill
          , padding 20
-
-         --  , Font.color colors.white3
          , Font.color colors.cremeLight
          , spacing 20
          ]
@@ -119,8 +116,7 @@ notFound =
             [ paragraph []
                 [ link
                     (Styles.link
-                        ++ [ --Font.color colors.white3
-                             Font.color colors.cremeLight
+                        ++ [ Font.color colors.cremeLight
                            ]
                     )
                     { url = toPath Home

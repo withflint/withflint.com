@@ -31,12 +31,11 @@ import Element
         , textColumn
         , width
         )
-import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Html
 import Html.Attributes as HtmlAttr
-import Layout exposing (Layout, footer, header)
+import Layout exposing (Layout, footer)
 import Mark
 import Router.Routes as R exposing (toPath)
 import Styles exposing (colors, css, hf, palette, wf)
@@ -60,11 +59,7 @@ view device model =
                 , height fill
                 , paddingXY 20 40
                 ]
-                -- header.phone
-                -- ++
-                (blogPhoneView model.article
-                 -- ++ footer.phone
-                )
+                (blogPhoneView model.article)
             ]
         , column [ wf ] footer.phone
         ]
@@ -78,11 +73,7 @@ view device model =
                 , height fill
                 , paddingXY 40 40
                 ]
-                -- header.tablet
-                -- ++
-                (blogView model.article
-                 -- ++ footer.tablet
-                )
+                (blogView model.article)
             ]
         , column [ wf ] footer.phone
         ]
@@ -96,8 +87,6 @@ view device model =
                 , height fill
                 , paddingXY 100 40
                 ]
-                -- header.desktop
-                -- ++
                 (blogView model.article)
             ]
         , column [ wf ] footer.desktop
@@ -153,46 +142,6 @@ blogPhoneHeader device =
             [ row [ css "width" "80%", css "height" "80%" ] [ blob ]
             ]
         , column [ wf ] []
-
-        -- , column
-        --     [ alignTop, height (px 280), wf ]
-        --     [ -- GAP
-        --       case device of
-        --         Phone _ ->
-        --             row [ wf, height <| fillPortion 4 ] [ Element.none ]
-        --         _ ->
-        --             row [ wf, height <| fillPortion 4 ]
-        --                 [ -- MENU
-        --                   row [ wf ]
-        --                     [ -- GAP
-        --                       row [ width <| fillPortion 7 ] []
-        --                     -- MENU
-        --                     , row
-        --                         [ width <| fillPortion 4
-        --                         -- , spaceEvenly
-        --                         , spacing 32
-        --                         , Font.color palette.white
-        --                         , Font.letterSpacing 2
-        --                         , Font.size 14
-        --                         ]
-        --                         [ row [ alignRight, spacingXY 36 0 ]
-        --                             (List.map (el (wf :: Styles.menu) << link) menu)
-        --                         ]
-        --                     -- GAP
-        --                     , row [ width <| fillPortion 2 ] []
-        --                     ]
-        --                 ]
-        -- -- TITLE
-        -- , row [ wf, height <| fillPortion 8 ]
-        --     [ row ([ wf, centerX, Font.size rs.titleFontSize ] ++ Styles.title)
-        --         [ paragraph [ Font.center, Font.size rs.titleFontSize ] [ text title ] ]
-        --     ]
-        -- GAP
-        -- , case device of
-        --     Phone vp ->
-        --         Element.none
-        --     _ ->
-        --         row [ wf, height <| fillPortion 2 ] []
         ]
 
 

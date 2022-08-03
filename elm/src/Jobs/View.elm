@@ -51,7 +51,7 @@ import Jobs.Types exposing (Config, CurrentPage(..), Field(..), Job, Model, Msg(
 import Layout exposing (Layout, footer, menu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, headFont, headerGradientBackground, hf, palette, pt)
+import Styles exposing (colors, css, headFont, hf, palette, pt)
 import Text
 import Url.Builder exposing (absolute)
 
@@ -71,22 +71,13 @@ view device model =
                     [ wf
                     , Font.family [ Font.typeface "Inter" ]
                     ]
-                    -- (width fill :: headerGradientBackground)
                     [ row [ wf, hf ] [ toHeader device model.config ]
                     , toView device model.config
-
-                    --phoneHeader
-                    -- , workAtPhone model.config
                     ]
                 , column
                     ([ wf
                      , height fill
                      , Font.family [ Font.typeface "Inter" ]
-
-                     -- , paddingXY 20 40
-                     -- , spacing 50
-                     -- , centerX
-                     -- , Background.color colors.cremeDark
                      ]
                         ++ sectionBg
                     )
@@ -99,17 +90,11 @@ view device model =
                     [ wf
                     , Font.family [ Font.typeface "Inter" ]
                     ]
-                    -- (width fill :: headerGradientBackground)
-                    [ --desktopHeader
-                      row [ wf, hf ] [ toHeader device model.config ]
+                    [ row [ wf, hf ] [ toHeader device model.config ]
                     , toView device model.config
-
-                    -- , workAtDesktop model.conf
                     ]
                 , column
-                    ([ --     width <| maximum 1500 fill
-                       --  ,
-                       wf
+                    ([ wf
                      , height fill
                      , Font.family [ Font.typeface "Inter" ]
                      , centerX
@@ -121,25 +106,16 @@ view device model =
                 ]
             , tablet =
                 [ column
-                    -- (width fill :: headerGradientBackground)
                     [ wf
                     , Font.family [ Font.typeface "Inter" ]
                     ]
-                    [ --desktopHeader
-                      row [ wf, hf ] [ toHeader device model.config ]
+                    [ row [ wf, hf ] [ toHeader device model.config ]
                     , toView device model.config
-
-                    -- , workAtDesktop model.config
                     ]
                 , column
-                    ([ -- width <| maximum 1500 fill
-                       wf
+                    ([ wf
                      , height fill
-
-                     -- , paddingXY 100 40
                      , Font.family [ Font.typeface "Inter" ]
-
-                     -- , spacing 50
                      , centerX
                      ]
                         ++ sectionBg
@@ -155,24 +131,14 @@ view device model =
                     [ wf
                     , Font.family [ Font.typeface "Inter" ]
                     ]
-                    -- (width fill :: headerGradientBackground)
                     [ toHeader device model.config
-
-                    -- toView device model.config
-                    --phoneHeader
-                    -- , workAtPhone model.config
                     ]
                 , column
                     ([ wf
                      , height fill
                      , Font.family [ Font.typeface "Inter" ]
                      , paddingXY 20 60
-
-                     -- , paddingXY 20 40
-                     -- , spacing 50
                      , centerX
-
-                     -- , Background.color colors.cremeDark
                      ]
                         ++ sectionBg
                     )
@@ -185,57 +151,34 @@ view device model =
                     [ wf
                     , Font.family [ Font.typeface "Inter" ]
                     ]
-                    -- (width fill :: headerGradientBackground)
-                    [ --desktopHeader
-                      --   toView device model.config
-                      -- , workAtDesktop model.conf
-                      toHeader device model.config
+                    [ toHeader device model.config
                     ]
                 , column
-                    ([ --     width <| maximum 1500 fill
-                       --  ,
-                       wf
+                    ([ wf
                      , height fill
                      , paddingXY 0 80
-
-                     -- , paddingXY 100 40
-                     -- , spacing 50
                      , centerX
-
-                     -- , Background.color colors.cremeDark
                      , Font.family [ Font.typeface "Inter" ]
 
                      -- , Background.color colors.cremeLight
                      ]
                         ++ sectionBg
                     )
-                    -- C changed
-                    -- (jobsView desktopView model :: footer.desktop)
                     (jobsView device desktopView model :: [])
                 , column [ wf ] footer.desktop
                 ]
             , tablet =
                 [ column
-                    -- (width fill :: headerGradientBackground)
                     [ wf
                     , Font.family [ Font.typeface "Inter" ]
                     ]
-                    [ --desktopHeader
-                      --   toView device model.config
-                      -- , workAtDesktop model.config
-                      toHeader device model.config
+                    [ toHeader device model.config
                     ]
                 , column
-                    ([ --     width <| maximum 1500 fill
-                       --  ,
-                       wf
+                    ([ wf
                      , height fill
                      , paddingXY 20 80
-
-                     -- , paddingXY 100 40
                      , Font.family [ Font.typeface "Inter" ]
-
-                     -- , spacing 50
                      , centerX
                      ]
                         ++ sectionBg
@@ -278,9 +221,7 @@ nurseCareerView device =
         , hf
         , Font.family [ Font.typeface "Inter" ]
         ]
-        [ --     nurseCareerHeader device
-          -- ,
-          row ([ wf ] ++ sectionBg)
+        [ row (wf :: sectionBg)
             [ row [ width <| fillPortion 2 ] [ Element.none ]
             , column [ width <| fillPortion 8 ] [ nurseCareerBody device ]
             , row [ width <| fillPortion 2 ] [ Element.none ]
@@ -371,8 +312,6 @@ nurseCareerBody device =
 
         btn =
             [ Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
-
-            -- , Border.color colo
             , Border.width 1
             , padding 10
             , Font.color palette.white
@@ -564,7 +503,11 @@ joinTeamBody device =
                 , pt 12
                 , Font.justify
                 ]
-                [ text "We foster a culture of respect, dialogue and growth where our team members can engage in a continuous conversation about product, engineering, and learning. Read more about our values and culture." ]
+                [ text "We foster a culture of respect, dialogue and growth where our team members can engage in a continuous conversation about product, engineering, and learning." ]
+            , Element.link [ Font.underline ]
+                { url = toPath (Blog "culture")
+                , label = text "Read more about our values and culture."
+                }
             , paragraph
                 [ Font.center
                 , Font.letterSpacing 2
@@ -694,7 +637,6 @@ header device { title, menu, bg, blobSrc } =
                     { titleFontSize = 44
                     }
 
-                -- 44
                 Device.NotSet ->
                     { titleFontSize = 0
                     }
@@ -769,124 +711,8 @@ header device { title, menu, bg, blobSrc } =
         ]
 
 
-phoneHeader : Element Msg
-phoneHeader =
-    row [ wf, paddingXY 30 0 ]
-        [ row [ width <| maximum 1500 fill, paddingXY 0 40, centerX ]
-            [ Element.link []
-                { url = toPath Home
-                , label =
-                    Element.image [ centerY, alignLeft, width (px 100), height (px 50) ]
-                        { src = "/static/images/logo-white.svg?new"
-                        , description = "Flint"
-                        }
-                }
-            ]
-        ]
-
-
-
--- menu bar
-
-
-desktopHeader : Element Msg
-desktopHeader =
-    row
-        [ wf
-        , paddingXY 100 0
-        ]
-        [ row [ width <| maximum 1300 fill, paddingXY 0 40, centerX ]
-            [ column [ wf ]
-                [ Element.link []
-                    { url = toPath Home
-                    , label =
-                        Element.image [ centerY, alignLeft, width (px 100), height (px 50) ]
-                            { src = "/static/images/logo-white.svg?new"
-                            , description = "Flint"
-                            }
-                    }
-                ]
-            , column [ wf, alignRight ]
-                [ column (wf :: Styles.paragraph)
-                    [ row [ spacingXY 30 0, alignRight ] <|
-                        List.map
-                            (\( path, label ) ->
-                                row []
-                                    [ link
-                                        [ padding 5
-
-                                        -- C color changed
-                                        , Font.color colors.cremeLight
-                                        , headFont
-                                        , Font.size 16
-                                        , mouseOver [ Font.color colors.carminePink ]
-                                        ]
-                                        { url = toPath path
-                                        , label = text label
-                                        }
-                                    ]
-                            )
-                            menu
-                    ]
-                ]
-            ]
-        ]
-
-
 
 -- Launch your nursing career in America
-
-
-workAtDesktop : Config -> Element Msg
-workAtDesktop config =
-    Element.none
-
-
-
--- row
---     [ wf
---     , padding 50
---     ]
---     [ column [ wf, spacing 30 ]
---         [ paragraph
---             [ width <| maximum 1400 fill
---             , centerX
---             , centerY
---             , Font.center
---             , height (minimum 150 shrink)
---             , Font.color colors.white3
---             , Font.size 70
---             -- title font color
---             , Font.color colors.cremeLight
---             , Styles.headFont
---             ]
---             [ text config.copy.title
---             ]
---         ]
---     ]
-
-
-workAtPhone : Config -> Element Msg
-workAtPhone config =
-    row [ wf, Background.color colors.blue1, padding 50 ]
-        [ column [ wf, spacing 30 ]
-            [ paragraph
-                [ wf
-                , centerX
-                , centerY
-                , Font.center
-                , height (minimum 50 shrink)
-                , Font.color colors.white3
-                , Font.size 40
-
-                -- title font color
-                , Font.color colors.cremeLight
-                , Styles.headFont
-                ]
-                [ text config.copy.title
-                ]
-            ]
-        ]
 
 
 type alias Viewer =
@@ -915,10 +741,6 @@ phoneView =
 jobsView : Device.Device -> Viewer -> Model -> Element Msg
 jobsView device viewer model =
     let
-        -- sectionBg =
-        --     [ css "background" "#DAE9FF"
-        --     , css "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 102.99%)"
-        --     ]
         rsPadding =
             -- responsive padding
             case device of
@@ -962,8 +784,6 @@ jobsView device viewer model =
                     paragraph
                         [ Font.size 24
                         , Styles.headFont
-
-                        -- C added
                         , Font.color colors.blue1
                         , Font.center
                         , Styles.pb 24
@@ -988,8 +808,6 @@ jobsView device viewer model =
                         [ spacingXY 0 20
                         , rsPadding
                         , wf
-
-                        --  , paddingXY 100 40
                         , centerX
                         ]
                       <|
@@ -1032,8 +850,7 @@ desktopJobView ( page, id, job ) =
             [ link
                 [ Font.color colors.blue1
                 , mouseOver
-                    [ -- C changed color
-                      Font.color colors.carminePink
+                    [ Font.color colors.carminePink
                     ]
                 ]
                 { url = absolute [ page, id ] []
@@ -1062,8 +879,7 @@ phoneJobView ( page, id, job ) =
                 [ link
                     [ Font.color colors.blue1
                     , mouseOver
-                        [ -- C changed color
-                          Font.color colors.carminePink
+                        [ Font.color colors.carminePink
                         ]
                     ]
                     { url = absolute [ page, id ] []
@@ -1273,31 +1089,6 @@ desktopCopyView config =
 phoneCopyView : Config -> Element Msg
 phoneCopyView config =
     Element.none
-
-
-
--- column [ spacing 50, wf, height fill ]
---     ([ paragraph [ wf, height fill, Font.size 30, Font.color colors.blue1, Styles.headFont ]
---         [ text config.copy.phoneHeader
---         ]
---      , column [ wf, spacing 50, height fill ]
---         [ column [ wf, alignTop ]
---             [ paragraph Styles.paragraph
---                 [ text config.copy.paragraph1
---                 ]
---             ]
---         , column [ wf, alignTop ]
---             [ paragraph Styles.paragraph
---                 (text config.copy.paragraph2 :: Maybe.withDefault [] config.copy.other)
---             ]
---         ]
---      ]
---         ++ (if config.page == "join" then
---                 [ hiringProcess ]
---             else
---                 []
---            )
---     )
 
 
 hiringProcess : Element msg
