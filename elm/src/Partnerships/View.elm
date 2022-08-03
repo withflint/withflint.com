@@ -33,7 +33,7 @@ import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, header)
 import Partnerships.Types exposing (Model)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, palette, pt, wf)
+import Styles exposing (colors, css, hf, lineHeight, palette, pt, wf)
 
 
 view : Device -> Model -> Layout msg
@@ -138,7 +138,7 @@ section0 =
             , paragraph titleStyle
                 [ text "We find exceptional international nurses to fill your vacancies." ]
             ]
-        , paragraph [ Font.center, Font.letterSpacing 3, pt 12, Font.justify ]
+        , paragraph [ Font.center, Font.letterSpacing 2, pt 12, Font.justify, lineHeight 1.6 ]
             [ text "Hiring internationally is complicated and risky. Flint makes it simple and predictable. By sourcing in 190 countries, we can service the needs of your facility. Our technology platform enables us to overcome immigration and hiring variables that others cannot. This means fast turnaround." ]
         , column [ spacingXY 0 12 ]
             [ paragraph subHeading [ text "Recruit enthusiastic nurses with experience and know-how" ]
@@ -194,7 +194,7 @@ partners device =
             ]
         , column [ width <| fillPortion 6, Background.color palette.skyBlue, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
             [ paragraph [ Font.center, Font.size 28, Font.color palette.primary, centerY ] [ text "We partner with the most trusted names in the business" ]
-            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600) ] [ text "Flint holds high standards and invest in quality nurses by partnering with the most trusted names in immigration services" ]
+            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint holds high standards and invest in quality nurses by partnering with the most trusted names in immigration services" ]
             ]
         ]
 

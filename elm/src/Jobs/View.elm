@@ -1,5 +1,6 @@
 module Jobs.View exposing (view)
 
+import Css.Global exposing (line)
 import Device
 import Dict
 import Element
@@ -333,13 +334,14 @@ nurseCareerBody device =
                 [ text "We are committed to your nursing future in the USA" ]
             ]
         , column [ spacingXY 0 12 ]
-            [ paragraph [ Font.center, Font.letterSpacing 2, pt 12, Font.justify ]
+            [ paragraph [ Font.center, Font.letterSpacing 2, pt 12, Font.justify, lineHeight 1.6 ]
                 [ text "Flint is an international search firm seeking experienced and qualified nurses from around the world. Our program is specifically designed to help internationally educated nurses succeed permanently in the United States." ]
             , paragraph
                 [ Font.center
                 , Font.letterSpacing 2
                 , pt 12
                 , Font.justify
+                , lineHeight 1.6
                 ]
                 [ text "We partner with respected American hospitals.  We offer an all-inclusive solution for nurses to seamlessly transition into their new life in America. Flint provides fully sponsored licensing, immigration, and relocation programs. We pay for legal and processing fees, licensing, and offer premium placement. " ]
             , Element.link
@@ -369,7 +371,7 @@ nurseSuccessInfo =
         video =
             html <|
                 Html.video [ HtmlAttr.width 328, HtmlAttr.height 527, HtmlAttr.controls True ]
-                    [ Html.source [ HtmlAttr.src "static/videos/video-nurse-success.webm" ] []
+                    [ Html.source [ HtmlAttr.src "static/videos/video-nurse-success.mp4" ] []
                     ]
 
         subHeading =
@@ -385,7 +387,7 @@ nurseSuccessInfo =
             , paragraph
                 [ Font.alignLeft
                 , Font.letterSpacing 2
-                , css "line-height" "1.8"
+                , lineHeight 1.6
                 , pt 12
                 ]
                 [ text "Our talented team of nurse educators and staff will guide you through the entire process. Flint offers an NCLEX preparation course, covers the cost of taking the NCLEX, provides travel to the nearest testing center, completes your nurse license application, provides job placement, and world-class immigration services. We consider your nursing skills, experience, and goals when assessing which facilities are best suited for you." ]
@@ -421,7 +423,7 @@ partners device =
             ]
         , column [ width <| fillPortion 6, Background.color palette.skyBlue, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
             [ paragraph [ Font.center, Font.size 28, Font.color palette.primary, centerY ] [ text "We partner with the most trusted names in the business" ]
-            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600) ] [ text "Flint holds high standards and invests in only quality nurses by partnering with the most trusted names in immigration services" ]
+            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint holds high standards and invests in only quality nurses by partnering with the most trusted names in immigration services" ]
             ]
         ]
 
