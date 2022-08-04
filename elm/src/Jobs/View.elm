@@ -390,7 +390,7 @@ nurseSuccessInfo =
         video =
             html <|
                 Html.video [ HtmlAttr.width 328, HtmlAttr.height 527, HtmlAttr.controls True ]
-                    [ Html.source [ HtmlAttr.src "static/videos/video-nurse-success.mp4" ] []
+                    [ Html.source [ HtmlAttr.src "/static/videos/video-nurse-success.mp4" ] []
                     ]
 
         subHeading =

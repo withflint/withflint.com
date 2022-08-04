@@ -86,7 +86,11 @@ update msg model =
                     else
                         always Cmd.none
                    )
-                |> return { model | view = ApplyView jobId }
+                |> return
+                    { model
+                        | view =
+                            ApplyView jobId
+                    }
 
         SwitchView view ->
             singleton { model | view = view }
