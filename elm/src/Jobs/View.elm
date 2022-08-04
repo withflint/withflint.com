@@ -545,7 +545,7 @@ joinTeamHeader device =
             ]
 
         menu =
-            [ ( "Partnerships", Partnerships ), ( "Nurse Career", NurseCareers "" ) ]
+            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
 
         blobSrc =
             "/static/images/header-blob-blue.svg"
@@ -565,7 +565,7 @@ nurseCareerHeader device =
             ]
 
         menu =
-            [ ( "Partnerships", Partnerships ), ( "Nurse Career", NurseCareers "" ) ]
+            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
 
         blobSrc =
             "/static/images/header-blob-beige.svg"

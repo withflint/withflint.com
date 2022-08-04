@@ -82,7 +82,7 @@ desktopView device =
         [ header
             device
             "Recreate the way you hire nurses"
-            [ ( "Partnerships", Partnerships ), ( "Nurse Career", NurseCareers "" ) ]
+            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
         , row (wf :: sectionBg)
             [ row [ width <| fillPortion 2 ] [ Element.none ]
             , column [ width <| fillPortion 8 ] [ section0 device ]

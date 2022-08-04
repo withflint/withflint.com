@@ -257,7 +257,7 @@ footer =
                 ]
             , column [ Font.center, centerX, Font.color palette.primary ]
                 [ column [ spacingXY 0 22, centerX ]
-                    [ linkFooter "Nurse Career" (NurseCareers "")
+                    [ linkFooter "Nurse Careers" (NurseCareers "")
                     , linkFooter "Partnerships" Partnerships
                     , linkFooter "Blog" (Blog "")
 
@@ -320,7 +320,7 @@ footer =
 menu : List ( Page, String )
 menu =
     [ ( Home, "Home" )
-    , ( NurseCareers "", "Nurse Career" )
+    , ( NurseCareers "", "Nurse Careers" )
     , ( Blog "", "Blog" )
     , ( AboutUs, "About Us" )
     , ( Contact, "Contact" )

@@ -312,11 +312,11 @@ desktopView device =
                 }
     in
     [ column [ pt 48, wf, hf, Background.color colors.cremeDark ]
-        [ row [ spacing 48, centerX, Font.color palette.primary, Font.semiBold ]
-            [ link "Partnerships" Partnerships
-            , link "Nurse Career" (NurseCareers "")
-            ]
-        , row [ pt 72, wf ]
+        [ -- row [ spacing 48, centerX, Font.color palette.primary, Font.semiBold ]
+          -- [ link "Partnerships" Partnerships
+          -- , link "Nurse Careers" (NurseCareers "")
+          -- ]
+          row [ pt 72, wf ]
             [ heroImg
             ]
         , row [ wf, Background.color colors.blue1 ]
