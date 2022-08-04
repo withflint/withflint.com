@@ -16,6 +16,7 @@ import Element
         , link
         , newTabLink
         , padding
+        , paddingEach
         , paddingXY
         , paragraph
         , px
@@ -254,13 +255,11 @@ footer =
             [ column [ centerX ]
                 [ Element.image [ width (px 90), height (px 34) ] { src = "/static/images/logo.svg?new", description = "Flint" }
                 ]
-            , column [ Font.center, centerX, spacingXY 0 24, Font.color palette.primary ]
-                [ row [ spacingXY 12 0, centerX ]
-                    [ linkFooter "Nurse Success" (NurseCareers "")
+            , column [ Font.center, centerX, Font.color palette.primary ]
+                [ column [ spacingXY 0 22, centerX ]
+                    [ linkFooter "Nurse Career" (NurseCareers "")
                     , linkFooter "Partnerships" Partnerships
-                    ]
-                , row [ spacingXY 16 0, Font.color palette.primary ]
-                    [ linkFooter "Blog" (Blog "")
+                    , linkFooter "Blog" (Blog "")
 
                     -- , linkFooter "About Us" AboutUs
                     , linkFooter "Join the Team" (JoinTheTeam "")
@@ -285,7 +284,7 @@ footer =
             ]
 
         -- social and privacy
-        , column [ wf, paddingXY 12 36, Background.color palette.cremeLighter, spacingXY 0 32 ]
+        , column [ wf, paddingXY 12 36, paddingEach { top = 36, bottom = 116, left = 12, right = 12 }, Background.color palette.cremeLighter, spacingXY 0 32 ]
             [ row [ centerX, spacingXY 16 0 ]
                 [ row []
                     [ newTabLink
@@ -321,7 +320,7 @@ footer =
 menu : List ( Page, String )
 menu =
     [ ( Home, "Home" )
-    , ( NurseCareers "", "Nurse Success" )
+    , ( NurseCareers "", "Nurse Career" )
     , ( Blog "", "Blog" )
     , ( AboutUs, "About Us" )
     , ( Contact, "Contact" )

@@ -82,7 +82,7 @@ desktopView device =
         [ header
             device
             "Recreate the way you hire nurses"
-            [ ( "Partnerships", Partnerships ), ( "Nurse Success", NurseCareers "" ) ]
+            [ ( "Partnerships", Partnerships ), ( "Nurse Career", NurseCareers "" ) ]
         , row (wf :: sectionBg)
             [ row [ width <| fillPortion 2 ] [ Element.none ]
             , column [ width <| fillPortion 8 ] [ section0 device ]
@@ -294,7 +294,7 @@ header device title menu =
             -- TITLE
             , row [ wf, height <| fillPortion 8 ]
                 [ row ([ wf, centerX, Font.size rs.titleFontSize ] ++ Styles.title)
-                    [ paragraph [ Font.center, Font.size rs.titleFontSize ] [ text title ] ]
+                    [ paragraph [ paddingXY 24 0, Font.center, Font.size rs.titleFontSize ] [ text title ] ]
                 ]
 
             -- GAP

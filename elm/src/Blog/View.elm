@@ -192,7 +192,7 @@ blogHeader device =
                 []
                 { url = toPath <| R.NurseCareers ""
                 , label =
-                    el Styles.menu (text "Nurse Success")
+                    el Styles.menu (text "Nurse Career")
                 }
             ]
 
