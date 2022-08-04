@@ -284,7 +284,7 @@ footer =
             ]
 
         -- social and privacy
-        , column [ wf, paddingXY 12 36, paddingEach { top = 36, bottom = 116, left = 12, right = 12 }, Background.color palette.cremeLighter, spacingXY 0 32 ]
+        , column [ wf, paddingXY 12 36, paddingEach { top = 36, bottom = 192, left = 12, right = 12 }, Background.color palette.cremeLighter, spacingXY 0 32 ]
             [ row [ centerX, spacingXY 16 0 ]
                 [ row []
                     [ newTabLink
