@@ -157,7 +157,12 @@ update msg model =
                                         }
 
                             Just (Router.Routes.JoinTheTeam "") ->
-                                singleton model
+                                Jobs.Update.update (Jobs.Types.SwitchView Jobs.Types.JobsView) model.jobs
+                                    |> SubModule.update
+                                        { toMsg = MsgForJobs
+                                        , toModel =
+                                            \jobs -> { model | jobs = jobs }
+                                        }
 
                             Just (Router.Routes.JoinTheTeam jobId) ->
                                 Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.jobs
@@ -168,7 +173,12 @@ update msg model =
                                         }
 
                             Just (Router.Routes.NurseCareers "") ->
-                                singleton model
+                                Jobs.Update.update (Jobs.Types.SwitchView Jobs.Types.JobsView) model.healthCare
+                                    |> SubModule.update
+                                        { toMsg = MsgForHealthCare
+                                        , toModel =
+                                            \healthCare -> { model | healthCare = healthCare }
+                                        }
 
                             Just (Router.Routes.NurseCareers jobId) ->
                                 Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.healthCare
