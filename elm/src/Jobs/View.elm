@@ -307,7 +307,7 @@ nurseCareerBody device =
             , padding 10
             , Font.color palette.white
             , Font.semiBold
-            , Font.size 16
+            , Font.size 18
             , Background.color colors.carminePink
             , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
             , Font.regular
@@ -317,6 +317,14 @@ nurseCareerBody device =
                 , Border.color colors.carminePink
                 ]
             ]
+
+        rsJustify =
+            case device of
+                Device.Phone _ ->
+                    Font.center
+
+                _ ->
+                    Font.justify
     in
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
         [ column [ centerX ]
@@ -324,34 +332,55 @@ nurseCareerBody device =
                 [ text "We are committed to your nursing future in the USA" ]
             ]
         , column [ spacingXY 0 12 ]
-            [ paragraph [ Font.center, Font.letterSpacing 2, pt 12, Font.justify, lineHeight 1.6 ]
+            [ paragraph [ Font.center, Font.letterSpacing 2, pt 12, rsJustify, lineHeight 1.6 ]
                 [ text "Flint is an international search firm seeking experienced and qualified nurses from around the world. Our program is specifically designed to help internationally educated nurses succeed permanently in the United States." ]
             , paragraph
                 [ Font.center
                 , Font.letterSpacing 2
                 , pt 12
-                , Font.justify
+                , rsJustify
                 , lineHeight 1.6
                 ]
                 [ text "We partner with respected American hospitals.  We offer an all-inclusive solution for nurses to seamlessly transition into their new life in America. Flint provides fully sponsored licensing, immigration, and relocation programs. We pay for legal and processing fees, licensing, and offer premium placement. " ]
             , Element.link
-                []
+                [ wf ]
                 { url = "/blog/we-stand-with-our-nurses"
-                , label = paragraph [ Font.underline, Font.color palette.primary ] [ text "We support our Nurses at every step!" ]
+                , label = paragraph [ rsJustify, Font.underline, Font.color palette.primary ] [ text "We support our Nurses at every step!" ]
                 }
             ]
-        , column [ spacingXY 0 24, wf, centerX ]
-            [ row [ centerX ]
-                [ el [ wf ]
-                    (link
-                        (centerY :: centerX :: wf :: Font.size 15 :: btn)
-                        { url = "/nurse-careers/general-health-care-application-rn-np-lpn-hsp-anywhere-usa"
-                        , label = paragraph [ Font.center ] [ text <| "Apply now" ]
-                        }
-                    )
+        , column [ wf, spacingXY 0 44, pt 24 ]
+            [ advantages device
+            , column [ spacingXY 0 24, wf, centerX ]
+                [ row [ centerX ]
+                    [ el [ wf ]
+                        (link
+                            (centerY :: centerX :: wf :: Font.size 15 :: btn)
+                            { url = "/nurse-careers/general-health-care-application-rn-np-lpn-hsp-anywhere-usa"
+                            , label = paragraph [ Font.center ] [ text <| "Apply now" ]
+                            }
+                        )
+                    ]
                 ]
+            , nurseSuccessInfo
             ]
-        , nurseSuccessInfo
+        ]
+
+
+advantages : Device.Device -> Element msg
+advantages device =
+    wrappedRow [ centerX, spacingXY 64 32 ]
+        [ column [ spacingXY 0 24, minimumWidth 160 ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licensing" }
+            , paragraph [ Font.center, Font.color palette.primary, Font.semiBold ] [ text "Licensing" ]
+            ]
+        , column [ spacingXY 0 24, minimumWidth 160 ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/immigration.svg", description = "Flint - Immigration" }
+            , paragraph [ Font.center, Font.color palette.primary, Font.semiBold ] [ text "Immigration" ]
+            ]
+        , column [ spacingXY 0 24, minimumWidth 160 ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/relocation.svg", description = "Flint - Relocation" }
+            , paragraph [ Font.center, Font.color palette.primary, Font.semiBold ] [ text "Relocation" ]
+            ]
         ]
 
 
@@ -370,7 +399,7 @@ nurseSuccessInfo =
             , Font.color palette.primary
             ]
     in
-    wrappedRow [ wf, paddingXY 0 40, spacingXY 24 40 ]
+    wrappedRow [ wf, paddingEach { top = 64, bottom = 48, right = 0, left = 0 }, spacingXY 24 40 ]
         [ row [ width <| fillPortion 6 ] [ video ]
         , column [ width <| (fillPortion 6 |> Element.minimum 300), spacingXY 0 24 ]
             [ paragraph (Font.alignLeft :: subHeading) [ text "From start to finish" ]

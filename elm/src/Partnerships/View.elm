@@ -85,7 +85,7 @@ desktopView device =
             [ ( "Partnerships", Partnerships ), ( "Nurse Success", NurseCareers "" ) ]
         , row (wf :: sectionBg)
             [ row [ width <| fillPortion 2 ] [ Element.none ]
-            , column [ width <| fillPortion 8 ] [ section0 ]
+            , column [ width <| fillPortion 8 ] [ section0 device ]
             , row [ width <| fillPortion 2 ] [ Element.none ]
             ]
         , partners device
@@ -93,8 +93,8 @@ desktopView device =
     ]
 
 
-section0 : Element msg
-section0 =
+section0 : Device.Device -> Element msg
+section0 device =
     let
         titleStyle =
             [ Font.center
@@ -108,6 +108,14 @@ section0 =
             , Font.semiBold
             , Font.color palette.primary
             ]
+
+        rsJustify =
+            case device of
+                Device.Phone _ ->
+                    Font.center
+
+                _ ->
+                    Font.justify
     in
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
         [ column [ spacingXY 0 12, centerX ]
@@ -116,7 +124,7 @@ section0 =
             , paragraph titleStyle
                 [ text "We find exceptional international nurses to fill your vacancies." ]
             ]
-        , paragraph [ Font.center, Font.letterSpacing 2, pt 12, Font.justify, lineHeight 1.6 ]
+        , paragraph [ Font.letterSpacing 2, pt 12, rsJustify, lineHeight 1.6 ]
             [ text "Hiring internationally is complicated and risky. Flint makes it simple and predictable. By sourcing in 190 countries, we can service the needs of your facility. Our technology platform enables us to overcome immigration and hiring variables that others cannot. This means fast turnaround." ]
         , column [ spacingXY 0 12 ]
             [ paragraph subHeading [ text "Recruit enthusiastic nurses with experience and know-how" ]
