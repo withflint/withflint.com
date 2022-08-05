@@ -160,7 +160,7 @@ section0 device =
             , paragraph titleStyle
                 [ text "We find exceptional international nurses to fill your vacancies." ]
             ]
-        , paragraph [ Font.letterSpacing 2, pt 12, rsJustify, lineHeight 1.6 ]
+        , paragraph [ pt 12, rsJustify, lineHeight 1.6 ]
             [ text "Hiring internationally is complicated and risky. Flint makes it simple and predictable. By sourcing in 190 countries, we can service the needs of your facility. Our technology platform enables us to overcome immigration and hiring variables that others cannot. This means fast turnaround." ]
         , column [ spacingXY 0 12 ]
             [ paragraph subHeading [ text "Recruit enthusiastic nurses with experience and know-how" ]

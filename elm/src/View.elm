@@ -161,7 +161,7 @@ joinCopy =
             [ text " "
             , link Styles.link
                 { url = toPath (Blog "culture")
-                , label = text "Read more about our values and culture."
+                , label = text "Read more about our values and culture. "
                 }
             , text " "
             , text "We interview and make hires within a week from our first meet–it's a commitment."

@@ -351,11 +351,10 @@ nurseCareerBody device =
                 [ text "We are committed to your nursing future in the USA" ]
             ]
         , column [ spacingXY 0 12 ]
-            [ paragraph [ Font.center, Font.letterSpacing 2, pt 12, rsJustify, lineHeight 1.6 ]
+            [ paragraph [ Font.center, pt 12, rsJustify, lineHeight 1.6 ]
                 [ text "Flint is an international search firm seeking experienced and qualified nurses from around the world. Our program is specifically designed to help internationally educated nurses succeed permanently in the United States." ]
             , paragraph
                 [ Font.center
-                , Font.letterSpacing 2
                 , pt 12
                 , rsJustify
                 , lineHeight 1.6
@@ -424,7 +423,6 @@ nurseSuccessInfo =
             [ paragraph (Font.alignLeft :: subHeading) [ text "From start to finish" ]
             , paragraph
                 [ Font.alignLeft
-                , Font.letterSpacing 2
                 , lineHeight 1.6
                 , pt 12
                 ]
@@ -507,16 +505,15 @@ joinTeamBody device =
                 [ text "We work with the very best" ]
             ]
         , wrappedRow [ alignTop, spacingXY 24 20 ]
-            [ paragraph [ Font.letterSpacing 2, lineHeight 1.6, minimumWidth 300 ]
+            [ paragraph [ lineHeight 1.6, minimumWidth 300 ]
                 [ text "At Flint, we're committed to hiring the best people to build our teams. Building great products takes smart, disciplined, and empathetic individuals who understand our product goals and imagine innovative ways to achieve results. We designed a hiring process to help us identify those people." ]
             , paragraph
-                [ Font.letterSpacing 2
-                , wf
+                [ wf
                 , hf
                 , lineHeight 1.6
                 , minimumWidth 300
                 ]
-                [ text "Flint fosters a culture of respect, dialogue, and growth– a home where our team members can engage in a continuous conversation about product, engineering, and learning."
+                [ text "Flint fosters a culture of respect, dialogue, and growth– a home where our team members can engage in a continuous conversation about product, engineering, and learning. "
                 , Element.link [ Font.underline ]
                     { url = toPath (Blog "culture")
                     , label = el [ lineHeight 1.6 ] (text "Read more about our values and culture.")
@@ -524,7 +521,7 @@ joinTeamBody device =
                 , paragraph
                     [ lineHeight 1.6
                     ]
-                    [ text "We interview and make hires within a week from our first meet – it's a commitment." ]
+                    [ text " We interview and make hires within a week from our first meet – it's a commitment." ]
                 ]
             ]
         , case device of
@@ -785,7 +782,6 @@ jobsView device viewer model =
                         , column [ width (fill |> Element.maximum 820), centerX ]
                             [ paragraph
                                 [ Font.center
-                                , Font.letterSpacing 1.5
                                 , lineHeight 1.6
                                 , pt 12
                                 , Font.justify
