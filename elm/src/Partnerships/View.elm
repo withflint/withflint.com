@@ -15,6 +15,9 @@ import Element
         , height
         , html
         , link
+        , mouseOver
+        , padding
+        , paddingEach
         , paddingXY
         , paragraph
         , px
@@ -26,47 +29,61 @@ import Element
         , wrappedRow
         )
 import Element.Background as Background
+import Element.Border as Border
 import Element.Font as Font
 import Html
 import Html.Attributes as HtmlAttr
-import Layout exposing (Layout, footer)
-import Partnerships.Types exposing (Model)
+import Layout exposing (Layout, footer, phoneMenu)
+import Partnerships.Types exposing (Model, Msg(..))
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, palette, pt, wf)
 
 
-view : Device -> Model -> Layout msg
-view device _ =
+view : Device -> Model -> Layout Msg
+view device model =
+    let
+        render view_ =
+            -- Render with phoneMenu
+            if model.isPhoneMenuVisible then
+                column [ wf, hf, css "position" "relative" ] [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible ]
+                    |> List.singleton
+
+            else
+                view_
+    in
     { phone =
-        [ column
-            [ wf
-            , height fill
+        render <|
+            [ column
+                [ wf
+                , height fill
+                ]
+                (desktopView device model
+                    ++ footer.phone
+                )
             ]
-            (desktopView device
-                ++ footer.phone
-            )
-        ]
     , tablet =
-        [ column
-            [ wf
+        render <|
+            [ column
+                [ wf
+                ]
+                (desktopView device model
+                    ++ footer.tablet
+                )
             ]
-            (desktopView device
-                ++ footer.tablet
-            )
-        ]
     , desktop =
-        [ column
-            [ wf
+        render <|
+            [ column
+                [ wf
+                ]
+                (desktopView device model
+                    ++ footer.desktop
+                )
             ]
-            (desktopView device
-                ++ footer.desktop
-            )
-        ]
     }
 
 
-desktopView : Device -> List (Element msg)
-desktopView device =
+desktopView : Device -> Model -> List (Element Msg)
+desktopView device model =
     let
         sectionBg =
             [ css "background" "#DAE9FF"
@@ -81,6 +98,7 @@ desktopView device =
         ]
         [ header
             device
+            model
             "Recreate the way you hire nurses"
             [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
         , row (wf :: sectionBg)
@@ -116,6 +134,24 @@ section0 device =
 
                 _ ->
                     Font.justify
+
+        btn =
+            [ Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
+            , Border.color palette.primary
+            , Border.width 1
+            , padding 10
+            , Font.color palette.white
+            , Background.color palette.primary
+            , Font.semiBold
+            , Font.size 16
+            , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
+            , Font.regular
+            , mouseOver
+                [ Font.color colors.cremeLight
+                , Background.color colors.carminePink
+                , Border.color colors.carminePink
+                ]
+            ]
     in
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
         [ column [ spacingXY 0 12, centerX ]
@@ -136,9 +172,9 @@ section0 device =
         , column [ centerX, spacingXY 0 16 ]
             [ el [ wf ]
                 (link
-                    (centerY :: centerX :: wf :: Font.size 15 :: Styles.btn)
+                    (centerY :: centerX :: wf :: Font.size 15 :: btn)
                     { url = "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
-                    , label = paragraph [ Font.center ] [ text <| "Learn if I qualify" ]
+                    , label = paragraph [ Font.center ] [ text <| "Partner with Flint" ]
                     }
                 )
             , el [ wf ]
@@ -185,8 +221,8 @@ partners device =
         ]
 
 
-header : Device -> String -> List ( String, Page ) -> Element msg
-header device title menu =
+header : Device -> Model -> String -> List ( String, Page ) -> Element Msg
+header device model title menu =
     let
         bg =
             [ css "background" "rgb(68,55,109)"
@@ -255,9 +291,18 @@ header device title menu =
                 , label =
                     el [ Font.center ] (text label)
                 }
+
+        renderHamburgerMenu =
+            case device of
+                Device.Phone _ ->
+                    phoneMenu PhoneMenuToggle model.isPhoneMenuVisible
+
+                _ ->
+                    Element.none
     in
     row ([ wf, css "position" "relative" ] ++ bg)
-        [ column [ css "position" "absolute", css "top" "0", css "left" "0" ]
+        [ renderHamburgerMenu
+        , column [ css "position" "absolute", css "top" "0", css "left" "0" ]
             [ row [ css "width" "80%", css "height" "80%" ] [ blob ]
             ]
         , column

@@ -1,6 +1,6 @@
 module Blog.View exposing (view)
 
-import Blog.Types exposing (Article, ArticleState(..), Model, Msg)
+import Blog.Types exposing (Article, ArticleState(..), Model, Msg(..))
 import Device
 import Element
     exposing
@@ -35,7 +35,7 @@ import Element.Border as Border
 import Element.Font as Font
 import Html
 import Html.Attributes as HtmlAttr
-import Layout exposing (Layout, footer)
+import Layout exposing (Layout, footer, phoneMenu)
 import Mark
 import Router.Routes as R exposing (toPath)
 import Styles exposing (colors, css, hf, palette, wf)
@@ -48,54 +48,66 @@ view device model =
             [ css "background" "#DAE9FF"
             , css "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 102.99%)"
             ]
+
+        render view_ =
+            -- Render with phoneMenu
+            if model.isPhoneMenuVisible then
+                column [ wf, hf, css "position" "relative" ] [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible ]
+                    |> List.singleton
+
+            else
+                view_
     in
     { phone =
-        [ blogPhoneHeader device
-        , column
-            ([ wf, hf ] ++ bg)
-            [ column
-                [ centerX
-                , width <| maximum 1500 fill
-                , height fill
-                , paddingXY 20 40
+        render <|
+            [ blogPhoneHeader device model
+            , column
+                ([ wf, hf ] ++ bg)
+                [ column
+                    [ centerX
+                    , width <| maximum 1500 fill
+                    , height fill
+                    , paddingXY 20 40
+                    ]
+                    (blogPhoneView model.article)
                 ]
-                (blogPhoneView model.article)
+            , column [ wf ] footer.phone
             ]
-        , column [ wf ] footer.phone
-        ]
     , tablet =
-        [ row [ wf ] <|
-            blogHeader device
-        , column ([ wf, hf ] ++ bg)
-            [ column
-                [ centerX
-                , width <| maximum 1500 fill
-                , height fill
-                , paddingXY 40 40
+        render <|
+            [ row [ wf ] <|
+                blogHeader device
+            , column ([ wf, hf ] ++ bg)
+                [ column
+                    [ centerX
+                    , width <| maximum 1500 fill
+                    , height fill
+                    , paddingXY 40 40
+                    ]
+                    (blogView model.article)
                 ]
-                (blogView model.article)
+            , column [ wf ] footer.phone
             ]
-        , column [ wf ] footer.phone
-        ]
     , desktop =
-        [ row [ wf ] <|
-            blogHeader device
-        , column ([ wf, hf ] ++ bg)
-            [ column
-                [ centerX
-                , width <| maximum 1500 fill
-                , height fill
-                , paddingXY 100 40
+        render <|
+            [ row [ wf ] <|
+                blogHeader device
+            , column ([ wf, hf ] ++ bg)
+                [ column
+                    [ centerX
+                    , width <| maximum 1500 fill
+                    , height fill
+                    , paddingXY 100 40
+                    ]
+                    (blogView model.article)
                 ]
-                (blogView model.article)
+            , column [ wf ] footer.desktop
             ]
-        , column [ wf ] footer.desktop
-        ]
     }
 
 
-blogPhoneHeader : Device.Device -> Element msg
-blogPhoneHeader device =
+blogPhoneHeader : Device.Device -> Model -> Element Msg
+blogPhoneHeader device model =
     let
         bg =
             [ css "background" "rgb(68,55,109)"
@@ -138,7 +150,8 @@ blogPhoneHeader device =
                 ]
     in
     row ([ wf, height (px 140), css "position" "relative" ] ++ bg)
-        [ column [ css "position" "absolute", css "top" "0", css "left" "0" ]
+        [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible
+        , column [ css "position" "absolute", css "top" "0", css "left" "0" ]
             [ row [ css "width" "80%", css "height" "80%" ] [ blob ]
             ]
         , column [ wf ] []

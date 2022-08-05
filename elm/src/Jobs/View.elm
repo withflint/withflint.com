@@ -45,7 +45,7 @@ import File
 import Html
 import Html.Attributes as HtmlAttr
 import Jobs.Types exposing (Config, CurrentPage(..), Field(..), Job, Model, Msg(..), View(..))
-import Layout exposing (Layout, footer, menu)
+import Layout exposing (Layout, footer, menu, phoneMenu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, minimumWidth, palette, pt)
@@ -60,129 +60,148 @@ view device model =
             [ css "background" "#DAE9FF"
             , css "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 102.99%)"
             ]
+
+        render view_ =
+            -- Render with phoneMenu
+            if model.isPhoneMenuVisible then
+                column [ wf, hf, css "position" "relative" ] [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible ]
+                    |> List.singleton
+
+            else
+                view_
     in
     case model.view of
         JobsView ->
             { phone =
-                [ column
-                    [ wf
-                    , Font.family [ Font.typeface "Inter" ]
+                render <|
+                    [ column
+                        [ wf
+                        , Font.family [ Font.typeface "Inter" ]
+                        ]
+                        [ row [ wf, hf ] [ toHeader device model ]
+                        , toView device model.config
+                        ]
+
+                    -- JobView
+                    , column
+                        ([ wf
+                         , height fill
+                         , Font.family [ Font.typeface "Inter" ]
+                         ]
+                            ++ sectionBg
+                        )
+                        [ jobsView device phoneView model ]
+                    , column [ wf ] footer.phone
                     ]
-                    [ row [ wf, hf ] [ toHeader device model.config ]
-                    , toView device model.config
-                    ]
-                , column
-                    ([ wf
-                     , height fill
-                     , Font.family [ Font.typeface "Inter" ]
-                     ]
-                        ++ sectionBg
-                    )
-                    [ jobsView device phoneView model ]
-                , column [ wf ] footer.phone
-                ]
             , desktop =
-                [ -- top header including hero title and nav bar
-                  column
-                    [ wf
-                    , Font.family [ Font.typeface "Inter" ]
+                render <|
+                    [ -- top header including hero title and nav bar
+                      column
+                        [ wf
+                        , Font.family [ Font.typeface "Inter" ]
+                        ]
+                        [ row [ wf, hf ] [ toHeader device model ]
+                        , toView device model.config
+                        ]
+
+                    -- JobView
+                    , column
+                        ([ wf
+                         , height fill
+                         , Font.family [ Font.typeface "Inter" ]
+                         , centerX
+                         ]
+                            ++ sectionBg
+                        )
+                        [ jobsView device desktopView model ]
+                    , column [ wf ] footer.desktop
                     ]
-                    [ row [ wf, hf ] [ toHeader device model.config ]
-                    , toView device model.config
-                    ]
-                , column
-                    ([ wf
-                     , height fill
-                     , Font.family [ Font.typeface "Inter" ]
-                     , centerX
-                     ]
-                        ++ sectionBg
-                    )
-                    [ jobsView device desktopView model ]
-                , column [ wf ] footer.desktop
-                ]
             , tablet =
-                [ column
-                    [ wf
-                    , Font.family [ Font.typeface "Inter" ]
+                render <|
+                    [ column
+                        [ wf
+                        , Font.family [ Font.typeface "Inter" ]
+                        ]
+                        [ row [ wf, hf ] [ toHeader device model ]
+                        , toView device model.config
+                        ]
+
+                    -- JobView
+                    , column
+                        ([ wf
+                         , height fill
+                         , Font.family [ Font.typeface "Inter" ]
+                         , centerX
+                         ]
+                            ++ sectionBg
+                        )
+                        [ jobsView device desktopView model ]
+                    , column [ wf ] footer.phone
                     ]
-                    [ row [ wf, hf ] [ toHeader device model.config ]
-                    , toView device model.config
-                    ]
-                , column
-                    ([ wf
-                     , height fill
-                     , Font.family [ Font.typeface "Inter" ]
-                     , centerX
-                     ]
-                        ++ sectionBg
-                    )
-                    [ jobsView device desktopView model ]
-                , column [ wf ] footer.phone
-                ]
             }
 
         ApplyView _ ->
             { phone =
-                [ column
-                    [ wf
-                    , Font.family [ Font.typeface "Inter" ]
+                render <|
+                    [ column
+                        [ wf
+                        , Font.family [ Font.typeface "Inter" ]
+                        ]
+                        [ toHeader device model
+                        ]
+                    , column
+                        ([ wf
+                         , height fill
+                         , Font.family [ Font.typeface "Inter" ]
+                         , paddingXY 20 60
+                         , centerX
+                         ]
+                            ++ sectionBg
+                        )
+                        [ jobsView device phoneView model ]
+                    , column [ wf ] footer.phone
                     ]
-                    [ toHeader device model.config
-                    ]
-                , column
-                    ([ wf
-                     , height fill
-                     , Font.family [ Font.typeface "Inter" ]
-                     , paddingXY 20 60
-                     , centerX
-                     ]
-                        ++ sectionBg
-                    )
-                    [ jobsView device phoneView model ]
-                , column [ wf ] footer.phone
-                ]
             , desktop =
-                [ -- top header including hero title and nav bar
-                  column
-                    [ wf
-                    , Font.family [ Font.typeface "Inter" ]
+                render <|
+                    [ -- top header including hero title and nav bar
+                      column
+                        [ wf
+                        , Font.family [ Font.typeface "Inter" ]
+                        ]
+                        [ toHeader device model
+                        ]
+                    , column
+                        ([ wf
+                         , height fill
+                         , paddingXY 0 80
+                         , centerX
+                         , Font.family [ Font.typeface "Inter" ]
+                         ]
+                            ++ sectionBg
+                        )
+                        [ jobsView device desktopView model ]
+                    , column [ wf ] footer.desktop
                     ]
-                    [ toHeader device model.config
-                    ]
-                , column
-                    ([ wf
-                     , height fill
-                     , paddingXY 0 80
-                     , centerX
-                     , Font.family [ Font.typeface "Inter" ]
-
-                     -- , Background.color colors.cremeLight
-                     ]
-                        ++ sectionBg
-                    )
-                    [ jobsView device desktopView model ]
-                , column [ wf ] footer.desktop
-                ]
             , tablet =
-                [ column
-                    [ wf
-                    , Font.family [ Font.typeface "Inter" ]
+                render <|
+                    [ column
+                        [ wf
+                        , Font.family [ Font.typeface "Inter" ]
+                        ]
+                        [ toHeader device model
+                        ]
+                    , column
+                        ([ wf
+                         , height fill
+                         , paddingXY 20 80
+                         , Font.family [ Font.typeface "Inter" ]
+                         , centerX
+                         ]
+                            ++ sectionBg
+                        )
+                        [ jobsView device desktopView model ]
+                    , column [ wf ] footer.phone
                     ]
-                    [ toHeader device model.config
-                    ]
-                , column
-                    ([ wf
-                     , height fill
-                     , paddingXY 20 80
-                     , Font.family [ Font.typeface "Inter" ]
-                     , centerX
-                     ]
-                        ++ sectionBg
-                    )
-                    [ jobsView device desktopView model ]
-                , column [ wf ] footer.phone
-                ]
             }
 
 
@@ -526,18 +545,18 @@ joinTeamBody device =
 ----- #### HEADER #### -------
 
 
-toHeader : Device.Device -> Config -> Element msg
-toHeader device config =
-    case config.page_ of
+toHeader : Device.Device -> Model -> Element Msg
+toHeader device model =
+    case model.config.page_ of
         NurseCareersPage ->
-            nurseCareerHeader device
+            nurseCareerHeader device model
 
         JoinTheTeamPage ->
-            joinTeamHeader device
+            joinTeamHeader device model
 
 
-joinTeamHeader : Device.Device -> Element msg
-joinTeamHeader device =
+joinTeamHeader : Device.Device -> Model -> Element Msg
+joinTeamHeader device model =
     let
         bg =
             [ css "background" "#FFDCC9"
@@ -553,11 +572,11 @@ joinTeamHeader device =
         title =
             "Join the Team"
     in
-    header device { title = title, menu = menu, bg = bg, blobSrc = blobSrc }
+    header device { title = title, menu = menu, bg = bg, blobSrc = blobSrc } model
 
 
-nurseCareerHeader : Device.Device -> Element msg
-nurseCareerHeader device =
+nurseCareerHeader : Device.Device -> Model -> Element Msg
+nurseCareerHeader device model =
     let
         bg =
             [ css "background" "rgb(68,55,109)"
@@ -573,7 +592,7 @@ nurseCareerHeader device =
         title =
             "Your success is Flint's success"
     in
-    header device { title = title, menu = menu, bg = bg, blobSrc = blobSrc }
+    header device { title = title, menu = menu, bg = bg, blobSrc = blobSrc } model
 
 
 header :
@@ -581,11 +600,12 @@ header :
     ->
         { title : String
         , menu : List ( String, Page )
-        , bg : List (Attribute msg)
+        , bg : List (Attribute Msg)
         , blobSrc : String -- url
         }
-    -> Element msg
-header device { title, menu, bg, blobSrc } =
+    -> Model
+    -> Element Msg
+header device { title, menu, bg, blobSrc } model =
     let
         blob =
             row [ css "position" "relative" ]
@@ -648,9 +668,18 @@ header device { title, menu, bg, blobSrc } =
                             { src = "/static/images/logo.svg?new", description = "Flint" }
                     }
                 ]
+
+        renderHamburgerMenu =
+            case device of
+                Device.Phone _ ->
+                    phoneMenu PhoneMenuToggle model.isPhoneMenuVisible
+
+                _ ->
+                    Element.none
     in
     row ([ wf, css "position" "relative" ] ++ bg)
-        [ column [ css "position" "absolute", css "top" "0", css "left" "0" ]
+        [ renderHamburgerMenu
+        , column [ css "position" "absolute", css "top" "0", css "left" "0" ]
             [ row [ css "width" "80%", css "height" "80%" ] [ blob ]
             ]
         , column

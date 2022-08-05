@@ -41,6 +41,7 @@ init gitVersion url key config =
         , key = key
         , config = config
         , success = Nothing
+        , isPhoneMenuVisible = False
         , view =
             case Maybe.withDefault "" <| parse (idParser config) url of
                 "" ->
@@ -91,6 +92,9 @@ update msg model =
                         | view =
                             ApplyView jobId
                     }
+
+        PhoneMenuToggle ->
+            singleton { model | isPhoneMenuVisible = not model.isPhoneMenuVisible }
 
         SwitchView view ->
             singleton { model | view = view }

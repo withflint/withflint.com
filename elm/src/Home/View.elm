@@ -20,7 +20,6 @@ import Element
         , paragraph
         , px
         , row
-        , spacing
         , spacingXY
         , text
         , width
@@ -29,25 +28,26 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
-import Home.Types exposing (Model)
+import Home.Types exposing (Model, Msg(..))
 import Html
 import Html.Attributes as HtmlAttr
-import Layout exposing (Layout, footer)
+import Layout exposing (Layout, footer, phoneMenu)
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, palette, pl, pt)
 
 
-view : Model -> Device -> Layout msg
-view _ device =
+view : Model -> Device -> Layout Msg
+view model device =
     { phone =
         [ column
-            [ width <| maximum 1500 fill
+            [ wf
             , height fill
-            , centerX
+
+            -- , centerX
+            , css "position" "relative"
             ]
-            (phoneView device
-                ++ footer.phone
-            )
+          <|
+            phoneView device model
         ]
     , tablet =
         [ column
@@ -72,8 +72,8 @@ view _ device =
     }
 
 
-phoneView : Device -> List (Element msg)
-phoneView device =
+phoneView : Device -> Model -> List (Element Msg)
+phoneView device model =
     let
         viewport =
             case device of
@@ -125,42 +125,52 @@ phoneView device =
         logo =
             Element.image [ width (px 110), height (px 54) ] { src = "/static/images/logo.svg?new", description = "Flint" }
     in
-    [ column [ wf, hf, Background.color colors.cremeDark, pt 36 ]
-        [ -- HERO
-          column [ wf ]
-            [ -- HERO TEXT
-              column [ wf, spacingXY 0 14, pl 24 ]
-                [ paragraph
-                    [ Font.color palette.primary
-                    , Font.semiBold
-                    , Font.size 42
+    -- Phone Menu
+    if model.isPhoneMenuVisible then
+        [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible
+        ]
+
+    else
+        column [ wf, hf, Background.color colors.cremeDark, pt 36, css "position" "relative" ]
+            [ -- HERO
+              column [ wf ]
+                [ -- Hamburger Menu
+                  phoneMenu PhoneMenuToggle model.isPhoneMenuVisible
+
+                -- HERO TEXT
+                , column [ wf, spacingXY 0 14, pl 24 ]
+                    [ paragraph
+                        [ Font.color palette.primary
+                        , Font.semiBold
+                        , Font.size 42
+                        ]
+                        [ text "It's all about people, with" ]
+                    , logo
                     ]
-                    [ text "It's all about people, with" ]
-                , logo
+
+                -- HERO IMG
+                , heroImg
                 ]
 
-            -- HERO IMG
-            , heroImg
+            -- CARD
+            , column
+                [ wf ]
+                [ card device
+                    { title = "Need a long-term nurse?"
+                    , desc = "Recreate the way you hire nurses"
+                    , btn = { label = "Flint for hospitals", page = Partnerships }
+                    , bg = industryBg
+                    }
+                , card device
+                    { title = "Want to be a nurse in America?"
+                    , desc = "Find support and community from start to finish"
+                    , btn = { label = "Flint for nurses", page = NurseCareers "" }
+                    , bg = nursesBg
+                    }
+                ]
             ]
-
-        -- CARD
-        , column
-            [ wf ]
-            [ card device
-                { title = "Need a long-term nurse?"
-                , desc = "Recreate the way you hire nurses"
-                , btn = { label = "Flint for hospitals", page = Partnerships }
-                , bg = industryBg
-                }
-            , card device
-                { title = "Want to be a nurse in America?"
-                , desc = "Find support and community from start to finish"
-                , btn = { label = "Flint for nurses", page = NurseCareers "" }
-                , bg = nursesBg
-                }
-            ]
-        ]
-    ]
+            -- FOOTER
+            :: footer.phone
 
 
 card :

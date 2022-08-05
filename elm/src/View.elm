@@ -48,7 +48,7 @@ renderRoute : Types.Model -> Element Types.Msg
 renderRoute model =
     case model.router.page of
         Home ->
-            layout model.device <| Home.View.view model.home model.device
+            Element.map MsgForHome <| layout model.device <| Home.View.view model.home model.device
 
         Contact ->
             layout model.device <| Contact.View.view model.contact
@@ -57,7 +57,7 @@ renderRoute model =
             layout model.device <| AboutUs.View.view model.device model.aboutUs
 
         Partnerships ->
-            layout model.device <| Partnerships.View.view model.device model.partnerships
+            Element.map MsgForPartnerships <| layout model.device <| Partnerships.View.view model.device model.partnerships
 
         JoinTheTeam _ ->
             Element.map MsgForJobs <| layout model.device <| Jobs.View.view model.device model.jobs

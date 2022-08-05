@@ -36,6 +36,7 @@ type Msg
     = MsgForRouter Router.Types.Msg
     | EffFromRouter Router.Types.Eff
       --
+    | MsgForHome Home.Types.Msg
     | MsgForJobs Jobs.Types.Msg
       --
     | MsgForHealthCare Jobs.Types.Msg
@@ -44,5 +45,6 @@ type Msg
       --
     | MsgForFaqNurses FaqNurses.Types.Msg
       --
+    | MsgForPartnerships Partnerships.Types.Msg
     | Load Viewport
     | Resize Int Int

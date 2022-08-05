@@ -1,4 +1,4 @@
-module Layout exposing (Layout, footer, header, layout, menu)
+module Layout exposing (Layout, footer, header, layout, menu, phoneMenu)
 
 import Device exposing (Device(..))
 import Element
@@ -6,6 +6,7 @@ import Element
         ( Element
         , alignLeft
         , alignRight
+        , alignTop
         , centerX
         , centerY
         , column
@@ -14,6 +15,7 @@ import Element
         , height
         , image
         , link
+        , mouseOver
         , newTabLink
         , padding
         , paddingEach
@@ -22,15 +24,19 @@ import Element
         , px
         , row
         , spaceEvenly
+        , spacing
         , spacingXY
         , text
         , width
         , wrappedRow
         )
 import Element.Background as Background
+import Element.Border as Border
 import Element.Font as Font exposing (underline)
+import Element.Input as Input
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, palette, wf)
+import Styles exposing (colors, css, font, hf, palette, pt, wf)
+import Types exposing (Msg(..))
 
 
 type alias Layout msg =
@@ -46,11 +52,7 @@ layout device views =
         -- vp == viewport
         Phone _ ->
             column
-                [ --     height fill
-                  -- , width fill
-                  -- , centerX
-                  -- , alignTop
-                  wf
+                [ wf
                 , hf
                 , Background.color colors.cremeLight
                 ]
@@ -58,32 +60,20 @@ layout device views =
 
         Tablet _ ->
             column
-                [ -- height fill
-                  -- , width fill
-                  -- , centerX
-                  -- , alignTop
-                  wf
+                [ wf
                 , hf
                 , Background.color colors.cremeDark
                 ]
                 views.tablet
 
         _ ->
-            -- C changed
             column [ width fill, height fill ]
                 [ column
-                    [ --     height fill
-                      -- , width fill
-                      -- , centerX
-                      -- , alignTop
-                      wf
+                    [ wf
                     , hf
                     , Background.color colors.cremeDark
                     ]
                     views.desktop
-
-                -- , column [ width fill, height fill ]
-                --     footer.desktop
                 ]
 
 
@@ -105,9 +95,6 @@ header =
                         [ row
                             [ spacingXY 30 0
                             , alignRight
-
-                            -- C added color
-                            -- , Font.color colors.blue1
                             ]
                             (menu |> List.map (\( path, label ) -> row [] [ link [ padding 5 ] { url = toPath path, label = text label } ]))
                         ]
@@ -255,25 +242,43 @@ footer =
             [ column [ centerX ]
                 [ Element.image [ width (px 90), height (px 34) ] { src = "/static/images/logo.svg?new", description = "Flint" }
                 ]
-            , column [ Font.center, centerX, Font.color palette.primary ]
-                [ column [ spacingXY 0 22, centerX ]
-                    [ linkFooter "Nurse Careers" (NurseCareers "")
-                    , linkFooter "Partnerships" Partnerships
-                    , linkFooter "Blog" (Blog "")
 
-                    -- , linkFooter "About Us" AboutUs
-                    , linkFooter "Join the Team" (JoinTheTeam "")
-                    ]
-                ]
+            -- MENU
+            -- , column [ Font.center, centerX, Font.color palette.primary ]
+            --     [ column [ spacingXY 0 22, centerX ]
+            --         [ linkFooter "Nurse Careers" (NurseCareers "")
+            --         , linkFooter "Partnerships" Partnerships
+            --         , linkFooter "Blog" (Blog "")
+            --         -- , linkFooter "About Us" AboutUs
+            --         , linkFooter "Join the Team" (JoinTheTeam "")
+            --         ]
+            --     ]
             , column [ Font.center, centerX, spacingXY 0 16 ]
                 [ column [ hf, spacingXY 0 12 ]
                     [ Element.paragraph [] [ text "Healthcare Partnerships" ]
                     , column [ spacingXY 0 6 ]
                         [ Element.paragraph [] [ text "healthcare@withflint.com" ]
                         , Element.paragraph [] [ text "+1 (844) 677-1180" ]
+                        , Element.link
+                            [ centerX
+                            , paddingXY 0 12
+                            ]
+                            { url =
+                                "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
+                            , label =
+                                row
+                                    [ Background.color palette.primary
+                                    , Font.color palette.white
+                                    , paddingXY 12 8
+                                    , Border.rounded 6
+                                    , Font.size 12
+                                    ]
+                                    [ paragraph [] [ text "Partner with Flint" ]
+                                    ]
+                            }
                         ]
                     ]
-                , column [ hf, spacingXY 0 12 ]
+                , column [ hf, spacingXY 0 12, centerX ]
                     [ Element.paragraph [] [ text "Nurse Success" ]
                     , column [ spacingXY 0 6 ]
                         [ Element.paragraph [] [ text "success@withflint.com" ]
@@ -326,3 +331,114 @@ menu =
     , ( Contact, "Contact" )
     , ( JoinTheTeam "", "Join the Team" )
     ]
+
+
+phoneMenu : msg -> Bool -> Element msg
+phoneMenu msg isMenuVisible =
+    let
+        hamburger =
+            column [ spacingXY 0 3 ]
+                [ row [ width (px 25), height (px 4), Background.color palette.primary, Border.rounded 4 ] []
+                , row [ width (px 25), height (px 4), Background.color palette.primary, Border.rounded 4 ] []
+                , row [ width (px 25), height (px 4), Background.color palette.primary, Border.rounded 4 ] []
+                ]
+
+        hamburgerIcon =
+            row
+                [ css "position" "fixed"
+                , css "right" "30px"
+                , css "top" "30px"
+                , css "z-index" "200"
+                ]
+                [ Input.button []
+                    { onPress = Just msg
+                    , label = hamburger
+                    }
+                ]
+
+        link ( page, label ) =
+            Element.link
+                [ wf ]
+                { url = toPath page
+                , label =
+                    Element.paragraph [ Font.center ] [ text label ]
+                }
+
+        bg =
+            [ css "background" "#6359A1"
+            , css "background" "linear-gradient(162.39deg, #5D3968 0%, #6359A1 100%)"
+            ]
+
+        partnerWithFlint =
+            Element.link
+                [ centerX
+                , paddingXY 0 12
+                ]
+                { url =
+                    "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
+                , label =
+                    row
+                        [ Background.color palette.primary
+                        , Font.color palette.white
+                        , paddingXY 12 8
+                        , Border.rounded 6
+                        , Font.size 12
+                        ]
+                        [ paragraph [] [ text "Partner with Flint" ]
+                        ]
+                }
+    in
+    if isMenuVisible then
+        column
+            [ -- css "width" "100vw", css "height" "100vh"
+              wf
+            , hf
+            ]
+            [ column ([ wf, hf, Font.color palette.white ] ++ bg)
+                [ column [ wf, height <| fillPortion 2 ]
+                    [ row [ alignRight, centerY ]
+                        [ Input.button []
+                            { onPress = Just msg
+                            , label =
+                                paragraph [ paddingEach { top = 44, right = 56, bottom = 32, left = 32 } ] [ text "CLOSE" ]
+                            }
+                        ]
+                    ]
+                , column [ wf, height <| fillPortion 1 ] []
+                , column [ wf, height <| fillPortion 9 ]
+                    [ column [ spacingXY 0 42, alignTop, centerX, Font.size 28 ]
+                        ([ column [ centerX, centerY ]
+                            [ link ( Partnerships, "Partnerships" )
+                            , Element.link
+                                [ centerX
+                                , pt 24
+                                ]
+                                { url =
+                                    "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
+                                , label =
+                                    row
+                                        [ Background.color palette.primary
+                                        , Font.color palette.white
+                                        , paddingXY 12 8
+                                        , Border.rounded 6
+                                        , Font.size 12
+                                        ]
+                                        [ paragraph [] [ text "Partner with Flint" ]
+                                        ]
+                                }
+                            ]
+                         ]
+                            ++ List.map
+                                link
+                                [ -- ( Partnerships, "Partnerships" )
+                                  ( NurseCareers "", "Nurse Careers" )
+                                , ( Blog "", "Blog" )
+                                , ( JoinTheTeam "", "Join the Team" )
+                                ]
+                        )
+                    ]
+                ]
+            ]
+
+    else
+        hamburgerIcon

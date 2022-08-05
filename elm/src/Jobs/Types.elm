@@ -78,6 +78,7 @@ type alias Model =
     , view : View
     , config : Config
     , success : Maybe String
+    , isPhoneMenuVisible : Bool
     }
 
 
@@ -90,6 +91,7 @@ type Msg
     | SwitchView View
     | Apply Bool String
     | Submit Job
+    | PhoneMenuToggle
 
 
 type View

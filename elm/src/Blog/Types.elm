@@ -9,6 +9,7 @@ type alias Model =
     , articles : List Article
     , viewing : Maybe String
     , title : String
+    , isPhoneMenuVisible : Bool
     }
 
 
@@ -48,3 +49,4 @@ type Msg
     = ReceiveBlogData (Result Http.Error String)
     | LoadArticle String
     | LoadArticleList
+    | PhoneMenuToggle

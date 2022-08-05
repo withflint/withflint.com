@@ -101,6 +101,14 @@ init { article, gitVersion } url key =
 
 update : Msg -> Model -> Return Msg Model
 update msg model =
+    let
+        resetPhoneMenuState m =
+            if .isPhoneMenuVisible m then
+                { m | isPhoneMenuVisible = False }
+
+            else
+                m
+    in
     Return.map updateTitle <|
         case msg of
             MsgForRouter routerMsg ->
@@ -110,6 +118,14 @@ update msg model =
                         , effectToMsg = EffFromRouter
                         , toModel =
                             \router -> { model | router = router }
+                        }
+
+            MsgForHome homeMsg ->
+                Home.Update.update homeMsg model.home
+                    |> SubModule.update
+                        { toMsg = MsgForHome
+                        , toModel =
+                            \home -> { model | home = home }
                         }
 
             MsgForJobs jobsMsg ->
@@ -126,6 +142,14 @@ update msg model =
                         { toMsg = MsgForHealthCare
                         , toModel =
                             \healthCare -> { model | healthCare = healthCare }
+                        }
+
+            MsgForPartnerships partnershipsMsg ->
+                Partnerships.Update.update partnershipsMsg model.partnerships
+                    |> SubModule.update
+                        { toMsg = MsgForPartnerships
+                        , toModel =
+                            \partnerships -> { model | partnerships = partnerships }
                         }
 
             MsgForBlog blogMsg ->
@@ -153,7 +177,7 @@ update msg model =
                                     |> SubModule.update
                                         { toMsg = MsgForBlog
                                         , toModel =
-                                            \blog -> { model | blog = blog }
+                                            \blog -> { model | blog = resetPhoneMenuState blog }
                                         }
 
                             Just (Router.Routes.JoinTheTeam "") ->
@@ -161,7 +185,7 @@ update msg model =
                                     |> SubModule.update
                                         { toMsg = MsgForJobs
                                         , toModel =
-                                            \jobs -> { model | jobs = jobs }
+                                            \jobs -> { model | jobs = resetPhoneMenuState jobs }
                                         }
 
                             Just (Router.Routes.JoinTheTeam jobId) ->
@@ -169,7 +193,7 @@ update msg model =
                                     |> SubModule.update
                                         { toMsg = MsgForJobs
                                         , toModel =
-                                            \jobs -> { model | jobs = jobs }
+                                            \jobs -> { model | jobs = resetPhoneMenuState jobs }
                                         }
 
                             Just (Router.Routes.NurseCareers "") ->
@@ -177,7 +201,7 @@ update msg model =
                                     |> SubModule.update
                                         { toMsg = MsgForHealthCare
                                         , toModel =
-                                            \healthCare -> { model | healthCare = healthCare }
+                                            \healthCare -> { model | healthCare = resetPhoneMenuState healthCare }
                                         }
 
                             Just (Router.Routes.NurseCareers jobId) ->
@@ -185,8 +209,14 @@ update msg model =
                                     |> SubModule.update
                                         { toMsg = MsgForHealthCare
                                         , toModel =
-                                            \healthCare -> { model | healthCare = healthCare }
+                                            \healthCare -> { model | healthCare = resetPhoneMenuState healthCare }
                                         }
+
+                            Just Router.Routes.Partnerships ->
+                                singleton
+                                    { model
+                                        | partnerships = model.partnerships |> resetPhoneMenuState
+                                    }
 
                             _ ->
                                 singleton model
