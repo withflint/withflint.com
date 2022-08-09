@@ -253,8 +253,8 @@ partners device =
                         [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/cgfns-logo.svg", description = "CGFNS International" }
                         ]
                     , column [ spacingXY 12 12 ]
-                        [ row []
-                            [ Element.image [ css "width" "100%" ] { src = "/static/images/jsa-logo.png", description = "JSA" }
+                        [ row [ width (px 95), height (px 83) ]
+                            [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/jsa-logo.svg", description = "JSA" }
                             ]
                         , column [ wf, Font.color colors.white1, Font.size 12 ]
                             [ paragraph [] [ text "Josef Silny & Associates, Inc." ]
