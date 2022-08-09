@@ -48,7 +48,7 @@ import Jobs.Types exposing (Config, CurrentPage(..), Field(..), Job, Model, Msg(
 import Layout exposing (Layout, footer, menu, phoneMenu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, lineHeight, minimumWidth, palette, pt)
+import Styles exposing (colors, css, hf, lineHeight, minimumWidth, palette, pt, wp)
 import Text
 import Url.Builder exposing (absolute)
 
@@ -274,7 +274,7 @@ states device =
                 [ wf
                 , Font.color palette.primary
                 , spaceEvenly
-                , spacingXY 12 0
+                , spacingXY 12 32
                 ]
                 [ column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
                     [ paragraph [ Font.center ] [ text "Alaska" ]
@@ -438,28 +438,92 @@ partners device =
             [ css "background" "#5C4B92"
             , css "background" "linear-gradient(90deg, #50417F 0%, #5C4B92 100%)"
             ]
+
+        rsPortion =
+            case device of
+                Device.Phone _ ->
+                    { row1 = wf
+                    , row2 = wf
+                    , row3 = wf
+                    , spacing = spacingXY 0 32
+                    , bg = Background.color palette.white
+                    }
+
+                Device.Desktop _ ->
+                    { row1 = wp 2
+                    , row2 = wp 8
+                    , row3 = wp 2
+                    , spacing = spaceEvenly
+                    , bg = Background.color palette.cremeLight
+                    }
+
+                Device.Tablet _ ->
+                    { row1 = wp 0
+                    , row2 = wp 12
+                    , row3 = wp 0
+                    , spacing = spaceEvenly
+                    , bg = Background.color palette.cremeLight
+                    }
+
+                Device.NotSet ->
+                    { row1 = wp 1
+                    , row2 = wp 10
+                    , row3 = wp 1
+                    , spacing = spaceEvenly
+                    , bg = Background.color palette.cremeLight
+                    }
     in
-    wrappedRow [ wf ]
-        [ column
-            ([ width <| fillPortion 6
-             , paddingXY 28 96
+    column [ wf ]
+        [ wrappedRow
+            ([ wf
              , hf
-             , spacingXY 0 40
              ]
                 ++ bgBlue
             )
-            [ Element.image [ centerX, centerY ] { src = "/static/images/cgfns-logo.png", description = "CGFNS International" }
-            , row [ centerX, centerY, spacingXY 12 0 ]
-                [ Element.image [] { src = "/static/images/jsa-logo.png", description = "JSA" }
-                , column [ wf, Font.color colors.white1 ]
-                    [ paragraph [] [ text "Josef Silny & Associates, Inc." ]
-                    , paragraph [] [ text "International Education Consultants" ]
+            [ row [ rsPortion.row1 ] []
+            , wrappedRow
+                [ rsPortion.row2
+                , paddingXY 32 128
+                , rsPortion.spacing
+                ]
+                [ column [ spacingXY 0 24, alignTop ]
+                    [ row [ width (px 210), height (px 75) ]
+                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/cgfns-logo.svg", description = "CGFNS International" }
+                        ]
+                    , column [ spacingXY 12 12 ]
+                        [ row []
+                            [ Element.image [ css "width" "100%" ] { src = "/static/images/jsa-logo.png", description = "JSA" }
+                            ]
+                        , column [ wf, Font.color colors.white1, Font.size 12 ]
+                            [ paragraph [] [ text "Josef Silny & Associates, Inc." ]
+                            , paragraph [] [ text "International Education Consultants" ]
+                            ]
+                        ]
+                    ]
+                , column [ spacingXY 0 48, alignTop ]
+                    [ row [ width (px 336), height (px 83) ]
+                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/medallion-logo.svg", description = "Medallion" }
+                        ]
+                    , row [ width (px 264), height (px 65) ]
+                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/medall-logo.svg", description = "MedAll" }
+                        ]
+                    ]
+                , column [ spacingXY 0 48 ]
+                    [ row [ width (px 198), height (px 52) ]
+                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/ringmd-logo.svg", description = "RingMd" }
+                        ]
+                    , row [ width (px 264), height (px 65) ]
+                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/learn-with-nurses-logo.svg", description = "Learn with Nurses" }
+                        ]
                     ]
                 ]
+            , row [ rsPortion.row3 ] []
             ]
-        , column [ width <| fillPortion 6, Background.color palette.skyBlue, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
+
+        -- ##### We partner with #####
+        , column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
             [ paragraph [ Font.center, Font.size 28, Font.color palette.primary, centerY ] [ text "We partner with the most trusted names in the business" ]
-            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint holds high standards and invests in only quality nurses by partnering with the most trusted names in immigration services" ]
+            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint holds high standards and invest in quality nurses by partnering with the most trusted names in immigration services" ]
             ]
         ]
 

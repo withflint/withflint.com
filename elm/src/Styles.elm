@@ -1,4 +1,4 @@
-module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, font, headFont, headerGradientBackground, heading, hf, lineHeight, link, menu, minimumWidth, palette, paragraph, pb, pl, pt, title, wf)
+module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, font, headFont, headerGradientBackground, heading, hf, hp, lineHeight, link, menu, minH, minW, minimumWidth, palette, paragraph, pb, pl, pt, title, wf, wp)
 
 import Element
     exposing
@@ -6,6 +6,7 @@ import Element
         , Color
         , alignLeft
         , fill
+        , fillPortion
         , height
         , htmlAttribute
         , minimum
@@ -279,6 +280,26 @@ wf =
 hf : Element.Attribute msg
 hf =
     height fill
+
+
+wp : Int -> Element.Attribute msg
+wp size =
+    width <| fillPortion size
+
+
+hp : Int -> Element.Attribute msg
+hp size =
+    height <| fillPortion size
+
+
+minW : Int -> Attribute msg
+minW size =
+    width (fill |> minimum size)
+
+
+minH : Int -> Attribute msg
+minH size =
+    height (fill |> minimum size)
 
 
 lineHeight : Float -> Attribute msg
