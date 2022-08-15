@@ -5,11 +5,13 @@ type alias Model =
     { title : String
     , heroTitle : String
     , faqs : List Faq
+    , isPhoneMenuVisible : Bool
     }
 
 
 type Msg
     = NoOp
+    | PhoneMenuToggle
 
 
 type alias Faq =

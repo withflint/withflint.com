@@ -365,6 +365,11 @@ nurseCareerBody device =
                 { url = "/blog/we-stand-with-our-nurses"
                 , label = paragraph [ rsJustify, Font.underline, Font.color palette.primary ] [ text "We support our Nurses at every step!" ]
                 }
+            , Element.link
+                [ wf ]
+                { url = "/internationally-educated-nurses-faq/"
+                , label = paragraph [ rsJustify, Font.underline, Font.color palette.primary ] [ text "Learn more" ]
+                }
             ]
         , column [ wf, spacingXY 0 44, pt 24 ]
             [ advantages device
@@ -374,7 +379,7 @@ nurseCareerBody device =
                         (link
                             (centerY :: centerX :: wf :: Font.size 15 :: btn)
                             { url = "/nurse-careers/general-health-care-application-rn-np-lpn-hsp-anywhere-usa"
-                            , label = paragraph [ Font.center ] [ text <| "Apply now" ]
+                            , label = paragraph [ Font.center ] [ text <| "Apply" ]
                             }
                         )
                     ]
@@ -760,8 +765,6 @@ header device { title, menu, bg, blobSrc } model =
                             -- MENU
                             , row
                                 [ width <| fillPortion 4
-
-                                -- , spaceEvenly
                                 , spacing 32
                                 , Font.color palette.white
                                 , Font.letterSpacing 2
@@ -791,10 +794,6 @@ header device { title, menu, bg, blobSrc } model =
                     row [ wf, height <| fillPortion 2 ] []
             ]
         ]
-
-
-
--- Launch your nursing career in America
 
 
 type alias Viewer =

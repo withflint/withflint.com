@@ -218,6 +218,12 @@ update msg model =
                                         | partnerships = model.partnerships |> resetPhoneMenuState
                                     }
 
+                            Just Router.Routes.FaqNurses ->
+                                singleton
+                                    { model
+                                        | faqNurses = model.faqNurses |> resetPhoneMenuState
+                                    }
+
                             _ ->
                                 singleton model
 

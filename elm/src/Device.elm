@@ -22,12 +22,6 @@ classify window =
             , height = window.height
             }
     in
-    -- if window.width <= 490 then
-    --     Phone viewport
-    -- else if window.width <= 950 then
-    --     Tablet viewport
-    -- else
-    --     Desktop viewport
     if window.width < 700 then
         Phone viewport
 

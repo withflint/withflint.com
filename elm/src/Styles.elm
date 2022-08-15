@@ -147,9 +147,7 @@ paragraph =
 font : Attribute msg
 font =
     Font.family
-        [ --Font.typeface "Open Sans"
-          --   Font.typeface "Lora"
-          Font.typeface "Inter"
+        [ Font.typeface "Inter"
         , Font.sansSerif
         ]
 
@@ -157,9 +155,7 @@ font =
 headFont : Attribute msg
 headFont =
     Font.family
-        [ --Font.typeface "Roboto"
-          --   Font.typeface "Poppins"
-          Font.typeface "Inter"
+        [ Font.typeface "Inter"
         , Font.sansSerif
         ]
 
@@ -217,11 +213,8 @@ link =
 
 title : List (Attribute msg)
 title =
-    [ --Font.size 44
-      Font.family [ Font.typeface "Inter" ]
+    [ Font.family [ Font.typeface "Inter" ]
     , Font.color palette.white
-
-    -- , paddingXY 32 0
     ]
 
 

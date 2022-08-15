@@ -198,8 +198,6 @@ footer =
                 , row [ css "position" "absolute", css "right" "2px", css "bottom" "0px" ]
                     [ image [ width (px 165), height (px 100), alignRight ]
                         { src = "/static/images/blob-2.svg"
-
-                        -- default dimension 214x149
                         , description = ""
                         }
                     ]
@@ -242,17 +240,6 @@ footer =
             [ column [ centerX ]
                 [ Element.image [ width (px 90), height (px 34) ] { src = "/static/images/logo.svg?new", description = "Flint" }
                 ]
-
-            -- MENU
-            -- , column [ Font.center, centerX, Font.color palette.primary ]
-            --     [ column [ spacingXY 0 22, centerX ]
-            --         [ linkFooter "Nurse Careers" (NurseCareers "")
-            --         , linkFooter "Partnerships" Partnerships
-            --         , linkFooter "Blog" (Blog "")
-            --         -- , linkFooter "About Us" AboutUs
-            --         , linkFooter "Join the Team" (JoinTheTeam "")
-            --         ]
-            --     ]
             , column [ Font.center, centerX, spacingXY 0 16 ]
                 [ column [ hf, spacingXY 0 12 ]
                     [ Element.paragraph [] [ text "Healthcare Partnerships" ]
@@ -390,8 +377,7 @@ phoneMenu msg isMenuVisible =
     in
     if isMenuVisible then
         column
-            [ -- css "width" "100vw", css "height" "100vh"
-              wf
+            [ wf
             , hf
             ]
             [ column ([ wf, hf, Font.color palette.white ] ++ bg)
@@ -407,7 +393,7 @@ phoneMenu msg isMenuVisible =
                 , column [ wf, height <| fillPortion 1 ] []
                 , column [ wf, height <| fillPortion 9 ]
                     [ column [ spacingXY 0 42, alignTop, centerX, Font.size 28 ]
-                        ([ column [ centerX, centerY ]
+                        (column [ centerX, centerY ]
                             [ link ( Partnerships, "Partnerships" )
                             , Element.link
                                 [ centerX
@@ -427,11 +413,9 @@ phoneMenu msg isMenuVisible =
                                         ]
                                 }
                             ]
-                         ]
-                            ++ List.map
+                            :: List.map
                                 link
-                                [ -- ( Partnerships, "Partnerships" )
-                                  ( NurseCareers "", "Nurse Careers" )
+                                [ ( NurseCareers "", "Nurse Careers" )
                                 , ( Blog "", "Blog" )
                                 , ( JoinTheTeam "", "Join the Team" )
                                 ]

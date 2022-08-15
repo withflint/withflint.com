@@ -104,9 +104,7 @@ desktopView device model =
             "Recreate the way you hire nurses"
             [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
         , row
-            (wf :: []
-             -- sectionBg
-            )
+            [ wf ]
             [ row [ width <| fillPortion 2 ] [ Element.none ]
             , column [ width <| fillPortion 8 ] [ section0 device ]
             , row [ width <| fillPortion 2 ] [ Element.none ]

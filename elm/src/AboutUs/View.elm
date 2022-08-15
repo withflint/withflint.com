@@ -20,27 +20,21 @@ view device _ =
             [ wf
             , height fill
             ]
-            (desktopView device
-             --++ footer.phone
-            )
+            (desktopView device)
         ]
     , tablet =
         [ column
             [ wf
             , height fill
             ]
-            (desktopView device
-             --++ footer.tablet
-            )
+            (desktopView device)
         ]
     , desktop =
         [ column
             [ wf
             , height fill
             ]
-            (desktopView device
-             -- ++ footer.desktop
-            )
+            (desktopView device)
         ]
     }
 

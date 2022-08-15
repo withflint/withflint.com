@@ -437,8 +437,6 @@ phoneSummaryView article =
         , go <|
             row
                 [ Font.size 14
-
-                -- C this color might need change
                 , Font.color colors.gray1
                 , Font.underline
                 , paddingEach { top = 0, right = 0, left = 0, bottom = 10 }

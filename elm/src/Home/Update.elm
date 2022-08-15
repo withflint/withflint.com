@@ -18,7 +18,3 @@ update msg model =
     case msg of
         PhoneMenuToggle ->
             singleton { model | isPhoneMenuVisible = not model.isPhoneMenuVisible }
-
-
-
--- |> Debug.log "phoneMenu"

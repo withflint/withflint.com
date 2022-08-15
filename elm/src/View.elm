@@ -69,7 +69,7 @@ renderRoute model =
             Element.map MsgForBlog <| layout model.device <| Blog.View.view model.device model.blog
 
         FaqNurses ->
-            Element.map MsgForFaqNurses <| layout model.device <| FaqNurses.View.view model.faqNurses
+            Element.map MsgForFaqNurses <| layout model.device <| FaqNurses.View.view model.device model.faqNurses
 
         NotFound ->
             notFound
