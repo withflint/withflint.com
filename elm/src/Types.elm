@@ -46,5 +46,7 @@ type Msg
     | MsgForFaqNurses FaqNurses.Types.Msg
       --
     | MsgForPartnerships Partnerships.Types.Msg
+      --
+    | MsgForAboutUs AboutUs.Types.Msg
     | Load Viewport
     | Resize Int Int

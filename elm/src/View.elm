@@ -54,7 +54,7 @@ renderRoute model =
             layout model.device <| Contact.View.view model.contact
 
         AboutUs ->
-            layout model.device <| AboutUs.View.view model.device model.aboutUs
+            Element.map MsgForAboutUs <| layout model.device <| AboutUs.View.view model.device model.aboutUs
 
         Partnerships ->
             Element.map MsgForPartnerships <| layout model.device <| Partnerships.View.view model.device model.partnerships

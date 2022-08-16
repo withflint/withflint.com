@@ -24,7 +24,7 @@ routes =
         , map NotFound (s "404")
 
         -- , map Contact (s "contact")
-        -- , map AboutUs (s "about-us")
+        , map AboutUs (s "about-us")
         , map Partnerships (s "partnerships")
         , map (JoinTheTeam "") (s "join")
         , map JoinTheTeam (s "join" </> string)

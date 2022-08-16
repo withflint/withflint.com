@@ -168,6 +168,14 @@ update msg model =
                             \faqNurses -> { model | faqNurses = faqNurses }
                         }
 
+            MsgForAboutUs msgForAboutUs ->
+                AboutUs.Update.update msgForAboutUs model.aboutUs
+                    |> SubModule.update
+                        { toMsg = MsgForAboutUs
+                        , toModel =
+                            \aboutUs -> { model | aboutUs = aboutUs }
+                        }
+
             EffFromRouter eff ->
                 case eff of
                     Router.Types.UrlChange url ->
@@ -224,6 +232,12 @@ update msg model =
                                         | faqNurses = model.faqNurses |> resetPhoneMenuState
                                     }
 
+                            Just Router.Routes.AboutUs ->
+                                singleton
+                                    { model
+                                        | aboutUs = model.aboutUs |> resetPhoneMenuState
+                                    }
+
                             _ ->
                                 singleton model
 
@@ -273,6 +287,9 @@ pageTitle model =
 
         FaqNurses ->
             model.faqNurses.title
+
+        AboutUs ->
+            model.aboutUs.title
 
         _ ->
             model.home.title
