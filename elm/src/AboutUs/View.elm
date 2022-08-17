@@ -15,6 +15,7 @@ import Element
         , height
         , html
         , htmlAttribute
+        , paddingXY
         , paragraph
         , px
         , row
@@ -23,12 +24,14 @@ import Element
         , text
         , width
         )
+import Element.Background as Background
+import Element.Border as Border
 import Element.Font as Font
 import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, phoneMenu)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (css, hf, palette, wf)
+import Styles exposing (colors, css, hf, lineHeight, palette, pt, wf)
 
 
 view : Device.Device -> Model -> Layout Msg
@@ -49,7 +52,9 @@ view device model =
                 [ wf
                 , height fill
                 ]
-                [ header device model ]
+                [ header device model
+                , body device model
+                ]
             ]
     , tablet =
         render <|
@@ -57,7 +62,9 @@ view device model =
                 [ wf
                 , height fill
                 ]
-                [ header device model ]
+                [ header device model
+                , body device model
+                ]
             ]
     , desktop =
         render <|
@@ -65,9 +72,113 @@ view device model =
                 [ wf
                 , height fill
                 ]
-                [ header device model ]
+                [ header device model
+                , body device model
+                ]
             ]
     }
+
+
+body : Device.Device -> Model -> Element msg
+body device model =
+    let
+        sectionBg =
+            [ css "background" "#FCE5D9"
+            , css "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 102.99%)"
+            ]
+    in
+    column
+        [ Background.color colors.cremeDark
+        , wf
+        , hf
+        , Font.family [ Font.typeface "Inter" ]
+        ]
+        [ row
+            ([ wf ]
+             --:: sectionBg
+            )
+            [ row [ width <| fillPortion 2 ] [ Element.none ]
+            , column [ width <| fillPortion 8 ]
+                [ aboutFlint device model
+                , aboutTeam device model
+                ]
+            , row [ width <| fillPortion 2 ] [ Element.none ]
+            ]
+        ]
+
+
+aboutTeam : Device.Device -> Model -> Element msg
+aboutTeam device model =
+    let
+        titleStyle =
+            [ Font.center
+            , Font.size 28
+            , Font.semiBold
+            , Font.color palette.primary
+            ]
+
+        rsJustify =
+            case device of
+                Device.Phone _ ->
+                    Font.center
+
+                _ ->
+                    Font.justify
+    in
+    column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
+        [ column [ centerX ]
+            [ paragraph titleStyle
+                [ text "Collaborative and multicultural team" ]
+            ]
+        , column [ spacingXY 0 12 ]
+            [ paragraph [ Font.center, pt 12, rsJustify, lineHeight 1.6 ]
+                [ text "As agents of change, we are deeply aligned with the healthcare industry's motivation.  We enable people to give their best by removing pain points and obstacles. Our team has experienced the hardships of the medical industry and immigration but also knows the silver lining of great work, caring for others, and finding community." ]
+            ]
+        ]
+
+
+aboutFlint : Device.Device -> Model -> Element msg
+aboutFlint device model =
+    let
+        titleStyle =
+            [ Font.center
+            , Font.size 28
+            , Font.semiBold
+            , Font.color palette.primary
+            ]
+
+        rsJustify =
+            case device of
+                Device.Phone _ ->
+                    Font.center
+
+                _ ->
+                    Font.justify
+    in
+    column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
+        [ column [ centerX ]
+            [ paragraph titleStyle
+                [ text "Working on the future of nursing" ]
+            ]
+        , column [ spacingXY 0 12 ]
+            [ paragraph [ Font.center, pt 12, rsJustify, lineHeight 1.6 ]
+                [ text "Flint was created to make the world a better place by connecting and improving lives. From those struggling to get adequate healthcare, to the nurses working two jobs in Nigeria. We get it." ]
+            , paragraph
+                [ Font.center
+                , pt 12
+                , rsJustify
+                , lineHeight 1.6
+                ]
+                [ text "We consider ourselves agents of change for the future of nursing. Flint couples technology with insights and expertise — a winning combination." ]
+            , paragraph
+                [ Font.center
+                , pt 12
+                , rsJustify
+                , lineHeight 1.6
+                ]
+                [ text "Flint is venture capital backed by the same people who funded the likes of AirBnB, Doordash & Instacart. Trust us to build long lasting solutions and partnerships within the healthcare industry." ]
+            ]
+        ]
 
 
 header : Device.Device -> Model -> Element Msg
@@ -85,7 +196,7 @@ header device model =
             "/static/images/header-blob-blue.svg"
 
         title =
-            "About Us"
+            "Freedom. Equality. Quality."
 
         blob =
             row [ css "position" "relative" ]
