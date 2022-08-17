@@ -81,12 +81,6 @@ view device model =
 
 body : Device.Device -> Model -> Element msg
 body device model =
-    let
-        sectionBg =
-            [ css "background" "#FCE5D9"
-            , css "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 102.99%)"
-            ]
-    in
     column
         [ Background.color colors.cremeDark
         , wf
@@ -94,9 +88,7 @@ body device model =
         , Font.family [ Font.typeface "Inter" ]
         ]
         [ row
-            ([ wf ]
-             --:: sectionBg
-            )
+            [ wf ]
             [ row [ width <| fillPortion 2 ] [ Element.none ]
             , column [ width <| fillPortion 8 ]
                 [ aboutFlint device model
