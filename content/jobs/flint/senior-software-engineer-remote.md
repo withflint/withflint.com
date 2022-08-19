@@ -22,7 +22,7 @@ As Senior Software Engineer, you'll be an integral part of setting the product v
 - _You're passionate_ - you've designed and architect excellent software products before.
 - _You've demonstrated a mastery in functional programming_ - with languages such as Haskell, F#, Elm, Erlang, Elixir, ML, OCaml, Lisp, Scheme, Scala, Clojure, Racket, Julia in an academic, personal or professional context.
 
-Read our _[blog](https://withflint.com/blog)_ to find out more about our _[culture](https://withflint.com/blog/culture)_ and _[products](https://withflint.com/blog/growth-and-product)_.
+Read our _[blog](https://withflint.com/blog)_ to find out more about our _[culture](https://withflint.com/blog/culture)_.
 
 Have you read Paul Graham's _[Beating the Averages](http://www.paulgraham.com/avg.html)_ essay? Do you strive to remove _[schlep](http://www.paulgraham.com/schlep.html)_? Are you a Lisp Hacker? If so, you should join.
 
