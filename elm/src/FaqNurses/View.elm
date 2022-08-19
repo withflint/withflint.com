@@ -16,16 +16,12 @@ import Element
         , height
         , html
         , htmlAttribute
-        , link
         , maximum
-        , minimum
-        , padding
         , paddingEach
         , paddingXY
         , paragraph
         , px
         , row
-        , shrink
         , spacing
         , spacingXY
         , text
@@ -39,10 +35,10 @@ import Element.Lazy exposing (lazy2)
 import FaqNurses.Types exposing (Faq, FormattedText(..), Model, Msg(..))
 import Html
 import Html.Attributes as HtmlAttr
-import Layout exposing (Layout, footer, menu, phoneMenu)
+import Layout exposing (Layout, footer, phoneMenu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, headFont, hf, palette, pt, wf)
+import Styles exposing (colors, css, hf, palette, pt, wf)
 
 
 view : Device.Device -> Model -> Layout Msg
@@ -239,12 +235,6 @@ header device model =
 
 faqsView : Model -> Element Msg
 faqsView { faqs } =
-    let
-        sectionBg =
-            [ css "background" "#FCE5D9"
-            , css "background" "linear-gradient(180deg, #FFFBF8 0%, #FCE5D9 102.99%)"
-            ]
-    in
     column
         [ Background.color colors.cremeDark
         , wf
@@ -318,97 +308,3 @@ viewAnswer answer =
                     [ el [ Styles.font ] <| text (String.fromInt number ++ ". " ++ str)
                     ]
                 ]
-
-
-phoneHeader : Element Msg
-phoneHeader =
-    row [ width fill, Background.color colors.blue1, paddingXY 30 0 ]
-        [ row [ width <| maximum 1500 fill, paddingXY 0 40, centerX ]
-            [ Element.link []
-                { url = toPath Home
-                , label =
-                    Element.image [ centerY, alignLeft, width (px 100), height (px 50) ]
-                        { src = "/static/images/logo-white.svg?new"
-                        , description = "Flint"
-                        }
-                }
-            ]
-        ]
-
-
-desktopHeader : Element Msg
-desktopHeader =
-    row [ width fill, Background.color colors.blue1, paddingXY 100 0 ]
-        [ row [ width <| maximum 1300 fill, paddingXY 0 40, centerX ]
-            [ column [ width fill ]
-                [ Element.link []
-                    { url = toPath Home
-                    , label =
-                        Element.image [ centerY, alignLeft, width (px 100), height (px 50) ]
-                            { src = "/static/images/logo-white.svg?new"
-                            , description = "Flint"
-                            }
-                    }
-                ]
-            , column [ width fill, alignRight ]
-                [ column (width fill :: Styles.paragraph)
-                    [ row [ spacingXY 30 0, alignRight ] <|
-                        List.map
-                            (\( path, label ) ->
-                                row []
-                                    [ link
-                                        [ padding 5
-                                        , Font.color colors.cremeLight
-                                        , Font.size 16
-                                        , headFont
-                                        ]
-                                        { url = toPath path
-                                        , label = text label
-                                        }
-                                    ]
-                            )
-                            menu
-                    ]
-                ]
-            ]
-        ]
-
-
-faqHeroTitleDesktop : String -> Element Msg
-faqHeroTitleDesktop title =
-    row [ width fill, Background.color colors.blue1, padding 50 ]
-        [ column [ width fill, spacing 30 ]
-            [ paragraph
-                [ width <| maximum 1400 fill
-                , centerX
-                , centerY
-                , Font.center
-                , height (minimum 150 shrink)
-                , Font.color colors.white3
-                , Font.size 70
-                , Styles.headFont
-                ]
-                [ text title
-                ]
-            ]
-        ]
-
-
-faqHeroTitlePhone : String -> Element Msg
-faqHeroTitlePhone title =
-    row [ width fill, Background.color colors.blue1, padding 50 ]
-        [ column [ width fill, spacing 30 ]
-            [ paragraph
-                [ width fill
-                , centerX
-                , centerY
-                , Font.center
-                , height (minimum 50 shrink)
-                , Font.color colors.white3
-                , Font.size 40
-                , Styles.headFont
-                ]
-                [ text title
-                ]
-            ]
-        ]

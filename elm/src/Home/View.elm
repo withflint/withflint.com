@@ -308,16 +308,6 @@ desktopView device =
             , Font.semiBold
             , Font.size 42
             ]
-
-        link label page =
-            Element.link
-                (Styles.menu
-                    ++ [ Font.color palette.primary ]
-                )
-                { url = toPath page
-                , label =
-                    Element.paragraph [ Font.center ] [ text label ]
-                }
     in
     [ column [ pt 48, wf, hf, Background.color colors.cremeDark ]
         [ row [ pt 72, wf ]

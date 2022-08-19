@@ -15,7 +15,6 @@ import Element
         , height
         , image
         , link
-        , mouseOver
         , newTabLink
         , padding
         , paddingEach
@@ -24,7 +23,6 @@ import Element
         , px
         , row
         , spaceEvenly
-        , spacing
         , spacingXY
         , text
         , width
@@ -35,8 +33,7 @@ import Element.Border as Border
 import Element.Font as Font exposing (underline)
 import Element.Input as Input
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, font, hf, palette, pt, wf)
-import Types exposing (Msg(..))
+import Styles exposing (colors, css, hf, palette, pt, wf)
 
 
 type alias Layout msg =
@@ -122,15 +119,6 @@ footer =
         link label page =
             Element.link
                 []
-                { url = toPath page
-                , label =
-                    Element.paragraph [ Font.center ] [ text label ]
-                }
-
-        linkFooter label page =
-            Element.link
-                [ wf
-                ]
                 { url = toPath page
                 , label =
                     Element.paragraph [ Font.center ] [ text label ]
@@ -355,25 +343,6 @@ phoneMenu msg isMenuVisible =
             [ css "background" "#6359A1"
             , css "background" "linear-gradient(162.39deg, #5D3968 0%, #6359A1 100%)"
             ]
-
-        partnerWithFlint =
-            Element.link
-                [ centerX
-                , paddingXY 0 12
-                ]
-                { url =
-                    "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
-                , label =
-                    row
-                        [ Background.color palette.primary
-                        , Font.color palette.white
-                        , paddingXY 12 8
-                        , Border.rounded 6
-                        , Font.size 12
-                        ]
-                        [ paragraph [] [ text "Partner with Flint" ]
-                        ]
-                }
     in
     if isMenuVisible then
         column

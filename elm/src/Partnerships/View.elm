@@ -4,7 +4,6 @@ import Device exposing (Device(..))
 import Element
     exposing
         ( Element
-        , alignLeft
         , alignRight
         , alignTop
         , centerX
@@ -38,7 +37,7 @@ import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, phoneMenu)
 import Partnerships.Types exposing (Model, Msg(..))
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, hp, lineHeight, minH, minW, palette, pt, wf, wp)
+import Styles exposing (colors, css, hf, lineHeight, palette, pt, wf, wp)
 
 
 view : Device -> Model -> Layout Msg
@@ -86,12 +85,6 @@ view device model =
 
 desktopView : Device -> Model -> List (Element Msg)
 desktopView device model =
-    let
-        sectionBg =
-            [ css "background" "#DAE9FF"
-            , css "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 99.99%, #DAE9FF 100%)"
-            ]
-    in
     [ column
         [ Background.color colors.cremeDark
         , wf

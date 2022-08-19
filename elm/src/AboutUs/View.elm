@@ -15,23 +15,27 @@ import Element
         , height
         , html
         , htmlAttribute
+        , paddingEach
         , paddingXY
         , paragraph
         , px
+        , rgb255
         , row
+        , spaceEvenly
         , spacing
         , spacingXY
         , text
         , width
+        , wrappedRow
         )
 import Element.Background as Background
 import Element.Border as Border
-import Element.Font as Font
+import Element.Font as Font exposing (letterSpacing)
 import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, phoneMenu)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, lineHeight, palette, pt, wf)
+import Styles exposing (colors, css, hf, lineHeight, maxW, minW, palette, pb, pt, wf)
 
 
 view : Device.Device -> Model -> Layout Msg
@@ -79,7 +83,7 @@ view device model =
     }
 
 
-body : Device.Device -> Model -> Element msg
+body : Device.Device -> Model -> Element Msg
 body device model =
     column
         [ Background.color colors.cremeDark
@@ -91,16 +95,20 @@ body device model =
             [ wf ]
             [ row [ width <| fillPortion 2 ] [ Element.none ]
             , column [ width <| fillPortion 8 ]
-                [ aboutFlint device model
-                , aboutTeam device model
+                [ whoWeAre device
+                , team device model
                 ]
             , row [ width <| fillPortion 2 ] [ Element.none ]
             ]
         ]
 
 
-aboutTeam : Device.Device -> Model -> Element msg
-aboutTeam device model =
+
+--- WHO WE ARE --
+
+
+whoWeAre : Device.Device -> Element msg
+whoWeAre device =
     let
         titleStyle =
             [ Font.center
@@ -108,67 +116,213 @@ aboutTeam device model =
             , Font.semiBold
             , Font.color palette.primary
             ]
-
-        rsJustify =
-            case device of
-                Device.Phone _ ->
-                    Font.center
-
-                _ ->
-                    Font.justify
     in
-    column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
-        [ column [ centerX ]
-            [ paragraph titleStyle
-                [ text "Collaborative and multicultural team" ]
-            ]
-        , column [ spacingXY 0 12 ]
-            [ paragraph [ Font.center, pt 12, rsJustify, lineHeight 1.6 ]
-                [ text "As agents of change, we are deeply aligned with the healthcare industry's motivation.  We enable people to give their best by removing pain points and obstacles. Our team has experienced the hardships of the medical industry and immigration but also knows the silver lining of great work, caring for others, and finding community." ]
-            ]
-        ]
-
-
-aboutFlint : Device.Device -> Model -> Element msg
-aboutFlint device model =
-    let
-        titleStyle =
-            [ Font.center
-            , Font.size 28
-            , Font.semiBold
-            , Font.color palette.primary
-            ]
-
-        rsJustify =
-            case device of
-                Device.Phone _ ->
-                    Font.center
-
-                _ ->
-                    Font.justify
-    in
-    column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
+    column [ wf, centerX, paddingXY 0 48, spacingXY 0 56, Font.size 16 ]
         [ column [ centerX ]
             [ paragraph titleStyle
                 [ text "Working on the future of nursing" ]
             ]
-        , column [ spacingXY 0 12 ]
-            [ paragraph [ Font.center, pt 12, rsJustify, lineHeight 1.6 ]
-                [ text "Flint was created to make the world a better place by connecting and improving lives. From those struggling to get adequate healthcare, to the nurses working two jobs in Nigeria. We get it." ]
-            , paragraph
-                [ Font.center
-                , pt 12
-                , rsJustify
-                , lineHeight 1.6
+        , wrappedRow [ alignTop, spacingXY 24 20 ]
+            [ aboutFlint
+            , aboutTeam
+            ]
+        ]
+
+
+aboutTeam : Element msg
+aboutTeam =
+    paragraph [ hf, lineHeight 1.6, minW 300 ]
+        [ text "As agents of change, we are deeply aligned with the healthcare industry's motivation.  We enable people to give their best by removing pain points and obstacles. Our team has experienced the hardships of the medical industry and immigration but also knows the silver lining of great work, caring for others, and finding community."
+        ]
+
+
+aboutFlint : Element msg
+aboutFlint =
+    column [ wf, spacingXY 0 12 ]
+        [ paragraph [ lineHeight 1.6, minW 300 ]
+            [ text "Flint was created to make the world a better place by connecting and improving lives. From those struggling to get adequate healthcare, to the nurses working two jobs in Nigeria. We get it." ]
+        , paragraph [ lineHeight 1.6, minW 300 ]
+            [ text "We consider ourselves agents of change for the future of nursing. Flint couples technology with insights and expertise — a winning combination." ]
+        , paragraph [ lineHeight 1.6, minW 300 ]
+            [ text "Flint is venture capital backed by the same people who funded the likes of AirBnB, Doordash & Instacart. Trust us to build long lasting solutions and partnerships within the healthcare industry." ]
+        ]
+
+
+
+--- TEAM ---
+
+
+team : Device.Device -> Model -> Element Msg
+team device model =
+    let
+        titleStyle =
+            [ Font.center
+            , Font.size 28
+            , Font.semiBold
+            , Font.color palette.primary
+            ]
+    in
+    column
+        [ wf
+        , centerX
+        , paddingXY 0 48
+        , pb 120
+        ]
+        [ row [ centerX ]
+            [ paragraph titleStyle
+                [ text "Team" ]
+            ]
+        , wrappedRow [ wf, hf, pt 80, spaceEvenly ]
+            [ personCard kenton
+            , personCard anson
+            , personCard teresa
+            ]
+        , wrappedRow [ wf, hf, pt 80, spaceEvenly ]
+            [ personCard neil
+            , personCard kristi
+            , personCard vanessa
+            ]
+        , wrappedRow [ wf, hf, pt 80, spaceEvenly ]
+            [ personCard katherine
+            , personCard simon
+            , personCard montse
+            , personCard fred
+            ]
+        ]
+
+
+type alias Profile =
+    { name : String
+    , position : String
+    , info : String -- bio/role
+    , url : String -- ideal pic 408x397
+    }
+
+
+kenton : Profile
+kenton =
+    { name = "Kenton Jarvie"
+    , position = "CEO"
+    , info = loremIpsum
+    , url = "static/images/kenton_sm.jpg"
+    }
+
+
+anson : Profile
+anson =
+    { name = "Anson Kung"
+    , position = "COO"
+    , info = loremIpsum
+    , url = "static/images/anson_sm.jpg"
+    }
+
+
+teresa : Profile
+teresa =
+    { name = "Teresa Fisher"
+    , position = "Partnerships"
+    , info = loremIpsum
+    , url = "static/images/teresa_sm.jpg"
+    }
+
+
+neil : Profile
+neil =
+    { name = "Neil Prigge"
+    , position = "Partnerships"
+    , info = loremIpsum
+    , url = "static/images/neil_sm.jpg"
+    }
+
+
+kristi : Profile
+kristi =
+    { name = "Kristi Crawford"
+    , position = "Immigration and Legal"
+    , info = loremIpsum
+    , url = "static/images/kristi_sm.jpg"
+    }
+
+
+vanessa : Profile
+vanessa =
+    { name = "Vanessa Teed"
+    , position = "Product Manager"
+    , info = loremIpsum
+    , url = "static/images/vanessa_sm.jpg"
+    }
+
+
+katherine : Profile
+katherine =
+    { name = "Katherine Hooks"
+    , position = "Nurse Educator"
+    , info = loremIpsum
+    , url = "static/images/katherine_sm.jpg"
+    }
+
+
+simon : Profile
+simon =
+    { name = "Simon Green"
+    , position = "Head of Product"
+    , info = loremIpsum
+    , url = "static/images/simon_sm.jpg"
+    }
+
+
+montse : Profile
+montse =
+    { name = "Montserrat del Toro"
+    , position = "Nurse Success Advisor"
+    , info = loremIpsum
+    , url = "static/images/montse_sm.jpg"
+    }
+
+
+fred : Profile
+fred =
+    { name = "Fred Varas"
+    , position = "Partnerships Manager"
+    , info = loremIpsum
+    , url = "static/images/fred_sm.jpg"
+    }
+
+
+loremIpsum : String
+loremIpsum =
+    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore"
+
+
+personCard : Profile -> Element Msg
+personCard profile =
+    row
+        [ wf
+        , hf
+        , paddingEach { bottom = 20, top = 0, right = 40, left = 0 }
+        ]
+        [ column
+            [ wf
+            , hf
+            , minW 298
+            , maxW 408
+            , Background.color palette.white
+            , Border.rounded 8
+            ]
+            [ row [ wf ]
+                [ Element.image [ css "width" "100%", maxW 408, minW 298 ]
+                    { src = profile.url
+                    , description = ""
+                    }
                 ]
-                [ text "We consider ourselves agents of change for the future of nursing. Flint couples technology with insights and expertise — a winning combination." ]
-            , paragraph
-                [ Font.center
-                , pt 12
-                , rsJustify
-                , lineHeight 1.6
+            , column [ paddingXY 24 24, spacingXY 0 12 ]
+                [ -- NAME
+                  paragraph [ Font.size 24, Font.color palette.primary, Font.semiBold ] [ text profile.name ]
+
+                -- POSITION
+                , paragraph [ Font.size 18, Font.color (rgb255 0 0 0), Font.semiBold ] [ text profile.position ]
+                , paragraph [ Font.size 16, lineHeight 1.4, letterSpacing 1.8 ] [ text profile.info ]
                 ]
-                [ text "Flint is venture capital backed by the same people who funded the likes of AirBnB, Doordash & Instacart. Trust us to build long lasting solutions and partnerships within the healthcare industry." ]
             ]
         ]
 

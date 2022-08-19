@@ -1,6 +1,6 @@
 module Partnerships.Update exposing (init, update)
 
-import Partnerships.Types exposing (Model, Msg(..))
+import Partnerships.Types exposing (Model, Msg)
 import Return exposing (Return, singleton)
 
 
@@ -14,6 +14,4 @@ init =
 
 update : Msg -> Model -> Return Msg Model
 update msg model =
-    case msg of
-        PhoneMenuToggle ->
-            singleton { model | isPhoneMenuVisible = not model.isPhoneMenuVisible }
+    singleton { model | isPhoneMenuVisible = not model.isPhoneMenuVisible }
