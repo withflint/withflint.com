@@ -57,7 +57,7 @@ view device model =
                 , height fill
                 ]
                 [ header device model
-                , body device model
+                , body
                 ]
             ]
     , tablet =
@@ -67,7 +67,7 @@ view device model =
                 , height fill
                 ]
                 [ header device model
-                , body device model
+                , body
                 ]
             ]
     , desktop =
@@ -77,14 +77,14 @@ view device model =
                 , height fill
                 ]
                 [ header device model
-                , body device model
+                , body
                 ]
             ]
     }
 
 
-body : Device.Device -> Model -> Element Msg
-body device model =
+body : Element Msg
+body =
     column
         [ Background.color colors.cremeDark
         , wf
@@ -95,8 +95,8 @@ body device model =
             [ wf ]
             [ row [ width <| fillPortion 2 ] [ Element.none ]
             , column [ width <| fillPortion 8 ]
-                [ whoWeAre device
-                , team device model
+                [ whoWeAre
+                , team
                 ]
             , row [ width <| fillPortion 2 ] [ Element.none ]
             ]
@@ -107,8 +107,8 @@ body device model =
 --- WHO WE ARE --
 
 
-whoWeAre : Device.Device -> Element msg
-whoWeAre device =
+whoWeAre : Element msg
+whoWeAre =
     let
         titleStyle =
             [ Font.center
@@ -152,8 +152,8 @@ aboutFlint =
 --- TEAM ---
 
 
-team : Device.Device -> Model -> Element Msg
-team device model =
+team : Element Msg
+team =
     let
         titleStyle =
             [ Font.center
