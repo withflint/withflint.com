@@ -5,7 +5,7 @@ import Dict exposing (Dict)
 import File.Select
 import Http
 import Jobs.Types exposing (Applicant, Config, Field(..), Job, Model, Msg(..), View(..))
-import Json.Decode as Decode exposing (Decoder, decodeString)
+import Json.Decode as Decode exposing (Decoder)
 import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
 import Text exposing (Text(..))

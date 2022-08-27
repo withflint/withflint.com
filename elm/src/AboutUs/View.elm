@@ -30,7 +30,7 @@ import Element
         )
 import Element.Background as Background
 import Element.Border as Border
-import Element.Font as Font exposing (letterSpacing)
+import Element.Font as Font
 import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, phoneMenu)
