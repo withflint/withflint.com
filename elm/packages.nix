@@ -75,6 +75,11 @@
         version = "1.0.2";
       };
 
+      "krisajenkins/remotedata" = {
+        sha256 = "0m5bk0qhsjv14vajqrkph386696pnhj5rn51kgma8lwyvvx9ihw1";
+        version = "6.0.1";
+      };
+
       "mdgriffith/elm-ui" = {
         sha256 = "0ffcqv4a4ad400hwp824m3qq4jy82cqp5ghmhp1m0q7n004z6kgv";
         version = "1.1.8";
