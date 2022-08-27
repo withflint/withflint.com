@@ -47,8 +47,9 @@ import Html.Attributes as HtmlAttr
 import Jobs.Types exposing (Config, CurrentPage(..), Field(..), Job, Model, Msg(..), View(..))
 import Layout exposing (Layout, footer, menu, phoneMenu)
 import Mark
+import RemoteData exposing (RemoteData(..))
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, lineHeight, minimumWidth, palette, pt, wp)
+import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wp)
 import Text
 import Url.Builder exposing (absolute)
 
@@ -392,15 +393,15 @@ nurseCareerBody device =
 advantages : Device.Device -> Element msg
 advantages device =
     wrappedRow [ centerX, spacingXY 64 32 ]
-        [ column [ spacingXY 0 24, minimumWidth 160 ]
+        [ column [ spacingXY 0 24, minW 160 ]
             [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licensing" }
             , paragraph [ Font.center, Font.color palette.primary, Font.semiBold ] [ text "Licensing" ]
             ]
-        , column [ spacingXY 0 24, minimumWidth 160 ]
+        , column [ spacingXY 0 24, minW 160 ]
             [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/immigration.svg", description = "Flint - Immigration" }
             , paragraph [ Font.center, Font.color palette.primary, Font.semiBold ] [ text "Immigration" ]
             ]
-        , column [ spacingXY 0 24, minimumWidth 160 ]
+        , column [ spacingXY 0 24, minW 160 ]
             [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/relocation.svg", description = "Flint - Relocation" }
             , paragraph [ Font.center, Font.color palette.primary, Font.semiBold ] [ text "Relocation" ]
             ]
@@ -574,13 +575,13 @@ joinTeamBody device =
                 [ text "We work with the very best" ]
             ]
         , wrappedRow [ alignTop, spacingXY 24 20 ]
-            [ paragraph [ lineHeight 1.6, minimumWidth 300 ]
+            [ paragraph [ lineHeight 1.6, minW 300 ]
                 [ text "At Flint, we're committed to hiring the best people to build our teams. Building great products takes smart, disciplined, and empathetic individuals who understand our product goals and imagine innovative ways to achieve results. We designed a hiring process to help us identify those people." ]
             , paragraph
                 [ wf
                 , hf
                 , lineHeight 1.6
-                , minimumWidth 300
+                , minW 300
                 ]
                 [ text "Flint fosters a culture of respect, dialogue, and growth– a home where our team members can engage in a continuous conversation about product, engineering, and learning. "
                 , Element.link [ Font.underline ]
@@ -867,34 +868,60 @@ jobsView device viewer model =
     in
     case model.view of
         JobsView ->
-            if Dict.isEmpty model.jobs then
-                column []
-                    [ text "Sorry, no positions are currently open!"
-                    ]
+            case model.jobs of
+                NotAsked ->
+                    column [ wf, minH 120 ]
+                        [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "Loading jobs" ] ]
+                        ]
 
-            else
-                column
-                    [ hf
-                    , centerX
-                    , width <| maximum 1500 fill
-                    ]
-                    [ column
-                        [ spacingXY 0 20
-                        , rsPadding
-                        , wf
+                Loading ->
+                    column [ wf, minH 120 ]
+                        [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "Loading jobs" ] ]
+                        ]
+
+                Failure err ->
+                    column [ wf, minH 120 ]
+                        [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "An error occured trying to load jobs" ] ]
+                        ]
+
+                Success jobs ->
+                    column
+                        [ hf
                         , centerX
+                        , width <| maximum 1500 fill
                         ]
-                      <|
-                        [ viewer.copyView model.config
-                        , column [ wf, spacing 40, paddingXY 0 40 ]
-                            (openJobsHeader
-                                :: (Dict.toList model.jobs |> List.map (\( id, job ) -> ( model.config.page, id, job )) |> List.map viewer.jobView)
-                            )
+                        [ column
+                            [ spacingXY 0 20
+                            , rsPadding
+                            , wf
+                            , centerX
+                            ]
+                          <|
+                            [ viewer.copyView model.config
+                            , column [ wf, spacing 40, paddingXY 0 40 ]
+                                (openJobsHeader
+                                    :: (Dict.toList jobs |> List.map (\( id, job ) -> ( model.config.page, id, job )) |> List.map viewer.jobView)
+                                )
+                            ]
                         ]
-                    ]
 
         ApplyView jobId ->
-            case Dict.get jobId model.jobs of
+            let
+                jobsD =
+                    case model.jobs of
+                        NotAsked ->
+                            Dict.empty
+
+                        Loading ->
+                            Dict.empty
+
+                        Failure err ->
+                            Dict.empty
+
+                        Success jobs ->
+                            jobs
+            in
+            case Dict.get jobId jobsD of
                 Just job ->
                     column [ centerX, spacingXY 0 100, wf, centerX ]
                         [ column [ width <| maximum 800 fill, centerX ]

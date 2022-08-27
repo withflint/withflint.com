@@ -321,7 +321,8 @@ personCard profile =
 
                 -- POSITION
                 , paragraph [ Font.size 18, Font.color (rgb255 0 0 0), Font.semiBold ] [ text profile.position ]
-                , paragraph [ Font.size 16, lineHeight 1.4, letterSpacing 1.8 ] [ text profile.info ]
+
+                -- , paragraph [ Font.size 16, lineHeight 1.4, letterSpacing 1.8 ] [ text profile.info ]
                 ]
             ]
         ]

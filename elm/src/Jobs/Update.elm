@@ -6,6 +6,7 @@ import File.Select
 import Http
 import Jobs.Types exposing (Applicant, Config, Field(..), Job, Model, Msg(..), View(..))
 import Json.Decode as Decode exposing (Decoder, decodeString)
+import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
 import Text exposing (Text(..))
 import Url exposing (Url)
@@ -32,7 +33,7 @@ emptyApplicant =
 init : String -> Url -> Key -> Config -> Return Msg Model
 init gitVersion url key config =
     return
-        { jobs = Dict.empty
+        { jobs = NotAsked
         , gitVersion = gitVersion
         , applicant = emptyApplicant
         , error = Nothing
@@ -52,7 +53,7 @@ init gitVersion url key config =
         }
         (Http.get
             { url = config.endpoint
-            , expect = Http.expectString ReceiveJobsData
+            , expect = Http.expectJson (RemoteData.fromResult >> ReceiveJobsData) jobsDecoder
             }
         )
 
@@ -65,19 +66,8 @@ modifyApplicant model f =
 update : Msg -> Model -> Return Msg Model
 update msg model =
     case msg of
-        ReceiveJobsData result ->
-            case result of
-                Ok json ->
-                    let
-                        jobs : Dict String Job
-                        jobs =
-                            decodeString jobsDecoder json
-                                |> Result.withDefault Dict.empty
-                    in
-                    singleton { model | jobs = jobs }
-
-                Err _ ->
-                    singleton { model | jobs = Dict.empty }
+        ReceiveJobsData response ->
+            singleton { model | jobs = response }
 
         Apply urlChange jobId ->
             absolute [ model.config.page, jobId ] []

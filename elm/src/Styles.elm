@@ -1,4 +1,4 @@
-module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, font, headFont, headerGradientBackground, heading, hf, lineHeight, link, maxW, menu, minW, minimumWidth, palette, paragraph, pb, pl, pt, title, wf, wp)
+module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, font, headFont, headerGradientBackground, heading, hf, lineHeight, link, maxW, menu, minH, minW, palette, paragraph, pb, pl, pt, title, wf, wp)
 
 import Element
     exposing
@@ -291,14 +291,19 @@ maxW size =
     width (fill |> maximum size)
 
 
+minH : Int -> Attribute msg
+minH size =
+    height (fill |> minimum size)
+
+
+maxH : Int -> Attribute msg
+maxH size =
+    height (fill |> minimum size)
+
+
 lineHeight : Float -> Attribute msg
 lineHeight size =
     css "line-height" (String.fromFloat size)
-
-
-minimumWidth : Int -> Attribute msg
-minimumWidth size =
-    width (fill |> minimum size)
 
 
 css : String -> String -> Attribute msg

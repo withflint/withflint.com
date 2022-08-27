@@ -5,6 +5,7 @@ import Dict exposing (Dict)
 import Element exposing (Element)
 import File exposing (File)
 import Http
+import RemoteData exposing (WebData)
 import Text exposing (Text)
 import Url exposing (Url)
 
@@ -68,7 +69,7 @@ type alias Job =
 
 
 type alias Model =
-    { jobs : Dict String Job
+    { jobs : WebData (Dict String Job)
     , gitVersion : String
     , applicant : Applicant
     , error : Maybe String
@@ -85,7 +86,7 @@ type alias Model =
 type Msg
     = UploadResume
     | Resume File
-    | ReceiveJobsData (Result Http.Error String)
+    | ReceiveJobsData (WebData (Dict String Job))
     | SendApplicantData (Result Http.Error ())
     | Set Field String
     | SwitchView View
