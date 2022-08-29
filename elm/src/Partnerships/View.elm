@@ -154,10 +154,10 @@ section0 device =
             [ paragraph titleStyle
                 [ text "America is short on nurses." ]
             , paragraph titleStyle
-                [ text "We find exceptional international nurses to fill your vacancies." ]
+                [ text "Flint injects top international nurses into healthcare facilities nationwide." ]
             ]
-        , paragraph [ pt 12, rsJustify, lineHeight 1.6 ]
-            [ text "Hiring internationally is complicated and risky. Flint makes it simple and predictable. By sourcing in 190 countries, we can service the needs of your facility. Our technology platform enables us to overcome immigration and hiring variables that others cannot. This means fast turnaround." ]
+        , paragraph [ pt 12, Font.center, lineHeight 1.6 ]
+            [ text "Hiring internationally is complicated and risky. Flint makes it simple and predictable. By sourcing in 190 countries, we can service the needs of your facility. Our technology enables us to overcome immigration and hiring variables that others cannot. This means fast turnaround." ]
         , column [ spacingXY 0 12 ]
             [ paragraph subHeading [ text "Recruit enthusiastic nurses with experience and know-how" ]
             , paragraph subHeading [ text "Decrease your staffing costs by over 50%" ]
@@ -275,8 +275,8 @@ partners device =
 
         -- ##### We partner with #####
         , column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
-            [ paragraph [ Font.center, Font.size 28, Font.color palette.primary, centerY ] [ text "We partner with the most trusted names in the business" ]
-            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint holds high standards and invest in quality nurses by partnering with the most trusted names in immigration services" ]
+            [ paragraph [ Font.center, Font.size 28, Font.color palette.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
+            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
             ]
         ]
 
