@@ -33,6 +33,7 @@ import Element
         )
 import Element.Border as Border
 import Element.Font as Font
+import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, phoneMenu)
@@ -277,7 +278,7 @@ summaryView article =
         , label =
             column
                 [ spacing 30, centerX ]
-                [ paragraph [ Font.size 40, Font.bold, Font.color palette.primary, mouseOver [ Font.color colors.carminePink ], Styles.headFont ] [ text article.title ]
+                [ el ([ Font.size 40, Font.bold, Font.color palette.primary, mouseOver [ Font.color colors.carminePink ], Styles.headFont ] ++ Heading.h1) (text article.title)
                 , row
                     [ spacing 5
                     , alignTop
@@ -320,7 +321,7 @@ articleView article =
         Ok rendered ->
             column
                 [ padding 80, width <| maximum 850 fill, spacing 40, centerX ]
-                [ paragraph [ Font.bold, Font.size 46, Styles.headFont ] [ text article.title ]
+                [ el ([ Font.bold, Font.size 46, Styles.headFont ] ++ Heading.h1) (text article.title)
                 , row
                     [ spacing 5
                     , alignTop

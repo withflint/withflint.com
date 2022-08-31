@@ -33,6 +33,7 @@ import Element.Border as Border
 import Element.Font as Font
 import Element.Lazy exposing (lazy2)
 import FaqNurses.Types exposing (Faq, FormattedText(..), Model, Msg(..))
+import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, phoneMenu)
@@ -218,8 +219,8 @@ header device model =
 
             -- TITLE
             , row [ wf, height <| fillPortion 8 ]
-                [ row ([ wf, centerX, Font.size rs.titleFontSize ] ++ Styles.title)
-                    [ paragraph [ Font.center, Font.size rs.titleFontSize ] [ text title ] ]
+                [ el ([ wf, centerX, Font.size rs.titleFontSize ] ++ Styles.title ++ Heading.h1)
+                    (paragraph [ Font.center, Font.size rs.titleFontSize ] [ text title ])
                 ]
 
             -- GAP

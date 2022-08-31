@@ -33,6 +33,7 @@ import Element
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
+import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, phoneMenu)
@@ -475,8 +476,8 @@ header device model title menu =
 
             -- TITLE
             , row [ wf, height <| fillPortion 8 ]
-                [ row ([ wf, centerX, Font.size rs.titleFontSize ] ++ Styles.title)
-                    [ paragraph [ paddingXY 24 0, Font.center, Font.size rs.titleFontSize ] [ text title ] ]
+                [ el ([ wf, centerX, Font.size rs.titleFontSize ] ++ Styles.title ++ Heading.h1)
+                    (paragraph [ paddingXY 24 0, Font.center, Font.size rs.titleFontSize ] [ text title ])
                 ]
 
             -- GAP

@@ -42,6 +42,7 @@ import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
 import File
+import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
 import Jobs.Types exposing (Config, CurrentPage(..), Field(..), Job, Model, Msg(..), View(..))
@@ -784,8 +785,8 @@ header device { title, menu, bg, blobSrc } model =
 
             -- TITLE
             , row [ wf, height <| fillPortion 8 ]
-                [ row ([ wf, centerX, Font.size rs.titleFontSize ] ++ Styles.title)
-                    [ paragraph [ Font.center, Font.size rs.titleFontSize ] [ text title ] ]
+                [ el ([ wf, centerX, Font.size rs.titleFontSize ] ++ Heading.h1 ++ Styles.title)
+                    (paragraph [ Font.center, Font.size rs.titleFontSize ] [ text title ])
                 ]
 
             -- GAP

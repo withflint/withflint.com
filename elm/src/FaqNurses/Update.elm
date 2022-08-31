@@ -1,6 +1,7 @@
 module FaqNurses.Update exposing (init, update)
 
 import FaqNurses.Types exposing (Faq, FormattedText(..), Model, Msg(..))
+import Framework.Heading as Heading
 import Html.Attributes exposing (id)
 import Return exposing (Return, singleton)
 
