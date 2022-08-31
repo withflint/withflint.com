@@ -9,6 +9,7 @@ import Element
         , alignTop
         , centerX
         , centerY
+        , clipX
         , column
         , fill
         , fillPortion
@@ -205,9 +206,13 @@ footer =
                         ]
                     , row [ width (px 200) ] []
                     ]
-                , row [ css "position" "absolute", css "right" "2px", css "bottom" "0px" ]
-                    [ image [ width (px 165), height (px 100), alignRight ]
-                        { src = "/static/images/blob-2.svg"
+                , row
+                    [ css "position" "absolute"
+                    , css "bottom" "0px"
+                    , css "right" "0px"
+                    ]
+                    [ image [ width (px 140), height (px 100) ]
+                        { src = "/static/images/blob-right.svg"
                         , description = ""
                         }
                     ]
