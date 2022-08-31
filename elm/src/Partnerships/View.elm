@@ -227,8 +227,8 @@ savings =
 neverBeShortNurses : { iconUrl : String, iconDesc : String, heading : String, desc : String }
 neverBeShortNurses =
     { iconUrl = "static/images/partnerships-never-short-nurses.svg"
-    , iconDesc = "Flint - Never be short of nurses again"
-    , heading = "Never be short of nurses again"
+    , iconDesc = "Flint - Never be short on nurses again"
+    , heading = "Never be short on nurses again"
     , desc = "It's not just about today, it's about tomorrow. We work with you to develop a sustainable recruiting pipeline that you can count on for years to come."
     }
 
