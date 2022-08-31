@@ -64,7 +64,10 @@ layout device views =
                 views.tablet
 
         _ ->
-            column [ width fill, height fill ]
+            column
+                [ width fill
+                , height fill
+                ]
                 [ column
                     [ wf
                     , hf
@@ -240,6 +243,7 @@ footer =
                         ]
                     ]
                 ]
+            , row [ wf, hf, Background.color palette.cremeLighter ] []
             ]
     in
     { phone =
