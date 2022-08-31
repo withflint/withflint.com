@@ -116,7 +116,7 @@ header =
 address : { street : String, city : String, country : String }
 address =
     { street = "2261 Market St"
-    , city = "San Francisco, CA, 94114"
+    , city = "San Francisco, CA 94114"
     , country = "USA"
     }
 
@@ -124,8 +124,8 @@ address =
 showAddress : Element msg
 showAddress =
     column [ spacingXY 0 6 ]
-        [ paragraph [] [ text address.city ]
-        , paragraph [] [ text address.street ]
+        [ paragraph [] [ text address.street ]
+        , paragraph [] [ text address.city ]
         , paragraph [] [ text address.country ]
         ]
 

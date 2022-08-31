@@ -84,8 +84,8 @@ view device model =
     }
 
 
-getResponsiveVal : Device.Device -> { phone : a, tablet : a, desktop : a, notSet : a } -> a
-getResponsiveVal device { phone, desktop, tablet, notSet } =
+setResponsiveVal : Device.Device -> { phone : a, tablet : a, desktop : a, notSet : a } -> a
+setResponsiveVal device { phone, desktop, tablet, notSet } =
     case device of
         Device.Phone _ ->
             phone
@@ -104,7 +104,7 @@ desktopView : Device -> Model -> List (Element Msg)
 desktopView device model =
     let
         fillPortionVal =
-            getResponsiveVal device { phone = 0, desktop = 2, tablet = 2, notSet = 0 }
+            setResponsiveVal device { phone = 0, desktop = 2, tablet = 2, notSet = 0 }
     in
     [ column
         [ Background.color colors.cremeDark
