@@ -197,7 +197,7 @@ card device { title, desc, btn, bg } =
                     { cardHeight = 300, btnTopPadding = 44 }
 
         btn_ =
-            [ Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
+            [ Border.rounded 8
             , padding 10
             , Font.color palette.primary
             , Font.semiBold

@@ -234,7 +234,9 @@ menu =
 
 btn : List (Attribute msg)
 btn =
-    [ Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
+    [ Border.rounded 8
+
+    -- , Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
     , Border.color palette.primary
     , Border.width 1
     , padding 10
