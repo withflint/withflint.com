@@ -371,7 +371,7 @@ nurseCareerBody device =
             , Element.link
                 [ wf ]
                 { url = "/internationally-educated-nurses-faq/"
-                , label = paragraph [ rsJustify, Font.underline, Font.color palette.primary ] [ text "Learn more" ]
+                , label = paragraph [ rsJustify, Font.underline, Font.color palette.primary ] [ text "Learn how you can become a nurse in America" ]
                 }
             ]
         , column [ wf, spacingXY 0 44, pt 24 ]

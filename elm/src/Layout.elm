@@ -179,7 +179,8 @@ footer =
 
                         -- MENU
                         , column [ hf, width <| fillPortion 3, spacingXY 0 12 ]
-                            [ link "Blog" (Blog "")
+                            [ link "Nurse Careers FAQ" FaqNurses
+                            , link "Blog" (Blog "")
 
                             -- , link "About Us" AboutUs
                             , link "Join the Team" (JoinTheTeam "")
@@ -277,6 +278,7 @@ footer =
                         [ Element.paragraph [] [ text "success@withflint.com" ]
                         , Element.paragraph [] [ text "+1 (844) 677-1180" ]
                         ]
+                    , row [ centerX, pt 12, Font.color colors.blue1 ] [ link "Nurse Careers FAQ" FaqNurses ]
                     ]
                 , column [ pt 12, Font.size 12, centerX ]
                     [ showAddress ]
