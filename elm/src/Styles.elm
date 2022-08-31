@@ -1,4 +1,4 @@
-module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, font, headFont, headerGradientBackground, heading, hf, lineHeight, link, maxW, menu, minH, minW, palette, paragraph, pb, pl, pt, title, wf, wp)
+module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, font, headFont, headerGradientBackground, heading, hf, lineHeight, link, maxW, menu, minH, minW, paddingE, palette, paragraph, pb, pl, pt, title, wf, wp)
 
 import Element
     exposing
@@ -249,6 +249,11 @@ btn =
         , Border.color colors.carminePink
         ]
     ]
+
+
+paddingE : Int -> Int -> Int -> Int -> Attribute msg
+paddingE top right bottom left =
+    paddingEach { top = top, right = right, bottom = bottom, left = left }
 
 
 pt : Int -> Attribute msg

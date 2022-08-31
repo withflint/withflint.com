@@ -21,6 +21,7 @@ import Element
         , paddingXY
         , paragraph
         , px
+        , rgb255
         , row
         , spaceEvenly
         , spacing
@@ -37,7 +38,7 @@ import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, phoneMenu)
 import Partnerships.Types exposing (Model, Msg(..))
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, lineHeight, palette, pt, wf, wp)
+import Styles exposing (colors, css, hf, lineHeight, maxW, paddingE, palette, pt, wf, wp)
 
 
 view : Device -> Model -> Layout Msg
@@ -83,8 +84,28 @@ view device model =
     }
 
 
+getResponsiveVal : Device.Device -> { phone : a, tablet : a, desktop : a, notSet : a } -> a
+getResponsiveVal device { phone, desktop, tablet, notSet } =
+    case device of
+        Device.Phone _ ->
+            phone
+
+        Device.Desktop _ ->
+            desktop
+
+        Device.Tablet _ ->
+            tablet
+
+        Device.NotSet ->
+            notSet
+
+
 desktopView : Device -> Model -> List (Element Msg)
 desktopView device model =
+    let
+        fillPortionVal =
+            getResponsiveVal device { phone = 0, desktop = 2, tablet = 2, notSet = 0 }
+    in
     [ column
         [ Background.color colors.cremeDark
         , wf
@@ -98,9 +119,9 @@ desktopView device model =
             [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
         , row
             [ wf ]
-            [ row [ width <| fillPortion 2 ] [ Element.none ]
+            [ row [ width <| fillPortion fillPortionVal ] [ Element.none ]
             , column [ width <| fillPortion 8 ] [ section0 device ]
-            , row [ width <| fillPortion 2 ] [ Element.none ]
+            , row [ width <| fillPortion fillPortionVal ] [ Element.none ]
             ]
         , partners device
         ]
@@ -132,7 +153,7 @@ section0 device =
                     Font.justify
 
         btn =
-            [ Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
+            [ Border.rounded 8
             , Border.color palette.primary
             , Border.width 1
             , padding 10
@@ -156,12 +177,13 @@ section0 device =
             , paragraph titleStyle
                 [ text "Flint injects top international nurses into healthcare facilities nationwide." ]
             ]
-        , paragraph [ pt 12, Font.center, lineHeight 1.6 ]
+        , paragraph [ paddingE 12 18 0 18, Font.center, lineHeight 1.6 ]
             [ text "Hiring internationally is complicated and risky. Flint makes it simple and predictable. By sourcing in 190 countries, we can service the needs of your facility. Our technology enables us to overcome immigration and hiring variables that others cannot. This means fast turnaround." ]
-        , column [ spacingXY 0 12 ]
-            [ paragraph subHeading [ text "Recruit enthusiastic nurses with experience and know-how" ]
-            , paragraph subHeading [ text "Decrease your staffing costs by over 50%" ]
-            , paragraph subHeading [ text "Build a long-term recruitment channel. Never be short of nurses again." ]
+        , column
+            [ centerX, spacingXY 0 24 ]
+            [ valueCard device experiencedNurses
+            , valueCard device savings
+            , valueCard device neverBeShortNurses
             ]
 
         -- Btn
@@ -180,6 +202,61 @@ section0 device =
                     , label = paragraph [ Font.center, Font.underline, Font.semiBold, Font.color palette.primary ] [ text <| "Contact Us" ]
                     }
                 )
+            ]
+        ]
+
+
+experiencedNurses : { iconUrl : String, iconDesc : String, heading : String, desc : String }
+experiencedNurses =
+    { iconUrl = "/static/images/partnerships-nurse.svg"
+    , iconDesc = "Flint - Experienced Nurses"
+    , heading = "Recruit experienced nurses who are committed for 3+ years"
+    , desc = "Our nurses have 3-10 years of clinical experience, and are looking to build a long term career at the right facility."
+    }
+
+
+savings : { iconUrl : String, iconDesc : String, heading : String, desc : String }
+savings =
+    { iconUrl = "/static/images/partnerships-savings.svg"
+    , iconDesc = "Flint - Save costs by partnerting with Flint"
+    , heading = "Save millions by replacing agency with your own staff"
+    , desc = "On average, we help facilities save 50% in staffing costs compared with agencies. For every 10 nurses sourced through Flint, expect to save $1M/year."
+    }
+
+
+neverBeShortNurses : { iconUrl : String, iconDesc : String, heading : String, desc : String }
+neverBeShortNurses =
+    { iconUrl = "static/images/partnerships-never-short-nurses.svg"
+    , iconDesc = "Flint - Never be short of nurses again"
+    , heading = "Never be short of nurses again"
+    , desc = "It's not just about today, it's about tomorrow. We work with you to develop a sustainable recruiting pipeline that you can count on for years to come."
+    }
+
+
+valueCard : Device.Device -> { iconUrl : String, iconDesc : String, heading : String, desc : String } -> Element msg
+valueCard device { iconUrl, iconDesc, heading, desc } =
+    let
+        responsiveDiv =
+            case device of
+                Device.Phone _ ->
+                    column
+
+                Device.Tablet _ ->
+                    row
+
+                Device.Desktop _ ->
+                    row
+
+                Device.NotSet ->
+                    row
+    in
+    responsiveDiv [ spacingXY 12 12, Background.color colors.cremeLight, Border.rounded 12, padding 24 ]
+        [ row [ centerX ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = iconUrl, description = iconDesc }
+            ]
+        , column [ maxW 550, spacingXY 0 12, padding 12 ]
+            [ paragraph [ css "width" "100%", Font.color palette.primary, Font.bold ] [ text heading ]
+            , paragraph [ css "width" "100%", Font.color (rgb255 25 21 41) ] [ text desc ]
             ]
         ]
 
@@ -254,8 +331,8 @@ partners device =
                         ]
                     ]
                 , column [ spacingXY 0 48, alignTop ]
-                    [ row [ width (px 336), height (px 83) ]
-                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/medallion-logo.svg", description = "Medallion" }
+                    [ row [ width (px 224), height (px 95) ]
+                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/hca-logo.svg", description = "HCA Healthcare" }
                         ]
                     , row [ width (px 264), height (px 65) ]
                         [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/medall-logo.svg", description = "MedAll" }

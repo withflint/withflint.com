@@ -113,6 +113,23 @@ header =
     }
 
 
+address : { street : String, city : String, country : String }
+address =
+    { street = "2261 Market St"
+    , city = "San Francisco, CA, 94114"
+    , country = "USA"
+    }
+
+
+showAddress : Element msg
+showAddress =
+    column [ spacingXY 0 6 ]
+        [ paragraph [] [ text address.city ]
+        , paragraph [] [ text address.street ]
+        , paragraph [] [ text address.country ]
+        ]
+
+
 footer : Layout msg
 footer =
     let
@@ -147,7 +164,7 @@ footer =
                     [ row [ width (px 200) ] []
                     , row [ wf, spaceEvenly ]
                         [ -- FLINT LOGO
-                          row [ hf, centerY, width <| fillPortion 3 ]
+                          column [ hf, centerY, width <| fillPortion 3 ]
                             [ Element.link
                                 []
                                 { url = toPath Home
@@ -157,6 +174,7 @@ footer =
                                         , description = "Flint"
                                         }
                                 }
+                            , column [ pt 20 ] [ showAddress ]
                             ]
 
                         -- MENU
@@ -260,6 +278,8 @@ footer =
                         , Element.paragraph [] [ text "+1 (844) 677-1180" ]
                         ]
                     ]
+                , column [ pt 12, Font.size 12, centerX ]
+                    [ showAddress ]
                 ]
             ]
 
