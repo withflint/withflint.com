@@ -101,4 +101,4 @@ index Config {gitVersion} meta = do
           ]
           ""
 
-        script_ [src_ "/static/intercom.js"] ""
+-- script_ [src_ "/static/intercom.js"] ""
