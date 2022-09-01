@@ -25,5 +25,6 @@ stdenv.mkDerivation {
 
   installPhase = ''
     elm make src/Main.elm --optimize --output $out/elm.js
+    cp src/app.js $out/app.js
   '';
 }

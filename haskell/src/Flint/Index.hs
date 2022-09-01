@@ -53,6 +53,8 @@ index Config {gitVersion} meta = do
 
         script_ [src_ [st|/static/#{gitVersion}/elm.js|]] ""
 
+        script_ [src_ [st|/static/#{gitVersion}/app.js|]] ""
+
         script_
           []
           [sbt|const pathname =

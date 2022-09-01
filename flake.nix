@@ -107,6 +107,8 @@
 
           dev-script = pkgs.writeShellScriptBin "dev" ''
             if [ -f "flake.nix" ]; then
+              mkdir static/dirty
+              cp elm/src/app.js static/dirty/app.js
               ${pkgs.concurrently}/bin/concurrently \
                 -n elm,haskell \
                 -c cyan,magenta \
@@ -114,6 +116,7 @@
                 "cd haskell && ${haskellPackages.ghcid}/bin/ghcid --run=dev"
 
               rm static/dirty/elm.js
+              rm static/dirty/app.js
               rmdir static/dirty
             else
               echo "Please run this script from the root directory! (the one with flake.nix)"
