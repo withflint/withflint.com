@@ -39,7 +39,7 @@ import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, phoneMenu)
 import Partnerships.Types exposing (Model, Msg(..))
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, lineHeight, maxW, paddingE, palette, pt, wf, wp)
+import Styles exposing (colors, css, hf, lineHeight, maxW, paddingE, palette, wf, wp)
 
 
 view : Device -> Model -> Layout Msg
@@ -138,20 +138,6 @@ section0 device =
             , Font.semiBold
             , Font.color palette.primary
             ]
-
-        subHeading =
-            [ Font.size 18
-            , Font.semiBold
-            , Font.color palette.primary
-            ]
-
-        rsJustify =
-            case device of
-                Device.Phone _ ->
-                    Font.center
-
-                _ ->
-                    Font.justify
 
         btn =
             [ Border.rounded 8

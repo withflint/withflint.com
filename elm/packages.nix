@@ -5,6 +5,11 @@
         version = "7.1.0";
       };
 
+      "Orasund/elm-ui-framework" = {
+        sha256 = "059f0y6inzgn82azwqrgzsl3pgx9m7d1815rv1q1n3n8s2i76dgj";
+        version = "1.6.1";
+      };
+
       "dillonkearns/elm-markdown" = {
         sha256 = "05chrkn14b3yyv3sq3466ys4bhwdxva853fzbyc1dyjpk3vslqsc";
         version = "7.0.0";

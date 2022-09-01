@@ -303,11 +303,6 @@ minH size =
     height (fill |> minimum size)
 
 
-maxH : Int -> Attribute msg
-maxH size =
-    height (fill |> minimum size)
-
-
 lineHeight : Float -> Attribute msg
 lineHeight size =
     css "line-height" (String.fromFloat size)

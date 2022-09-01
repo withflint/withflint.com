@@ -9,7 +9,6 @@ import Element
         , alignTop
         , centerX
         , centerY
-        , clipX
         , column
         , fill
         , fillPortion
