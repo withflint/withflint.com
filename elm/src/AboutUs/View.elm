@@ -5,6 +5,7 @@ import Device
 import Element
     exposing
         ( Element
+        , alignLeft
         , alignRight
         , alignTop
         , centerX
@@ -187,6 +188,8 @@ team =
             , personCard simon
             , personCard montse
             , personCard fred
+            , personCard wonchan
+            , personCardBank
             ]
         ]
 
@@ -199,12 +202,16 @@ type alias Profile =
     }
 
 
+
+-- IDEAL PHOTO DIMENSION 408x397
+
+
 kenton : Profile
 kenton =
     { name = "Kenton Jarvie"
     , position = "CEO"
     , info = loremIpsum
-    , url = "static/images/kenton_sm.jpg"
+    , url = "static/images/kenton-sm.jpg"
     }
 
 
@@ -213,7 +220,7 @@ anson =
     { name = "Anson Kung"
     , position = "COO"
     , info = loremIpsum
-    , url = "static/images/anson_sm.jpg"
+    , url = "static/images/anson-sm.jpg"
     }
 
 
@@ -222,7 +229,7 @@ teresa =
     { name = "Teresa Fisher"
     , position = "Partnerships"
     , info = loremIpsum
-    , url = "static/images/teresa_sm.jpg"
+    , url = "static/images/teresa-sm.jpg"
     }
 
 
@@ -231,7 +238,7 @@ neil =
     { name = "Neil Prigge"
     , position = "Partnerships"
     , info = loremIpsum
-    , url = "static/images/neil_sm.jpg"
+    , url = "static/images/neil-sm.jpg"
     }
 
 
@@ -240,7 +247,7 @@ kristi =
     { name = "Kristi Crawford"
     , position = "Immigration and Legal"
     , info = loremIpsum
-    , url = "static/images/kristi_sm.jpg"
+    , url = "static/images/kristi-sm.jpg"
     }
 
 
@@ -249,7 +256,7 @@ vanessa =
     { name = "Vanessa Teed"
     , position = "Product Manager"
     , info = loremIpsum
-    , url = "static/images/vanessa_sm.jpg"
+    , url = "static/images/vanessa-sm.jpg"
     }
 
 
@@ -258,7 +265,7 @@ katherine =
     { name = "Katherine Hooks"
     , position = "Nurse Educator"
     , info = loremIpsum
-    , url = "static/images/katherine_sm.jpg"
+    , url = "static/images/katherine-sm.jpg"
     }
 
 
@@ -267,7 +274,7 @@ simon =
     { name = "Simon Green"
     , position = "Head of Product"
     , info = loremIpsum
-    , url = "static/images/simon_sm.jpg"
+    , url = "static/images/simon-sm.jpg"
     }
 
 
@@ -276,7 +283,7 @@ montse =
     { name = "Montserrat del Toro"
     , position = "Nurse Success Advisor"
     , info = loremIpsum
-    , url = "static/images/montse_sm.jpg"
+    , url = "static/images/montse-sm.jpg"
     }
 
 
@@ -285,7 +292,16 @@ fred =
     { name = "Fred Varas"
     , position = "Partnerships Manager"
     , info = loremIpsum
-    , url = "static/images/fred_sm.jpg"
+    , url = "static/images/fred-sm.jpg"
+    }
+
+
+wonchan : Profile
+wonchan =
+    { name = "Wonchan Kim"
+    , position = ""
+    , info = loremIpsum
+    , url = "static/images/wonchan-sm.jpg"
     }
 
 
@@ -325,6 +341,24 @@ personCard profile =
                 -- , paragraph [ Font.size 16, lineHeight 1.4, letterSpacing 1.8 ] [ text profile.info ]
                 ]
             ]
+        ]
+
+
+personCardBank : Element msg
+personCardBank =
+    row
+        [ wf
+        , hf
+        , paddingEach { bottom = 20, top = 0, right = 40, left = 0 }
+        ]
+        [ column
+            [ wf
+            , hf
+            , minW 298
+            , maxW 408
+            , Border.rounded 8
+            ]
+            []
         ]
 
 
