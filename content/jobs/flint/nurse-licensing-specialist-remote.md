@@ -1,7 +1,13 @@
 nurse-licensing-specialist-remote
 Nurse Licensing Specialist - Remote
+5+ years
 
 
+
+
+
+
+##
 
 Forward thinking problem solver, great at customer service, time management and multi-tasking. In this role, you will be responsible for managing the licensing process for our nurses and providing excellent customer support. You will anticipate required information needed from our nurses and supply solutions and recommendations for licensing obstacles.
 
@@ -38,10 +44,35 @@ Forward thinking problem solver, great at customer service, time management and 
 - Bachelor of Nursing Science Degree
 - 2+ years of Nursing Experience
 - Experience with transferring nursing license over to a foreign country
-- Ability to multi-task and maintain composure in fast-paced environment and deal effectively with competing demands.
+- Ability to multi-task and maintain composure in a fast-paced environment and deal effectively with competing demands.
 - Ability to adapt to change and perform assigned tasks with minimal supervision and organize workload.
 - Excellent interpersonal skills
 - Prior experience in professional clinical licensure or credentialing
 - Prior experience in customer service
+
+
+## Benefits
+
+Perks are nice, but we believe the most important thing is getting to work with incredible people 🤗 These are just the little things to help you be more powerful.
+
+- Unrestricted vacation 🌴
+- Real equity (own a part of Flint) 💰
+- Regular off-sites ✈️
+- Remote work 👩🏽‍💻
+- Flexible working hours ⏰
+- Expense Account (no red tape) 💳
+- Audible subscription 🎧
+- Health Benefits in most countries 🏥
+
+
+## Why you should join Flint
+- We're growing faster than weeds on a lawn 🌱
+- YC Funded and backed by investors such as the co-founder of Twitch 💸
+- Equity options in what could be the next Amazon/Google 📈
+- Awesome Culture focused on freedom and responsibility 👨‍👩‍👧‍👦
+- Opportunity to shape a $8T industry and maybe have a wiki page about you one day 📜
+- DevOps: Empowered, focus on good customer outcomes and high performance teams
+- Netflix: Freedom and responsibility framework
+- Amazon: Single threaded leadership and small teams
 
 If you want to learn more about Flint's culture, mission and beliefs, [check out our blog post](https://withflint.com/blog/why-flint)

@@ -1,9 +1,9 @@
 senior-software-engineer-haskell-elm-nix-remote
 Senior Software Engineer (Haskell/Elm/Nix) - Remote
-$115k - $150k, 11+ years
+11+ years
 
 
-Remote, $115k - $150k, 11+ years
+Remote, 11+ years
 
 ## About the position
 You will be working closely with our Head of Product and a team of talented software and product people to take Flint to the next level. We already have a strong mission and product with traction led by our product-led growth strategy.
@@ -36,7 +36,7 @@ Perks are nice, but we believe the most important thing is getting to work with 
 - Flexible working hours ⏰
 - Expense Account (no red tape) 💳
 - Audible subscription 🎧
-- Health Benefits 🏥
+- Health Benefits in most countries 🏥
 
 
 ## Why you should join Flint

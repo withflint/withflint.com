@@ -35,7 +35,7 @@ Perks are nice, but we believe the most important thing is getting to work with 
 - Flexible working hours ⏰
 - Expense Account (no red tape) 💳
 - Audible subscription 🎧
-- Health Benefits in most counties 🏥
+- Health Benefits in most countries 🏥
 
 ## Why you should join Flint
 - We're growing faster than weeds on a lawn 🌱
