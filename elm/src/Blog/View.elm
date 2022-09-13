@@ -39,7 +39,7 @@ import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, phoneMenu)
 import Mark
 import Router.Routes as R exposing (toPath)
-import Styles exposing (colors, css, hf, palette, wf)
+import Styles exposing (colors, css, hf, wf)
 
 
 view : Device.Device -> Model -> Layout Msg
@@ -182,7 +182,7 @@ blogHeader device =
                 , label =
                     el
                         [ Font.center
-                        , Font.color palette.white
+                        , Font.color colors.white
                         , mouseOver [ Font.color colors.carminePink ]
                         ]
                         logo
@@ -278,7 +278,7 @@ summaryView article =
         , label =
             column
                 [ spacing 30, centerX ]
-                [ el ([ Font.size 40, Font.bold, Font.color palette.primary, mouseOver [ Font.color colors.carminePink ], Styles.headFont ] ++ Heading.h1) (text article.title)
+                [ el ([ Font.size 40, Font.bold, Font.color colors.primary, mouseOver [ Font.color colors.carminePink ], Styles.headFont ] ++ Heading.h1) (text article.title)
                 , row
                     [ spacing 5
                     , alignTop
@@ -402,7 +402,7 @@ phoneSummaryView article =
     let
         go : Element msg -> Element msg
         go ele =
-            link [ width fill, mouseOver [ Font.color colors.blue1 ] ]
+            link [ width fill, mouseOver [ Font.color colors.carminePink ] ]
                 { url = R.toPath <| R.Blog article.slug
                 , label = ele
                 }
@@ -412,7 +412,7 @@ phoneSummaryView article =
         , spacing 20
         , centerX
         ]
-        [ paragraph [ Font.size 24, Font.bold, width fill, Styles.headFont ] [ go <| text article.title ]
+        [ paragraph [ Font.size 24, Font.bold, Font.color colors.primary, width fill, Styles.headFont ] [ go <| text article.title ]
         , go <|
             row
                 [ spacing 5
@@ -438,7 +438,7 @@ phoneSummaryView article =
         , go <|
             row
                 [ Font.size 14
-                , Font.color colors.gray1
+                , Font.color colors.gray
                 , Font.underline
                 , paddingEach { top = 0, right = 0, left = 0, bottom = 10 }
                 ]

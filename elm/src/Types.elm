@@ -6,7 +6,6 @@ module Types exposing
 import AboutUs.Types
 import Blog.Types
 import Browser.Dom exposing (Viewport)
-import Contact.Types
 import Device exposing (Device)
 import FaqNurses.Types
 import Home.Types
@@ -18,7 +17,6 @@ import Url exposing (Url)
 
 type alias Model =
     { router : Router.Types.Model
-    , contact : Contact.Types.Model
     , aboutUs : AboutUs.Types.Model
     , home : Home.Types.Model
     , jobs : Jobs.Types.Model

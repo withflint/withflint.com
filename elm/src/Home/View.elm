@@ -138,7 +138,7 @@ phoneView device model =
                 -- HERO TEXT
                 , column [ wf, spacingXY 0 14, pl 24 ]
                     [ paragraph
-                        [ Font.color palette.primary
+                        [ Font.color colors.primary
                         , Font.semiBold
                         , Font.size 42
                         ]
@@ -153,7 +153,8 @@ phoneView device model =
             -- CARD
             , column
                 [ wf ]
-                [ card device
+                [ -- apt name would be section instead of card
+                  card device
                     { title = "Need a long-term nurse?"
                     , desc = "Recreate the way you hire nurses"
                     , btn = { label = "Flint for hospitals", page = Partnerships }
@@ -196,21 +197,10 @@ card device { title, desc, btn, bg } =
                 NotSet ->
                     { cardHeight = 300, btnTopPadding = 44 }
 
-        btn_ =
-            [ Border.rounded 8
-            , padding 10
-            , Font.color palette.primary
-            , Font.semiBold
-            , Font.size 16
-            , Background.color colors.cremeDark
-            , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
-            , Font.regular
-            , mouseOver
-                [ Font.color colors.cremeLight
-                , Background.color colors.carminePink
-                , Border.color colors.carminePink
-                ]
-            ]
+        btnConfig =
+            { fontColor = colors.primary
+            , bgColor = colors.cremeDark
+            }
     in
     column
         ([ wf, paddingXY 0 32 ]
@@ -218,7 +208,7 @@ card device { title, desc, btn, bg } =
         )
         [ column
             [ height (px responsiveSize.cardHeight)
-            , Font.color palette.white
+            , Font.color colors.white
             , centerX
             ]
             [ column [ wf, centerX, centerY ]
@@ -239,7 +229,12 @@ card device { title, desc, btn, bg } =
                         , label =
                             el [ pt responsiveSize.btnTopPadding, wf ]
                                 (Input.button
-                                    (centerY :: centerX :: wf :: Font.size 15 :: btn_)
+                                    (centerY
+                                        :: centerX
+                                        :: wf
+                                        :: Font.size 15
+                                        :: Styles.btnFilled btnConfig
+                                    )
                                     { onPress = Nothing
                                     , label = paragraph [ Font.center ] [ text <| btn.label ]
                                     }
@@ -304,7 +299,7 @@ desktopView device =
                 ]
 
         heroTitleAttr =
-            [ Font.color palette.primary
+            [ Font.color colors.primary
             , Font.semiBold
             , Font.size 42
             ]
@@ -313,7 +308,7 @@ desktopView device =
         [ row [ pt 72, wf ]
             [ heroImg
             ]
-        , row [ wf, Background.color colors.blue1 ]
+        , row [ wf, Background.color colors.cremeDark ]
             [ card device
                 { title = "Need a long-term nurse?"
                 , desc = "Recreate the way you hire nurses"

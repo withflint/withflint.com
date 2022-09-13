@@ -1,4 +1,4 @@
-module Styles exposing (ButtonStyle, btn, buttons, codeFont, colors, css, font, headFont, headerGradientBackground, heading, hf, lineHeight, link, maxW, menu, minH, minW, paddingE, palette, paragraph, pb, pl, pt, title, wf, wp)
+module Styles exposing (btnFilled, btnOutline, codeFont, colors, css, font, headFont, headerGradientBackground, heading, hf, lineHeight, link, maxW, menu, minH, minW, paddingE, palette, paragraph, pb, pl, pt, title, wf, wp)
 
 import Element
     exposing
@@ -12,7 +12,6 @@ import Element
         , maximum
         , minimum
         , mouseOver
-        , padding
         , paddingEach
         , paddingXY
         , rgb255
@@ -26,73 +25,30 @@ import Html.Attributes
 
 
 colors :
-    { deepBlue1 : Color
-    , deepBlue2 : Color
-    , deepBlue3 : Color
-    , blue2 : Color
-    , blue3 : Color
-    , green1 : Color
-    , green2 : Color
-    , green3 : Color
-    , red1 : Color
-    , red2 : Color
-    , red3 : Color
-    , red4 : Color
-    , white1 : Color
-    , white2 : Color
-    , white3 : Color
-    , gray1 : Color
+    { white1 : Color
+    , white : Color
+    , gray : Color
     , gray2 : Color
+    , black : Color
+    , primary : Color
     , gray3 : Color
-    , black1 : Color
-    , black2 : Color
-    , black3 : Color
-    , creme1 : Color
-    , creme2 : Color
-    , blue1 : Color
-    , gray4 : Color
     , cremeDark : Color
     , cremeLight : Color
     , carminePink : Color
     , skyBlue : Color
     }
 colors =
-    { deepBlue1 = rgb255 1 55 89
-    , deepBlue2 = rgb255 9 68 105
-    , deepBlue3 = rgb255 11 87 137
-    , blue2 = rgb255 24 147 189
-    , blue3 = rgb255 29 170 217
-    , green1 = rgb255 71 159 108
-    , green2 = rgb255 88 190 129
-    , green3 = rgb255 99 215 145
-    , red1 = rgb255 106 38 41
-    , red2 = rgb255 146 54 55
-    , red3 = rgb255 195 58 66
-    , red4 = rgb255 200 0 0
-    , white1 = rgb255 223 223 223
-    , white2 = rgb255 248 248 248
-    , white3 = rgb255 255 255 255
-    , gray1 = rgb255 90 90 90
+    { white1 = rgb255 223 223 223
+    , white = rgb255 255 255 255
+    , gray = rgb255 90 90 90
     , gray2 = rgb255 130 130 130
-    , gray3 = rgb255 204 204 204
-    , black1 = rgb255 29 30 35
-    , black2 = rgb255 45 45 45
-    , black3 = rgb255 51 51 50
-    , creme1 = rgb255 251 247 210
-    , creme2 = rgb255 253 252 234
+    , black = rgb255 29 30 35
     , cremeDark = rgb255 249 241 237
     , cremeLight = rgb255 255 251 248
-
-    -- carminePink for hover
     , carminePink = rgb255 229 72 72
-
-    -- skyBlue for default button bg
     , skyBlue = rgb255 167 200 249
-
-    -- , blue1 = rgb255 181 217 255
-    -- text colors (blue1 for title/heading/subheading/btnText, bodyText gray4)
-    , blue1 = rgb255 68 55 109
-    , gray4 = rgb255 87 87 87
+    , gray3 = rgb255 87 87 87
+    , primary = rgb255 68 55 109
     }
 
 
@@ -101,7 +57,6 @@ palette :
     , red : Color
     , beige : Color
     , skyBlue : Color
-    , white : Color
     , cremeLight : Color
     , cremeLighter : Color
     }
@@ -110,7 +65,6 @@ palette =
     , red = rgb255 255 96 96
     , beige = rgb255 252 229 217
     , skyBlue = rgb255 218 233 255
-    , white = rgb255 255 255 255
     , cremeLight = rgb255 255 251 248
     , cremeLighter = rgb255 249 242 228
     }
@@ -137,7 +91,7 @@ paragraph =
     [ alignLeft
     , spacing 10
     , Font.size 16
-    , Font.color colors.gray4
+    , Font.color colors.gray3
     , Font.letterSpacing 1
     , Font.regular
     , width fill
@@ -169,59 +123,25 @@ codeFont =
         ]
 
 
-type alias ButtonStyle msg =
-    { primary : List (Attribute msg)
-    , secondary : List (Attribute msg)
-    }
-
-
-buttons : ButtonStyle msg
-buttons =
-    { primary =
-        base
-            ++ [ Background.color colors.skyBlue
-               ]
-    , secondary =
-        base
-            ++ [ Background.color colors.gray2
-               ]
-    }
-
-
-base : List (Attribute msg)
-base =
-    [ Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
-    , padding 10
-    , Font.color colors.blue1
-    , Font.size 16
-    , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
-    , Font.semiBold
-    , mouseOver
-        [ Font.color colors.cremeLight
-        , Background.color colors.carminePink
-        ]
-    ]
-
-
 link : List (Attribute msg)
 link =
     [ Font.underline
     , mouseOver [ Font.color colors.carminePink ]
     , Font.semiBold
-    , Font.color colors.gray4
+    , Font.color colors.gray3
     ]
 
 
 title : List (Attribute msg)
 title =
     [ Font.family [ Font.typeface "Inter" ]
-    , Font.color palette.white
+    , Font.color colors.white
     ]
 
 
 menu : List (Attribute msg)
 menu =
-    [ Font.color palette.white
+    [ Font.color colors.white
     , Font.letterSpacing 2
     , Font.size 14
     , Font.family [ Font.typeface "Inter" ]
@@ -232,17 +152,29 @@ menu =
     ]
 
 
-btn : List (Attribute msg)
-btn =
-    [ Border.rounded 8
-
-    -- , Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
-    , Border.color palette.primary
+btnOutline : List (Attribute msg)
+btnOutline =
+    [ paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
+    , Border.rounded 8
     , Border.width 1
-    , padding 10
-    , Font.color palette.primary
-    , Font.semiBold
+    , Border.color colors.primary
+    , Font.color colors.primary
+    , Font.regular
     , Font.size 16
+    , mouseOver
+        [ Font.color colors.cremeLight
+        , Background.color colors.carminePink
+        , Border.color colors.carminePink
+        ]
+    ]
+
+
+btnFilled : { fontColor : Color, bgColor : Color } -> List (Attribute msg)
+btnFilled { fontColor, bgColor } =
+    [ Border.rounded 8
+    , Font.color fontColor
+    , Font.size 16
+    , Background.color bgColor
     , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
     , Font.regular
     , mouseOver

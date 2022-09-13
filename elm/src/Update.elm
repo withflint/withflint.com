@@ -5,7 +5,6 @@ import Blog.Types
 import Blog.Update
 import Browser.Dom
 import Browser.Navigation exposing (Key)
-import Contact.Update
 import Device exposing (Device(..), classify)
 import FaqNurses.Update
 import Home.Update
@@ -80,7 +79,6 @@ init { article, gitVersion } url key =
     in
     return
         { router = router
-        , contact = Contact.Update.init
         , home = Home.Update.init
         , aboutUs = AboutUs.Update.init
         , jobs = jobs
@@ -272,9 +270,6 @@ pageTitle model =
     case model.router.page of
         NotFound ->
             "404 Not Found - Flint"
-
-        Contact ->
-            model.contact.title
 
         JoinTheTeam _ ->
             model.jobs.title

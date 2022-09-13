@@ -188,14 +188,14 @@ footer =
                             -- , link "About Us" AboutUs
                             , link "Join the Team" (JoinTheTeam "")
                             ]
-                        , column [ hf, width <| fillPortion 3, Font.color palette.primary, spacingXY 0 12 ]
+                        , column [ hf, width <| fillPortion 3, Font.color colors.primary, spacingXY 0 12 ]
                             [ Element.paragraph [] [ text "Healthcare Partnerships" ]
                             , column [ spacingXY 0 6 ]
                                 [ Element.paragraph [] [ text "healthcare@withflint.com" ]
                                 , Element.paragraph [] [ text "+1 (844) 677-1180" ]
                                 ]
                             ]
-                        , column [ hf, width <| fillPortion 3, Font.color palette.primary, spacingXY 0 12 ]
+                        , column [ hf, width <| fillPortion 3, Font.color colors.primary, spacingXY 0 12 ]
                             [ Element.paragraph [] [ text "Nurse Success" ]
                             , column [ spacingXY 0 6 ]
                                 [ Element.paragraph [] [ text "success@withflint.com" ]
@@ -269,8 +269,8 @@ footer =
                                 "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
                             , label =
                                 row
-                                    [ Background.color palette.primary
-                                    , Font.color palette.white
+                                    [ Background.color colors.primary
+                                    , Font.color colors.white
                                     , paddingXY 12 8
                                     , Border.rounded 6
                                     , Font.size 12
@@ -286,7 +286,7 @@ footer =
                         [ Element.paragraph [] [ text "success@withflint.com" ]
                         , Element.paragraph [] [ text "+1 (844) 677-1180" ]
                         ]
-                    , row [ centerX, pt 12, Font.color colors.blue1 ] [ link "Nurse Careers FAQ" FaqNurses ]
+                    , row [ centerX, pt 12, Font.color colors.primary ] [ link "Nurse Careers FAQ" FaqNurses ]
                     ]
                 , column [ pt 12, Font.size 12, centerX ]
                     [ showAddress ]
@@ -333,7 +333,6 @@ menu =
     , ( NurseCareers "", "Nurse Careers" )
     , ( Blog "", "Blog" )
     , ( AboutUs, "About Us" )
-    , ( Contact, "Contact" )
     , ( JoinTheTeam "", "Join the Team" )
     ]
 
@@ -343,9 +342,9 @@ phoneMenu msg isMenuVisible =
     let
         hamburger =
             column [ spacingXY 0 3 ]
-                [ row [ width (px 25), height (px 4), Background.color palette.primary, Border.rounded 4 ] []
-                , row [ width (px 25), height (px 4), Background.color palette.primary, Border.rounded 4 ] []
-                , row [ width (px 25), height (px 4), Background.color palette.primary, Border.rounded 4 ] []
+                [ row [ width (px 25), height (px 4), Background.color colors.primary, Border.rounded 4 ] []
+                , row [ width (px 25), height (px 4), Background.color colors.primary, Border.rounded 4 ] []
+                , row [ width (px 25), height (px 4), Background.color colors.primary, Border.rounded 4 ] []
                 ]
 
         hamburgerIcon =
@@ -379,7 +378,7 @@ phoneMenu msg isMenuVisible =
             [ wf
             , hf
             ]
-            [ column ([ wf, hf, Font.color palette.white ] ++ bg)
+            [ column ([ wf, hf, Font.color colors.white ] ++ bg)
                 [ column [ wf, height <| fillPortion 2 ]
                     [ row [ alignRight, centerY ]
                         [ Input.button []
@@ -402,8 +401,8 @@ phoneMenu msg isMenuVisible =
                                     "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
                                 , label =
                                     row
-                                        [ Background.color palette.primary
-                                        , Font.color palette.white
+                                        [ Background.color colors.primary
+                                        , Font.color colors.white
                                         , paddingXY 12 8
                                         , Border.rounded 6
                                         , Font.size 12

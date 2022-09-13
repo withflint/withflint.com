@@ -204,7 +204,7 @@ header device model =
                             , row
                                 [ width <| fillPortion 4
                                 , spacing 32
-                                , Font.color palette.white
+                                , Font.color colors.white
                                 , Font.letterSpacing 2
                                 , Font.size 14
                                 ]

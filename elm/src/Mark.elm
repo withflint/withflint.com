@@ -161,7 +161,7 @@ codeBlock details =
 heading : { level : Block.HeadingLevel, rawText : String, children : List (Element msg) } -> Element msg
 heading { level, rawText, children } =
     Element.paragraph
-        [ Font.color colors.black1
+        [ Font.color colors.black
         , Font.size
             (case level of
                 Block.H1 ->

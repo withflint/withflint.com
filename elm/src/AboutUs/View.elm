@@ -115,7 +115,7 @@ whoWeAre =
             [ Font.center
             , Font.size 28
             , Font.semiBold
-            , Font.color palette.primary
+            , Font.color colors.primary
             ]
     in
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 56, Font.size 16 ]
@@ -160,7 +160,7 @@ team =
             [ Font.center
             , Font.size 28
             , Font.semiBold
-            , Font.color palette.primary
+            , Font.color colors.primary
             ]
     in
     column
@@ -299,7 +299,7 @@ fred =
 wonchan : Profile
 wonchan =
     { name = "Wonchan Kim"
-    , position = ""
+    , position = "Special Projects"
     , info = loremIpsum
     , url = "static/images/wonchan-sm.jpg"
     }
@@ -322,7 +322,7 @@ personCard profile =
             , hf
             , minW 298
             , maxW 408
-            , Background.color palette.white
+            , Background.color colors.white
             , Border.rounded 8
             ]
             [ row [ wf ]
@@ -333,7 +333,7 @@ personCard profile =
                 ]
             , column [ paddingXY 24 24, spacingXY 0 12 ]
                 [ -- NAME
-                  paragraph [ Font.size 24, Font.color palette.primary, Font.semiBold ] [ text profile.name ]
+                  paragraph [ Font.size 24, Font.color colors.primary, Font.semiBold ] [ text profile.name ]
 
                 -- POSITION
                 , paragraph [ Font.size 18, Font.color (rgb255 0 0 0), Font.semiBold ] [ text profile.position ]
@@ -472,7 +472,7 @@ header device model =
                             , row
                                 [ width <| fillPortion 4
                                 , spacing 32
-                                , Font.color palette.white
+                                , Font.color colors.white
                                 , Font.letterSpacing 2
                                 , Font.size 14
                                 ]

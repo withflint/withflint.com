@@ -2,7 +2,6 @@ module View exposing (joinCopy, nurseCareersCopy, view)
 
 import AboutUs.View
 import Blog.View
-import Contact.View
 import Element
     exposing
         ( Element
@@ -49,9 +48,6 @@ renderRoute model =
     case model.router.page of
         Home ->
             Element.map MsgForHome <| layout model.device <| Home.View.view model.home model.device
-
-        Contact ->
-            layout model.device <| Contact.View.view model.contact
 
         AboutUs ->
             Element.map MsgForAboutUs <| layout model.device <| AboutUs.View.view model.device model.aboutUs

@@ -256,7 +256,7 @@ states device =
             [ Font.center
             , Font.size 24
             , Font.semiBold
-            , Font.color palette.primary
+            , Font.color colors.primary
             ]
 
         rsFillPortion =
@@ -274,7 +274,7 @@ states device =
             [ paragraph titleStyle [ text "US states where you can live and work" ]
             , wrappedRow
                 [ wf
-                , Font.color palette.primary
+                , Font.color colors.primary
                 , spaceEvenly
                 , spacingXY 12 32
                 ]
@@ -319,27 +319,13 @@ nurseCareerBody device =
             [ Font.center
             , Font.size 28
             , Font.semiBold
-            , Font.color palette.primary
+            , Font.color colors.primary
             ]
 
-        btn =
-            [ Border.rounded 8
-
-            -- Border.roundEach { topLeft = 16, topRight = 0, bottomRight = 16, bottomLeft = 0 }
-            , Border.width 1
-            , padding 10
-            , Font.color palette.white
-            , Font.semiBold
-            , Font.size 18
-            , Background.color colors.carminePink
-            , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
-            , Font.regular
-            , mouseOver
-                [ Font.color colors.cremeLight
-                , Background.color colors.carminePink
-                , Border.color colors.carminePink
-                ]
-            ]
+        btnConfig =
+            { fontColor = colors.white
+            , bgColor = colors.carminePink
+            }
 
         rsJustify =
             case device of
@@ -367,12 +353,12 @@ nurseCareerBody device =
             , Element.link
                 [ wf ]
                 { url = "/blog/we-stand-with-our-nurses"
-                , label = paragraph [ rsJustify, Font.underline, Font.color palette.primary ] [ text "We support our Nurses at every step!" ]
+                , label = paragraph [ rsJustify, Font.underline, Font.color colors.primary ] [ text "We support our Nurses at every step!" ]
                 }
             , Element.link
                 [ wf ]
                 { url = "/internationally-educated-nurses-faq/"
-                , label = paragraph [ rsJustify, Font.underline, Font.color palette.primary ] [ text "Learn how you can become a nurse in America" ]
+                , label = paragraph [ rsJustify, Font.underline, Font.color colors.primary ] [ text "Learn how you can become a nurse in America" ]
                 }
             ]
         , column [ wf, spacingXY 0 44, pt 24 ]
@@ -381,7 +367,7 @@ nurseCareerBody device =
                 [ row [ centerX ]
                     [ el [ wf ]
                         (link
-                            (centerY :: centerX :: wf :: Font.size 15 :: btn)
+                            (centerY :: centerX :: wf :: Font.size 15 :: Styles.btnFilled btnConfig)
                             { url = "/nurse-careers/general-health-care-application-rn-np-lpn-hsp-anywhere-usa"
                             , label = paragraph [ Font.center ] [ text <| "Apply" ]
                             }
@@ -398,15 +384,15 @@ advantages device =
     wrappedRow [ centerX, spacingXY 64 32 ]
         [ column [ spacingXY 0 24, minW 160 ]
             [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licensing" }
-            , paragraph [ Font.center, Font.color palette.primary, Font.semiBold ] [ text "Licensing" ]
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Licensing" ]
             ]
         , column [ spacingXY 0 24, minW 160 ]
             [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/immigration.svg", description = "Flint - Immigration" }
-            , paragraph [ Font.center, Font.color palette.primary, Font.semiBold ] [ text "Immigration" ]
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Immigration" ]
             ]
         , column [ spacingXY 0 24, minW 160 ]
             [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/relocation.svg", description = "Flint - Relocation" }
-            , paragraph [ Font.center, Font.color palette.primary, Font.semiBold ] [ text "Relocation" ]
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Relocation" ]
             ]
         ]
 
@@ -423,7 +409,7 @@ nurseSuccessInfo =
         subHeading =
             [ Font.size 26
             , Font.semiBold
-            , Font.color palette.primary
+            , Font.color colors.primary
             ]
     in
     wrappedRow [ wf, paddingEach { top = 64, bottom = 48, right = 0, left = 0 }, spacingXY 24 40 ]
@@ -455,7 +441,7 @@ partners device =
                     , row2 = wf
                     , row3 = wf
                     , spacing = spacingXY 0 32
-                    , bg = Background.color palette.white
+                    , bg = Background.color colors.white
                     }
 
                 Device.Desktop _ ->
@@ -503,7 +489,7 @@ partners device =
                         [ row [ width (px 95), height (px 83) ]
                             [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/jsa-logo.svg", description = "JSA" }
                             ]
-                        , column [ wf, Font.color colors.white1, Font.size 12 ]
+                        , column [ wf, Font.color colors.white, Font.size 12 ]
                             [ paragraph [] [ text "Josef Silny & Associates, Inc." ]
                             , paragraph [] [ text "International Education Consultants" ]
                             ]
@@ -531,7 +517,7 @@ partners device =
 
         -- ##### We partner with #####
         , column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
-            [ paragraph [ Font.center, Font.size 28, Font.color palette.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
+            [ paragraph [ Font.center, Font.size 28, Font.color colors.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
             , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
             ]
         ]
@@ -564,7 +550,7 @@ joinTeamBody device =
             [ Font.center
             , Font.size 28
             , Font.semiBold
-            , Font.color palette.primary
+            , Font.color colors.primary
             ]
 
         interviewProcessSm =
@@ -770,7 +756,7 @@ header device { title, menu, bg, blobSrc } model =
                             , row
                                 [ width <| fillPortion 4
                                 , spacing 32
-                                , Font.color palette.white
+                                , Font.color colors.white
                                 , Font.letterSpacing 2
                                 , Font.size 14
                                 ]
@@ -842,7 +828,7 @@ jobsView device viewer model =
                         [ paragraph
                             [ Font.size 26
                             , Font.semiBold
-                            , Font.color palette.primary
+                            , Font.color colors.primary
                             , Font.center
                             ]
                             [ text "Open Positions" ]
@@ -862,7 +848,7 @@ jobsView device viewer model =
                     paragraph
                         [ Font.size 24
                         , Styles.headFont
-                        , Font.color colors.blue1
+                        , Font.color colors.primary
                         , Font.center
                         , Styles.pb 24
                         ]
@@ -952,7 +938,7 @@ desktopJobView ( page, id, job ) =
     row [ wf ]
         [ column [ alignLeft, spacingXY 0 10, wf ]
             [ link
-                [ Font.color colors.blue1
+                [ Font.color colors.primary
                 , mouseOver
                     [ Font.color colors.carminePink
                     ]
@@ -967,7 +953,7 @@ desktopJobView ( page, id, job ) =
                 ]
             ]
         , column [ height fill, alignTop, alignRight ]
-            [ Input.button Styles.btn
+            [ Input.button Styles.btnOutline
                 { onPress = Just (Apply True id)
                 , label = text "Apply Now"
                 }
@@ -981,7 +967,7 @@ phoneJobView ( page, id, job ) =
         [ column [ alignLeft, spacingXY 0 10, wf ]
             [ paragraph [ wf ]
                 [ link
-                    [ Font.color colors.blue1
+                    [ Font.color colors.primary
                     , mouseOver
                         [ Font.color colors.carminePink
                         ]
@@ -997,7 +983,7 @@ phoneJobView ( page, id, job ) =
                 ]
             ]
         , column [ alignRight ]
-            [ Input.button Styles.btn
+            [ Input.button Styles.btnOutline
                 { onPress = Just (Apply True id)
                 , label = text "Apply Now"
                 }
@@ -1009,7 +995,7 @@ textbox : List (Attribute msg)
 textbox =
     [ Border.width 1
     , padding 7
-    , focused [ Border.color colors.blue1 ]
+    , focused [ Border.color colors.primary ]
     ]
 
 
@@ -1018,7 +1004,7 @@ multitextbox =
     [ Border.width 1
     , padding 7
     , height (px 100)
-    , focused [ Border.color colors.blue1 ]
+    , focused [ Border.color colors.primary ]
     ]
 
 
@@ -1065,7 +1051,7 @@ desktopApplyView job model =
             , placeholder = Nothing
             , label = Input.labelAbove textboxLabel <| text "Phone"
             }
-        , Input.button (Font.size 15 :: Styles.buttons.primary)
+        , Input.button (Font.size 15 :: Styles.btnOutline)
             { onPress = Just UploadResume
             , label = text "Upload Resume"
             }
@@ -1103,7 +1089,7 @@ desktopApplyView job model =
                         []
 
                     Nothing ->
-                        [ Input.button (Font.size 15 :: Styles.buttons.primary)
+                        [ Input.button (Font.size 15 :: Styles.btnOutline)
                             { onPress = Just (Submit job)
                             , label = text "Submit"
                             }
@@ -1139,7 +1125,7 @@ phoneApplyView job model =
             , placeholder = Nothing
             , label = Input.labelAbove textboxLabel <| text "Phone"
             }
-        , Input.button (Font.size 15 :: Styles.buttons.primary)
+        , Input.button (Font.size 15 :: Styles.btnOutline)
             { onPress = Just UploadResume
             , label = text "Upload Resume"
             }
@@ -1177,7 +1163,7 @@ phoneApplyView job model =
                         []
 
                     Nothing ->
-                        [ Input.button (Font.size 15 :: Styles.buttons.primary)
+                        [ Input.button (Font.size 15 :: Styles.btnOutline)
                             { onPress = Just (Submit job)
                             , label = text "Submit"
                             }

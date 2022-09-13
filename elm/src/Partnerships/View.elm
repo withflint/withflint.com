@@ -136,16 +136,16 @@ section0 device =
             [ Font.center
             , Font.size 28
             , Font.semiBold
-            , Font.color palette.primary
+            , Font.color colors.primary
             ]
 
         btn =
             [ Border.rounded 8
-            , Border.color palette.primary
+            , Border.color colors.primary
             , Border.width 1
             , padding 10
-            , Font.color palette.white
-            , Background.color palette.primary
+            , Font.color colors.white
+            , Background.color colors.primary
             , Font.semiBold
             , Font.size 16
             , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
@@ -186,7 +186,7 @@ section0 device =
                 (link
                     [ centerY, centerX, wf, Font.size 15 ]
                     { url = "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
-                    , label = paragraph [ Font.center, Font.underline, Font.semiBold, Font.color palette.primary ] [ text <| "Contact Us" ]
+                    , label = paragraph [ Font.center, Font.underline, Font.semiBold, Font.color colors.primary ] [ text <| "Contact Us" ]
                     }
                 )
             ]
@@ -242,7 +242,7 @@ valueCard device { iconUrl, iconDesc, heading, desc } =
             [ Element.image [ centerX, width (px 72), height (px 87) ] { src = iconUrl, description = iconDesc }
             ]
         , column [ maxW 550, spacingXY 0 12, padding 12 ]
-            [ paragraph [ css "width" "100%", Font.color palette.primary, Font.bold ] [ text heading ]
+            [ paragraph [ css "width" "100%", Font.color colors.primary, Font.bold ] [ text heading ]
             , paragraph [ css "width" "100%", Font.color (rgb255 25 21 41) ] [ text desc ]
             ]
         ]
@@ -263,7 +263,7 @@ partners device =
                     , row2 = wf
                     , row3 = wf
                     , spacing = spacingXY 0 32
-                    , bg = Background.color palette.white
+                    , bg = Background.color colors.white
                     }
 
                 Device.Desktop _ ->
@@ -339,7 +339,7 @@ partners device =
 
         -- ##### We partner with #####
         , column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
-            [ paragraph [ Font.center, Font.size 28, Font.color palette.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
+            [ paragraph [ Font.center, Font.size 28, Font.color colors.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
             , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
             ]
         ]
@@ -447,7 +447,7 @@ header device model title menu =
                             , row
                                 [ width <| fillPortion 4
                                 , spacing 32
-                                , Font.color palette.white
+                                , Font.color colors.white
                                 , Font.letterSpacing 2
                                 , Font.size 14
                                 ]

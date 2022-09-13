@@ -8,7 +8,6 @@ import Url.Parser exposing ((</>), Parser, map, oneOf, s, string, top)
 type Page
     = Home
     | NotFound
-    | Contact
     | Partnerships
     | AboutUs
     | JoinTheTeam String
@@ -44,9 +43,6 @@ toPath page =
 
         NotFound ->
             absolute [ "404" ] []
-
-        Contact ->
-            absolute [ "contact" ] []
 
         Partnerships ->
             absolute [ "partnerships" ] []
