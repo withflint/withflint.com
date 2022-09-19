@@ -1,10 +1,11 @@
-module Jobs.Types exposing (Applicant, Config, Copy, Field(..), Job, Model, Msg(..), View(..))
+module Jobs.Types exposing (Applicant, Config, Copy, CurrentPage(..), Field(..), Job, Model, Msg(..), View(..))
 
 import Browser.Navigation exposing (Key)
 import Dict exposing (Dict)
 import Element exposing (Element)
 import File exposing (File)
 import Http
+import RemoteData exposing (WebData)
 import Text exposing (Text)
 import Url exposing (Url)
 
@@ -24,7 +25,17 @@ type alias Config =
     , endpoint : String
     , copy : Copy
     , apply : String
+    , page_ : CurrentPage
     }
+
+
+
+-- this will be changed later for better organisation
+
+
+type CurrentPage
+    = NurseCareersPage
+    | JoinTheTeamPage
 
 
 type alias Copy =
@@ -58,7 +69,7 @@ type alias Job =
 
 
 type alias Model =
-    { jobs : Dict String Job
+    { jobs : WebData (Dict String Job)
     , gitVersion : String
     , applicant : Applicant
     , error : Maybe String
@@ -68,18 +79,20 @@ type alias Model =
     , view : View
     , config : Config
     , success : Maybe String
+    , isPhoneMenuVisible : Bool
     }
 
 
 type Msg
     = UploadResume
     | Resume File
-    | ReceiveJobsData (Result Http.Error String)
+    | ReceiveJobsData (WebData (Dict String Job))
     | SendApplicantData (Result Http.Error ())
     | Set Field String
     | SwitchView View
     | Apply Bool String
     | Submit Job
+    | PhoneMenuToggle
 
 
 type View

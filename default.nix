@@ -33,5 +33,6 @@ stdenv.mkDerivation {
       --set GIT_VERSION ${gitVersion}
 
     ln -s ${frontend}/elm.js $out/static/${gitVersion}/elm.js
+    ln -s ${frontend}/app.js $out/static/${gitVersion}/app.js
   '';
 }

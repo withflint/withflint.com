@@ -15,6 +15,7 @@ init article =
         , article = Loading
         , viewing = article
         , title = blogDefaultPageTitle
+        , isPhoneMenuVisible = False
         }
         (Http.get
             { url = "/articles"
@@ -52,6 +53,9 @@ update msg model =
 
                     Err _ ->
                         singleton { model | article = NotFound }
+
+            PhoneMenuToggle ->
+                singleton { model | isPhoneMenuVisible = not model.isPhoneMenuVisible }
 
             LoadArticleList ->
                 singleton { model | article = List model.articles }

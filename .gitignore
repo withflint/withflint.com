@@ -178,3 +178,5 @@ dist-newstyle/
 
 # direnv
 .direnv/
+
+static/dirty/

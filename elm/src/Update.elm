@@ -1,16 +1,17 @@
 module Update exposing (init, update)
 
+import AboutUs.Update
 import Blog.Types
 import Blog.Update
 import Browser.Dom
 import Browser.Navigation exposing (Key)
-import Contact.Update
 import Device exposing (Device(..), classify)
 import FaqNurses.Update
 import Home.Update
 import Html.Attributes exposing (width)
-import Jobs.Types exposing (Config)
+import Jobs.Types exposing (Config, CurrentPage(..))
 import Jobs.Update
+import Partnerships.Update
 import Return exposing (Return, return, singleton)
 import Router.Routes exposing (Page(..))
 import Router.Types
@@ -28,6 +29,7 @@ flintConfig =
     , page = "join"
     , copy = joinCopy
     , apply = "/apply"
+    , page_ = JoinTheTeamPage
     }
 
 
@@ -37,6 +39,7 @@ healthCareConfig =
     , page = "nurse-careers"
     , copy = nurseCareersCopy
     , apply = "/happly"
+    , page_ = NurseCareersPage
     }
 
 
@@ -76,12 +79,13 @@ init { article, gitVersion } url key =
     in
     return
         { router = router
-        , contact = Contact.Update.init
         , home = Home.Update.init
+        , aboutUs = AboutUs.Update.init
         , jobs = jobs
         , healthCare = healthCare
         , blog = blog
         , faqNurses = faqNurses
+        , partnerships = Partnerships.Update.init
         , title = "Flint - Securing Nurses for Your Future"
         , device = NotSet
         , url = url
@@ -95,6 +99,14 @@ init { article, gitVersion } url key =
 
 update : Msg -> Model -> Return Msg Model
 update msg model =
+    let
+        resetPhoneMenuState m =
+            if .isPhoneMenuVisible m then
+                { m | isPhoneMenuVisible = False }
+
+            else
+                m
+    in
     Return.map updateTitle <|
         case msg of
             MsgForRouter routerMsg ->
@@ -104,6 +116,14 @@ update msg model =
                         , effectToMsg = EffFromRouter
                         , toModel =
                             \router -> { model | router = router }
+                        }
+
+            MsgForHome homeMsg ->
+                Home.Update.update homeMsg model.home
+                    |> SubModule.update
+                        { toMsg = MsgForHome
+                        , toModel =
+                            \home -> { model | home = home }
                         }
 
             MsgForJobs jobsMsg ->
@@ -122,6 +142,14 @@ update msg model =
                             \healthCare -> { model | healthCare = healthCare }
                         }
 
+            MsgForPartnerships partnershipsMsg ->
+                Partnerships.Update.update partnershipsMsg model.partnerships
+                    |> SubModule.update
+                        { toMsg = MsgForPartnerships
+                        , toModel =
+                            \partnerships -> { model | partnerships = partnerships }
+                        }
+
             MsgForBlog blogMsg ->
                 Blog.Update.update blogMsg model.blog
                     |> SubModule.update
@@ -138,6 +166,14 @@ update msg model =
                             \faqNurses -> { model | faqNurses = faqNurses }
                         }
 
+            MsgForAboutUs msgForAboutUs ->
+                AboutUs.Update.update msgForAboutUs model.aboutUs
+                    |> SubModule.update
+                        { toMsg = MsgForAboutUs
+                        , toModel =
+                            \aboutUs -> { model | aboutUs = aboutUs }
+                        }
+
             EffFromRouter eff ->
                 case eff of
                     Router.Types.UrlChange url ->
@@ -147,7 +183,15 @@ update msg model =
                                     |> SubModule.update
                                         { toMsg = MsgForBlog
                                         , toModel =
-                                            \blog -> { model | blog = blog }
+                                            \blog -> { model | blog = resetPhoneMenuState blog }
+                                        }
+
+                            Just (Router.Routes.JoinTheTeam "") ->
+                                Jobs.Update.update (Jobs.Types.SwitchView Jobs.Types.JobsView) model.jobs
+                                    |> SubModule.update
+                                        { toMsg = MsgForJobs
+                                        , toModel =
+                                            \jobs -> { model | jobs = resetPhoneMenuState jobs }
                                         }
 
                             Just (Router.Routes.JoinTheTeam jobId) ->
@@ -155,7 +199,15 @@ update msg model =
                                     |> SubModule.update
                                         { toMsg = MsgForJobs
                                         , toModel =
-                                            \jobs -> { model | jobs = jobs }
+                                            \jobs -> { model | jobs = resetPhoneMenuState jobs }
+                                        }
+
+                            Just (Router.Routes.NurseCareers "") ->
+                                Jobs.Update.update (Jobs.Types.SwitchView Jobs.Types.JobsView) model.healthCare
+                                    |> SubModule.update
+                                        { toMsg = MsgForHealthCare
+                                        , toModel =
+                                            \healthCare -> { model | healthCare = resetPhoneMenuState healthCare }
                                         }
 
                             Just (Router.Routes.NurseCareers jobId) ->
@@ -163,8 +215,26 @@ update msg model =
                                     |> SubModule.update
                                         { toMsg = MsgForHealthCare
                                         , toModel =
-                                            \healthCare -> { model | healthCare = healthCare }
+                                            \healthCare -> { model | healthCare = resetPhoneMenuState healthCare }
                                         }
+
+                            Just Router.Routes.Partnerships ->
+                                singleton
+                                    { model
+                                        | partnerships = model.partnerships |> resetPhoneMenuState
+                                    }
+
+                            Just Router.Routes.FaqNurses ->
+                                singleton
+                                    { model
+                                        | faqNurses = model.faqNurses |> resetPhoneMenuState
+                                    }
+
+                            Just Router.Routes.AboutUs ->
+                                singleton
+                                    { model
+                                        | aboutUs = model.aboutUs |> resetPhoneMenuState
+                                    }
 
                             _ ->
                                 singleton model
@@ -201,9 +271,6 @@ pageTitle model =
         NotFound ->
             "404 Not Found - Flint"
 
-        Contact ->
-            model.contact.title
-
         JoinTheTeam _ ->
             model.jobs.title
 
@@ -215,6 +282,9 @@ pageTitle model =
 
         FaqNurses ->
             model.faqNurses.title
+
+        AboutUs ->
+            model.aboutUs.title
 
         _ ->
             model.home.title

@@ -1,6 +1,7 @@
 module Blog.View exposing (view)
 
-import Blog.Types exposing (Article, ArticleState(..), Model, Msg)
+import Blog.Types exposing (Article, ArticleState(..), Model, Msg(..))
+import Device
 import Element
     exposing
         ( Element
@@ -10,7 +11,9 @@ import Element
         , column
         , el
         , fill
+        , fillPortion
         , height
+        , html
         , image
         , link
         , maximum
@@ -23,57 +26,194 @@ import Element
         , px
         , row
         , spacing
+        , spacingXY
         , text
         , textColumn
         , width
         )
 import Element.Border as Border
 import Element.Font as Font
-import Layout exposing (Layout, footer, header)
+import Framework.Heading as Heading
+import Html
+import Html.Attributes as HtmlAttr
+import Layout exposing (Layout, footer, phoneMenu)
 import Mark
-import Router.Routes as R
-import Styles exposing (colors)
+import Router.Routes as R exposing (toPath)
+import Styles exposing (colors, css, hf, wf)
 
 
-view : Model -> Layout Msg
-view model =
+view : Device.Device -> Model -> Layout Msg
+view device model =
+    let
+        bg =
+            [ css "background" "#DAE9FF"
+            , css "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 102.99%)"
+            ]
+
+        render view_ =
+            -- Render with phoneMenu
+            if model.isPhoneMenuVisible then
+                column [ wf, hf, css "position" "relative" ] [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible ]
+                    |> List.singleton
+
+            else
+                view_
+    in
     { phone =
-        [ column
-            [ centerX
-            , width <| maximum 1500 fill
-            , height fill
-            , paddingXY 20 40
+        render <|
+            [ blogPhoneHeader device model
+            , column
+                ([ wf, hf ] ++ bg)
+                [ column
+                    [ centerX
+                    , width <| maximum 1500 fill
+                    , height fill
+                    , paddingXY 20 40
+                    ]
+                    (blogPhoneView model.article)
+                ]
+            , column [ wf ] footer.phone
             ]
-            (header.phone
-                ++ blogPhoneView model.article
-                ++ footer.phone
-            )
-        ]
     , tablet =
-        [ column
-            [ centerX
-            , width <| maximum 1500 fill
-            , height fill
-            , paddingXY 100 40
+        render <|
+            [ row [ wf ] <|
+                blogHeader device
+            , column ([ wf, hf ] ++ bg)
+                [ column
+                    [ centerX
+                    , width <| maximum 1500 fill
+                    , height fill
+                    , paddingXY 40 40
+                    ]
+                    (blogView model.article)
+                ]
+            , column [ wf ] footer.phone
             ]
-            (header.tablet
-                ++ blogView model.article
-                ++ footer.tablet
-            )
-        ]
     , desktop =
-        [ column
-            [ centerX
-            , width <| maximum 1500 fill
-            , height fill
-            , paddingXY 100 40
+        render <|
+            [ row [ wf ] <|
+                blogHeader device
+            , column ([ wf, hf ] ++ bg)
+                [ column
+                    [ centerX
+                    , width <| maximum 1500 fill
+                    , height fill
+                    , paddingXY 100 40
+                    ]
+                    (blogView model.article)
+                ]
+            , column [ wf ] footer.desktop
             ]
-            (header.desktop
-                ++ blogView model.article
-                ++ footer.desktop
-            )
-        ]
     }
+
+
+blogPhoneHeader : Device.Device -> Model -> Element Msg
+blogPhoneHeader device model =
+    let
+        bg =
+            [ css "background" "rgb(68,55,109)"
+            , css "background" "linear-gradient(275.4deg, #E54848 -14.67%, #7B3D61 14.83%, #51497F 55.96%, #616297 92.44%, #A7C8F9 127.36%)"
+            ]
+
+        logo =
+            row
+                [ css "position" "absolute"
+                , css "left" "44px"
+                , css "top" "20px"
+                , css "z-index" "100"
+                ]
+                [ Element.link
+                    []
+                    { url = toPath R.Home
+                    , label =
+                        Element.image
+                            [ width (px 110), height (px 54) ]
+                            { src = "/static/images/logo.svg?new", description = "Flint" }
+                    }
+                ]
+
+        blob =
+            row [ css "position" "relative" ]
+                [ row
+                    [ alignTop
+                    , css "position" "relative"
+                    , width (px 275)
+                    , height (px 139)
+                    ]
+                    [ html <|
+                        Html.img
+                            [ HtmlAttr.src "/static/images/header-blob-blue.svg"
+                            , HtmlAttr.style "width" "100%"
+                            ]
+                            []
+                    ]
+                , logo
+                ]
+    in
+    row ([ wf, height (px 140), css "position" "relative" ] ++ bg)
+        [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible
+        , column [ css "position" "absolute", css "top" "0", css "left" "0" ]
+            [ row [ css "width" "80%", css "height" "80%" ] [ blob ]
+            ]
+        , column [ wf ] []
+        ]
+
+
+blogHeader : Device.Device -> List (Element msg)
+blogHeader device =
+    let
+        bg =
+            [ css "background" "#DAE9FF"
+            , css "background" "linear-gradient(275.4deg, #E54848 -14.67%, #7B3D61 14.83%, #51497F 55.96%, #616297 92.44%, #A7C8F9 127.36%)"
+            ]
+
+        logo =
+            Element.image [ centerX, width (px 100), height (px 50) ] { src = "/static/images/logo-white.svg?new", description = "Flint" }
+    in
+    [ row ([ wf, height (px 136) ] ++ bg)
+        [ -- GAP
+          row [ width <| fillPortion 2 ] []
+
+        -- LOGO
+        , row [ width <| fillPortion 1 ]
+            [ Element.link
+                []
+                { url = toPath R.Home
+                , label =
+                    el
+                        [ Font.center
+                        , Font.color colors.white
+                        , mouseOver [ Font.color colors.carminePink ]
+                        ]
+                        logo
+                }
+            ]
+
+        -- GAP
+        , row [ width <| fillPortion 8 ] []
+
+        -- MENU
+        , row [ width <| fillPortion 2, spacingXY 24 0 ]
+            [ Element.link
+                []
+                { url = toPath R.Partnerships
+                , label =
+                    el
+                        Styles.menu
+                        (text "Partnerships")
+                }
+            , Element.link
+                []
+                { url = toPath <| R.NurseCareers ""
+                , label =
+                    el Styles.menu (text "Nurse Careers")
+                }
+            ]
+
+        -- GAP
+        , row [ width <| fillPortion 2 ] []
+        ]
+    ]
 
 
 blogView : ArticleState -> List (Element Msg)
@@ -138,7 +278,7 @@ summaryView article =
         , label =
             column
                 [ spacing 30, centerX ]
-                [ paragraph [ Styles.headFont, Font.size 40, Font.bold, mouseOver [ Font.color colors.blue1 ] ] [ text article.title ]
+                [ el ([ Font.size 40, Font.bold, Font.color colors.primary, mouseOver [ Font.color colors.carminePink ], Styles.headFont ] ++ Heading.h1) (text article.title)
                 , row
                     [ spacing 5
                     , alignTop
@@ -181,7 +321,7 @@ articleView article =
         Ok rendered ->
             column
                 [ padding 80, width <| maximum 850 fill, spacing 40, centerX ]
-                [ paragraph [ Styles.headFont, Font.bold, Font.size 46 ] [ text article.title ]
+                [ el ([ Font.bold, Font.size 46, Styles.headFont ] ++ Heading.h1) (text article.title)
                 , row
                     [ spacing 5
                     , alignTop
@@ -262,7 +402,7 @@ phoneSummaryView article =
     let
         go : Element msg -> Element msg
         go ele =
-            link [ width fill, mouseOver [ Font.color colors.blue1 ] ]
+            link [ width fill, mouseOver [ Font.color colors.carminePink ] ]
                 { url = R.toPath <| R.Blog article.slug
                 , label = ele
                 }
@@ -272,7 +412,7 @@ phoneSummaryView article =
         , spacing 20
         , centerX
         ]
-        [ paragraph [ Styles.headFont, Font.size 24, Font.bold, width fill ] [ go <| text article.title ]
+        [ paragraph [ Font.size 24, Font.bold, Font.color colors.primary, width fill, Styles.headFont ] [ go <| text article.title ]
         , go <|
             row
                 [ spacing 5
@@ -295,7 +435,14 @@ phoneSummaryView article =
                     { src = "/static/images/blog/" ++ article.slug ++ ".jpeg", description = article.meta.description }
                 , paragraph [ width fill ] [ text article.sub ]
                 ]
-        , go <| row [ Font.size 14, Font.color colors.gray1, Font.underline, paddingEach { top = 0, right = 0, left = 0, bottom = 10 } ] [ text "Read more" ]
+        , go <|
+            row
+                [ Font.size 14
+                , Font.color colors.gray
+                , Font.underline
+                , paddingEach { top = 0, right = 0, left = 0, bottom = 10 }
+                ]
+                [ text "Read more" ]
         ]
     ]
 
@@ -309,7 +456,7 @@ articlePhoneView article =
                 , width fill
                 , spacing 30
                 ]
-                [ paragraph [ Styles.headFont, Font.bold, Font.size 32 ] [ text article.title ]
+                [ paragraph [ Font.bold, Font.size 32, Styles.headFont ] [ text article.title ]
                 , row
                     [ spacing 5
                     , alignTop

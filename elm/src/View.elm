@@ -1,7 +1,7 @@
 module View exposing (joinCopy, nurseCareersCopy, view)
 
+import AboutUs.View
 import Blog.View
-import Contact.View
 import Element
     exposing
         ( Element
@@ -20,7 +20,6 @@ import Element
         , text
         , width
         )
-import Element.Background as Background
 import Element.Font as Font
 import FaqNurses.View
 import Home.View
@@ -28,8 +27,9 @@ import Html exposing (Html)
 import Jobs.Types exposing (Copy)
 import Jobs.View
 import Layout exposing (layout)
+import Partnerships.View
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors)
+import Styles exposing (colors, headerGradientBackground, pt)
 import Types exposing (Model, Msg(..))
 
 
@@ -47,22 +47,25 @@ renderRoute : Types.Model -> Element Types.Msg
 renderRoute model =
     case model.router.page of
         Home ->
-            layout model.device <| Home.View.view model.home
+            Element.map MsgForHome <| layout model.device <| Home.View.view model.home model.device
 
-        Contact ->
-            layout model.device <| Contact.View.view model.contact
+        AboutUs ->
+            Element.map MsgForAboutUs <| layout model.device <| AboutUs.View.view model.device model.aboutUs
+
+        Partnerships ->
+            Element.map MsgForPartnerships <| layout model.device <| Partnerships.View.view model.device model.partnerships
 
         JoinTheTeam _ ->
-            Element.map MsgForJobs <| layout model.device <| Jobs.View.view model.jobs
+            Element.map MsgForJobs <| layout model.device <| Jobs.View.view model.device model.jobs
 
         NurseCareers _ ->
-            Element.map MsgForHealthCare <| layout model.device <| Jobs.View.view model.healthCare
+            Element.map MsgForHealthCare <| layout model.device <| Jobs.View.view model.device model.healthCare
 
         Blog _ ->
-            Element.map MsgForBlog <| layout model.device <| Blog.View.view model.blog
+            Element.map MsgForBlog <| layout model.device <| Blog.View.view model.device model.blog
 
         FaqNurses ->
-            Element.map MsgForFaqNurses <| layout model.device <| FaqNurses.View.view model.faqNurses
+            Element.map MsgForFaqNurses <| layout model.device <| FaqNurses.View.view model.device model.faqNurses
 
         NotFound ->
             notFound
@@ -71,13 +74,14 @@ renderRoute model =
 notFound : Element msg
 notFound =
     column
-        [ Background.color colors.blue1
-        , width fill
-        , height fill
-        , padding 20
-        , Font.color colors.white3
-        , spacing 20
-        ]
+        ([ width fill
+         , height fill
+         , padding 20
+         , Font.color colors.cremeLight
+         , spacing 20
+         ]
+            ++ headerGradientBackground
+        )
         [ row []
             [ link []
                 { url = toPath Home
@@ -95,6 +99,8 @@ notFound =
             ]
         , row
             [ Font.size 36
+            , Font.color colors.cremeLight
+            , pt 32
             ]
             [ paragraph []
                 [ text "404: Oops! We could not find that page. "
@@ -106,7 +112,8 @@ notFound =
             [ paragraph []
                 [ link
                     (Styles.link
-                        ++ [ Font.color colors.white3 ]
+                        ++ [ Font.color colors.cremeLight
+                           ]
                     )
                     { url = toPath Home
                     , label = text "Go home!"
@@ -124,7 +131,7 @@ nurseCareersCopy =
     , paragraph2 = "We work with internationally educated health care workers from around the world for staffing opportunities in the United States of America. We offer an all-inclusive solution for the workers to have a seamless transition into their new life in America. Flint offers fully sponsored licensing, immigration and relocation programs. We pay for legal and processing fees, licensing and offer premium placement."
     , why = "Why do you want to work in the United States of America?"
     , title = "Launch your nursing career in America"
-    , pageTitle = "Nurse Careers  - Flint"
+    , pageTitle = "Nurse Success  - Flint"
     , other =
         Just
             [ text " "
@@ -150,7 +157,7 @@ joinCopy =
             [ text " "
             , link Styles.link
                 { url = toPath (Blog "culture")
-                , label = text "Read more about our values and culture."
+                , label = text "Read more about our values and culture. "
                 }
             , text " "
             , text "We interview and make hires within a week from our first meet–it's a commitment."

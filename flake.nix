@@ -34,13 +34,15 @@
             elmPackages.elm-format
             elmPackages.elm-live
             elmPackages.elm
+            elm2nix
             haskellPackages.haskell-language-server
             haskellPackages.cabal-install
             haskellPackages.fourmolu
             haskellPackages.cabal2nix
             haskellPackages.ghcid
             self.packages.${system}.fix-script
-            self.packages.${system}.watch-script
+            self.packages.${system}.update-elm-script
+            self.packages.${system}.dev-script
             self.packages.${system}.format-script
           ];
         };
@@ -103,8 +105,10 @@
             ${withflint}/bin/withflint
           '';
 
-          watch-script = pkgs.writeShellScriptBin "watch" ''
+          dev-script = pkgs.writeShellScriptBin "dev" ''
             if [ -f "flake.nix" ]; then
+              mkdir static/dirty
+              cp elm/src/app.js static/dirty/app.js
               ${pkgs.concurrently}/bin/concurrently \
                 -n elm,haskell \
                 -c cyan,magenta \
@@ -112,9 +116,19 @@
                 "cd haskell && ${haskellPackages.ghcid}/bin/ghcid --run=dev"
 
               rm static/dirty/elm.js
+              rm static/dirty/app.js
               rmdir static/dirty
             else
               echo "Please run this script from the root directory! (the one with flake.nix)"
+            fi
+          '';
+
+          update-elm-script = pkgs.writeShellScriptBin "update-elm" ''
+            if [ -f "elm.json" ]; then
+              ${pkgs.elm2nix}/bin/elm2nix convert > packages.nix
+              ${pkgs.elm2nix}/bin/elm2nix snapshot > registry.dat
+            else
+              echo "Please run this script from the Elm project directory! (the one with elm.json)"
             fi
           '';
 

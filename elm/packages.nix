@@ -5,6 +5,11 @@
         version = "7.1.0";
       };
 
+      "Orasund/elm-ui-framework" = {
+        sha256 = "059f0y6inzgn82azwqrgzsl3pgx9m7d1815rv1q1n3n8s2i76dgj";
+        version = "1.6.1";
+      };
+
       "dillonkearns/elm-markdown" = {
         sha256 = "05chrkn14b3yyv3sq3466ys4bhwdxva853fzbyc1dyjpk3vslqsc";
         version = "7.0.0";
@@ -73,6 +78,11 @@
       "elm/virtual-dom" = {
         sha256 = "0q1v5gi4g336bzz1lgwpn5b1639lrn63d8y6k6pimcyismp2i1yg";
         version = "1.0.2";
+      };
+
+      "krisajenkins/remotedata" = {
+        sha256 = "0m5bk0qhsjv14vajqrkph386696pnhj5rn51kgma8lwyvvx9ihw1";
+        version = "6.0.1";
       };
 
       "mdgriffith/elm-ui" = {
