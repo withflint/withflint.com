@@ -1,33 +1,40 @@
 module Flint where
 
+import Control.Monad
+import Control.Monad (forM_)
+import Control.Monad.IO.Class (liftIO)
+import Data.List
+import Data.Map qualified as Map
+import Data.Text (Text)
+import Data.Text qualified as Text
+import Data.Text.Lazy qualified as Text.Lazy
+import Data.Text.Lazy.Encoding qualified
+import Data.Time.Clock (getCurrentTime)
+import Flint.Apply
+import Flint.Blog
+import Flint.Index (index)
+import Flint.Jobs
+import Flint.Sitemap
+import Flint.Types
 import Lucid
+import Network.HTTP.Types
+import Network.Mail.Mime
+import Network.Wai
+import Network.Wai.Middleware.Gzip
+import Network.Wai.Middleware.RequestLogger
+import Network.Wai.Middleware.Static
+import System.Directory
+import System.Environment (getEnv)
+import System.FilePath
+import System.FilePath ((</>))
+import Text.Parsec.Text
+import Text.Parsec.Text (Parser)
+import Text.Shakespeare.Text (lt)
 import Web.Scotty
 
-import Flint.Types
-import Flint.Index (index)
-import Flint.Blog
-import Flint.Jobs
-import Flint.Apply
-import Flint.Sitemap
-import Flint.Utils
-import Network.Wai.Middleware.Static
-import Network.Wai.Middleware.RequestLogger
-import Network.Wai.Middleware.Gzip
-import Control.Monad.IO.Class (liftIO)
-import Control.Monad (forM_)
-import Data.Map qualified as Map
-import Data.Text.Lazy.Encoding qualified
-import Network.Mail.Mime
-import System.Environment (getEnv)
-import Text.Shakespeare.Text (lt)
-import Data.Time.Clock (getCurrentTime)
-import Data.Text (Text)
-import Data.Text.Lazy qualified as Text.Lazy
-import System.FilePath ((</>))
-
-routes :: Config -> Static -> Scotty
-routes config@(Config { .. }) static@(Static { .. }) = do
-  let unchanged = [ "/", "/blog", "/faq", "/join", "/nurse-careers" ]
+routes :: Config -> Static -> ScottyM ()
+routes config@(Config {..}) static@(Static {..}) = do
+  let unchanged = ["/", "/blog", "/faq", "/join", "/nurse-careers"]
 
   forM_ unchanged \url -> do
     get url do
@@ -65,24 +72,25 @@ routes config@(Config { .. }) static@(Static { .. }) = do
   get "/blog/:article" do
     articleId <- param "article"
 
-    let found = [ article.meta | article <- articles, article.slug == articleId ]
+    let found = [article.meta | article <- articles, article.slug == articleId]
 
-    lucid $ index config
+    lucid $ index
+      config
       case found of
-        []       -> Nothing
+        [] -> Nothing
         meta : _ -> Just meta
 
   get "/articles" do
     json articles
 
   get "/sitemap.xml" do
-    lucidXml $ sitemap articles
+    lucidXml $ sitemap articles jobs partnerJobs
 
   get "/hc" do
-    json healthCareJobs
+    json $ Map.fromList partnerJobs
 
   get "/j" do
-    json flintJobs
+    json $ Map.fromList jobs
 
   get "/privacy" do
     html privacy
@@ -90,7 +98,7 @@ routes config@(Config { .. }) static@(Static { .. }) = do
   post "/happly" do
     candidate <- getCandidate
 
-    apply healthCareEmail candidate healthCareRenderer
+    apply healthcareEmail candidate healthcareRenderer
 
   post "/apply" do
     candidate <- getCandidate
@@ -98,13 +106,14 @@ routes config@(Config { .. }) static@(Static { .. }) = do
     apply careersEmail candidate careersRenderer
 
   notFound do
+    status status200
     lucid $ index config Nothing
 
 run :: Config -> IO ()
 run config = do
   articles <- getMarkdown config parseArticle "blog"
-  healthCareJobs <- Map.fromList <$> getMarkdown config parseJob ("jobs" </> "healthcare")
-  flintJobs <- Map.fromList <$> getMarkdown config parseJob ("jobs" </> "flint")
+  partnerJobs <- getMarkdown config parseJob ("partners")
+  jobs <- getMarkdown config parseJob ("jobs")
   privacy <- Text.Lazy.pack <$> readFile (config.root </> "static" </> "privacy.html")
 
   scotty 5000 do
@@ -112,7 +121,7 @@ run config = do
     middleware $ staticPolicy policy
     middleware logStdout
     middleware $ gzip def
-    routes config $ Static { .. }
+    routes config $ Static {..}
 
 dev :: IO ()
 dev = do
@@ -120,4 +129,17 @@ dev = do
   let gitVersion = "dirty"
   let env = "dev"
 
-  run Config { .. }
+  run Config {..}
+
+lucid :: Html () -> ActionM ()
+lucid = html . renderText
+
+lucidXml :: Html () -> ActionM ()
+lucidXml = text . renderText
+
+getMarkdown :: Config -> Parser a -> FilePath -> IO [a]
+getMarkdown (Config {root}) parser subDir = do
+  files <- listDirectory $ root </> "content" </> subDir
+  let articles = sort $ filter (isExtensionOf "md") files
+  reverse . concat . sequence <$> forM articles \filename -> do
+    parseFromFile parser $ root </> "content" </> subDir </> filename

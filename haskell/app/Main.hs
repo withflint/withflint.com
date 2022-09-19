@@ -1,8 +1,8 @@
 module Main where
 
-import System.Environment (getEnv)
 import Flint (run)
 import Flint.Types (Config (..))
+import System.Environment (getEnv)
 
 main :: IO ()
 main = do
@@ -10,4 +10,4 @@ main = do
   gitVersion <- getEnv "GIT_VERSION"
   env <- getEnv "ENV"
 
-  run Config { .. }
+  run Config {..}

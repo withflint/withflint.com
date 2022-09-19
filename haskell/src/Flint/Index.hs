@@ -5,10 +5,9 @@ module Flint.Index (index) where
 import Data.Text (Text)
 import Flint.Blog (generateMeta)
 import Flint.Types
-import Flint.Utils (comment_)
 import Lucid
 import Lucid.Base (makeAttribute)
-import Text.Shakespeare.Text (sbt, st)
+import Text.Shakespeare.Text (lt, sbt, st)
 
 dataWebsiteId_ :: Text -> Attribute
 dataWebsiteId_ = makeAttribute "data-website-id"
@@ -32,18 +31,18 @@ index Config {gitVersion} meta = do
         title_ "Flint - Securing Nurses for Your Future"
 
         meta_
-          [ name_ "viewport",
-            content_ "width=device-width, initial-scale=1.0"
+          [ name_ "viewport"
+          , content_ "width=device-width, initial-scale=1.0"
           ]
 
         link_
-          [ href_ "/static/style.css?v=1",
-            rel_ "stylesheet"
+          [ href_ "/static/style.css?v=1"
+          , rel_ "stylesheet"
           ]
 
         link_
-          [ href_ "/static/fonts.css?v=1",
-            rel_ "stylesheet"
+          [ href_ "/static/fonts.css?v=1"
+          , rel_ "stylesheet"
           ]
 
         maybe "" generateMeta meta
@@ -74,10 +73,10 @@ index Config {gitVersion} meta = do
               |]
 
         script_
-          [ async_ "",
-            defer_ "",
-            dataWebsiteId_ "61e2287e-b2c6-44e9-8446-48339059a08c",
-            src_ "https://a.withflint.com/umami.js"
+          [ async_ ""
+          , defer_ ""
+          , dataWebsiteId_ "61e2287e-b2c6-44e9-8446-48339059a08c"
+          , src_ "https://a.withflint.com/umami.js"
           ]
           ""
 
@@ -92,15 +91,17 @@ index Config {gitVersion} meta = do
               |]
 
         script_
-          [ async_ "",
-            defer_ "",
-            onload_ "monitor()",
-            src_ "https://browser.sentry-cdn.com/7.0.0/bundle.tracing.min.js",
-            integrity_ "sha384-+zViWRWnRAkk9/+V2CRRVm1tuQEGGqye3jiEC8SDdjaOyzmv86+kvpl6NnRy9QIF",
-            crossorigin_ "anonymous"
+          [ async_ ""
+          , defer_ ""
+          , onload_ "monitor()"
+          , src_ "https://browser.sentry-cdn.com/7.0.0/bundle.tracing.min.js"
+          , integrity_ "sha384-+zViWRWnRAkk9/+V2CRRVm1tuQEGGqye3jiEC8SDdjaOyzmv86+kvpl6NnRy9QIF"
+          , crossorigin_ "anonymous"
           ]
           ""
 
         script_ [src_ [st|/static/#{gitVersion}/app.js|]] ""
 
--- script_ [src_ "/static/intercom.js"] ""
+comment_ :: Text -> Html ()
+comment_ body = do
+  toHtmlRaw [lt|<!-- #{body} -->|]

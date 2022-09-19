@@ -1,20 +1,22 @@
 module Flint.Apply where
 
+import Control.Monad.IO.Class
+import Data.ByteString.Lazy (ByteString)
 import Data.Text (Text)
 import Data.Text qualified as Text
-import Data.Text.Lazy qualified as Text.Lazy
+import Data.Text.Encoding qualified
 import Data.Text.Encoding qualified as Text.Encoding
+import Data.Text.Lazy qualified as Text.Lazy
 import Data.Text.Lazy.Encoding qualified as Text.Lazy.Encoding
+import Flint.Types
 import Lucid
-import Web.Scotty
-import Network.Wai
 import Network.Mail.Mime
 import Network.Mail.SMTP (sendMailSTARTTLS)
-import Flint.Types
-import Flint.Utils
-import Text.Shakespeare.Text
-import Control.Monad.IO.Class
+import Network.Wai
 import Network.Wai.Parse
+import Network.Wai.Parse (FileInfo (..))
+import Text.Shakespeare.Text
+import Web.Scotty
 
 getCandidate :: ActionM Candidate
 getCandidate = do
@@ -24,10 +26,10 @@ getCandidate = do
   email <- param "email"
   phone <- param "phone"
   reason <- param "reason"
-  pure Candidate { .. }
+  pure Candidate {..}
 
 mailHtmlBody :: Candidate -> Html ()
-mailHtmlBody (Candidate { .. }) = do
+mailHtmlBody (Candidate {..}) = do
   toHtml reason
 
   br_ []
@@ -44,7 +46,7 @@ mailHtmlBody (Candidate { .. }) = do
   toHtml email
 
 mailTextBody :: Candidate -> Text.Lazy.Text
-mailTextBody (Candidate { .. }) =
+mailTextBody (Candidate {..}) =
   [lbt|#{reason}
       |
       |#{firstName} #{lastName}
@@ -55,13 +57,14 @@ mailTextBody (Candidate { .. }) =
       |]
 
 mailRenderer :: MailRenderer
-mailRenderer = MailRenderer
-  { htmlRenderer = mailHtmlBody
-  , textRenderer = mailTextBody
-  }
+mailRenderer =
+  MailRenderer
+    { htmlRenderer = mailHtmlBody
+    , textRenderer = mailTextBody
+    }
 
 careersHtmlBody :: Candidate -> Html ()
-careersHtmlBody (Candidate { .. }) = do
+careersHtmlBody (Candidate {..}) = do
   toHtml [st|Hello #{firstName},|]
 
   br_ []
@@ -86,10 +89,10 @@ careersHtmlBody (Candidate { .. }) = do
   br_ []
 
   "Head of Product at "
-  a_ [ href_ "https://withflint.com/" ] "Flint"
+  a_ [href_ "https://withflint.com/"] "Flint"
 
 careersTextBody :: Candidate -> Text.Lazy.Text
-careersTextBody (Candidate { .. }) =
+careersTextBody (Candidate {..}) =
   [lbt|Hello #{firstName},
       |
       |Thank you for your interest in the #{applicationTitle} position at Flint.
@@ -103,19 +106,21 @@ careersTextBody (Candidate { .. }) =
       |]
 
 careersRenderer :: MailRenderer
-careersRenderer = MailRenderer
-  { htmlRenderer = careersHtmlBody
-  , textRenderer = careersTextBody
-  }
+careersRenderer =
+  MailRenderer
+    { htmlRenderer = careersHtmlBody
+    , textRenderer = careersTextBody
+    }
 
 careersEmail :: Location
-careersEmail = Location
-  { address = Address (Just "Simon Green") "simon@withflint.com"
-  , mailingList = Address Nothing "join+ws@withflint.com"
-  }
+careersEmail =
+  Location
+    { address = Address (Just "Simon Green") "simon@withflint.com"
+    , mailingList = Address Nothing "join+ws@withflint.com"
+    }
 
-healthCareHtmlBody :: Candidate -> Html ()
-healthCareHtmlBody (Candidate { .. }) = do
+healthcareHtmlBody :: Candidate -> Html ()
+healthcareHtmlBody (Candidate {..}) = do
   toHtml [st|Hello #{firstName},|]
 
   br_ []
@@ -136,10 +141,10 @@ healthCareHtmlBody (Candidate { .. }) = do
   br_ []
 
   "Nurse Success at "
-  a_ [ href_ "https://withflint.com/" ] "Flint"
+  a_ [href_ "https://withflint.com/"] "Flint"
 
-healthCareTextBody :: Candidate -> Text.Lazy.Text
-healthCareTextBody (Candidate { .. }) =
+healthcareTextBody :: Candidate -> Text.Lazy.Text
+healthcareTextBody (Candidate {..}) =
   [lbt|Hello #{firstName},
       |
       |Thank you for your interest in the #{applicationTitle} position at Flint.
@@ -151,21 +156,22 @@ healthCareTextBody (Candidate { .. }) =
       |https://withflint.com
       |]
 
-healthCareRenderer :: MailRenderer
-healthCareRenderer = MailRenderer
-  { htmlRenderer = healthCareHtmlBody
-  , textRenderer = healthCareTextBody
-  }
+healthcareRenderer :: MailRenderer
+healthcareRenderer =
+  MailRenderer
+    { htmlRenderer = healthcareHtmlBody
+    , textRenderer = healthcareTextBody
+    }
 
-healthCareEmail :: Location
-healthCareEmail = Location
-  { address = Address (Just "Flint Nurse Success") "success@withflint.com"
-  , mailingList = Address Nothing "apply@withflint.com"
-  }
+healthcareEmail :: Location
+healthcareEmail =
+  Location
+    { address = Address (Just "Flint Nurse Success") "success@withflint.com"
+    , mailingList = Address Nothing "apply@withflint.com"
+    }
 
-
-apply :: Location -> Candidate -> MailRenderer -> Action
-apply location candidate@(Candidate { .. }) renderer = do
+apply :: Location -> Candidate -> MailRenderer -> ActionM ()
+apply location candidate@(Candidate {..}) renderer = do
   attachments <- map fileToAttachment <$> files
 
   let candidateAddress = Address (Just [st|#{firstName} #{lastName}|]) email
@@ -199,8 +205,19 @@ apply location candidate@(Candidate { .. }) renderer = do
           []
 
   liftIO do
-    sendMailSTARTTLS "smtp-relay.gmail.com" notification {
-      mailHeaders = replyTo : notification.mailHeaders
-    }
+    sendMailSTARTTLS
+      "smtp-relay.gmail.com"
+      notification
+        { mailHeaders = replyTo : notification.mailHeaders
+        }
 
     sendMailSTARTTLS "smtp-relay.gmail.com" emailToCandidate
+
+type Attachment = (Text, Text, ByteString)
+
+fileToAttachment :: Web.Scotty.File -> Attachment
+fileToAttachment (fieldName, info) =
+  ( Data.Text.Encoding.decodeUtf8 $ fileContentType info
+  , Data.Text.Encoding.decodeUtf8 $ fileName info
+  , fileContent info
+  )

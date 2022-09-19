@@ -20,7 +20,7 @@ type alias Model =
     , aboutUs : AboutUs.Types.Model
     , home : Home.Types.Model
     , jobs : Jobs.Types.Model
-    , healthCare : Jobs.Types.Model
+    , healthcare : Jobs.Types.Model
     , blog : Blog.Types.Model
     , faqNurses : FaqNurses.Types.Model
     , partnerships : Partnerships.Types.Model

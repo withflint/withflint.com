@@ -349,16 +349,12 @@ nurseCareerBody device =
                 , rsJustify
                 , lineHeight 1.6
                 ]
-                [ text "We partner with respected American hospitals.  We offer an all-inclusive solution for nurses to seamlessly transition into their new life in America. Flint provides fully sponsored licensing, immigration, and relocation programs. We pay for legal and processing fees, licensing, and offer premium placement. " ]
-            , Element.link
-                [ wf ]
-                { url = "/blog/we-stand-with-our-nurses"
-                , label = paragraph [ rsJustify, Font.underline, Font.color colors.primary ] [ text "We support our Nurses at every step!" ]
-                }
+                [ text "We partner with respected American hospitals.  We offer an all-inclusive solution for nurses to seamlessly transition into their new life in America. Flint provides fully sponsored licensing, immigration, and relocation programs. We pay for legal and processing fees, licensing, and offer premium placement. "
+                ]
             , Element.link
                 [ wf ]
                 { url = "/internationally-educated-nurses-faq/"
-                , label = paragraph [ rsJustify, Font.underline, Font.color colors.primary ] [ text "Learn how you can become a nurse in America" ]
+                , label = paragraph [ rsJustify, Font.underline, Font.color colors.primary ] [ text "Learn more." ]
                 }
             ]
         , column [ wf, spacingXY 0 44, pt 24 ]
