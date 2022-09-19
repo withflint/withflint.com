@@ -963,7 +963,7 @@ desktopJobView ( page, id, job ) =
 
 phoneJobView : ( String, String, Job ) -> Element Msg
 phoneJobView ( page, id, job ) =
-    row [ wf ]
+    row [ wf, spacing 5 ]
         [ column [ alignLeft, spacingXY 0 10, wf ]
             [ paragraph [ wf ]
                 [ link

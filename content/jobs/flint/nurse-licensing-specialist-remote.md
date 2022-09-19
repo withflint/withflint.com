@@ -1,23 +1,24 @@
 nurse-licensing-specialist-remote
-Nurse Licensing Specialist - Remote
+Nurse Licensing Specialist - Worldwide
+Remote
 5+ years
 
 
+Remote, 5+ years
 
+## Remote
+This is a remote position open to candidates living anywhere in the world.
 
-
-
-##
+## About the position
 
 Forward thinking problem solver, great at customer service, time management and multi-tasking. In this role, you will be responsible for managing the licensing process for our nurses and providing excellent customer support. You will anticipate required information needed from our nurses and supply solutions and recommendations for licensing obstacles.
-
 
 ## Position Highlights
 
 - Full time and Remote
 - Bonus on performance
 
-## Job Responsibilities 
+## Job Responsibilities
 
 - Reviewing applications for new licenses and monitoring existing licenses to ensure that requirements are being met and being processed in an efficient manner.
 - Desire to improve the licensing process and streamline the flow of information. Contribute to building the licensing department, including creating playbooks, policies and procedures.

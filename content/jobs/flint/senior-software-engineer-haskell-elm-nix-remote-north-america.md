@@ -1,9 +1,13 @@
-senior-software-engineer-haskell-elm-nix-remote
-Senior Software Engineer (Haskell/Elm/Nix) - Remote
+senior-software-engineer-haskell-elm-nix-remote-north-america
+Senior Software Engineer (Haskell/Elm/Nix) - North America
+Remote
 11+ years
 
 
 Remote, 11+ years
+
+## Remote
+This is a remote position open to candidates living in North America.
 
 ## About the position
 You will be working closely with our Head of Product and a team of talented software and product people to take Flint to the next level. We already have a strong mission and product with traction led by our product-led growth strategy.
@@ -36,7 +40,7 @@ Perks are nice, but we believe the most important thing is getting to work with 
 - Flexible working hours ⏰
 - Expense Account (no red tape) 💳
 - Audible subscription 🎧
-- Health Benefits in most countries 🏥
+- Health Benefits 🏥
 
 
 ## Why you should join Flint
