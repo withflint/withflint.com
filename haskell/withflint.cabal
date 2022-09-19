@@ -4,8 +4,8 @@ version:            0.1.0.0
 
 common settings
     ghc-options: -O1
-    
-    default-language: GHC2021 
+
+    default-language: GHC2021
 
     default-extensions:
         BlockArguments
@@ -32,7 +32,6 @@ library
                       Flint.Sitemap
                       Flint.Index
                       Flint.Types
-                      Flint.Utils
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -58,6 +57,7 @@ library
                     , mime-mail
                     , network
                     , blaze-builder
+                    , http-types
 
     hs-source-dirs:   src
 

@@ -33,8 +33,8 @@ flintConfig =
     }
 
 
-healthCareConfig : Config
-healthCareConfig =
+healthcareConfig : Config
+healthcareConfig =
     { endpoint = "/hc"
     , page = "nurse-careers"
     , copy = nurseCareersCopy
@@ -59,8 +59,8 @@ init { article, gitVersion } url key =
                     { toMsg = MsgForJobs
                     }
 
-        ( healthCare, initHealthCare ) =
-            Jobs.Update.init gitVersion url key healthCareConfig
+        ( healthcare, initHealthCare ) =
+            Jobs.Update.init gitVersion url key healthcareConfig
                 |> SubModule.init
                     { toMsg = MsgForHealthCare
                     }
@@ -82,7 +82,7 @@ init { article, gitVersion } url key =
         , home = Home.Update.init
         , aboutUs = AboutUs.Update.init
         , jobs = jobs
-        , healthCare = healthCare
+        , healthcare = healthcare
         , blog = blog
         , faqNurses = faqNurses
         , partnerships = Partnerships.Update.init
@@ -134,12 +134,12 @@ update msg model =
                             \jobs -> { model | jobs = jobs }
                         }
 
-            MsgForHealthCare healthCareMsg ->
-                Jobs.Update.update healthCareMsg model.healthCare
+            MsgForHealthCare healthcareMsg ->
+                Jobs.Update.update healthcareMsg model.healthcare
                     |> SubModule.update
                         { toMsg = MsgForHealthCare
                         , toModel =
-                            \healthCare -> { model | healthCare = healthCare }
+                            \healthcare -> { model | healthcare = healthcare }
                         }
 
             MsgForPartnerships partnershipsMsg ->
@@ -203,19 +203,19 @@ update msg model =
                                         }
 
                             Just (Router.Routes.NurseCareers "") ->
-                                Jobs.Update.update (Jobs.Types.SwitchView Jobs.Types.JobsView) model.healthCare
+                                Jobs.Update.update (Jobs.Types.SwitchView Jobs.Types.JobsView) model.healthcare
                                     |> SubModule.update
                                         { toMsg = MsgForHealthCare
                                         , toModel =
-                                            \healthCare -> { model | healthCare = resetPhoneMenuState healthCare }
+                                            \healthcare -> { model | healthcare = resetPhoneMenuState healthcare }
                                         }
 
                             Just (Router.Routes.NurseCareers jobId) ->
-                                Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.healthCare
+                                Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.healthcare
                                     |> SubModule.update
                                         { toMsg = MsgForHealthCare
                                         , toModel =
-                                            \healthCare -> { model | healthCare = resetPhoneMenuState healthCare }
+                                            \healthcare -> { model | healthcare = resetPhoneMenuState healthcare }
                                         }
 
                             Just Router.Routes.Partnerships ->
@@ -275,7 +275,7 @@ pageTitle model =
             model.jobs.title
 
         NurseCareers _ ->
-            model.healthCare.title
+            model.healthcare.title
 
         Blog _ ->
             model.blog.title

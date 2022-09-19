@@ -23,6 +23,7 @@ import Element
         , px
         , row
         , spaceEvenly
+        , spacing
         , spacingXY
         , text
         , width
@@ -46,7 +47,6 @@ type alias Layout msg =
 layout : Device -> Layout msg -> Element msg
 layout device views =
     case device of
-        -- vp == viewport
         Phone _ ->
             column
                 [ wf
@@ -138,7 +138,7 @@ footer =
     let
         link label page =
             Element.link
-                []
+                [ Font.center, wf ]
                 { url = toPath page
                 , label =
                     Element.paragraph [ Font.center ] [ text label ]
@@ -166,15 +166,14 @@ footer =
                 , wrappedRow [ wf, hf, paddingXY 0 48 ]
                     [ row [ width (px 200) ] []
                     , row [ wf, spaceEvenly ]
-                        [ -- FLINT LOGO
-                          column [ hf, centerY, width <| fillPortion 3 ]
+                        [ column [ hf, centerY, width <| fillPortion 3 ]
                             [ Element.link
                                 []
                                 { url = toPath Home
                                 , label =
                                     image [ width (px 80), height (px 50) ]
                                         { src = "/static/images/logo.svg?new"
-                                        , description = "Flint"
+                                        , description = "Flint Logo"
                                         }
                                 }
                             , column [ pt 20 ] [ showAddress ]
@@ -182,14 +181,16 @@ footer =
 
                         -- MENU
                         , column [ hf, width <| fillPortion 3, spacingXY 0 12 ]
-                            [ link "Nurse Careers FAQ" FaqNurses
+                            [ link "Partnerships" Partnerships
                             , link "Blog" (Blog "")
-
-                            -- , link "About Us" AboutUs
                             , link "Join the Team" (JoinTheTeam "")
                             ]
+                        , column [ hf, width <| fillPortion 3, spacingXY 0 12 ]
+                            [ link "Nurse Careers" (NurseCareers "")
+                            , link "FAQ" FaqNurses
+                            ]
                         , column [ hf, width <| fillPortion 3, Font.color colors.primary, spacingXY 0 12 ]
-                            [ Element.paragraph [] [ text "Healthcare Partnerships" ]
+                            [ Element.paragraph [] [ text "Partnerships" ]
                             , column [ spacingXY 0 6 ]
                                 [ Element.paragraph [] [ text "healthcare@withflint.com" ]
                                 , Element.paragraph [] [ text "+1 (844) 677-1180" ]
@@ -227,21 +228,35 @@ footer =
                             [ newTabLink
                                 []
                                 { url = "https://www.ycombinator.com/companies/flint"
-                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg?new", description = "Flint" }
+                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg?new", description = "Flint Y Combinator" }
                                 }
                             ]
                         , row []
                             [ newTabLink
                                 []
                                 { url = "https://github.com/withflint"
-                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg?new", description = "Flint" }
+                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg?new", description = "Flint GitHub" }
                                 }
                             ]
                         , row []
                             [ newTabLink
                                 []
                                 { url = "https://www.linkedin.com/company/withflint/"
-                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg?new", description = "Flint" }
+                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg?new", description = "Flint Linkedin" }
+                                }
+                            ]
+                        , row []
+                            [ newTabLink
+                                []
+                                { url = "https://instagram.com/withflint"
+                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/instagram.svg?new", description = "Flint Instagram" }
+                                }
+                            ]
+                        , row []
+                            [ newTabLink
+                                []
+                                { url = "https://facebook.com/withflint"
+                                , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/facebook.svg?new", description = "Flint Facebook" }
                                 }
                             ]
                         ]
@@ -255,29 +270,19 @@ footer =
             [ column [ centerX ]
                 [ Element.image [ width (px 90), height (px 34) ] { src = "/static/images/logo.svg?new", description = "Flint" }
                 ]
+            , column [ centerX, pt 12, Font.color colors.primary, spacing 10, Font.center ]
+                [ link "Partnerships" Partnerships
+                , link "Nurse Careers" (NurseCareers "")
+                , link "FAQ" FaqNurses
+                , link "Blog" (Blog "")
+                , link "Join the Team" (JoinTheTeam "")
+                ]
             , column [ Font.center, centerX, spacingXY 0 16 ]
                 [ column [ hf, spacingXY 0 12 ]
-                    [ Element.paragraph [] [ text "Healthcare Partnerships" ]
+                    [ Element.paragraph [] [ text "Partnerships" ]
                     , column [ spacingXY 0 6 ]
                         [ Element.paragraph [] [ text "healthcare@withflint.com" ]
                         , Element.paragraph [] [ text "+1 (844) 677-1180" ]
-                        , Element.link
-                            [ centerX
-                            , paddingXY 0 12
-                            ]
-                            { url =
-                                "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
-                            , label =
-                                row
-                                    [ Background.color colors.primary
-                                    , Font.color colors.white
-                                    , paddingXY 12 8
-                                    , Border.rounded 6
-                                    , Font.size 12
-                                    ]
-                                    [ paragraph [] [ text "Partner with Flint" ]
-                                    ]
-                            }
                         ]
                     ]
                 , column [ hf, spacingXY 0 12, centerX ]
@@ -286,7 +291,6 @@ footer =
                         [ Element.paragraph [] [ text "success@withflint.com" ]
                         , Element.paragraph [] [ text "+1 (844) 677-1180" ]
                         ]
-                    , row [ centerX, pt 12, Font.color colors.primary ] [ link "Nurse Careers FAQ" FaqNurses ]
                     ]
                 , column [ pt 12, Font.size 12, centerX ]
                     [ showAddress ]
@@ -300,21 +304,35 @@ footer =
                     [ newTabLink
                         []
                         { url = "https://www.ycombinator.com/companies/flint"
-                        , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg?new", description = "Flint" }
+                        , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/YC_logo.svg?new", description = "Flint Y Combinator" }
                         }
                     ]
                 , row []
                     [ newTabLink
                         []
                         { url = "https://github.com/withflint"
-                        , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg?new", description = "Flint" }
+                        , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/github_logo.svg?new", description = "Flint GitHub" }
                         }
                     ]
                 , row []
                     [ newTabLink
                         []
                         { url = "https://www.linkedin.com/company/withflint/"
-                        , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg?new", description = "Flint" }
+                        , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/linkedin-icon-2.svg?new", description = "Flint Linkedin" }
+                        }
+                    ]
+                , row []
+                    [ newTabLink
+                        []
+                        { url = "https://instagram.com/withflint"
+                        , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/instagram.svg?new", description = "Flint Instagram" }
+                        }
+                    ]
+                , row []
+                    [ newTabLink
+                        []
+                        { url = "https://facebook.com/withflint"
+                        , label = Element.image [ centerY, alignLeft, width (px 25), height (px 25) ] { src = "/static/images/facebook.svg?new", description = "Flint Facebook" }
                         }
                     ]
                 ]
@@ -391,33 +409,12 @@ phoneMenu msg isMenuVisible =
                 , column [ wf, height <| fillPortion 1 ] []
                 , column [ wf, height <| fillPortion 9 ]
                     [ column [ spacingXY 0 42, alignTop, centerX, Font.size 28 ]
-                        (column [ centerX, centerY ]
-                            [ link ( Partnerships, "Partnerships" )
-                            , Element.link
-                                [ centerX
-                                , pt 24
-                                ]
-                                { url =
-                                    "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
-                                , label =
-                                    row
-                                        [ Background.color colors.primary
-                                        , Font.color colors.white
-                                        , paddingXY 12 8
-                                        , Border.rounded 6
-                                        , Font.size 12
-                                        ]
-                                        [ paragraph [] [ text "Partner with Flint" ]
-                                        ]
-                                }
-                            ]
-                            :: List.map
-                                link
-                                [ ( NurseCareers "", "Nurse Careers" )
-                                , ( Blog "", "Blog" )
-                                , ( JoinTheTeam "", "Join the Team" )
-                                ]
-                        )
+                        [ link ( Partnerships, "Partnerships" )
+                        , link ( NurseCareers "", "Nurse Careers" )
+                        , link ( FaqNurses, "FAQ" )
+                        , link ( Blog "", "Blog" )
+                        , link ( JoinTheTeam "", "Join the Team" )
+                        ]
                     ]
                 ]
             ]

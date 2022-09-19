@@ -1,11 +1,11 @@
 module Flint.Sitemap where
 
-import Lucid.Base
-import Data.Text (Text)
-import Control.Monad (forM_)
-import Flint.Types (Article (..))
 import Blaze.ByteString.Builder
 import Blaze.ByteString.Builder.Html.Utf8 qualified
+import Control.Monad (forM_)
+import Data.Text (Text)
+import Flint.Types (Article (..), Job (..))
+import Lucid.Base
 import Text.Shakespeare.Text
 
 urlset_ :: Term arg result => arg -> result
@@ -25,18 +25,26 @@ withXml body = do
   toHtmlRaw "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
   body
 
-genArticles :: [Article] -> Html ()
-genArticles articles = do
-  forM_ articles \(Article { .. }) -> do
-    url_ $ loc_ $ toHtml [st|https://withflint.com/blog/#{slug}|]
-
-sitemap :: [Article] -> Html ()
-sitemap articles = withXml do
-  urlset_ [ xmlns_ "http://www.sitemaps.org/schemas/sitemap/0.9" ] do
+sitemap :: [Article] -> [(Text, Job)] -> [(Text, Job)] -> Html ()
+sitemap articles jobs partnerJobs = withXml do
+  urlset_ [xmlns_ "http://www.sitemaps.org/schemas/sitemap/0.9"] do
     url_ $ loc_ "https://withflint.com/"
+    url_ $ loc_ "https://withflint.com/partnerships"
     url_ $ loc_ "https://withflint.com/nurse-careers"
+    genJobs "nurse-careers" partnerJobs
     url_ $ loc_ "https://withflint.com/contact"
     url_ $ loc_ "https://withflint.com/blog"
     genArticles articles
     url_ $ loc_ "https://withflint.com/join"
+    genJobs "join" jobs
     url_ $ loc_ "https://withflint.com/internationally-educated-nurses-faq"
+
+genArticles :: [Article] -> Html ()
+genArticles articles = do
+  forM_ articles \(Article {..}) -> do
+    url_ $ loc_ $ toHtml [st|https://withflint.com/blog/#{slug}|]
+
+genJobs :: Text -> [(Text, Job)] -> Html ()
+genJobs path jobs = do
+  forM_ jobs \((url, _)) -> do
+    url_ $ loc_ $ toHtml [st|https://withflint.com/#{path}/#{url}|]

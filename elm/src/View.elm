@@ -59,7 +59,7 @@ renderRoute model =
             Element.map MsgForJobs <| layout model.device <| Jobs.View.view model.device model.jobs
 
         NurseCareers _ ->
-            Element.map MsgForHealthCare <| layout model.device <| Jobs.View.view model.device model.healthCare
+            Element.map MsgForHealthCare <| layout model.device <| Jobs.View.view model.device model.healthcare
 
         Blog _ ->
             Element.map MsgForBlog <| layout model.device <| Blog.View.view model.device model.blog

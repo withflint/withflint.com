@@ -7,7 +7,7 @@
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system; };
-          
+
           ghcVersion = "ghc922";
 
           haskellPackages = pkgs.haskell.packages.${ghcVersion}.override {
@@ -28,7 +28,7 @@
           packages = pkgs: [
             self.packages.${system}.backend
           ];
-          
+
           buildInputs = with pkgs; [
             elmPackages.elm-review
             elmPackages.elm-format
@@ -46,7 +46,7 @@
             self.packages.${system}.format-script
           ];
         };
-        
+
         apps = rec {
           default = withflint;
 
@@ -69,7 +69,7 @@
             ];
 
             created = "now";
-            
+
             tag = "latest";
 
             config = {
@@ -80,9 +80,9 @@
               ];
             };
           };
-          
+
           default = withflint;
-          
+
           backend = haskellPackages.callPackage ./haskell/default.nix {
             name = "withflint-backend";
           };
@@ -101,12 +101,15 @@
             if test -f ".env"; then
               source .env
             fi
-            
+
             ${withflint}/bin/withflint
           '';
 
           dev-script = pkgs.writeShellScriptBin "dev" ''
             if [ -f "flake.nix" ]; then
+              ${pkgs.elmPackages.elm-format}/bin/elm-format elm/src --yes
+              ${haskellPackages.fourmolu}/bin/fourmolu -e --mode inplace $(git ls-files '*.hs')
+
               mkdir static/dirty
               cp elm/src/app.js static/dirty/app.js
               ${pkgs.concurrently}/bin/concurrently \
@@ -135,6 +138,7 @@
           format-script = pkgs.writeShellScriptBin "format" ''
             if [ -f "flake.nix" ]; then
               ${pkgs.elmPackages.elm-format}/bin/elm-format elm/src --yes
+              ${haskellPackages.fourmolu}/bin/fourmolu -e --mode inplace $(git ls-files '*.hs')
             else
               echo "Please run this script from the root directory! (the one with flake.nix)"
             fi
