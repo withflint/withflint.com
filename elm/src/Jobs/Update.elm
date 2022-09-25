@@ -164,7 +164,7 @@ update msg model =
                     singleton { model | success = Just "Thank you for your application." }
 
                 Err _ ->
-                    singleton { model | error = Just "An error occurred. Please try applying again. If the problem persists, please email us your application at careers@withflint.com" }
+                    singleton { model | error = Just "An error occurred. Please try applying again. If the problem persists, please email us your application at join@withflint.com" }
 
 
 jobsDecoder : Decoder (Dict String Job)

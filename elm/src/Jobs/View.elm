@@ -340,22 +340,23 @@ nurseCareerBody device =
             [ paragraph titleStyle
                 [ text "We are committed to your nursing future in the USA" ]
             ]
-        , column [ spacingXY 0 12 ]
-            [ paragraph [ Font.center, pt 12, rsJustify, lineHeight 1.6 ]
+        , row [ spacingXY 34 0, alignTop ]
+            [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6 ]
                 [ text "Flint is an international search firm seeking experienced and qualified nurses from around the world. Our program is specifically designed to help internationally educated nurses succeed permanently in the United States." ]
             , paragraph
                 [ Font.center
+                , alignTop
                 , pt 12
                 , rsJustify
                 , lineHeight 1.6
                 ]
                 [ text "We partner with respected American hospitals.  We offer an all-inclusive solution for nurses to seamlessly transition into their new life in America. Flint provides fully sponsored licensing, immigration, and relocation programs. We pay for legal and processing fees, licensing, and offer premium placement. "
+                , Element.link
+                    [ wf ]
+                    { url = "/internationally-educated-nurses-faq/"
+                    , label = paragraph [ rsJustify, Font.underline, Font.color colors.primary ] [ text "Learn more." ]
+                    }
                 ]
-            , Element.link
-                [ wf ]
-                { url = "/internationally-educated-nurses-faq/"
-                , label = paragraph [ rsJustify, Font.underline, Font.color colors.primary ] [ text "Learn more." ]
-                }
             ]
         , column [ wf, spacingXY 0 44, pt 24 ]
             [ advantages device

@@ -1,4 +1,4 @@
-const nullable = (val, defaultVal) => (val === undefined || val === null) ? defaultVal : val
+const nullable = (val, defaultVal) => (val === undefined || val === null ? defaultVal : val)
 
 const cookie = {
   set: (name, value) => {
@@ -20,26 +20,23 @@ const cookie = {
   }
 }
 
-const url = new URL(window.location.href);
-const path = (url.pathname + url.search)
-const params = new URLSearchParams(url.search);
+const url = new URL(window.location.href)
+const path = url.pathname + url.search
+const params = new URLSearchParams(url.search)
 const umamiId = '61e2287e-b2c6-44e9-8446-48339059a08c'
 const umamiScript = document.querySelector(`script[data-website-id="${umamiId}"]`)
 
 if (cookie.get('utm')) {
-  umamiScript.addEventListener('load', () => 
-    umami.trackView(path, 'https://withflint.com', umamiId)
-  )
+  umamiScript.addEventListener('load', () =>
+    umami.trackView(path, 'https://withflint.com', umamiId))
 }
 
 // does not assume utm_content is the first param
 if (params.has('utm')) {
   const utmVal = params.get('utm')
-  
-  cookie.set('utm', utmVal)
-  window.history.pushState({}, "", window.location.href.split('?')[0])
-  umamiScript.addEventListener('load', () => 
-    umami.trackView(path, 'https://withflint.com', umamiId)
-  )
-}
 
+  cookie.set('utm', utmVal)
+  window.history.pushState({}, '', window.location.href.split('?')[0])
+  umamiScript.addEventListener('load', () =>
+    umami.trackView(path, 'https://withflint.com', umamiId))
+}
