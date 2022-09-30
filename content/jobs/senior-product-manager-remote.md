@@ -32,6 +32,7 @@ Have you read Paul Graham's _[Beating the Averages](http://www.paulgraham.com/av
 
 Perks are nice, but we believe the most important thing is getting to work with incredible people 🤗 These are just the little things to help you be more powerful.
 
+- Health Benefits in most countries 🏥
 - Unrestricted vacation 🌴
 - Real equity (own a part of Flint) 💰
 - Regular off-sites ✈️
@@ -39,12 +40,11 @@ Perks are nice, but we believe the most important thing is getting to work with 
 - Flexible working hours ⏰
 - Expense Account (no red tape) 💳
 - Audible subscription 🎧
-- Health Benefits in most countries 🏥
 
 ## Why you should join Flint
 - We're growing faster than weeds on a lawn 🌱
-- YC Funded and backed by investors such as the co-founder of Twitch 💸
-- Equity options in what could be the next Amazon/Google 📈
+- YC Funded and backed by Tier 1 investors such Haystack, Audacious and powerful angels from the likes of Twitch, Flexport, and Airbnb 💸
+- Equity options in what’s on track to becoming a unicorn 🦄
 - Awesome Culture focused on freedom and responsibility 👨‍👩‍👧‍👦
 - Opportunity to shape a $8T industry and maybe have a wiki page about you one day 📜
 - DevOps: Empowered, focus on good customer outcomes and high performance teams
