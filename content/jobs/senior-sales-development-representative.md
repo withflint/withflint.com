@@ -1,13 +1,17 @@
 senior-sales-development-representative
 Senior Sales Development Representative
-$60K-$90K, 0.0-0.05%
+Remote
+5+ years
+
+
+Remote, $60K-$90K, 0.0-0.05%
 
 
 ## About Flint
 
-Flint is on a mission to fix American Healthcare by solving their biggest problem: not enough nurses. We do this by removing barriers for international nurses to immigrate and build a career in the United States, and we are on track to help a 1,000+ nurses immigrate by the end of next year (2023). 
+Flint is on a mission to fix American Healthcare by solving their biggest problem: not enough nurses. We do this by removing barriers for international nurses to immigrate and build a career in the United States, and we are on track to help a 1,000+ nurses immigrate by the end of next year (2023).
 
-We’re a Y Combinator tech startup, with over $10M raised, and backed by Tier 1 investors such as Haystack, Audacious, and a list of powerful angels from company greats like Airbnb, Twitch and Flexport. Our team is fully remote across multiple countries, and comprised of industry veterans from technology, healthcare, and immigration. 
+We’re a Y Combinator tech startup, with over $10M raised, and backed by Tier 1 investors such as Haystack, Audacious, and a list of powerful angels from company greats like Airbnb, Twitch and Flexport. Our team is fully remote across multiple countries, and comprised of industry veterans from technology, healthcare, and immigration.
 
 We’re on track to raise our series A in the next 3-6 months. If you want an early equity stake in a 🚀 rocketship company, now is the time to join.
 
@@ -15,7 +19,7 @@ Learn more about our velocity, team, and culture [here](https://www.notion.so/I
 
 
 ## About the position
-We’re looking for a self-driven BDR who can help us 10X our revenue in 6 months by packing our sales pipeline with quality meetings. This is not an entry level position. As Flint’s first BDR, you are expected to have the experience, self-confidence, and entrepreneurial drive to hit the ground running and begin delivering results. 
+We’re looking for a self-driven BDR who can help us 10X our revenue in 6 months by packing our sales pipeline with quality meetings. This is not an entry level position. As Flint’s first BDR, you are expected to have the experience, self-confidence, and entrepreneurial drive to hit the ground running and begin delivering results.
 
 If you are expecting to be handed a playbook to follow, this is not the job for you. But if you want the opportunity to influence Flint’s GTM strategy, to develop and perfect our sales pitch, and to leave a legacy that future BDRs will follow, then you will love this job. In this role, you will prospect for new leads that fit our ICP. You will develop strategies on how to reach out and connect with the right people, and you will experiment and get creative with different channels.
 
@@ -30,7 +34,6 @@ You’ll be part of the tight-knit Partnerships Team, working closely with our A
 - You’re tenacious -  You have grit, stamina, and persistence despite facing rejection.
 
 ## Benefits
-
 - Only A Players Allowed. Work with the best, learn from the best 🥇
 - Health Benefits in most countries 🏥
 - Unrestricted vacation 🌴
