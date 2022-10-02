@@ -15,8 +15,6 @@ We’re a Y Combinator tech startup, with over $10M raised, and backed by Tier 1
 
 We’re on track to raise our series A in the next 3-6 months. If you want an early equity stake in a 🚀 rocketship company, now is the time to join.
 
-Learn more about our velocity, team, and culture [here](https://www.notion.so/Intro-to-Flint-a95275943bd94f7c83d7ae570201ded1)
-
 
 ## About the position
 We’re looking for a self-driven BDR who can help us 10X our revenue in 6 months by packing our sales pipeline with quality meetings. This is not an entry level position. As Flint’s first BDR, you are expected to have the experience, self-confidence, and entrepreneurial drive to hit the ground running and begin delivering results.
