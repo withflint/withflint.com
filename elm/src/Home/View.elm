@@ -13,9 +13,6 @@ import Element
         , height
         , html
         , maximum
-        , mouseOver
-        , padding
-        , paddingEach
         , paddingXY
         , paragraph
         , px
@@ -25,7 +22,6 @@ import Element
         , width
         )
 import Element.Background as Background
-import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
 import Home.Types exposing (Model, Msg(..))
@@ -33,7 +29,7 @@ import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, phoneMenu)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, palette, pl, pt)
+import Styles exposing (colors, css, hf, pl, pt)
 
 
 view : Model -> Device -> Layout Msg

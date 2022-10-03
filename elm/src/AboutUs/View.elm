@@ -5,7 +5,6 @@ import Device
 import Element
     exposing
         ( Element
-        , alignLeft
         , alignRight
         , alignTop
         , centerX
@@ -36,7 +35,7 @@ import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, phoneMenu)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, lineHeight, maxW, minW, palette, pb, pt, wf)
+import Styles exposing (colors, css, hf, lineHeight, maxW, minW, pb, pt, wf)
 
 
 view : Device.Device -> Model -> Layout Msg

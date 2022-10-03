@@ -1,4 +1,4 @@
-module Layout exposing (Layout, footer, header, layout, menu, phoneMenu)
+module Layout exposing (Layout, footer, layout, menu, phoneMenu)
 
 import Device exposing (Device(..))
 import Element
@@ -14,9 +14,7 @@ import Element
         , fillPortion
         , height
         , image
-        , link
         , newTabLink
-        , padding
         , paddingEach
         , paddingXY
         , paragraph
@@ -75,45 +73,6 @@ layout device views =
                     ]
                     views.desktop
                 ]
-
-
-header : Layout msg
-header =
-    let
-        default : List (Element msg)
-        default =
-            [ row [ width fill ]
-                [ column [ width fill ]
-                    [ Element.link
-                        []
-                        { url = toPath Home
-                        , label = Element.image [ centerY, alignLeft, width (px 100), height (px 50) ] { src = "/static/images/logo.svg?new", description = "Flint" }
-                        }
-                    ]
-                , column [ width fill, alignRight ]
-                    [ column (width fill :: Styles.paragraph)
-                        [ row
-                            [ spacingXY 30 0
-                            , alignRight
-                            ]
-                            (menu |> List.map (\( path, label ) -> row [] [ link [ padding 5 ] { url = toPath path, label = text label } ]))
-                        ]
-                    ]
-                ]
-            ]
-    in
-    { phone =
-        [ row []
-            [ Element.link
-                []
-                { url = toPath Home
-                , label = Element.image [ centerY, alignLeft, width (px 100), height (px 50) ] { src = "/static/images/logo.svg?new", description = "Flint" }
-                }
-            ]
-        ]
-    , tablet = default
-    , desktop = default
-    }
 
 
 address : { street : String, city : String, country : String }
