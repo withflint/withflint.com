@@ -334,18 +334,22 @@ nurseCareerBody device =
 
                 _ ->
                     Font.justify
+
         rsDiv =
             case device of
-                Device.Phone _ -> column
-                _ -> row
+                Device.Phone _ ->
+                    column
+
+                _ ->
+                    row
     in
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
         [ column [ centerX ]
             [ paragraph titleStyle
                 [ text "We are committed to your nursing future in the USA" ]
             ]
-        , rsDiv [ spacingXY 34 0, alignTop, spacingXY 40 48]
-            [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6]
+        , rsDiv [ spacingXY 34 0, alignTop, spacingXY 40 48 ]
+            [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6 ]
                 [ text "Flint is an international search firm seeking experienced and qualified nurses from around the world. Our program is specifically designed to help internationally educated nurses succeed permanently in the United States." ]
             , paragraph
                 [ Font.center
@@ -402,13 +406,16 @@ nurseSuccessInfo : Element msg
 nurseSuccessInfo =
     let
         video =
-            row [wf, hf, minW 340]
-            [ html <|
-                Html.video [ HtmlAttr.style "width" "100%", HtmlAttr.style "height" "100%", HtmlAttr.controls True 
-                    ]
-                    [ Html.source [ HtmlAttr.src "/static/videos/nurse-success.mp4" ] []
-                    ]
-            ]
+            row [ wf, hf, minW 340 ]
+                [ html <|
+                    Html.video
+                        [ HtmlAttr.style "width" "100%"
+                        , HtmlAttr.style "height" "100%"
+                        , HtmlAttr.controls True
+                        ]
+                        [ Html.source [ HtmlAttr.src "/static/videos/nurse-success.mp4" ] []
+                        ]
+                ]
 
         subHeading =
             [ Font.size 26
@@ -417,8 +424,8 @@ nurseSuccessInfo =
             ]
     in
     wrappedRow [ wf, paddingEach { top = 64, bottom = 48, right = 0, left = 0 }, spacingXY 96 40 ]
-        [ row [ width <| fillPortion 6, Border.color colors.primary ] [ 
-            video 
+        [ row [ width <| fillPortion 6, Border.color colors.primary ]
+            [ video
             ]
         , column [ width <| (fillPortion 6 |> Element.minimum 300), spacingXY 0 24 ]
             [ paragraph (Font.alignLeft :: subHeading) [ text "From start to finish" ]
@@ -874,7 +881,7 @@ jobsView device viewer model =
                         [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "Loading jobs" ] ]
                         ]
 
-                Failure err ->
+                Failure _ ->
                     column [ wf, minH 120 ]
                         [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "An error occured trying to load jobs" ] ]
                         ]
@@ -910,7 +917,7 @@ jobsView device viewer model =
                         Loading ->
                             Dict.empty
 
-                        Failure err ->
+                        Failure _ ->
                             Dict.empty
 
                         Success jobs ->

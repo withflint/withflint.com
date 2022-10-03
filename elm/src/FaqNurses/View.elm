@@ -39,7 +39,7 @@ import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, phoneMenu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, palette, pt, wf)
+import Styles exposing (colors, css, hf, pt, wf)
 
 
 view : Device.Device -> Model -> Layout Msg
