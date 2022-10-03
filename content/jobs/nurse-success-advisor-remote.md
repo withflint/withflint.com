@@ -1,6 +1,13 @@
 nurse-success-advisor-remote
-Nurse Success Advisor
+Nurse Success Advisor - Worldwide
 Remote
+5+ years
+
+
+Remote, 5+ years
+
+## Remote
+This is a remote position open to candidates living anywhere in the world.
 
 
 ## About Flint
