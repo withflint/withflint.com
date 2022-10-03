@@ -334,14 +334,18 @@ nurseCareerBody device =
 
                 _ ->
                     Font.justify
+        rsDiv =
+            case device of
+                Device.Phone _ -> column
+                _ -> row
     in
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
         [ column [ centerX ]
             [ paragraph titleStyle
                 [ text "We are committed to your nursing future in the USA" ]
             ]
-        , row [ spacingXY 34 0, alignTop ]
-            [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6 ]
+        , rsDiv [ spacingXY 34 0, alignTop, spacingXY 40 48]
+            [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6]
                 [ text "Flint is an international search firm seeking experienced and qualified nurses from around the world. Our program is specifically designed to help internationally educated nurses succeed permanently in the United States." ]
             , paragraph
                 [ Font.center
@@ -398,10 +402,13 @@ nurseSuccessInfo : Element msg
 nurseSuccessInfo =
     let
         video =
-            html <|
-                Html.video [ HtmlAttr.width 328, HtmlAttr.height 527, HtmlAttr.controls True ]
-                    [ Html.source [ HtmlAttr.src "/static/videos/video-nurse-success.mp4" ] []
+            row [wf, hf, minW 340]
+            [ html <|
+                Html.video [ HtmlAttr.style "width" "100%", HtmlAttr.style "height" "100%", HtmlAttr.controls True 
                     ]
+                    [ Html.source [ HtmlAttr.src "/static/videos/nurse-success.mp4" ] []
+                    ]
+            ]
 
         subHeading =
             [ Font.size 26
@@ -409,8 +416,10 @@ nurseSuccessInfo =
             , Font.color colors.primary
             ]
     in
-    wrappedRow [ wf, paddingEach { top = 64, bottom = 48, right = 0, left = 0 }, spacingXY 24 40 ]
-        [ row [ width <| fillPortion 6 ] [ video ]
+    wrappedRow [ wf, paddingEach { top = 64, bottom = 48, right = 0, left = 0 }, spacingXY 96 40 ]
+        [ row [ width <| fillPortion 6, Border.color colors.primary ] [ 
+            video 
+            ]
         , column [ width <| (fillPortion 6 |> Element.minimum 300), spacingXY 0 24 ]
             [ paragraph (Font.alignLeft :: subHeading) [ text "From start to finish" ]
             , paragraph
