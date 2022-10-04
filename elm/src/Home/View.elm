@@ -10,9 +10,11 @@ import Element
         , column
         , el
         , fill
+        , fillPortion
         , height
         , html
         , maximum
+        , mouseOver
         , paddingXY
         , paragraph
         , px
@@ -27,9 +29,9 @@ import Element.Input as Input
 import Home.Types exposing (Model, Msg(..))
 import Html
 import Html.Attributes as HtmlAttr
-import Layout exposing (Layout, footer, phoneMenu)
+import Layout exposing (Layout, footer, phoneMenu, topMenu)
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, pl, pt)
+import Styles exposing (colors, css, hf, pl, pt, wf)
 
 
 view : Model -> Device -> Layout Msg
@@ -49,7 +51,8 @@ view model device =
             , height fill
             , wf
             ]
-            (desktopView device
+            (header device
+                ++ desktopView device
                 ++ footer.phone
             )
         ]
@@ -59,7 +62,8 @@ view model device =
             , wf
             , height fill
             ]
-            (desktopView device
+            (header device
+                ++ desktopView device
                 ++ footer.desktop
             )
         ]
@@ -166,6 +170,59 @@ phoneView device model =
             ]
             -- FOOTER
             :: footer.phone
+
+
+header : Device.Device -> List (Element msg)
+header device =
+    let
+        bg =
+            [ css "background" "#DAE9FF"
+            , css "background" "linear-gradient(275.4deg, #E54848 -14.67%, #7B3D61 14.83%, #51497F 55.96%, #616297 92.44%, #A7C8F9 127.36%)"
+            ]
+
+        logo =
+            Element.image [ centerX, width (px 100), height (px 50) ] { src = "/static/images/logo-white.svg?new", description = "Flint" }
+    in
+    [ row ([ wf, height (px 136) ] ++ bg)
+        [ -- GAP
+          row [ width <| fillPortion 2 ] []
+
+        -- LOGO
+        , row [ width <| fillPortion 1 ]
+            [ Element.link
+                []
+                { url = toPath Home
+                , label =
+                    el
+                        [ Font.center
+                        , Font.color colors.white
+                        , mouseOver [ Font.color colors.carminePink ]
+                        ]
+                        logo
+                }
+            ]
+
+        -- GAP
+        , row [ width <| fillPortion 8 ] []
+
+        -- MENU
+        , row [ width <| fillPortion 2, spacingXY 24 0 ]
+            (topMenu
+                |> List.map
+                    (\( label, page ) ->
+                        Element.link
+                            []
+                            { url = toPath page
+                            , label =
+                                el Styles.menu (text label)
+                            }
+                    )
+            )
+
+        -- GAP
+        , row [ width <| fillPortion 2 ] []
+        ]
+    ]
 
 
 card :
@@ -300,7 +357,7 @@ desktopView device =
             , Font.size 42
             ]
     in
-    [ column [ pt 48, wf, hf, Background.color colors.cremeDark ]
+    [ column [ pt 48, wf, Background.color colors.cremeDark ]
         [ row [ pt 72, wf ]
             [ heroImg
             ]
@@ -320,8 +377,3 @@ desktopView device =
             ]
         ]
     ]
-
-
-wf : Element.Attribute msg
-wf =
-    width fill

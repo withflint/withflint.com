@@ -46,7 +46,7 @@ import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
 import Jobs.Types exposing (Config, CurrentPage(..), Field(..), Job, Model, Msg(..), View(..))
-import Layout exposing (Layout, footer, menu, phoneMenu)
+import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
 import Mark
 import RemoteData exposing (RemoteData(..))
 import Router.Routes exposing (Page(..), toPath)
@@ -632,16 +632,13 @@ joinTeamHeader device model =
             , css "background" "linear-gradient(281.5deg, #FFDCC9 -0.43%, #C8BCC7 8.22%, #8284AF 27.81%, #6E74A9 52.4%, #6359A1 82.46%)"
             ]
 
-        menu =
-            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
-
         blobSrc =
             "/static/images/header-blob-blue.svg"
 
         title =
             "Join the Team"
     in
-    header device { title = title, menu = menu, bg = bg, blobSrc = blobSrc } model
+    header device { title = title, menu = topMenu, bg = bg, blobSrc = blobSrc } model
 
 
 nurseCareerHeader : Device.Device -> Model -> Element Msg
@@ -652,16 +649,13 @@ nurseCareerHeader device model =
             , css "background" "linear-gradient(282.96deg, #E54848 -0.52%, #BA4352 8.17%, #7E3D60 37.38%, #5D3968 66.24%)"
             ]
 
-        menu =
-            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
-
         blobSrc =
             "/static/images/header-blob-beige.svg"
 
         title =
             "Your success is Flint's success"
     in
-    header device { title = title, menu = menu, bg = bg, blobSrc = blobSrc } model
+    header device { title = title, menu = topMenu, bg = bg, blobSrc = blobSrc } model
 
 
 header :
@@ -900,7 +894,7 @@ jobsView device viewer model =
                             ]
                           <|
                             [ viewer.copyView model.config
-                            , column [ wf, spacing 40, paddingXY 0 40 ]
+                            , column [ spacing 40, paddingXY 0 40, width (fill |> Element.maximum 1000), centerX ]
                                 (openJobsHeader
                                     :: (Dict.toList jobs |> List.map (\( id, job ) -> ( model.config.page, id, job )) |> List.map viewer.jobView)
                                 )

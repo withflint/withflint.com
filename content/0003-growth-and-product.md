@@ -1,7 +1,7 @@
 Kenton Jarvie
 CEO
 https://www.linkedin.com/in/kentonjarvie/
-/static/images/kenton.jpeg
+/static/headshot/kenton.jpeg
 ---
 growth-and-product
 Dec 23, 2021

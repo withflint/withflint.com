@@ -1,16 +1,16 @@
-module Layout exposing (Layout, footer, layout, menu, phoneMenu)
+module Layout exposing (Layout, footer, layout, menu, phoneMenu, topMenu)
 
 import Device exposing (Device(..))
 import Element
     exposing
         ( Element
+        , alignBottom
         , alignLeft
         , alignRight
         , alignTop
         , centerX
         , centerY
         , column
-        , fill
         , fillPortion
         , height
         , image
@@ -33,6 +33,22 @@ import Element.Font as Font exposing (underline)
 import Element.Input as Input
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, palette, pt, wf)
+
+
+menu : List ( String, Page )
+menu =
+    [ ( "Partnerships", Partnerships )
+    , ( "Nurse Careers", NurseCareers "" )
+    , ( "FAQ", FaqNurses )
+    , ( "About", About )
+    , ( "Blog", Blog "" )
+    , ( "Join", JoinTheTeam "" )
+    ]
+
+
+topMenu : List ( String, Page )
+topMenu =
+    [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ), ( "Blog", Blog "" ), ( "About", About ) ]
 
 
 type alias Layout msg =
@@ -63,8 +79,8 @@ layout device views =
 
         _ ->
             column
-                [ width fill
-                , height fill
+                [ wf
+                , hf
                 ]
                 [ column
                     [ wf
@@ -95,14 +111,6 @@ showAddress =
 footer : Layout msg
 footer =
     let
-        link label page =
-            Element.link
-                [ Font.center, wf ]
-                { url = toPath page
-                , label =
-                    Element.paragraph [ Font.center ] [ text label ]
-                }
-
         privacy =
             row [ Font.size 10 ]
                 [ newTabLink [ underline ] { url = "/privacy", label = text "Privacy Policy" }
@@ -111,8 +119,8 @@ footer =
         default : List (Element msg)
         default =
             [ row
-                [ width fill
-                , height fill
+                [ wf
+                , hf
                 , css "position" "relative"
                 , Font.size 12
                 ]
@@ -122,48 +130,47 @@ footer =
                         , description = ""
                         }
                     ]
-                , wrappedRow [ wf, hf, paddingXY 0 48 ]
-                    [ row [ width (px 200) ] []
-                    , row [ wf, spaceEvenly ]
-                        [ column [ hf, centerY, width <| fillPortion 3 ]
-                            [ Element.link
-                                []
-                                { url = toPath Home
-                                , label =
-                                    image [ width (px 80), height (px 50) ]
-                                        { src = "/static/images/logo.svg?new"
-                                        , description = "Flint Logo"
+                , column [ hf, wf ]
+                    [ row [ hf, wf ]
+                        [ wrappedRow [ alignBottom, wf, paddingXY 0 48 ]
+                            [ row [ width (px 200) ] []
+                            , row [ wf, spaceEvenly ]
+                                [ column [ hf, centerY, wf ]
+                                    [ Element.link
+                                        []
+                                        { url = toPath Home
+                                        , label =
+                                            image [ width (px 80), height (px 50) ]
+                                                { src = "/static/images/logo.svg?new"
+                                                , description = "Flint Logo"
+                                                }
                                         }
-                                }
-                            , column [ pt 20 ] [ showAddress ]
-                            ]
-
-                        -- MENU
-                        , column [ hf, width <| fillPortion 3, spacingXY 0 12 ]
-                            [ link "Partnerships" Partnerships
-                            , link "Blog" (Blog "")
-                            , link "Join the Team" (JoinTheTeam "")
-                            ]
-                        , column [ hf, width <| fillPortion 3, spacingXY 0 12 ]
-                            [ link "Nurse Careers" (NurseCareers "")
-                            , link "FAQ" FaqNurses
-                            ]
-                        , column [ hf, width <| fillPortion 3, Font.color colors.primary, spacingXY 0 12 ]
-                            [ Element.paragraph [] [ text "Partnerships" ]
-                            , column [ spacingXY 0 6 ]
-                                [ Element.paragraph [] [ text "healthcare@withflint.com" ]
-                                , Element.paragraph [] [ text "+1 (844) 677-1180" ]
+                                    , column [ pt 20 ] [ showAddress ]
+                                    ]
+                                , column [ hf, wf, spacingXY 0 12 ] <|
+                                    toLinks menu
+                                , column [ hf, centerY, wf, spacingXY 0 40 ]
+                                    [ column [ alignRight, spacing 40 ]
+                                        [ column [ hf, Font.color colors.primary, spacingXY 0 12 ]
+                                            [ Element.paragraph [] [ text "Partnerships" ]
+                                            , column [ spacingXY 0 6 ]
+                                                [ Element.paragraph [] [ text "healthcare@withflint.com" ]
+                                                , Element.paragraph [] [ text "+1 (844) 677-1180" ]
+                                                ]
+                                            ]
+                                        , column [ hf, Font.color colors.primary, spacingXY 0 12 ]
+                                            [ Element.paragraph [] [ text "Nurse Success" ]
+                                            , column [ spacingXY 0 6 ]
+                                                [ Element.paragraph [] [ text "success@withflint.com" ]
+                                                , Element.paragraph [] [ text "+1 (844) 677-1180" ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
                                 ]
                             ]
-                        , column [ hf, width <| fillPortion 3, Font.color colors.primary, spacingXY 0 12 ]
-                            [ Element.paragraph [] [ text "Nurse Success" ]
-                            , column [ spacingXY 0 6 ]
-                                [ Element.paragraph [] [ text "success@withflint.com" ]
-                                , Element.paragraph [] [ text "+1 (844) 677-1180" ]
-                                ]
-                            ]
+                        , row [ width (px 200) ] []
                         ]
-                    , row [ width (px 200) ] []
                     ]
                 , row
                     [ css "position" "absolute"
@@ -176,8 +183,6 @@ footer =
                         }
                     ]
                 ]
-
-            -- privacy and social sites
             , row [ wf, Background.color palette.cremeLighter, paddingXY 88 24, centerX ]
                 [ row [ wf, spaceEvenly ]
                     [ row [ spaceEvenly ] [ privacy ]
@@ -221,7 +226,6 @@ footer =
                         ]
                     ]
                 ]
-            , row [ wf, hf, Background.color palette.cremeLighter ] []
             ]
     in
     { phone =
@@ -229,13 +233,7 @@ footer =
             [ column [ centerX ]
                 [ Element.image [ width (px 90), height (px 34) ] { src = "/static/images/logo.svg?new", description = "Flint" }
                 ]
-            , column [ centerX, pt 12, Font.color colors.primary, spacing 10, Font.center ]
-                [ link "Partnerships" Partnerships
-                , link "Nurse Careers" (NurseCareers "")
-                , link "FAQ" FaqNurses
-                , link "Blog" (Blog "")
-                , link "Join the Team" (JoinTheTeam "")
-                ]
+            , column [ centerX, pt 12, Font.color colors.primary, spacing 10, Font.center ] <| toLinks menu
             , column [ Font.center, centerX, spacingXY 0 16 ]
                 [ column [ hf, spacingXY 0 12 ]
                     [ Element.paragraph [] [ text "Partnerships" ]
@@ -251,7 +249,7 @@ footer =
                         , Element.paragraph [] [ text "+1 (844) 677-1180" ]
                         ]
                     ]
-                , column [ pt 12, Font.size 12, centerX ]
+                , column [ pt 12, centerX ]
                     [ showAddress ]
                 ]
             ]
@@ -304,16 +302,6 @@ footer =
     }
 
 
-menu : List ( Page, String )
-menu =
-    [ ( Home, "Home" )
-    , ( NurseCareers "", "Nurse Careers" )
-    , ( Blog "", "Blog" )
-    , ( AboutUs, "About Us" )
-    , ( JoinTheTeam "", "Join the Team" )
-    ]
-
-
 phoneMenu : msg -> Bool -> Element msg
 phoneMenu msg isMenuVisible =
     let
@@ -337,14 +325,6 @@ phoneMenu msg isMenuVisible =
                     }
                 ]
 
-        link ( page, label ) =
-            Element.link
-                [ wf ]
-                { url = toPath page
-                , label =
-                    Element.paragraph [ Font.center ] [ text label ]
-                }
-
         bg =
             [ css "background" "#6359A1"
             , css "background" "linear-gradient(162.39deg, #5D3968 0%, #6359A1 100%)"
@@ -367,16 +347,23 @@ phoneMenu msg isMenuVisible =
                     ]
                 , column [ wf, height <| fillPortion 1 ] []
                 , column [ wf, height <| fillPortion 9 ]
-                    [ column [ spacingXY 0 42, alignTop, centerX, Font.size 28 ]
-                        [ link ( Partnerships, "Partnerships" )
-                        , link ( NurseCareers "", "Nurse Careers" )
-                        , link ( FaqNurses, "FAQ" )
-                        , link ( Blog "", "Blog" )
-                        , link ( JoinTheTeam "", "Join the Team" )
-                        ]
+                    [ column [ spacingXY 0 42, alignTop, centerX, Font.size 28 ] <| toLinks <| menu
                     ]
                 ]
             ]
 
     else
         hamburgerIcon
+
+
+toLinks : List ( String, Page ) -> List (Element msg)
+toLinks m =
+    let
+        link ( label, page ) =
+            Element.link
+                [ wf ]
+                { url = toPath page
+                , label = Element.el [ Font.center, wf ] (text label)
+                }
+    in
+    List.map link m

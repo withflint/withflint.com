@@ -1,7 +1,7 @@
 Simon Green
 Head of Product
 https://www.linkedin.com/in/sg63/
-/static/images/simon.jpeg
+/static/headshot/simon.jpeg
 ---
 why-flint
 April 8, 2022
@@ -9,7 +9,7 @@ Why Flint
 Flint was born from a dream to help people live better lives. We believe that everyone has the right to emigrate, equal opportunities, and quality health care. These are the three tenets of our product. We create an experience for Internationally Educated Nurses to come to America to work while making better lives for themselves and their families.
 ---
 ## Our Idea is founded in Human Rights
-Flint was born from a dream to help people live better lives. We believe that everyone has the [right to emigrate](https://www.un.org/en/about-us/universal-declaration-of-human-rights), [equal opportunities](https://plato.stanford.edu/entries/equal-opportunity/), and [quality health care](https://www.who.int/news-room/fact-sheets/detail/human-rights-and-health). These are the three tenets of our product, with which we want to promote the right to freedom of movement, equality of outcomes and access to quality healthcare. We create an experience for Internationally Educated Nurses to come to America to work while making better lives for themselves and their families.
+Flint was born from a dream to help people live better lives. We believe that everyone has the [right to emigrate](https://www.un.org/en/about-us/universal-declaration-of-human-rights), [equal opportunities](https://plato.stanford.edu/entries/equal-opportunity/), and [quality health care](https://www.who.int/news-room/fact-sheets/detail/human-rights-and-health). These are the three tenets of our product, with which we want to promote the right to freedom of movement, equal opportunity and access to quality healthcare. We create an experience for Internationally Educated Nurses to come to America to work while making better lives for themselves and their families.
 
 ## Challenges
 For nurses to relocate to America, they need to pass the NCLEX, demonstrate a professional level of English, and file for a nurse license and immigration, which requires an employment offer. It is very difficult to do these tasks and study for examinations, often while working full-time and supporting a family. Furthermore, the procedures and relocating costs require an exorbitant amount of funds that is often equivalent to 10 years of more of savings. This situation creates large inequality in terms of opportunity for nurses worldwide that dream of moving to the United States.

@@ -1,6 +1,6 @@
 module Update exposing (init, update)
 
-import AboutUs.Update
+import About.Update
 import Blog.Types
 import Blog.Update
 import Browser.Dom
@@ -80,7 +80,7 @@ init { article, gitVersion } url key =
     return
         { router = router
         , home = Home.Update.init
-        , aboutUs = AboutUs.Update.init
+        , aboutUs = About.Update.init
         , jobs = jobs
         , healthcare = healthcare
         , blog = blog
@@ -167,7 +167,7 @@ update msg model =
                         }
 
             MsgForAboutUs msgForAboutUs ->
-                AboutUs.Update.update msgForAboutUs model.aboutUs
+                About.Update.update msgForAboutUs model.aboutUs
                     |> SubModule.update
                         { toMsg = MsgForAboutUs
                         , toModel =
@@ -230,7 +230,7 @@ update msg model =
                                         | faqNurses = model.faqNurses |> resetPhoneMenuState
                                     }
 
-                            Just Router.Routes.AboutUs ->
+                            Just Router.Routes.About ->
                                 singleton
                                     { model
                                         | aboutUs = model.aboutUs |> resetPhoneMenuState
@@ -283,7 +283,7 @@ pageTitle model =
         FaqNurses ->
             model.faqNurses.title
 
-        AboutUs ->
+        About ->
             model.aboutUs.title
 
         _ ->

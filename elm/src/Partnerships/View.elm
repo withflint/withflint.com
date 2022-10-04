@@ -36,7 +36,7 @@ import Element.Font as Font
 import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
-import Layout exposing (Layout, footer, phoneMenu)
+import Layout exposing (Layout, footer, phoneMenu, topMenu)
 import Partnerships.Types exposing (Model, Msg(..))
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, maxW, paddingE, palette, wf, wp)
@@ -117,7 +117,7 @@ desktopView device model =
             device
             model
             "Recreate the way you hire nurses"
-            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
+            topMenu
         , row
             [ wf ]
             [ row [ width <| fillPortion fillPortionVal ] [ Element.none ]
@@ -407,7 +407,6 @@ header device model title menu =
                     }
                 ]
 
-        link : ( String, Page ) -> Element msg
         link ( label, page ) =
             Element.link
                 []

@@ -3,7 +3,7 @@ module Types exposing
     , Msg(..)
     )
 
-import AboutUs.Types
+import About.Types
 import Blog.Types
 import Browser.Dom exposing (Viewport)
 import Device exposing (Device)
@@ -17,7 +17,7 @@ import Url exposing (Url)
 
 type alias Model =
     { router : Router.Types.Model
-    , aboutUs : AboutUs.Types.Model
+    , aboutUs : About.Types.Model
     , home : Home.Types.Model
     , jobs : Jobs.Types.Model
     , healthcare : Jobs.Types.Model
@@ -45,6 +45,6 @@ type Msg
       --
     | MsgForPartnerships Partnerships.Types.Msg
       --
-    | MsgForAboutUs AboutUs.Types.Msg
+    | MsgForAboutUs About.Types.Msg
     | Load Viewport
     | Resize Int Int

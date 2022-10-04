@@ -1,6 +1,6 @@
-module AboutUs.Update exposing (init, update)
+module About.Update exposing (init, update)
 
-import AboutUs.Types exposing (Model, Msg(..))
+import About.Types exposing (Model, Msg(..))
 import Return exposing (Return, singleton)
 
 

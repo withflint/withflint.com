@@ -36,7 +36,7 @@ import Element.Font as Font
 import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
-import Layout exposing (Layout, footer, phoneMenu)
+import Layout exposing (Layout, footer, phoneMenu, topMenu)
 import Mark
 import Router.Routes as R exposing (toPath)
 import Styles exposing (colors, css, hf, wf)
@@ -194,21 +194,17 @@ blogHeader device =
 
         -- MENU
         , row [ width <| fillPortion 2, spacingXY 24 0 ]
-            [ Element.link
-                []
-                { url = toPath R.Partnerships
-                , label =
-                    el
-                        Styles.menu
-                        (text "Partnerships")
-                }
-            , Element.link
-                []
-                { url = toPath <| R.NurseCareers ""
-                , label =
-                    el Styles.menu (text "Nurse Careers")
-                }
-            ]
+            (topMenu
+                |> List.map
+                    (\( label, page ) ->
+                        Element.link
+                            []
+                            { url = toPath page
+                            , label =
+                                el Styles.menu (text label)
+                            }
+                    )
+            )
 
         -- GAP
         , row [ width <| fillPortion 2 ] []

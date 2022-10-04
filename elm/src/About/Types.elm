@@ -1,4 +1,4 @@
-module AboutUs.Types exposing (Model, Msg(..))
+module About.Types exposing (Model, Msg(..))
 
 
 type alias Model =

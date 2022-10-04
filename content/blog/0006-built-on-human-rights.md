@@ -1,7 +1,7 @@
 Kenton Jarvie
 CEO
 https://www.linkedin.com/in/kentonjarvie/
-/static/images/kenton.jpeg
+/static/headshot/kenton.jpeg
 ---
 built-on-human-rights
 May 9, 2022

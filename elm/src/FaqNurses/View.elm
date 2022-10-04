@@ -36,7 +36,7 @@ import FaqNurses.Types exposing (Faq, FormattedText(..), Model, Msg(..))
 import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
-import Layout exposing (Layout, footer, phoneMenu)
+import Layout exposing (Layout, footer, phoneMenu, topMenu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, pt, wf)
@@ -101,9 +101,6 @@ header device model =
             [ css "background" "rgb(68,55,109)"
             , css "background" "linear-gradient(282.96deg, #E54848 -0.52%, #BA4352 8.17%, #7E3D60 37.38%, #5D3968 66.24%)"
             ]
-
-        menu =
-            [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ) ]
 
         blobSrc =
             "/static/images/header-blob-beige.svg"
@@ -209,7 +206,7 @@ header device model =
                                 , Font.size 14
                                 ]
                                 [ row [ alignRight, spacingXY 36 0 ]
-                                    (List.map (el (wf :: Styles.menu) << link) menu)
+                                    (List.map (el (wf :: Styles.menu) << link) topMenu)
                                 ]
 
                             -- GAP

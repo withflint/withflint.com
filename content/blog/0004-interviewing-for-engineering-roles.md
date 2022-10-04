@@ -1,7 +1,7 @@
 Simon Green
 Head of Product
 https://www.linkedin.com/in/sg63/
-/static/images/simon.jpeg
+/static/headshot/simon.jpeg
 ---
 interviewing-for-engineering-roles
 Dec 25, 2021
