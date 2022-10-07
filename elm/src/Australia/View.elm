@@ -3,7 +3,6 @@ module Australia.View exposing (view)
 import Apply exposing (Field(..), Job)
 import Australia.Types exposing (Model, Msg(..))
 import Device
-import Dict
 import Element
     exposing
         ( Attribute
@@ -48,11 +47,28 @@ import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
+import Mark
 import RemoteData exposing (RemoteData(..))
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wf, wp)
 import Text
 import Url.Builder exposing (absolute)
+
+
+type alias Viewer =
+    { jobView : ( String, String, Job ) -> Element Msg
+    , applyView : Job -> Model -> Element Msg
+    }
+
+
+job =
+    { url = ""
+    , title = "Australian jojb"
+    , location = "USAa"
+    , equity = "0"
+    , experience = "5 years+"
+    , description = "a good job"
+    }
 
 
 view : Device.Device -> Model -> Layout Msg
@@ -64,7 +80,6 @@ view device model =
             ]
 
         render view__ =
-            -- Render with phoneMenu
             if model.isPhoneMenuVisible then
                 column [ wf, hf, css "position" "relative" ] [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible ]
                     |> List.singleton
@@ -79,16 +94,8 @@ view device model =
                 , Font.family [ Font.typeface "Inter" ]
                 ]
                 [ row [ wf, hf ] [ header_ device model ]
-                , view_ device
+                , view_ device desktopView model
                 ]
-            , column
-                ([ wf
-                 , height fill
-                 , Font.family [ Font.typeface "Inter" ]
-                 ]
-                    ++ sectionBg
-                )
-                [ jobsView device phoneView model ]
             , column [ wf ] footer.phone
             ]
     , desktop =
@@ -98,17 +105,8 @@ view device model =
                 , Font.family [ Font.typeface "Inter" ]
                 ]
                 [ row [ wf, hf ] [ header_ device model ]
-                , view_ device
+                , view_ device desktopView model
                 ]
-            , column
-                ([ wf
-                 , height fill
-                 , Font.family [ Font.typeface "Inter" ]
-                 , centerX
-                 ]
-                    ++ sectionBg
-                )
-                [ jobsView device desktopView model ]
             , column [ wf ] footer.desktop
             ]
     , tablet =
@@ -118,24 +116,14 @@ view device model =
                 , Font.family [ Font.typeface "Inter" ]
                 ]
                 [ row [ wf, hf ] [ header_ device model ]
-                , view_ device
+                , view_ device desktopView model
                 ]
-            , column
-                ([ wf
-                 , height fill
-                 , Font.family [ Font.typeface "Inter" ]
-                 , centerX
-                 ]
-                    ++ sectionBg
-                )
-                [ jobsView device desktopView model ]
             , column [ wf ] footer.phone
             ]
     }
 
 
-view_ : Device.Device -> Element msg
-view_ device =
+view_ device viewer model =
     let
         sectionBg =
             [ css "background" "#FCE5D9"
@@ -150,11 +138,11 @@ view_ device =
         ]
         [ row (wf :: sectionBg)
             [ row [ width <| fillPortion 2 ] [ Element.none ]
-            , column [ width <| fillPortion 8 ] [ nurseCareerBody device ]
+            , column [ width <| fillPortion 8 ] [ body device viewer model ]
             , row [ width <| fillPortion 2 ] [ Element.none ]
             ]
-        , partners device
         , states device
+        , partners device
         ]
 
 
@@ -201,8 +189,7 @@ states device =
         ]
 
 
-nurseCareerBody : Device.Device -> Element msg
-nurseCareerBody device =
+body device viewer model =
     let
         titleStyle =
             [ Font.center
@@ -239,7 +226,7 @@ nurseCareerBody device =
             ]
         , rsDiv [ spacingXY 34 0, alignTop, spacingXY 40 48 ]
             [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6 ]
-                [ text "Flint is an international search firm seeking experienced and qualified nurses from around the world. Our program is specifically designed to help internationally educated nurses succeed permanently in the United States." ]
+                [ text copy.left ]
             , paragraph
                 [ Font.center
                 , alignTop
@@ -247,7 +234,7 @@ nurseCareerBody device =
                 , rsJustify
                 , lineHeight 1.6
                 ]
-                [ text "We partner with respected American hospitals.  We offer an all-inclusive solution for nurses to seamlessly transition into their new life in America. Flint provides fully sponsored licensing, immigration, and relocation programs. We pay for legal and processing fees, licensing, and offer premium placement. "
+                [ text copy.right
                 , Element.link
                     [ wf ]
                     { url = "/internationally-educated-nurses-faq/"
@@ -257,24 +244,14 @@ nurseCareerBody device =
             ]
         , column [ wf, spacingXY 0 44, pt 24 ]
             [ advantages device
-            , column [ spacingXY 0 24, wf, centerX ]
-                [ row [ centerX ]
-                    [ el [ wf ]
-                        (link
-                            (centerY :: centerX :: wf :: Font.size 15 :: Styles.btnFilled btnConfig)
-                            { url = "/nurse-careers/general-health-care-application-rn-np-lpn-hsp-anywhere-usa"
-                            , label = paragraph [ Font.center ] [ text <| "Apply" ]
-                            }
-                        )
-                    ]
-                ]
-            , nurseSuccessInfo
+            , info
+            , jobsView device viewer model
             ]
         ]
 
 
 advantages : Device.Device -> Element msg
-advantages device =
+advantages _ =
     wrappedRow [ centerX, spacingXY 64 32 ]
         [ column [ spacingXY 0 24, minW 160 ]
             [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licensing" }
@@ -291,41 +268,10 @@ advantages device =
         ]
 
 
-nurseSuccessInfo : Element msg
-nurseSuccessInfo =
-    let
-        video =
-            row [ wf, hf, minW 340 ]
-                [ html <|
-                    Html.video
-                        [ HtmlAttr.style "width" "100%"
-                        , HtmlAttr.style "height" "100%"
-                        , HtmlAttr.controls True
-                        ]
-                        [ Html.source [ HtmlAttr.src "/static/videos/nurse-success.mp4" ] []
-                        ]
-                ]
-
-        subHeading =
-            [ Font.size 26
-            , Font.semiBold
-            , Font.color colors.primary
-            ]
-    in
-    wrappedRow [ wf, paddingEach { top = 64, bottom = 48, right = 0, left = 0 }, spacingXY 96 40 ]
-        [ row [ width <| fillPortion 6, Border.color colors.primary ]
-            [ video
-            ]
-        , column [ width <| (fillPortion 6 |> Element.minimum 300), spacingXY 0 24 ]
-            [ paragraph (Font.alignLeft :: subHeading) [ text "From start to finish" ]
-            , paragraph
-                [ Font.alignLeft
-                , lineHeight 1.6
-                , pt 12
-                ]
-                [ text "Our talented team of nurse educators and staff will guide you through the entire process. Flint offers an NCLEX preparation course, covers the cost of taking the NCLEX, provides travel to the nearest testing center, completes your nurse license application, provides job placement, and world-class immigration services. We consider your nursing skills, experience, and goals when assessing which facilities are best suited for you." ]
-            ]
-        ]
+info : Element msg
+info =
+    column [ wf, paddingEach { top = 64, bottom = 48, right = 0, left = 0 }, spacingXY 96 40 ] <|
+        Mark.default copy.offer
 
 
 partners : Device.Device -> Element msg
@@ -416,8 +362,6 @@ partners device =
                 ]
             , row [ rsPortion.row3 ] []
             ]
-
-        -- ##### We partner with #####
         , column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
             [ paragraph [ Font.center, Font.size 28, Font.color colors.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
             , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
@@ -481,7 +425,6 @@ header device { title, menu, bg, blobSrc } model =
                     el [ Font.center ] (text label)
                 }
 
-        -- responsive size
         rs =
             case device of
                 Device.Phone _ ->
@@ -531,19 +474,14 @@ header device { title, menu, bg, blobSrc } model =
             ]
         , column
             [ alignTop, height (px 280), wf ]
-            [ -- GAP
-              case device of
+            [ case device of
                 Device.Phone _ ->
                     row [ wf, height <| fillPortion 4 ] [ Element.none ]
 
                 _ ->
                     row [ wf, height <| fillPortion 4 ]
-                        [ -- MENU
-                          row [ wf ]
-                            [ -- GAP
-                              row [ width <| fillPortion 7 ] []
-
-                            -- MENU
+                        [ row [ wf ]
+                            [ row [ width <| fillPortion 7 ] []
                             , row
                                 [ width <| fillPortion 4
                                 , spacing 32
@@ -554,19 +492,13 @@ header device { title, menu, bg, blobSrc } model =
                                 [ row [ alignRight, spacingXY 36 0 ]
                                     (List.map (el (wf :: Styles.menu) << link) menu)
                                 ]
-
-                            -- GAP
                             , row [ width <| fillPortion 2 ] []
                             ]
                         ]
-
-            -- TITLE
             , row [ wf, height <| fillPortion 8 ]
                 [ el ([ wf, centerX, Font.size rs.titleFontSize ] ++ Heading.h1 ++ Styles.title)
                     (paragraph [ Font.center, Font.size rs.titleFontSize ] [ text title ])
                 ]
-
-            -- GAP
             , case device of
                 Device.Phone _ ->
                     Element.none
@@ -575,12 +507,6 @@ header device { title, menu, bg, blobSrc } model =
                     row [ wf, height <| fillPortion 2 ] []
             ]
         ]
-
-
-type alias Viewer =
-    { jobView : ( String, String, Job ) -> Element Msg
-    , applyView : Job -> Model -> Element Msg
-    }
 
 
 desktopView : Viewer
@@ -601,74 +527,33 @@ jobsView : Device.Device -> Viewer -> Model -> Element Msg
 jobsView device viewer model =
     let
         rsPadding =
-            -- responsive padding
             case device of
                 Device.Phone _ ->
                     paddingXY 20 40
 
                 _ ->
                     paddingXY 100 40
-
-        openJobsHeader =
-            column [ wf, spacingXY 10 24, Styles.pb 24 ]
-                [ paragraph
-                    [ Font.size 26
-                    , Font.semiBold
-                    , Font.color colors.primary
-                    , Font.center
-                    ]
-                    [ text "Open Positions" ]
-                , column [ width (fill |> Element.maximum 820), centerX ]
-                    [ paragraph
-                        [ Font.center
-                        , lineHeight 1.6
-                        , pt 12
-                        , Font.justify
-                        ]
-                        [ text "Apply now and discover what exciting new career opportunities with growth potential awaits you in America, where you will apply your existing skills and knowledge while learning new ones. Our team of experienced nurse educators will guide you and start your journey today."
-                        ]
-                    ]
-                ]
     in
-    case model.jobs of
-        NotAsked ->
-            column [ wf, minH 120 ]
-                [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "Loading jobs" ] ]
+    column
+        [ hf
+        , centerX
+        , width <| maximum 1500 fill
+        ]
+        [ column
+            [ spacingXY 0 20
+            , rsPadding
+            , wf
+            , centerX
+            ]
+            [ column [ spacing 40, paddingXY 0 40, width (fill |> Element.maximum 1000), centerX ]
+                [ viewer.applyView job model
                 ]
-
-        Loading ->
-            column [ wf, minH 120 ]
-                [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "Loading jobs" ] ]
-                ]
-
-        Failure _ ->
-            column [ wf, minH 120 ]
-                [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "An error occured trying to load jobs" ] ]
-                ]
-
-        Success jobs ->
-            column
-                [ hf
-                , centerX
-                , width <| maximum 1500 fill
-                ]
-                [ column
-                    [ spacingXY 0 20
-                    , rsPadding
-                    , wf
-                    , centerX
-                    ]
-                  <|
-                    [ column [ spacing 40, paddingXY 0 40, width (fill |> Element.maximum 1000), centerX ]
-                        (openJobsHeader
-                            :: (Dict.toList jobs |> List.map (\( id, job ) -> ( "/mexico", id, job )) |> List.map viewer.jobView)
-                        )
-                    ]
-                ]
+            ]
+        ]
 
 
 desktopJobView : ( String, String, Job ) -> Element Msg
-desktopJobView ( page, id, job ) =
+desktopJobView ( page, id, job_ ) =
     row [ wf ]
         [ column [ alignLeft, spacingXY 0 10, wf ]
             [ link
@@ -678,12 +563,12 @@ desktopJobView ( page, id, job ) =
                     ]
                 ]
                 { url = absolute [ page, id ] []
-                , label = paragraph [ wf, spacing 10 ] [ text job.title ]
+                , label = paragraph [ wf, spacing 10 ] [ text job_.title ]
                 }
             , wrappedRow [ spacingXY 10 10, Font.size 15, wf ]
-                [ text job.location
-                , text job.equity
-                , text job.experience
+                [ text job_.location
+                , text job_.equity
+                , text job_.experience
                 ]
             ]
 
@@ -697,7 +582,7 @@ desktopJobView ( page, id, job ) =
 
 
 phoneJobView : ( String, String, Job ) -> Element Msg
-phoneJobView ( page, id, job ) =
+phoneJobView ( page, id, job_ ) =
     row [ wf, spacing 5 ]
         [ column [ alignLeft, spacingXY 0 10, wf ]
             [ paragraph [ wf ]
@@ -708,13 +593,13 @@ phoneJobView ( page, id, job ) =
                         ]
                     ]
                     { url = absolute [ page, id ] []
-                    , label = paragraph [ wf, spacing 10 ] [ text job.title ]
+                    , label = paragraph [ wf, spacing 10 ] [ text job_.title ]
                     }
                 ]
             , wrappedRow [ spacingXY 10 10, Font.size 15, wf ]
-                [ text job.location
-                , text job.equity
-                , text job.experience
+                [ text job_.location
+                , text job_.equity
+                , text job_.experience
                 ]
             ]
 
@@ -760,7 +645,7 @@ smallHeading =
 
 
 desktopApplyView : Job -> Model -> Element Msg
-desktopApplyView job model =
+desktopApplyView job_ model =
     column [ centerX, spacing 10, width <| minimum 300 <| maximum 500 fill ] <|
         [ el smallHeading <| text "Apply"
         , Input.username textbox
@@ -826,7 +711,7 @@ desktopApplyView job model =
 
                     Nothing ->
                         [ Input.button (Font.size 15 :: Styles.btnOutline)
-                            { onPress = Just (Submit job)
+                            { onPress = Just (Submit job_)
                             , label = text "Submit"
                             }
                         ]
@@ -834,7 +719,7 @@ desktopApplyView job model =
 
 
 phoneApplyView : Job -> Model -> Element Msg
-phoneApplyView job model =
+phoneApplyView job_ model =
     column [ centerX, spacing 10, wf ] <|
         [ el smallHeading <| text "Apply"
         , Input.username textbox
@@ -900,8 +785,42 @@ phoneApplyView job model =
 
                     Nothing ->
                         [ Input.button (Font.size 15 :: Styles.btnOutline)
-                            { onPress = Just (Submit job)
+                            { onPress = Just (Submit job_)
                             , label = text "Submit"
                             }
                         ]
                )
+
+
+copy =
+    { left = "Flint Healthcare offers expertise in helping Australian Nurses obtain a license, a work permit and a profitable job offer directly from the facilities we partner with in the USA. A seamless transition without the hassle."
+    , right = "We help our nurses with a personal touch as we understand that each nurse is unique, we walk alongside our nurses in their development during our process, and we assist with relocation and orientation towards the new job and their new home. Flint is here to partner with you."
+    , offer = """
+## Job Description
+A Surgical/Operating Nurse uses the nursing process, to plan, evaluate, and deliver patient care that meets the identified needs of patients having operative and procedural interventions. Nurses applying to this position must have experience caring for patients in the inpatient or ambulatory surgical setting.
+
+**Willing to relocate to USA with assistance provided by Flint.**
+
+## Responsibilities
+- Demonstrates clinical competence in providing direct patient care in the pre, intra, and post-operative care settings.
+- Able to assess and adapt quickly to a change in patient status by choosing appropriate nursing interventions based on the situation, and American Heart Association guidelines (ACLS, PALS, BLS).
+- Follow and demonstrate competency of the Joint Commissions (JCAHO) recommendations for Patient Safety in the Surgical Setting.
+- Collaborate with physicians and nurses to plan and provide care to patients and revise the plan of care to reflect changing patient needs based on evaluation of the patient’s status.
+- Assures the appropriate orders and pre-operative diagnostic testing, and physical exam notes are completed and present.
+- Collaborate with multiple disciplines/departments to improve delivery of patient care and provide a safe environment for patients undergoing surgical and procedural intervention.
+- Assist surgeons during operations and/or physicians in various procedures.
+- Monitor and assess patients before, during, and post-operations and procedures.
+- Admit, treat, and discharge patients in the ambulatory care setting, or admit/transfer patients to an inpatient setting.
+- Provides pre and post-operative instructions and education to patients
+
+## Requirements
+- A registered nurse (RN) license with NCLEX
+- A “4 year bachelor” degree in nursing.
+- 1 to 2 years of bed-side experience.
+- The openness to relocate to the US
+
+## Why Join the Flint Nurse Network
+If you want to find your dream job in the USA but never knew how or where to start? Flint might be just what you’re looking for. We offer relocation assistance and direct hire opportunities . This means no agency salary retention, and you get to choose where you interview and work. As a Flint nurse you’ll have new opportunities to grow professionally, gain hands-on experience as a nurse in the USA, and have ample opportunity to discover new people and places.
+Apply to find out all the reasons you should consider becoming a Flint nurse.
+"""
+    }
