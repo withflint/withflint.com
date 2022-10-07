@@ -1,11 +1,11 @@
-module Jobs.Update exposing (init, update)
+module Australia.Update exposing (init, update)
 
 import Apply exposing (Applicant, Field(..), Job)
+import Australia.Types exposing ( Model, Msg(..), View(..))
 import Browser.Navigation exposing (Key, pushUrl)
 import Dict exposing (Dict)
 import File.Select
 import Http
-import Jobs.Types exposing (Config, Model, Msg(..), View(..))
 import Json.Decode as Decode exposing (Decoder)
 import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
@@ -13,11 +13,6 @@ import Text exposing (Text(..))
 import Url exposing (Url)
 import Url.Builder exposing (absolute)
 import Url.Parser exposing ((</>), Parser, parse, s, string)
-
-
-idParser : Config msg -> Parser (String -> b) b
-idParser config =
-    s config.page </> string
 
 
 emptyApplicant : Applicant
@@ -31,32 +26,21 @@ emptyApplicant =
     }
 
 
-init : String -> Url -> Key -> Config Msg -> Return Msg Model
-init gitVersion url key config =
+init : String -> Url -> Key -> Return Msg Model
+init gitVersion url key  =
     return
         { jobs = NotAsked
         , gitVersion = gitVersion
         , applicant = emptyApplicant
         , error = Nothing
-        , title = config.copy.pageTitle
+        , title = "Australia - Flint"
         , url = url
         , key = key
-        , config = config
         , success = Nothing
         , isPhoneMenuVisible = False
-        , view =
-            case Maybe.withDefault "" <| parse (idParser config) url of
-                "" ->
-                    JobsView
 
-                jobId ->
-                    ApplyView jobId
         }
-        (Http.get
-            { url = config.endpoint
-            , expect = Http.expectJson (RemoteData.fromResult >> ReceiveJobsData) jobsDecoder
-            }
-        )
+        Cmd.none
 
 
 modifyApplicant : Model -> (Applicant -> Applicant) -> Model
@@ -70,25 +54,9 @@ update msg model =
         ReceiveJobsData response ->
             singleton { model | jobs = response }
 
-        Apply urlChange jobId ->
-            absolute [ model.config.page, jobId ] []
-                |> (if urlChange then
-                        pushUrl model.key
-
-                    else
-                        always Cmd.none
-                   )
-                |> return
-                    { model
-                        | view =
-                            ApplyView jobId
-                    }
-
         PhoneMenuToggle ->
             singleton { model | isPhoneMenuVisible = not model.isPhoneMenuVisible }
 
-        SwitchView view ->
-            singleton { model | view = view }
 
         UploadResume ->
             return model <| File.Select.file [ "docx", "pdf", "doc", "*" ] Resume
@@ -138,7 +106,7 @@ update msg model =
                         (Maybe.map
                             (\file ->
                                 Http.post
-                                    { url = model.config.apply
+                                    { url = "/apply-australia"
                                     , body =
                                         Http.multipartBody
                                             [ Http.stringPart "applicationTitle" job.title

@@ -1,4 +1,4 @@
-module Jobs.View exposing (view)
+module Mexico.View exposing (view)
 
 import Apply exposing (Applicant, Field(..), Job)
 import Device
@@ -46,12 +46,12 @@ import File
 import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
-import Jobs.Types exposing (Config, CurrentPage(..), Model, Msg(..), View(..))
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
 import Mark
+import Mexico.Types exposing ( Model, Msg(..), View(..))
 import RemoteData exposing (RemoteData(..))
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wp)
+import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wf, wp)
 import Text
 import Url.Builder exposing (absolute)
 
@@ -64,25 +64,24 @@ view device model =
             , css "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 102.99%)"
             ]
 
-        render view_ =
+        render view__ =
             -- Render with phoneMenu
             if model.isPhoneMenuVisible then
                 column [ wf, hf, css "position" "relative" ] [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible ]
                     |> List.singleton
 
             else
-                view_
+                view__
     in
-    case model.view of
-        JobsView ->
+
             { phone =
                 render <|
                     [ column
                         [ wf
                         , Font.family [ Font.typeface "Inter" ]
                         ]
-                        [ row [ wf, hf ] [ toHeader device model ]
-                        , toView device model.config
+                        [ row [ wf, hf ] [ header_ device model ]
+                        , view_ device
                         ]
 
                     -- JobView
@@ -98,13 +97,12 @@ view device model =
                     ]
             , desktop =
                 render <|
-                    [ -- top header including hero title and nav bar
-                      column
+                    [ column
                         [ wf
                         , Font.family [ Font.typeface "Inter" ]
                         ]
-                        [ row [ wf, hf ] [ toHeader device model ]
-                        , toView device model.config
+                        [ row [ wf, hf ] [ header_ device model ]
+                        , view_ device
                         ]
 
                     -- JobView
@@ -125,8 +123,8 @@ view device model =
                         [ wf
                         , Font.family [ Font.typeface "Inter" ]
                         ]
-                        [ row [ wf, hf ] [ toHeader device model ]
-                        , toView device model.config
+                        [ row [ wf, hf ] [ header_ device model ]
+                        , view_ device
                         ]
 
                     -- JobView
@@ -143,83 +141,10 @@ view device model =
                     ]
             }
 
-        ApplyView _ ->
-            { phone =
-                render <|
-                    [ column
-                        [ wf
-                        , Font.family [ Font.typeface "Inter" ]
-                        ]
-                        [ toHeader device model
-                        ]
-                    , column
-                        ([ wf
-                         , height fill
-                         , Font.family [ Font.typeface "Inter" ]
-                         , paddingXY 20 60
-                         , centerX
-                         ]
-                            ++ sectionBg
-                        )
-                        [ jobsView device phoneView model ]
-                    , column [ wf ] footer.phone
-                    ]
-            , desktop =
-                render <|
-                    [ -- top header including hero title and nav bar
-                      column
-                        [ wf
-                        , Font.family [ Font.typeface "Inter" ]
-                        ]
-                        [ toHeader device model
-                        ]
-                    , column
-                        ([ wf
-                         , height fill
-                         , paddingXY 0 80
-                         , centerX
-                         , Font.family [ Font.typeface "Inter" ]
-                         ]
-                            ++ sectionBg
-                        )
-                        [ jobsView device desktopView model ]
-                    , column [ wf ] footer.desktop
-                    ]
-            , tablet =
-                render <|
-                    [ column
-                        [ wf
-                        , Font.family [ Font.typeface "Inter" ]
-                        ]
-                        [ toHeader device model
-                        ]
-                    , column
-                        ([ wf
-                         , height fill
-                         , paddingXY 20 80
-                         , Font.family [ Font.typeface "Inter" ]
-                         , centerX
-                         ]
-                            ++ sectionBg
-                        )
-                        [ jobsView device desktopView model ]
-                    , column [ wf ] footer.phone
-                    ]
-            }
 
 
-toView : Device.Device -> Config msg -> Element msg
-toView device config =
-    case config.page_ of
-        NurseCareersPage ->
-            nurseCareerView device
-
-        JoinTheTeamPage ->
-            joinTeamView device
-
-
-nurseCareerView : Device.Device -> Element msg
-nurseCareerView device =
+view_ : Device.Device -> Element msg
+view_ device =
     let
         sectionBg =
             [ css "background" "#FCE5D9"
@@ -378,7 +303,7 @@ nurseCareerBody device =
 
 
 advantages : Device.Device -> Element msg
-advantages _ =
+advantages device =
     wrappedRow [ centerX, spacingXY 64 32 ]
         [ column [ spacingXY 0 24, minW 160 ]
             [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licensing" }
@@ -435,12 +360,6 @@ nurseSuccessInfo =
 partners : Device.Device -> Element msg
 partners device =
     let
-        wePartnerWith =
-            column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
-                [ paragraph [ Font.center, Font.size 28, Font.color colors.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
-                , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
-                ]
-
         bgBlue =
             [ css "background" "#5C4B92"
             , css "background" "linear-gradient(90deg, #50417F 0%, #5C4B92 100%)"
@@ -526,109 +445,17 @@ partners device =
                 ]
             , row [ rsPortion.row3 ] []
             ]
-        , wePartnerWith
-        ]
 
-
-joinTeamView : Device.Device -> Element msg
-joinTeamView device =
-    column
-        [ Background.color colors.cremeDark
-        , wf
-        , hf
-        , Font.family [ Font.typeface "Inter" ]
-        ]
-        [ row [ wf ]
-            [ row [ width <| fillPortion 2 ] [ Element.none ]
-            , column [ width <| fillPortion 8 ] [ joinTeamBody device ]
-            , row [ width <| fillPortion 2 ] [ Element.none ]
+        -- ##### We partner with #####
+        , column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
+            [ paragraph [ Font.center, Font.size 28, Font.color colors.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
+            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
             ]
         ]
 
 
-joinTeamBody : Device.Device -> Element msg
-joinTeamBody device =
-    let
-        titleStyle =
-            [ Font.center
-            , Font.size 28
-            , Font.semiBold
-            , Font.color colors.primary
-            ]
-
-        interviewProcessSm =
-            row [ centerX ]
-                [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process-sm.png", description = "Flint interview process" }
-                ]
-    in
-    column [ wf, centerX, paddingXY 0 48, spacingXY 0 56, Font.size 16 ]
-        [ column [ centerX ]
-            [ paragraph titleStyle
-                [ text "We work with the very best" ]
-            ]
-        , wrappedRow [ alignTop, spacingXY 24 20 ]
-            [ paragraph [ lineHeight 1.6, minW 300 ]
-                [ text "At Flint, we're committed to hiring the best people to build our teams. Building great products takes smart, disciplined, and empathetic individuals who understand our product goals and imagine innovative ways to achieve results. We designed a hiring process to help us identify those people." ]
-            , paragraph
-                [ wf
-                , hf
-                , lineHeight 1.6
-                , minW 300
-                ]
-                [ text "Flint fosters a culture of respect, dialogue, and growth– a home where our team members can engage in a continuous conversation about product, engineering, and learning. "
-                , Element.link [ Font.underline ]
-                    { url = toPath (Blog "culture")
-                    , label = el [ lineHeight 1.6 ] (text "Read more about our values and culture.")
-                    }
-                , paragraph
-                    [ lineHeight 1.6
-                    ]
-                    [ text " We interview and make hires within a week from our first meet – it's a commitment." ]
-                ]
-            ]
-        , case device of
-            Device.Phone _ ->
-                interviewProcessSm
-
-            Device.Tablet _ ->
-                interviewProcessSm
-
-            _ ->
-                row [ centerX ]
-                    [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process.png", description = "Flint interview process" }
-                    ]
-        ]
-
-
-toHeader : Device.Device -> Model -> Element Msg
-toHeader device model =
-    case model.config.page_ of
-        NurseCareersPage ->
-            nurseCareerHeader device model
-
-        JoinTheTeamPage ->
-            joinTeamHeader device model
-
-
-joinTeamHeader : Device.Device -> Model -> Element Msg
-joinTeamHeader device model =
-    let
-        bg =
-            [ css "background" "#FFDCC9"
-            , css "background" "linear-gradient(281.5deg, #FFDCC9 -0.43%, #C8BCC7 8.22%, #8284AF 27.81%, #6E74A9 52.4%, #6359A1 82.46%)"
-            ]
-
-        blobSrc =
-            "/static/images/header-blob-blue.svg"
-
-        title =
-            "Join the Team"
-    in
-    header device { title = title, menu = topMenu, bg = bg, blobSrc = blobSrc } model
-
-
-nurseCareerHeader : Device.Device -> Model -> Element Msg
-nurseCareerHeader device model =
+header_ : Device.Device -> Model -> Element Msg
+header_ device model =
     let
         bg =
             [ css "background" "rgb(68,55,109)"
@@ -791,6 +618,7 @@ desktopView =
     , applyView = desktopApplyView
     }
 
+
 phoneView : Viewer
 phoneView =
     { jobView = phoneJobView
@@ -811,41 +639,26 @@ jobsView device viewer model =
                     paddingXY 100 40
 
         openJobsHeader =
-            case model.config.page_ of
-                NurseCareersPage ->
-                    column [ wf, spacingXY 10 24, Styles.pb 24 ]
-                        [ paragraph
-                            [ Font.size 26
-                            , Font.semiBold
-                            , Font.color colors.primary
-                            , Font.center
-                            ]
-                            [ text "Open Positions" ]
-                        , column [ width (fill |> Element.maximum 820), centerX ]
-                            [ paragraph
-                                [ Font.center
-                                , lineHeight 1.6
-                                , pt 12
-                                , Font.justify
-                                ]
-                                [ text "Apply now and discover what exciting new career opportunities with growth potential awaits you in America, where you will apply your existing skills and knowledge while learning new ones. Our team of experienced nurse educators will guide you and start your journey today."
-                                ]
-                            ]
+            column [ wf, spacingXY 10 24, Styles.pb 24 ]
+                [ paragraph
+                    [ Font.size 26
+                    , Font.semiBold
+                    , Font.color colors.primary
+                    , Font.center
+                    ]
+                    [ text "Open Positions" ]
+                , column [ width (fill |> Element.maximum 820), centerX ]
+                    [ paragraph
+                        [ Font.center
+                        , lineHeight 1.6
+                        , pt 12
+                        , Font.justify
                         ]
-
-                JoinTheTeamPage ->
-                    paragraph
-                        [ Font.size 24
-                        , Styles.headFont
-                        , Font.color colors.primary
-                        , Font.center
-                        , Styles.pb 24
+                        [ text "Apply now and discover what exciting new career opportunities with growth potential awaits you in America, where you will apply your existing skills and knowledge while learning new ones. Our team of experienced nurse educators will guide you and start your journey today."
                         ]
-                        [ text "Open Positions"
-                        ]
+                    ]
+                ]
     in
-    case model.view of
-        JobsView ->
             case model.jobs of
                 NotAsked ->
                     column [ wf, minH 120 ]
@@ -877,48 +690,11 @@ jobsView device viewer model =
                           <|
                             [ column [ spacing 40, paddingXY 0 40, width (fill |> Element.maximum 1000), centerX ]
                                 (openJobsHeader
-                                    :: (Dict.toList jobs |> List.map (\( id, job ) -> ( model.config.page, id, job )) |> List.map viewer.jobView)
+                                    :: (Dict.toList jobs |> List.map (\( id, job ) -> ( "/mexico", id, job )) |> List.map viewer.jobView)
                                 )
                             ]
                         ]
 
-        ApplyView jobId ->
-            let
-                jobsD =
-                    case model.jobs of
-                        NotAsked ->
-                            Dict.empty
-
-                        Loading ->
-                            Dict.empty
-
-                        Failure _ ->
-                            Dict.empty
-
-                        Success jobs ->
-                            jobs
-            in
-            case Dict.get jobId jobsD of
-                Just job ->
-                    column [ centerX, spacingXY 0 100, wf, centerX ]
-                        [ column [ width <| maximum 800 fill, centerX ]
-                            [ paragraph Styles.heading
-                                [ text job.title
-                                ]
-                            , column (Styles.paragraph ++ [ spacing 20 ])
-                                (case job.description of
-                                    "" ->
-                                        [ none ]
-
-                                    desc ->
-                                        Mark.default desc
-                                )
-                            ]
-                        , viewer.applyView job model
-                        ]
-
-                Nothing ->
-                    jobsView device viewer { model | view = JobsView }
 
 
 desktopJobView : ( String, String, Job ) -> Element Msg
@@ -940,12 +716,12 @@ desktopJobView ( page, id, job ) =
                 , text job.experience
                 ]
             ]
-        , column [ height fill, alignTop, alignRight ]
-            [ Input.button Styles.btnOutline
-                { onPress = Just (Apply True id)
-                , label = text "Apply Now"
-                }
-            ]
+        -- , column [ height fill, alignTop, alignRight ]
+        --     [ Input.button Styles.btnOutline
+        --         { onPress = Just (Apply True id)
+        --         , label = text "Apply Now"
+        --         }
+        --     ]
         ]
 
 
@@ -970,12 +746,12 @@ phoneJobView ( page, id, job ) =
                 , text job.experience
                 ]
             ]
-        , column [ alignRight ]
-            [ Input.button Styles.btnOutline
-                { onPress = Just (Apply True id)
-                , label = text "Apply Now"
-                }
-            ]
+        -- , column [ alignRight ]
+        --     [ Input.button Styles.btnOutline
+        --         { onPress = Just (Apply True id)
+        --         , label = text "Apply Now"
+        --         }
+        --     ]
         ]
 
 
@@ -1053,7 +829,7 @@ desktopApplyView job model =
             { onChange = Set Reason
             , text = Text.toString model.applicant.reason
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text model.config.copy.why
+            , label = Input.labelAbove textboxLabel <| text "Why do you want to work in America?"
             , spellcheck = True
             }
         , case model.error of
@@ -1127,7 +903,7 @@ phoneApplyView job model =
             { onChange = Set Reason
             , text = Text.toString model.applicant.reason
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| paragraph [] [ text model.config.copy.why ]
+            , label = Input.labelAbove textboxLabel <| paragraph [] [ text "Why do you want to work in America" ]
             , spellcheck = True
             }
         , case model.error of
@@ -1157,10 +933,3 @@ phoneApplyView job model =
                             }
                         ]
                )
-
-
-
-
-wf : Attribute msg
-wf =
-    width fill

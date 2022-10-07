@@ -12,6 +12,8 @@ type Page
     | About
     | JoinTheTeam String
     | NurseCareers String
+    | Australia
+    | Mexico
     | Blog String
     | FaqNurses
 
@@ -26,6 +28,8 @@ routes =
         , map (JoinTheTeam "") (s "join")
         , map JoinTheTeam (s "join" </> string)
         , map (NurseCareers "") (s "nurse-careers")
+        , map Australia (s "australia")
+        , map Mexico (s "mexico")
         , map NurseCareers (s "nurse-careers" </> string)
         , map (Blog "") (s "blog")
         , map Blog (s "blog" </> string)
@@ -53,6 +57,12 @@ toPath page =
 
         NurseCareers id ->
             absolute [ "nurse-careers", id ] []
+
+        Australia ->
+            absolute [ "australia" ] []
+
+        Mexico ->
+            absolute [ "mexico" ] []
 
         Blog path ->
             absolute [ "blog", path ] []
