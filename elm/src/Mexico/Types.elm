@@ -11,8 +11,6 @@ import Text exposing (Text)
 import Url exposing (Url)
 
 
-
-
 type alias Model =
     { jobs : WebData (Dict String Job)
     , gitVersion : String

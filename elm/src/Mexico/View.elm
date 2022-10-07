@@ -48,7 +48,7 @@ import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
 import Mark
-import Mexico.Types exposing ( Model, Msg(..), View(..))
+import Mexico.Types exposing (Model, Msg(..), View(..))
 import RemoteData exposing (RemoteData(..))
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wf, wp)
@@ -73,74 +73,72 @@ view device model =
             else
                 view__
     in
+    { phone =
+        render <|
+            [ column
+                [ wf
+                , Font.family [ Font.typeface "Inter" ]
+                ]
+                [ row [ wf, hf ] [ header_ device model ]
+                , view_ device
+                ]
 
-            { phone =
-                render <|
-                    [ column
-                        [ wf
-                        , Font.family [ Font.typeface "Inter" ]
-                        ]
-                        [ row [ wf, hf ] [ header_ device model ]
-                        , view_ device
-                        ]
+            -- JobView
+            , column
+                ([ wf
+                 , height fill
+                 , Font.family [ Font.typeface "Inter" ]
+                 ]
+                    ++ sectionBg
+                )
+                [ jobsView device phoneView model ]
+            , column [ wf ] footer.phone
+            ]
+    , desktop =
+        render <|
+            [ column
+                [ wf
+                , Font.family [ Font.typeface "Inter" ]
+                ]
+                [ row [ wf, hf ] [ header_ device model ]
+                , view_ device
+                ]
 
-                    -- JobView
-                    , column
-                        ([ wf
-                         , height fill
-                         , Font.family [ Font.typeface "Inter" ]
-                         ]
-                            ++ sectionBg
-                        )
-                        [ jobsView device phoneView model ]
-                    , column [ wf ] footer.phone
-                    ]
-            , desktop =
-                render <|
-                    [ column
-                        [ wf
-                        , Font.family [ Font.typeface "Inter" ]
-                        ]
-                        [ row [ wf, hf ] [ header_ device model ]
-                        , view_ device
-                        ]
+            -- JobView
+            , column
+                ([ wf
+                 , height fill
+                 , Font.family [ Font.typeface "Inter" ]
+                 , centerX
+                 ]
+                    ++ sectionBg
+                )
+                [ jobsView device desktopView model ]
+            , column [ wf ] footer.desktop
+            ]
+    , tablet =
+        render <|
+            [ column
+                [ wf
+                , Font.family [ Font.typeface "Inter" ]
+                ]
+                [ row [ wf, hf ] [ header_ device model ]
+                , view_ device
+                ]
 
-                    -- JobView
-                    , column
-                        ([ wf
-                         , height fill
-                         , Font.family [ Font.typeface "Inter" ]
-                         , centerX
-                         ]
-                            ++ sectionBg
-                        )
-                        [ jobsView device desktopView model ]
-                    , column [ wf ] footer.desktop
-                    ]
-            , tablet =
-                render <|
-                    [ column
-                        [ wf
-                        , Font.family [ Font.typeface "Inter" ]
-                        ]
-                        [ row [ wf, hf ] [ header_ device model ]
-                        , view_ device
-                        ]
-
-                    -- JobView
-                    , column
-                        ([ wf
-                         , height fill
-                         , Font.family [ Font.typeface "Inter" ]
-                         , centerX
-                         ]
-                            ++ sectionBg
-                        )
-                        [ jobsView device desktopView model ]
-                    , column [ wf ] footer.phone
-                    ]
-            }
-
+            -- JobView
+            , column
+                ([ wf
+                 , height fill
+                 , Font.family [ Font.typeface "Inter" ]
+                 , centerX
+                 ]
+                    ++ sectionBg
+                )
+                [ jobsView device desktopView model ]
+            , column [ wf ] footer.phone
+            ]
+    }
 
 
 view_ : Device.Device -> Element msg
@@ -659,42 +657,41 @@ jobsView device viewer model =
                     ]
                 ]
     in
-            case model.jobs of
-                NotAsked ->
-                    column [ wf, minH 120 ]
-                        [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "Loading jobs" ] ]
-                        ]
+    case model.jobs of
+        NotAsked ->
+            column [ wf, minH 120 ]
+                [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "Loading jobs" ] ]
+                ]
 
-                Loading ->
-                    column [ wf, minH 120 ]
-                        [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "Loading jobs" ] ]
-                        ]
+        Loading ->
+            column [ wf, minH 120 ]
+                [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "Loading jobs" ] ]
+                ]
 
-                Failure _ ->
-                    column [ wf, minH 120 ]
-                        [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "An error occured trying to load jobs" ] ]
-                        ]
+        Failure _ ->
+            column [ wf, minH 120 ]
+                [ row [ centerX, centerY ] [ paragraph [ Font.center ] [ text "An error occured trying to load jobs" ] ]
+                ]
 
-                Success jobs ->
-                    column
-                        [ hf
-                        , centerX
-                        , width <| maximum 1500 fill
-                        ]
-                        [ column
-                            [ spacingXY 0 20
-                            , rsPadding
-                            , wf
-                            , centerX
-                            ]
-                          <|
-                            [ column [ spacing 40, paddingXY 0 40, width (fill |> Element.maximum 1000), centerX ]
-                                (openJobsHeader
-                                    :: (Dict.toList jobs |> List.map (\( id, job ) -> ( "/mexico", id, job )) |> List.map viewer.jobView)
-                                )
-                            ]
-                        ]
-
+        Success jobs ->
+            column
+                [ hf
+                , centerX
+                , width <| maximum 1500 fill
+                ]
+                [ column
+                    [ spacingXY 0 20
+                    , rsPadding
+                    , wf
+                    , centerX
+                    ]
+                  <|
+                    [ column [ spacing 40, paddingXY 0 40, width (fill |> Element.maximum 1000), centerX ]
+                        (openJobsHeader
+                            :: (Dict.toList jobs |> List.map (\( id, job ) -> ( "/mexico", id, job )) |> List.map viewer.jobView)
+                        )
+                    ]
+                ]
 
 
 desktopJobView : ( String, String, Job ) -> Element Msg
@@ -716,6 +713,7 @@ desktopJobView ( page, id, job ) =
                 , text job.experience
                 ]
             ]
+
         -- , column [ height fill, alignTop, alignRight ]
         --     [ Input.button Styles.btnOutline
         --         { onPress = Just (Apply True id)
@@ -746,6 +744,7 @@ phoneJobView ( page, id, job ) =
                 , text job.experience
                 ]
             ]
+
         -- , column [ alignRight ]
         --     [ Input.button Styles.btnOutline
         --         { onPress = Just (Apply True id)

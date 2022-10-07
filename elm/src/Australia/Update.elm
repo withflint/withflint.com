@@ -1,7 +1,7 @@
 module Australia.Update exposing (init, update)
 
 import Apply exposing (Applicant, Field(..), Job)
-import Australia.Types exposing ( Model, Msg(..), View(..))
+import Australia.Types exposing (Model, Msg(..), View(..))
 import Browser.Navigation exposing (Key, pushUrl)
 import Dict exposing (Dict)
 import File.Select
@@ -27,7 +27,7 @@ emptyApplicant =
 
 
 init : String -> Url -> Key -> Return Msg Model
-init gitVersion url key  =
+init gitVersion url key =
     return
         { jobs = NotAsked
         , gitVersion = gitVersion
@@ -38,7 +38,6 @@ init gitVersion url key  =
         , key = key
         , success = Nothing
         , isPhoneMenuVisible = False
-
         }
         Cmd.none
 
@@ -56,7 +55,6 @@ update msg model =
 
         PhoneMenuToggle ->
             singleton { model | isPhoneMenuVisible = not model.isPhoneMenuVisible }
-
 
         UploadResume ->
             return model <| File.Select.file [ "docx", "pdf", "doc", "*" ] Resume

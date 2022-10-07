@@ -1,8 +1,8 @@
 module Jobs.Copy exposing (Copy, join, nurse)
 
-import Element exposing (Element, text, link)
+import Element exposing (Element, link, text)
 import Router.Routes exposing (Page(..), toPath)
-import Styles 
+import Styles
 
 
 type alias Copy msg =

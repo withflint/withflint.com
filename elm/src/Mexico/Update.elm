@@ -1,5 +1,6 @@
 module Mexico.Update exposing (init, update)
 
+import Apply exposing (..)
 import Browser.Navigation exposing (Key, pushUrl)
 import Dict exposing (Dict)
 import File.Select
@@ -12,8 +13,6 @@ import Text exposing (Text(..))
 import Url exposing (Url)
 import Url.Builder exposing (absolute)
 import Url.Parser exposing ((</>), Parser, parse, s, string)
-import Apply exposing (..)
-
 
 
 emptyApplicant : Apply.Applicant
@@ -28,7 +27,7 @@ emptyApplicant =
 
 
 init : String -> Url -> Key -> Return Msg Model
-init gitVersion url key  =
+init gitVersion url key =
     return
         { jobs = NotAsked
         , gitVersion = gitVersion
@@ -39,7 +38,6 @@ init gitVersion url key  =
         , key = key
         , success = Nothing
         , isPhoneMenuVisible = False
-
         }
         Cmd.none
 
@@ -57,7 +55,6 @@ update msg model =
 
         PhoneMenuToggle ->
             singleton { model | isPhoneMenuVisible = not model.isPhoneMenuVisible }
-
 
         UploadResume ->
             return model <| File.Select.file [ "docx", "pdf", "doc", "*" ] Resume
@@ -135,4 +132,3 @@ update msg model =
 
                 Err _ ->
                     singleton { model | error = Just "An error occurred. Please try applying again. If the problem persists, please email us your application at join@withflint.com" }
-

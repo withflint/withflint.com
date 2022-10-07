@@ -1,11 +1,9 @@
 module Update exposing (init, update)
 
 import About.Update
-import Mexico.Update
+import Australia.Types
 import Australia.Update
 import Blog.Types
-import Australia.Types
-import Mexico.Types
 import Blog.Update
 import Browser.Dom
 import Browser.Navigation exposing (Key)
@@ -16,6 +14,8 @@ import Html.Attributes exposing (width)
 import Jobs.Copy
 import Jobs.Types exposing (Config, CurrentPage(..))
 import Jobs.Update
+import Mexico.Types
+import Mexico.Update
 import Partnerships.Update
 import Return exposing (Return, return, singleton)
 import Router.Routes exposing (Page(..))

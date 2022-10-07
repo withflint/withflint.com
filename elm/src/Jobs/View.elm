@@ -791,6 +791,7 @@ desktopView =
     , applyView = desktopApplyView
     }
 
+
 phoneView : Viewer
 phoneView =
     { jobView = phoneJobView
@@ -1157,8 +1158,6 @@ phoneApplyView job model =
                             }
                         ]
                )
-
-
 
 
 wf : Attribute msg
