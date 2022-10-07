@@ -48,9 +48,8 @@ import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
 import Mark
-import RemoteData exposing (RemoteData(..))
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wf, wp)
+import Styles exposing (colors, css, hf, lineHeight, minW, palette, pt, wf, wp)
 import Text
 import Url.Builder exposing (absolute)
 
@@ -63,8 +62,8 @@ type alias Viewer =
 
 job =
     { url = ""
-    , title = "Australian jojb"
-    , location = "USAa"
+    , title = "Australian Application"
+    , location = "USA"
     , equity = "0"
     , experience = "5 years+"
     , description = "a good job"
@@ -74,11 +73,6 @@ job =
 view : Device.Device -> Model -> Layout Msg
 view device model =
     let
-        sectionBg =
-            [ css "background" "#DAE9FF"
-            , css "background" "linear-gradient(180deg, #FFFBF8 0%, #DAE9FF 102.99%)"
-            ]
-
         render view__ =
             if model.isPhoneMenuVisible then
                 column [ wf, hf, css "position" "relative" ] [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible ]
@@ -198,11 +192,6 @@ body device viewer model =
             , Font.color colors.primary
             ]
 
-        btnConfig =
-            { fontColor = colors.white
-            , bgColor = colors.carminePink
-            }
-
         rsJustify =
             case device of
                 Device.Phone _ ->
@@ -222,7 +211,7 @@ body device viewer model =
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
         [ column [ centerX ]
             [ paragraph titleStyle
-                [ text "We are committed to your nursing future in the USA" ]
+                [ text "Registered Nurse" ]
             ]
         , rsDiv [ spacingXY 34 0, alignTop, spacingXY 40 48 ]
             [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6 ]
@@ -235,11 +224,7 @@ body device viewer model =
                 , lineHeight 1.6
                 ]
                 [ text copy.right
-                , Element.link
-                    [ wf ]
-                    { url = "/internationally-educated-nurses-faq/"
-                    , label = paragraph [ rsJustify, Font.underline, Font.color colors.primary ] [ text "Learn more." ]
-                    }
+
                 ]
             ]
         , column [ wf, spacingXY 0 44, pt 24 ]
@@ -381,7 +366,7 @@ header_ device model =
             "/static/images/header-blob-beige.svg"
 
         title =
-            "Your success is Flint's success"
+            "Want to be a nurse in the USA?"
     in
     header device { title = title, menu = topMenu, bg = bg, blobSrc = blobSrc } model
 
@@ -516,13 +501,6 @@ desktopView =
     }
 
 
-phoneView : Viewer
-phoneView =
-    { jobView = phoneJobView
-    , applyView = phoneApplyView
-    }
-
-
 jobsView : Device.Device -> Viewer -> Model -> Element Msg
 jobsView device viewer model =
     let
@@ -573,37 +551,6 @@ desktopJobView ( page, id, job_ ) =
             ]
 
         -- , column [ height fill, alignTop, alignRight ]
-        --     [ Input.button Styles.btnOutline
-        --         { onPress = Just (Apply True id)
-        --         , label = text "Apply Now"
-        --         }
-        --     ]
-        ]
-
-
-phoneJobView : ( String, String, Job ) -> Element Msg
-phoneJobView ( page, id, job_ ) =
-    row [ wf, spacing 5 ]
-        [ column [ alignLeft, spacingXY 0 10, wf ]
-            [ paragraph [ wf ]
-                [ link
-                    [ Font.color colors.primary
-                    , mouseOver
-                        [ Font.color colors.carminePink
-                        ]
-                    ]
-                    { url = absolute [ page, id ] []
-                    , label = paragraph [ wf, spacing 10 ] [ text job_.title ]
-                    }
-                ]
-            , wrappedRow [ spacingXY 10 10, Font.size 15, wf ]
-                [ text job_.location
-                , text job_.equity
-                , text job_.experience
-                ]
-            ]
-
-        -- , column [ alignRight ]
         --     [ Input.button Styles.btnOutline
         --         { onPress = Just (Apply True id)
         --         , label = text "Apply Now"
@@ -718,82 +665,8 @@ desktopApplyView job_ model =
                )
 
 
-phoneApplyView : Job -> Model -> Element Msg
-phoneApplyView job_ model =
-    column [ centerX, spacing 10, wf ] <|
-        [ el smallHeading <| text "Apply"
-        , Input.username textbox
-            { onChange = Set FirstName
-            , text = Text.toString model.applicant.firstName
-            , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "First Name"
-            }
-        , Input.username textbox
-            { onChange = Set LastName
-            , text = Text.toString model.applicant.lastName
-            , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "Last Name"
-            }
-        , Input.email textbox
-            { onChange = Set Email
-            , text = Text.toString model.applicant.email
-            , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "Email"
-            }
-        , Input.text textbox
-            { onChange = Set Phone
-            , text = Text.toString model.applicant.phone
-            , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "Phone"
-            }
-        , Input.button (Font.size 15 :: Styles.btnOutline)
-            { onPress = Just UploadResume
-            , label = text "Upload Resume"
-            }
-        , case model.applicant.resume of
-            Just file ->
-                el [ Font.size 15 ] <| text <| File.name file
-
-            Nothing ->
-                none
-        , Input.multiline multitextbox
-            { onChange = Set Reason
-            , text = Text.toString model.applicant.reason
-            , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| paragraph [] [ text "Why do you want to work in America" ]
-            , spellcheck = True
-            }
-        , case model.error of
-            Just err ->
-                paragraph [ Font.size 15 ]
-                    [ text err
-                    ]
-
-            Nothing ->
-                case model.success of
-                    Just msg ->
-                        paragraph [ Font.size 15 ]
-                            [ text msg
-                            ]
-
-                    Nothing ->
-                        none
-        ]
-            ++ (case model.success of
-                    Just _ ->
-                        []
-
-                    Nothing ->
-                        [ Input.button (Font.size 15 :: Styles.btnOutline)
-                            { onPress = Just (Submit job_)
-                            , label = text "Submit"
-                            }
-                        ]
-               )
-
-
 copy =
-    { left = "Flint Healthcare offers expertise in helping Australian Nurses obtain a license, a work permit and a profitable job offer directly from the facilities we partner with in the USA. A seamless transition without the hassle."
+    { left = "Flint offers expertise in helping Australian Nurses obtain a license, a work permit and a profitable job offer directly from the facilities we partner with in the USA. A seamless transition without the hassle."
     , right = "We help our nurses with a personal touch as we understand that each nurse is unique, we walk alongside our nurses in their development during our process, and we assist with relocation and orientation towards the new job and their new home. Flint is here to partner with you."
     , offer = """
 ## Job Description
@@ -811,13 +684,13 @@ A Surgical/Operating Nurse uses the nursing process, to plan, evaluate, and deli
 - Assist surgeons during operations and/or physicians in various procedures.
 - Monitor and assess patients before, during, and post-operations and procedures.
 - Admit, treat, and discharge patients in the ambulatory care setting, or admit/transfer patients to an inpatient setting.
-- Provides pre and post-operative instructions and education to patients
+- Provides pre and post-operative instructions and education to patients.
 
 ## Requirements
 - A registered nurse (RN) license with NCLEX
 - A “4 year bachelor” degree in nursing.
-- 1 to 2 years of bed-side experience.
-- The openness to relocate to the US
+- Willing to relocate to the US.
+- Australian passport.
 
 ## Why Join the Flint Nurse Network
 If you want to find your dream job in the USA but never knew how or where to start? Flint might be just what you’re looking for. We offer relocation assistance and direct hire opportunities . This means no agency salary retention, and you get to choose where you interview and work. As a Flint nurse you’ll have new opportunities to grow professionally, gain hands-on experience as a nurse in the USA, and have ample opportunity to discover new people and places.
