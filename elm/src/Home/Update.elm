@@ -13,5 +13,5 @@ init =
 
 
 update : Msg -> Model -> Return Msg Model
-update msg model =
+update _ model =
     singleton { model | isPhoneMenuVisible = not model.isPhoneMenuVisible }

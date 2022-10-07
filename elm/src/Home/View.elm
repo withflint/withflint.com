@@ -173,7 +173,7 @@ phoneView device model =
 
 
 header : Device.Device -> List (Element msg)
-header device =
+header _ =
     let
         bg =
             [ css "background" "#DAE9FF"
@@ -184,10 +184,7 @@ header device =
             Element.image [ centerX, width (px 100), height (px 50) ] { src = "/static/images/logo-white.svg?new", description = "Flint" }
     in
     [ row ([ wf, height (px 136) ] ++ bg)
-        [ -- GAP
-          row [ width <| fillPortion 2 ] []
-
-        -- LOGO
+        [ row [ width <| fillPortion 2 ] []
         , row [ width <| fillPortion 1 ]
             [ Element.link
                 []
@@ -201,11 +198,7 @@ header device =
                         logo
                 }
             ]
-
-        -- GAP
         , row [ width <| fillPortion 8 ] []
-
-        -- MENU
         , row [ width <| fillPortion 2, spacingXY 24 0 ]
             (topMenu
                 |> List.map
@@ -218,8 +211,6 @@ header device =
                             }
                     )
             )
-
-        -- GAP
         , row [ width <| fillPortion 2 ] []
         ]
     ]

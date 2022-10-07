@@ -23,7 +23,7 @@ import Markdown.Block as Block exposing (ListItem(..), Task(..))
 import Markdown.Html
 import Markdown.Parser
 import Markdown.Renderer
-import Styles exposing (colors)
+import Styles exposing (colors, wf)
 
 
 default : String -> List (Element msg)
@@ -110,13 +110,13 @@ elmUiRenderer =
                 )
     , orderedList =
         \startingIndex items ->
-            Element.column [ Element.spacing 15 ]
+            Element.column [ Element.spacing 15, wf ]
                 (items
                     |> List.indexedMap
                         (\index itemBlocks ->
-                            Element.row [ Element.spacing 5 ]
-                                [ Element.row [ Element.alignTop ]
-                                    (Element.text (String.fromInt (index + startingIndex) ++ " ") :: itemBlocks)
+                            Element.row [ Element.spacing 5, wf ]
+                                [ Element.row [ Element.alignTop, wf ]
+                                    [ Element.paragraph [ wf ] (Element.text (String.fromInt (index + startingIndex) ++ ". ") :: itemBlocks) ]
                                 ]
                         )
                 )

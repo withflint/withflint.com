@@ -1,6 +1,6 @@
 module Mexico.Update exposing (init, update)
 
-import Apply exposing (..)
+import Apply exposing (Applicant, Field(..))
 import Browser.Navigation exposing (Key)
 import File.Select
 import Http
@@ -119,12 +119,12 @@ update msg model =
                     )
 
             else
-                singleton { model | error = Just "Oh no! All fields are required..." }
+                singleton { model | error = Just "¡Oh, no! Todos los campos son obligatorios..." }
 
         SendApplicantData result ->
             case result of
                 Ok _ ->
-                    singleton { model | success = Just "Thank you for your application." }
+                    singleton { model | success = Just "Gracias por tu aplicación." }
 
                 Err _ ->
-                    singleton { model | error = Just "An error occurred. Please try applying again. If the problem persists, please email us your application at join@withflint.com" }
+                    singleton { model | error = Just "Ocurrió un error. Intente aplicar de nuevo. Si el problema persiste, envíenos un correo electrónico con su solicitud a apply@withflint.com" }

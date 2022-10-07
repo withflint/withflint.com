@@ -51,7 +51,7 @@ import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
 import Mark
 import RemoteData exposing (RemoteData(..))
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wp)
+import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wf, wp)
 import Text
 import Url.Builder exposing (absolute)
 
@@ -1158,8 +1158,3 @@ phoneApplyView job model =
                             }
                         ]
                )
-
-
-wf : Attribute msg
-wf =
-    width fill

@@ -7,7 +7,6 @@ import Element
     exposing
         ( Attribute
         , Element
-        , alignLeft
         , alignRight
         , alignTop
         , centerX
@@ -20,10 +19,8 @@ import Element
         , height
         , html
         , htmlAttribute
-        , link
         , maximum
         , minimum
-        , mouseOver
         , none
         , padding
         , paddingEach
@@ -51,17 +48,20 @@ import Mark
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, minW, palette, pt, wf, wp)
 import Text
-import Url.Builder exposing (absolute)
 
 
+copy : { why : String, applyNow : String, left : String, right : String, offer : String }
 copy =
-    { left = "Flint offers expertise in helping Australian Nurses obtain a license, a work permit and a profitable job offer directly from the facilities we partner with in the USA. A seamless transition without the hassle."
+    { why = "Why do you want to work in America?"
+    , applyNow = "Apply Now"
+    , left = "Flint offers expertise in helping **Australian Registered Nurses** obtain a license, a work permit and a profitable job offer directly from the facilities we partner with in the USA. A seamless transition without the hassle."
     , right = "We help our nurses with a personal touch as we understand that each nurse is unique, we walk alongside our nurses in their development during our process, and we assist with relocation and orientation towards the new job and their new home. Flint is here to partner with you."
     , offer = """
+**You must be willing to relocate to USA. Flint covers the relocation.**
+
 ## Job Description
 A Surgical/Operating Nurse uses the nursing process, to plan, evaluate, and deliver patient care that meets the identified needs of patients having operative and procedural interventions. Nurses applying to this position must have experience caring for patients in the inpatient or ambulatory surgical setting.
 
-**Willing to relocate to USA with assistance provided by Flint.**
 
 ## Responsibilities
 - Demonstrates clinical competence in providing direct patient care in the pre, intra, and post-operative care settings.
@@ -88,9 +88,10 @@ Apply to find out all the reasons you should consider becoming a Flint nurse.
     }
 
 
+job : { url : String, title : String, location : String, equity : String, experience : String, description : String }
 job =
     { url = ""
-    , title = "Australian Application"
+    , title = "Registered Nurse for Australians"
     , location = "USA"
     , equity = "0"
     , experience = "5 years+"
@@ -145,6 +146,7 @@ view device model =
     }
 
 
+view_ : Device.Device -> Model -> Element Msg
 view_ device model =
     let
         sectionBg =
@@ -159,15 +161,16 @@ view_ device model =
         , Font.family [ Font.typeface "Inter" ]
         ]
         [ row (wf :: sectionBg)
-            [ row [ width <| fillPortion 2 ] [ Element.none ]
+            [ row [ width <| fillPortion 1 ] [ Element.none ]
             , column [ width <| fillPortion 8 ] [ body device model ]
-            , row [ width <| fillPortion 2 ] [ Element.none ]
+            , row [ width <| fillPortion 1 ] [ Element.none ]
             ]
         , states device
         , partners device
         ]
 
 
+body : Device.Device -> Model -> Element Msg
 body device model =
     let
         titleStyle =
@@ -199,8 +202,8 @@ body device model =
                 [ text "Registered Nurse" ]
             ]
         , rsDiv [ spacingXY 34 0, alignTop, spacingXY 40 48 ]
-            [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6 ]
-                [ text copy.left ]
+            [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6 ] <|
+                Mark.default copy.left
             , paragraph
                 [ Font.center
                 , alignTop
@@ -208,8 +211,8 @@ body device model =
                 , rsJustify
                 , lineHeight 1.6
                 ]
-                [ text copy.right
-                ]
+              <|
+                Mark.default copy.right
             ]
         , column [ wf, spacingXY 0 44, pt 24 ]
             [ advantages device
@@ -251,29 +254,31 @@ states device =
             , Font.size 24
             , Font.semiBold
             , Font.color colors.primary
+            , padding 10
             ]
 
-        rsFillPortion =
+        space =
             case device of
                 Device.Phone _ ->
-                    Element.none
+                    spacing 20
 
                 _ ->
-                    row [ width <| fillPortion 2 ] []
+                    spacing 100
     in
     row [ wf, paddingXY 12 56 ]
-        [ rsFillPortion
-        , column [ width <| fillPortion 8, spacingXY 0 48 ]
+        [ column [ wf, spacingXY 0 48 ]
             [ paragraph titleStyle [ text "US states where you can live and work" ]
             , wrappedRow
                 [ wf
                 , Font.color colors.primary
                 , centerX
-                , spacingXY 100 32
+                , spaceEvenly
+                , space
                 ]
                 [ column [ centerX, spacingXY 0 22, alignTop ]
                     [ paragraph [ Font.center ] [ text "Colorado" ]
                     , paragraph [ Font.center ] [ text "Missouri" ]
+                    , paragraph [ Font.center ] [ text "North Carolina" ]
                     ]
                 , column [ centerX, spacingXY 0 22, alignTop ]
                     [ paragraph [ Font.center ] [ text "Tennessee" ]
@@ -282,7 +287,6 @@ states device =
                     ]
                 ]
             ]
-        , rsFillPortion
         ]
 
 
@@ -507,7 +511,7 @@ header device { title, menu, bg, blobSrc } model =
                             , row [ width <| fillPortion 2 ] []
                             ]
                         ]
-            , row [ wf, height <| fillPortion 8 ]
+            , row [ wf, height <| fillPortion 8, padding 10 ]
                 [ el ([ wf, centerX, Font.size rs.titleFontSize ] ++ Heading.h1 ++ Styles.title)
                     (paragraph [ Font.center, Font.size rs.titleFontSize ] [ text title ])
                 ]
@@ -521,16 +525,8 @@ header device { title, menu, bg, blobSrc } model =
         ]
 
 
+jobsView : Device.Device -> Model -> Element Msg
 jobsView device model =
-    let
-        rsPadding =
-            case device of
-                Device.Phone _ ->
-                    paddingXY 20 40
-
-                _ ->
-                    paddingXY 100 40
-    in
     column
         [ hf
         , centerX
@@ -538,12 +534,16 @@ jobsView device model =
         ]
         [ column
             [ spacingXY 0 20
-            , rsPadding
             , wf
             , centerX
             ]
             [ column [ spacing 40, paddingXY 0 40, width (fill |> Element.maximum 1000), centerX ]
-                [ desktopApplyView job model
+                [ case device of
+                    Device.Phone _ ->
+                        phoneApplyView job model
+
+                    _ ->
+                        desktopApplyView job model
                 ]
             ]
         ]
@@ -578,13 +578,14 @@ smallHeading : List (Attribute msg)
 smallHeading =
     [ Font.size 24
     , Styles.font
+    , paddingXY 0 20
     ]
 
 
 desktopApplyView : Job -> Model -> Element Msg
 desktopApplyView job_ model =
-    column [ centerX, spacing 10, width <| minimum 300 <| maximum 500 fill ] <|
-        [ el smallHeading <| text "Apply"
+    column [ centerX, spacing 20, width <| minimum 300 <| maximum 500 fill ] <|
+        [ el smallHeading <| text copy.applyNow
         , Input.username textbox
             { onChange = Set FirstName
             , text = Text.toString model.applicant.firstName
@@ -623,7 +624,81 @@ desktopApplyView job_ model =
             { onChange = Set Reason
             , text = Text.toString model.applicant.reason
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "Why do you want to work in America?"
+            , label = Input.labelAbove textboxLabel <| text copy.why
+            , spellcheck = True
+            }
+        , case model.error of
+            Just err ->
+                paragraph [ Font.size 15 ]
+                    [ text err
+                    ]
+
+            Nothing ->
+                case model.success of
+                    Just msg ->
+                        paragraph [ Font.size 15 ]
+                            [ text msg
+                            ]
+
+                    Nothing ->
+                        none
+        ]
+            ++ (case model.success of
+                    Just _ ->
+                        []
+
+                    Nothing ->
+                        [ Input.button (Font.size 15 :: Styles.btnOutline)
+                            { onPress = Just (Submit job_)
+                            , label = text "Submit"
+                            }
+                        ]
+               )
+
+
+phoneApplyView : Job -> Model -> Element Msg
+phoneApplyView job_ model =
+    column [ centerX, spacing 10, wf ] <|
+        [ el smallHeading <| text copy.applyNow
+        , Input.username textbox
+            { onChange = Set FirstName
+            , text = Text.toString model.applicant.firstName
+            , placeholder = Nothing
+            , label = Input.labelAbove textboxLabel <| text "First Name"
+            }
+        , Input.username textbox
+            { onChange = Set LastName
+            , text = Text.toString model.applicant.lastName
+            , placeholder = Nothing
+            , label = Input.labelAbove textboxLabel <| text "Last Name"
+            }
+        , Input.email textbox
+            { onChange = Set Email
+            , text = Text.toString model.applicant.email
+            , placeholder = Nothing
+            , label = Input.labelAbove textboxLabel <| text "Email"
+            }
+        , Input.text textbox
+            { onChange = Set Phone
+            , text = Text.toString model.applicant.phone
+            , placeholder = Nothing
+            , label = Input.labelAbove textboxLabel <| text "Phone"
+            }
+        , Input.button (Font.size 15 :: Styles.btnOutline)
+            { onPress = Just UploadResume
+            , label = text "Upload Resume"
+            }
+        , case model.applicant.resume of
+            Just file ->
+                el [ Font.size 15 ] <| text <| File.name file
+
+            Nothing ->
+                none
+        , Input.multiline multitextbox
+            { onChange = Set Reason
+            , text = Text.toString model.applicant.reason
+            , placeholder = Nothing
+            , label = Input.labelAbove textboxLabel <| paragraph [] [ text copy.why ]
             , spellcheck = True
             }
         , case model.error of

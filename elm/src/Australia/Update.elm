@@ -127,4 +127,4 @@ update msg model =
                     singleton { model | success = Just "Thank you for your application." }
 
                 Err _ ->
-                    singleton { model | error = Just "An error occurred. Please try applying again. If the problem persists, please email us your application at join@withflint.com" }
+                    singleton { model | error = Just "An error occurred. Please try applying again. If the problem persists, please email us your application at apply@withflint.com" }
