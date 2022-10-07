@@ -1,18 +1,14 @@
 module Mexico.Update exposing (init, update)
 
 import Apply exposing (..)
-import Browser.Navigation exposing (Key, pushUrl)
-import Dict exposing (Dict)
+import Browser.Navigation exposing (Key)
 import File.Select
 import Http
-import Json.Decode as Decode exposing (Decoder)
-import Mexico.Types exposing (Model, Msg(..), View(..))
+import Mexico.Types exposing (Model, Msg(..))
 import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
 import Text exposing (Text(..))
 import Url exposing (Url)
-import Url.Builder exposing (absolute)
-import Url.Parser exposing ((</>), Parser, parse, s, string)
 
 
 emptyApplicant : Apply.Applicant

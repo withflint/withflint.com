@@ -1,6 +1,6 @@
 module Jobs.View exposing (view)
 
-import Apply exposing (Applicant, Field(..), Job)
+import Apply exposing (Field(..), Job)
 import Device
 import Dict
 import Element

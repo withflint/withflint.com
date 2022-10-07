@@ -1,6 +1,6 @@
 module Mexico.View exposing (view)
 
-import Apply exposing (Applicant, Field(..), Job)
+import Apply exposing (Field(..), Job)
 import Device
 import Dict
 import Element
@@ -47,8 +47,7 @@ import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
-import Mark
-import Mexico.Types exposing (Model, Msg(..), View(..))
+import Mexico.Types exposing (Model, Msg(..))
 import RemoteData exposing (RemoteData(..))
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wf, wp)

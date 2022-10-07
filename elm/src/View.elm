@@ -25,7 +25,6 @@ import Element.Font as Font
 import FaqNurses.View
 import Home.View
 import Html exposing (Html)
-import Jobs.Types
 import Jobs.View
 import Layout exposing (layout)
 import Mexico.View

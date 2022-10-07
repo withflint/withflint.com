@@ -1,7 +1,6 @@
 module Update exposing (init, update)
 
 import About.Update
-import Australia.Types
 import Australia.Update
 import Blog.Types
 import Blog.Update
@@ -12,9 +11,8 @@ import FaqNurses.Update
 import Home.Update
 import Html.Attributes exposing (width)
 import Jobs.Copy
-import Jobs.Types exposing (Config, CurrentPage(..))
+import Jobs.Types exposing (CurrentPage(..))
 import Jobs.Update
-import Mexico.Types
 import Mexico.Update
 import Partnerships.Update
 import Return exposing (Return, return, singleton)
@@ -25,7 +23,6 @@ import SubModule
 import Task
 import Types exposing (Model, Msg(..))
 import Url exposing (Url)
-import View
 
 
 init : { article : Maybe String, gitVersion : String } -> Url -> Key -> Return Msg Model
@@ -66,7 +63,7 @@ init { article, gitVersion } url key =
                     { toMsg = MsgForHealthCare
                     }
 
-        ( australia, initAustralia ) =
+        ( australia, _ ) =
             Australia.Update.init gitVersion
                 url
                 key
@@ -74,7 +71,7 @@ init { article, gitVersion } url key =
                     { toMsg = MsgForAustralia
                     }
 
-        ( mexico, initMexico ) =
+        ( mexico, _ ) =
             Mexico.Update.init gitVersion
                 url
                 key

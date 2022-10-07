@@ -1,18 +1,14 @@
 module Australia.Update exposing (init, update)
 
-import Apply exposing (Applicant, Field(..), Job)
-import Australia.Types exposing (Model, Msg(..), View(..))
-import Browser.Navigation exposing (Key, pushUrl)
-import Dict exposing (Dict)
+import Apply exposing (Applicant, Field(..))
+import Australia.Types exposing (Model, Msg(..))
+import Browser.Navigation exposing (Key)
 import File.Select
 import Http
-import Json.Decode as Decode exposing (Decoder)
 import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
 import Text exposing (Text(..))
 import Url exposing (Url)
-import Url.Builder exposing (absolute)
-import Url.Parser exposing ((</>), Parser, parse, s, string)
 
 
 emptyApplicant : Applicant
@@ -132,19 +128,3 @@ update msg model =
 
                 Err _ ->
                     singleton { model | error = Just "An error occurred. Please try applying again. If the problem persists, please email us your application at join@withflint.com" }
-
-
-jobsDecoder : Decoder (Dict String Job)
-jobsDecoder =
-    Decode.dict jobDecoder
-
-
-jobDecoder : Decoder Job
-jobDecoder =
-    Decode.map6 Job
-        (Decode.field "url" Decode.string)
-        (Decode.field "title" Decode.string)
-        (Decode.field "location" Decode.string)
-        (Decode.field "equity" Decode.string)
-        (Decode.field "experience" Decode.string)
-        (Decode.field "description" Decode.string)

@@ -1,7 +1,7 @@
 module Australia.View exposing (view)
 
-import Apply exposing (Applicant, Field(..), Job)
-import Australia.Types exposing (Model, Msg(..), View(..))
+import Apply exposing (Field(..), Job)
+import Australia.Types exposing (Model, Msg(..))
 import Device
 import Dict
 import Element
@@ -48,7 +48,6 @@ import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
-import Mark
 import RemoteData exposing (RemoteData(..))
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wf, wp)

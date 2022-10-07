@@ -1,13 +1,11 @@
 module Australia.Types exposing (Model, Msg(..), View(..))
 
-import Apply exposing (Applicant, Field(..), Job)
+import Apply exposing (Applicant, Field, Job)
 import Browser.Navigation exposing (Key)
 import Dict exposing (Dict)
-import Element exposing (Element)
 import File exposing (File)
 import Http
 import RemoteData exposing (WebData)
-import Text exposing (Text)
 import Url exposing (Url)
 
 
