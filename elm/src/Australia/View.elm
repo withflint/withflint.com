@@ -54,9 +54,37 @@ import Text
 import Url.Builder exposing (absolute)
 
 
-type alias Viewer =
-    { jobView : ( String, String, Job ) -> Element Msg
-    , applyView : Job -> Model -> Element Msg
+copy =
+    { left = "Flint offers expertise in helping Australian Nurses obtain a license, a work permit and a profitable job offer directly from the facilities we partner with in the USA. A seamless transition without the hassle."
+    , right = "We help our nurses with a personal touch as we understand that each nurse is unique, we walk alongside our nurses in their development during our process, and we assist with relocation and orientation towards the new job and their new home. Flint is here to partner with you."
+    , offer = """
+## Job Description
+A Surgical/Operating Nurse uses the nursing process, to plan, evaluate, and deliver patient care that meets the identified needs of patients having operative and procedural interventions. Nurses applying to this position must have experience caring for patients in the inpatient or ambulatory surgical setting.
+
+**Willing to relocate to USA with assistance provided by Flint.**
+
+## Responsibilities
+- Demonstrates clinical competence in providing direct patient care in the pre, intra, and post-operative care settings.
+- Able to assess and adapt quickly to a change in patient status by choosing appropriate nursing interventions based on the situation, and American Heart Association guidelines (ACLS, PALS, BLS).
+- Follow and demonstrate competency of the Joint Commissions (JCAHO) recommendations for Patient Safety in the Surgical Setting.
+- Collaborate with physicians and nurses to plan and provide care to patients and revise the plan of care to reflect changing patient needs based on evaluation of the patient’s status.
+- Assures the appropriate orders and pre-operative diagnostic testing, and physical exam notes are completed and present.
+- Collaborate with multiple disciplines/departments to improve delivery of patient care and provide a safe environment for patients undergoing surgical and procedural intervention.
+- Assist surgeons during operations and/or physicians in various procedures.
+- Monitor and assess patients before, during, and post-operations and procedures.
+- Admit, treat, and discharge patients in the ambulatory care setting, or admit/transfer patients to an inpatient setting.
+- Provides pre and post-operative instructions and education to patients.
+
+## Requirements
+- A registered nurse (RN) license with NCLEX
+- A “4 year bachelor” degree in nursing.
+- Willing to relocate to the US.
+- Australian passport.
+
+## Why Join the Flint Nurse Network
+If you want to find your dream job in the USA but never knew how or where to start? Flint might be just what you’re looking for. We offer relocation assistance and direct hire opportunities . This means no agency salary retention, and you get to choose where you interview and work. As a Flint nurse you’ll have new opportunities to grow professionally, gain hands-on experience as a nurse in the USA, and have ample opportunity to discover new people and places.
+Apply to find out all the reasons you should consider becoming a Flint nurse.
+"""
     }
 
 
@@ -88,7 +116,7 @@ view device model =
                 , Font.family [ Font.typeface "Inter" ]
                 ]
                 [ row [ wf, hf ] [ header_ device model ]
-                , view_ device desktopView model
+                , view_ device model
                 ]
             , column [ wf ] footer.phone
             ]
@@ -99,7 +127,7 @@ view device model =
                 , Font.family [ Font.typeface "Inter" ]
                 ]
                 [ row [ wf, hf ] [ header_ device model ]
-                , view_ device desktopView model
+                , view_ device model
                 ]
             , column [ wf ] footer.desktop
             ]
@@ -110,14 +138,14 @@ view device model =
                 , Font.family [ Font.typeface "Inter" ]
                 ]
                 [ row [ wf, hf ] [ header_ device model ]
-                , view_ device desktopView model
+                , view_ device model
                 ]
             , column [ wf ] footer.phone
             ]
     }
 
 
-view_ device viewer model =
+view_ device model =
     let
         sectionBg =
             [ css "background" "#FCE5D9"
@@ -132,12 +160,87 @@ view_ device viewer model =
         ]
         [ row (wf :: sectionBg)
             [ row [ width <| fillPortion 2 ] [ Element.none ]
-            , column [ width <| fillPortion 8 ] [ body device viewer model ]
+            , column [ width <| fillPortion 8 ] [ body device model ]
             , row [ width <| fillPortion 2 ] [ Element.none ]
             ]
         , states device
         , partners device
         ]
+
+
+body device model =
+    let
+        titleStyle =
+            [ Font.center
+            , Font.size 28
+            , Font.semiBold
+            , Font.color colors.primary
+            ]
+
+        rsJustify =
+            case device of
+                Device.Phone _ ->
+                    Font.center
+
+                _ ->
+                    Font.justify
+
+        rsDiv =
+            case device of
+                Device.Phone _ ->
+                    column
+
+                _ ->
+                    row
+    in
+    column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
+        [ column [ centerX ]
+            [ paragraph titleStyle
+                [ text "Registered Nurse" ]
+            ]
+        , rsDiv [ spacingXY 34 0, alignTop, spacingXY 40 48 ]
+            [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6 ]
+                [ text copy.left ]
+            , paragraph
+                [ Font.center
+                , alignTop
+                , pt 12
+                , rsJustify
+                , lineHeight 1.6
+                ]
+                [ text copy.right
+                ]
+            ]
+        , column [ wf, spacingXY 0 44, pt 24 ]
+            [ advantages device
+            , info
+            , jobsView device model
+            ]
+        ]
+
+
+advantages : Device.Device -> Element msg
+advantages _ =
+    wrappedRow [ centerX, spacingXY 64 32 ]
+        [ column [ spacingXY 0 24, minW 160 ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licensing" }
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Licensing" ]
+            ]
+        , column [ spacingXY 0 24, minW 160 ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/immigration.svg", description = "Flint - Immigration" }
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Immigration" ]
+            ]
+        , column [ spacingXY 0 24, minW 160 ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/relocation.svg", description = "Flint - Relocation" }
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Relocation" ]
+            ]
+        ]
+
+
+info : Element msg
+info =
+    column [ wf, paddingEach { top = 64, bottom = 48, right = 0, left = 0 }, spacingXY 96 40 ] <|
+        Mark.default copy.offer
 
 
 states : Device.Device -> Element msg
@@ -181,82 +284,6 @@ states device =
             ]
         , rsFillPortion
         ]
-
-
-body device viewer model =
-    let
-        titleStyle =
-            [ Font.center
-            , Font.size 28
-            , Font.semiBold
-            , Font.color colors.primary
-            ]
-
-        rsJustify =
-            case device of
-                Device.Phone _ ->
-                    Font.center
-
-                _ ->
-                    Font.justify
-
-        rsDiv =
-            case device of
-                Device.Phone _ ->
-                    column
-
-                _ ->
-                    row
-    in
-    column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
-        [ column [ centerX ]
-            [ paragraph titleStyle
-                [ text "Registered Nurse" ]
-            ]
-        , rsDiv [ spacingXY 34 0, alignTop, spacingXY 40 48 ]
-            [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6 ]
-                [ text copy.left ]
-            , paragraph
-                [ Font.center
-                , alignTop
-                , pt 12
-                , rsJustify
-                , lineHeight 1.6
-                ]
-                [ text copy.right
-
-                ]
-            ]
-        , column [ wf, spacingXY 0 44, pt 24 ]
-            [ advantages device
-            , info
-            , jobsView device viewer model
-            ]
-        ]
-
-
-advantages : Device.Device -> Element msg
-advantages _ =
-    wrappedRow [ centerX, spacingXY 64 32 ]
-        [ column [ spacingXY 0 24, minW 160 ]
-            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licensing" }
-            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Licensing" ]
-            ]
-        , column [ spacingXY 0 24, minW 160 ]
-            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/immigration.svg", description = "Flint - Immigration" }
-            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Immigration" ]
-            ]
-        , column [ spacingXY 0 24, minW 160 ]
-            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/relocation.svg", description = "Flint - Relocation" }
-            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Relocation" ]
-            ]
-        ]
-
-
-info : Element msg
-info =
-    column [ wf, paddingEach { top = 64, bottom = 48, right = 0, left = 0 }, spacingXY 96 40 ] <|
-        Mark.default copy.offer
 
 
 partners : Device.Device -> Element msg
@@ -494,15 +521,7 @@ header device { title, menu, bg, blobSrc } model =
         ]
 
 
-desktopView : Viewer
-desktopView =
-    { jobView = desktopJobView
-    , applyView = desktopApplyView
-    }
-
-
-jobsView : Device.Device -> Viewer -> Model -> Element Msg
-jobsView device viewer model =
+jobsView device model =
     let
         rsPadding =
             case device of
@@ -524,38 +543,9 @@ jobsView device viewer model =
             , centerX
             ]
             [ column [ spacing 40, paddingXY 0 40, width (fill |> Element.maximum 1000), centerX ]
-                [ viewer.applyView job model
+                [ desktopApplyView job model
                 ]
             ]
-        ]
-
-
-desktopJobView : ( String, String, Job ) -> Element Msg
-desktopJobView ( page, id, job_ ) =
-    row [ wf ]
-        [ column [ alignLeft, spacingXY 0 10, wf ]
-            [ link
-                [ Font.color colors.primary
-                , mouseOver
-                    [ Font.color colors.carminePink
-                    ]
-                ]
-                { url = absolute [ page, id ] []
-                , label = paragraph [ wf, spacing 10 ] [ text job_.title ]
-                }
-            , wrappedRow [ spacingXY 10 10, Font.size 15, wf ]
-                [ text job_.location
-                , text job_.equity
-                , text job_.experience
-                ]
-            ]
-
-        -- , column [ height fill, alignTop, alignRight ]
-        --     [ Input.button Styles.btnOutline
-        --         { onPress = Just (Apply True id)
-        --         , label = text "Apply Now"
-        --         }
-        --     ]
         ]
 
 
@@ -663,37 +653,3 @@ desktopApplyView job_ model =
                             }
                         ]
                )
-
-
-copy =
-    { left = "Flint offers expertise in helping Australian Nurses obtain a license, a work permit and a profitable job offer directly from the facilities we partner with in the USA. A seamless transition without the hassle."
-    , right = "We help our nurses with a personal touch as we understand that each nurse is unique, we walk alongside our nurses in their development during our process, and we assist with relocation and orientation towards the new job and their new home. Flint is here to partner with you."
-    , offer = """
-## Job Description
-A Surgical/Operating Nurse uses the nursing process, to plan, evaluate, and deliver patient care that meets the identified needs of patients having operative and procedural interventions. Nurses applying to this position must have experience caring for patients in the inpatient or ambulatory surgical setting.
-
-**Willing to relocate to USA with assistance provided by Flint.**
-
-## Responsibilities
-- Demonstrates clinical competence in providing direct patient care in the pre, intra, and post-operative care settings.
-- Able to assess and adapt quickly to a change in patient status by choosing appropriate nursing interventions based on the situation, and American Heart Association guidelines (ACLS, PALS, BLS).
-- Follow and demonstrate competency of the Joint Commissions (JCAHO) recommendations for Patient Safety in the Surgical Setting.
-- Collaborate with physicians and nurses to plan and provide care to patients and revise the plan of care to reflect changing patient needs based on evaluation of the patient’s status.
-- Assures the appropriate orders and pre-operative diagnostic testing, and physical exam notes are completed and present.
-- Collaborate with multiple disciplines/departments to improve delivery of patient care and provide a safe environment for patients undergoing surgical and procedural intervention.
-- Assist surgeons during operations and/or physicians in various procedures.
-- Monitor and assess patients before, during, and post-operations and procedures.
-- Admit, treat, and discharge patients in the ambulatory care setting, or admit/transfer patients to an inpatient setting.
-- Provides pre and post-operative instructions and education to patients.
-
-## Requirements
-- A registered nurse (RN) license with NCLEX
-- A “4 year bachelor” degree in nursing.
-- Willing to relocate to the US.
-- Australian passport.
-
-## Why Join the Flint Nurse Network
-If you want to find your dream job in the USA but never knew how or where to start? Flint might be just what you’re looking for. We offer relocation assistance and direct hire opportunities . This means no agency salary retention, and you get to choose where you interview and work. As a Flint nurse you’ll have new opportunities to grow professionally, gain hands-on experience as a nurse in the USA, and have ample opportunity to discover new people and places.
-Apply to find out all the reasons you should consider becoming a Flint nurse.
-"""
-    }
