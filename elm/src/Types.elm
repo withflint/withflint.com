@@ -4,12 +4,14 @@ module Types exposing
     )
 
 import About.Types
+import Australia.Types
 import Blog.Types
 import Browser.Dom exposing (Viewport)
 import Device exposing (Device)
 import FaqNurses.Types
 import Home.Types
 import Jobs.Types
+import Mexico.Types
 import Partnerships.Types
 import Router.Types
 import Url exposing (Url)
@@ -21,6 +23,8 @@ type alias Model =
     , home : Home.Types.Model
     , jobs : Jobs.Types.Model
     , healthcare : Jobs.Types.Model
+    , australia : Australia.Types.Model
+    , mexico : Mexico.Types.Model
     , blog : Blog.Types.Model
     , faqNurses : FaqNurses.Types.Model
     , partnerships : Partnerships.Types.Model
@@ -38,6 +42,10 @@ type Msg
     | MsgForJobs Jobs.Types.Msg
       --
     | MsgForHealthCare Jobs.Types.Msg
+      --
+    | MsgForAustralia Australia.Types.Msg
+      --
+    | MsgForMexico Mexico.Types.Msg
       --
     | MsgForBlog Blog.Types.Msg
       --

@@ -1,5 +1,6 @@
 module Jobs.View exposing (view)
 
+import Apply exposing (Field(..), Job)
 import Device
 import Dict
 import Element
@@ -45,12 +46,12 @@ import File
 import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
-import Jobs.Types exposing (Config, CurrentPage(..), Field(..), Job, Model, Msg(..), View(..))
+import Jobs.Types exposing (Config, CurrentPage(..), Model, Msg(..), View(..))
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
 import Mark
 import RemoteData exposing (RemoteData(..))
 import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wp)
+import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wf, wp)
 import Text
 import Url.Builder exposing (absolute)
 
@@ -207,11 +208,7 @@ view device model =
             }
 
 
-
------ #### View Functions #### -------
-
-
-toView : Device.Device -> Config -> Element msg
+toView : Device.Device -> Config msg -> Element msg
 toView device config =
     case config.page_ of
         NurseCareersPage ->
@@ -219,10 +216,6 @@ toView device config =
 
         JoinTheTeamPage ->
             joinTeamView device
-
-
-
------ #### Nurse Career #### -------
 
 
 nurseCareerView : Device.Device -> Element msg
@@ -385,7 +378,7 @@ nurseCareerBody device =
 
 
 advantages : Device.Device -> Element msg
-advantages device =
+advantages _ =
     wrappedRow [ centerX, spacingXY 64 32 ]
         [ column [ spacingXY 0 24, minW 160 ]
             [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licensing" }
@@ -442,6 +435,12 @@ nurseSuccessInfo =
 partners : Device.Device -> Element msg
 partners device =
     let
+        wePartnerWith =
+            column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
+                [ paragraph [ Font.center, Font.size 28, Font.color colors.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
+                , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
+                ]
+
         bgBlue =
             [ css "background" "#5C4B92"
             , css "background" "linear-gradient(90deg, #50417F 0%, #5C4B92 100%)"
@@ -527,17 +526,8 @@ partners device =
                 ]
             , row [ rsPortion.row3 ] []
             ]
-
-        -- ##### We partner with #####
-        , column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
-            [ paragraph [ Font.center, Font.size 28, Font.color colors.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
-            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
-            ]
+        , wePartnerWith
         ]
-
-
-
------ #### JoinTeam #### -------
 
 
 joinTeamView : Device.Device -> Element msg
@@ -608,10 +598,6 @@ joinTeamBody device =
                     [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process.png", description = "Flint interview process" }
                     ]
         ]
-
-
-
------ #### HEADER #### -------
 
 
 toHeader : Device.Device -> Model -> Element Msg
@@ -796,7 +782,6 @@ header device { title, menu, bg, blobSrc } model =
 type alias Viewer =
     { jobView : ( String, String, Job ) -> Element Msg
     , applyView : Job -> Model -> Element Msg
-    , copyView : Config -> Element Msg
     }
 
 
@@ -804,7 +789,6 @@ desktopView : Viewer
 desktopView =
     { jobView = desktopJobView
     , applyView = desktopApplyView
-    , copyView = desktopCopyView
     }
 
 
@@ -812,7 +796,6 @@ phoneView : Viewer
 phoneView =
     { jobView = phoneJobView
     , applyView = phoneApplyView
-    , copyView = phoneCopyView
     }
 
 
@@ -893,8 +876,7 @@ jobsView device viewer model =
                             , centerX
                             ]
                           <|
-                            [ viewer.copyView model.config
-                            , column [ spacing 40, paddingXY 0 40, width (fill |> Element.maximum 1000), centerX ]
+                            [ column [ spacing 40, paddingXY 0 40, width (fill |> Element.maximum 1000), centerX ]
                                 (openJobsHeader
                                     :: (Dict.toList jobs |> List.map (\( id, job ) -> ( model.config.page, id, job )) |> List.map viewer.jobView)
                                 )
@@ -1176,18 +1158,3 @@ phoneApplyView job model =
                             }
                         ]
                )
-
-
-desktopCopyView : Config -> Element Msg
-desktopCopyView config =
-    Element.none
-
-
-phoneCopyView : Config -> Element Msg
-phoneCopyView config =
-    Element.none
-
-
-wf : Attribute msg
-wf =
-    width fill

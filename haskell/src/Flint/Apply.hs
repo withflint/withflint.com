@@ -119,8 +119,8 @@ careersEmail =
     , mailingList = Address Nothing "join+ws@withflint.com"
     }
 
-healthcareHtmlBody :: Candidate -> Html ()
-healthcareHtmlBody (Candidate {..}) = do
+nurseSuccessHtmlBody :: Candidate -> Html ()
+nurseSuccessHtmlBody (Candidate {..}) = do
   toHtml [st|Hello #{firstName},|]
 
   br_ []
@@ -143,8 +143,32 @@ healthcareHtmlBody (Candidate {..}) = do
   "Nurse Success at "
   a_ [href_ "https://withflint.com/"] "Flint"
 
-healthcareTextBody :: Candidate -> Text.Lazy.Text
-healthcareTextBody (Candidate {..}) =
+nurseSuccessHtmlBodySpanish :: Candidate -> Html ()
+nurseSuccessHtmlBodySpanish (Candidate {..}) = do
+  toHtml [st|Hola #{firstName},|]
+
+  br_ []
+  br_ []
+
+  toHtml [st|Gracias por su interés en el puesto #{applicationTitle} en Flint.|]
+
+  br_ []
+
+  "Revisaremos su candidatura y nos pondremos en contacto con usted en breve."
+
+  br_ []
+  br_ []
+
+  "Saludos cordiales,"
+
+  br_ []
+  br_ []
+
+  "Nurse Success en "
+  a_ [href_ "https://withflint.com/"] "Flint"
+
+nurseSuccessTextBody :: Candidate -> Text.Lazy.Text
+nurseSuccessTextBody (Candidate {..}) =
   [lbt|Hello #{firstName},
       |
       |Thank you for your interest in the #{applicationTitle} position at Flint.
@@ -156,15 +180,35 @@ healthcareTextBody (Candidate {..}) =
       |https://withflint.com
       |]
 
-healthcareRenderer :: MailRenderer
-healthcareRenderer =
+nurseSuccessTextBodySpanish :: Candidate -> Text.Lazy.Text
+nurseSuccessTextBodySpanish (Candidate {..}) =
+  [lbt|Hola #{firstName},
+      |
+      |Gracias por su interés en el puesto #{applicationTitle} en Flint.
+      |Revisaremos su candidatura y le responderemos en breve.
+      |
+      |Saludos cordiales,
+      |
+      |Nurse Success en Flint
+      |https://withflint.com
+      |]
+
+nurseSuccessEmail :: MailRenderer
+nurseSuccessEmail =
   MailRenderer
-    { htmlRenderer = healthcareHtmlBody
-    , textRenderer = healthcareTextBody
+    { htmlRenderer = nurseSuccessHtmlBody
+    , textRenderer = nurseSuccessTextBody
     }
 
-healthcareEmail :: Location
-healthcareEmail =
+nurseSuccessEmailSpanish :: MailRenderer
+nurseSuccessEmailSpanish =
+  MailRenderer
+    { htmlRenderer = nurseSuccessHtmlBodySpanish
+    , textRenderer = nurseSuccessTextBodySpanish
+    }
+
+nurseSuccess :: Location
+nurseSuccess =
   Location
     { address = Address (Just "Flint Nurse Success") "success@withflint.com"
     , mailingList = Address Nothing "apply@withflint.com"

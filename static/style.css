@@ -6,3 +6,6 @@ html, body {
     text-decoration: underline;
 
 }
+
+div.list > div{
+  text-indent: 200px hanging !important;}

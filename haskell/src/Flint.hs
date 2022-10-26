@@ -98,12 +98,22 @@ routes config@(Config {..}) static@(Static {..}) = do
   post "/happly" do
     candidate <- getCandidate
 
-    apply healthcareEmail candidate healthcareRenderer
+    apply nurseSuccess candidate nurseSuccessEmail
 
   post "/apply" do
     candidate <- getCandidate
 
     apply careersEmail candidate careersRenderer
+
+  post "/apply-australia" do
+    candidate <- getCandidate
+
+    apply nurseSuccess candidate nurseSuccessEmail
+
+  post "/apply-mexico" do
+    candidate <- getCandidate
+
+    apply nurseSuccess candidate nurseSuccessEmailSpanish
 
   notFound do
     status status200

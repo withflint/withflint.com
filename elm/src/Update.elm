@@ -1,6 +1,7 @@
 module Update exposing (init, update)
 
 import About.Update
+import Australia.Update
 import Blog.Types
 import Blog.Update
 import Browser.Dom
@@ -9,8 +10,10 @@ import Device exposing (Device(..), classify)
 import FaqNurses.Update
 import Home.Update
 import Html.Attributes exposing (width)
-import Jobs.Types exposing (Config, CurrentPage(..))
+import Jobs.Copy
+import Jobs.Types exposing (CurrentPage(..))
 import Jobs.Update
+import Mexico.Update
 import Partnerships.Update
 import Return exposing (Return, return, singleton)
 import Router.Routes exposing (Page(..))
@@ -20,27 +23,6 @@ import SubModule
 import Task
 import Types exposing (Model, Msg(..))
 import Url exposing (Url)
-import View exposing (joinCopy, nurseCareersCopy)
-
-
-flintConfig : Config
-flintConfig =
-    { endpoint = "/j"
-    , page = "join"
-    , copy = joinCopy
-    , apply = "/apply"
-    , page_ = JoinTheTeamPage
-    }
-
-
-healthcareConfig : Config
-healthcareConfig =
-    { endpoint = "/hc"
-    , page = "nurse-careers"
-    , copy = nurseCareersCopy
-    , apply = "/happly"
-    , page_ = NurseCareersPage
-    }
 
 
 init : { article : Maybe String, gitVersion : String } -> Url -> Key -> Return Msg Model
@@ -54,15 +36,47 @@ init { article, gitVersion } url key =
                     }
 
         ( jobs, initJobs ) =
-            Jobs.Update.init gitVersion url key flintConfig
+            Jobs.Update.init gitVersion
+                url
+                key
+                { endpoint = "/j"
+                , page = "join"
+                , copy = Jobs.Copy.join
+                , apply = "/apply"
+                , page_ = JoinTheTeamPage
+                }
                 |> SubModule.init
                     { toMsg = MsgForJobs
                     }
 
         ( healthcare, initHealthCare ) =
-            Jobs.Update.init gitVersion url key healthcareConfig
+            Jobs.Update.init gitVersion
+                url
+                key
+                { endpoint = "/hc"
+                , page = "nurse-careers"
+                , copy = Jobs.Copy.nurse
+                , apply = "/happly"
+                , page_ = NurseCareersPage
+                }
                 |> SubModule.init
                     { toMsg = MsgForHealthCare
+                    }
+
+        ( australia, _ ) =
+            Australia.Update.init gitVersion
+                url
+                key
+                |> SubModule.init
+                    { toMsg = MsgForAustralia
+                    }
+
+        ( mexico, _ ) =
+            Mexico.Update.init gitVersion
+                url
+                key
+                |> SubModule.init
+                    { toMsg = MsgForMexico
                     }
 
         ( blog, initBlog ) =
@@ -83,6 +97,8 @@ init { article, gitVersion } url key =
         , aboutUs = About.Update.init
         , jobs = jobs
         , healthcare = healthcare
+        , australia = australia
+        , mexico = mexico
         , blog = blog
         , faqNurses = faqNurses
         , partnerships = Partnerships.Update.init
@@ -148,6 +164,22 @@ update msg model =
                         { toMsg = MsgForPartnerships
                         , toModel =
                             \partnerships -> { model | partnerships = partnerships }
+                        }
+
+            MsgForAustralia australiaMsg ->
+                Australia.Update.update australiaMsg model.australia
+                    |> SubModule.update
+                        { toMsg = MsgForAustralia
+                        , toModel =
+                            \australia -> { model | australia = australia }
+                        }
+
+            MsgForMexico mexicoMsg ->
+                Mexico.Update.update mexicoMsg model.mexico
+                    |> SubModule.update
+                        { toMsg = MsgForMexico
+                        , toModel =
+                            \mexico -> { model | mexico = mexico }
                         }
 
             MsgForBlog blogMsg ->
@@ -217,6 +249,18 @@ update msg model =
                                         , toModel =
                                             \healthcare -> { model | healthcare = resetPhoneMenuState healthcare }
                                         }
+
+                            Just Router.Routes.Australia ->
+                                singleton
+                                    { model
+                                        | australia = model.australia |> resetPhoneMenuState
+                                    }
+
+                            Just Router.Routes.Mexico ->
+                                singleton
+                                    { model
+                                        | mexico = model.mexico |> resetPhoneMenuState
+                                    }
 
                             Just Router.Routes.Partnerships ->
                                 singleton

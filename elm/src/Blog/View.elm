@@ -108,7 +108,7 @@ view device model =
 
 
 blogPhoneHeader : Device.Device -> Model -> Element Msg
-blogPhoneHeader device model =
+blogPhoneHeader _ model =
     let
         bg =
             [ css "background" "rgb(68,55,109)"
@@ -160,7 +160,7 @@ blogPhoneHeader device model =
 
 
 blogHeader : Device.Device -> List (Element msg)
-blogHeader device =
+blogHeader _ =
     let
         bg =
             [ css "background" "#DAE9FF"
