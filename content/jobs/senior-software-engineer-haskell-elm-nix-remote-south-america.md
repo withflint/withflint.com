@@ -1,5 +1,5 @@
 senior-software-engineer-haskell-elm-nix-remote-south-america
-Senior Software Engineer (Haskell/Elm/Nix) - South America
+Senior Software Engineer (Haskell/Elm) - South America
 Remote
 11+ years
 
@@ -23,7 +23,7 @@ As Senior Software Engineer, you'll be an integral part of setting the product v
 - _You work with urgency_ - We're in a race against time to 10x the business; you work on the right things and get them done.
 - _You have high standards_ - You know what good looks like, and you work with your team to get there. You apply good engineering and design practices systemically.
 - _You're passionate_ - you've designed and architect excellent software products before.
-- _You've demonstrated a mastery in functional programming_ - with languages such as Haskell, F#, Elm, Erlang, Elixir, ML, OCaml, Lisp, Scheme, Scala, Clojure, Racket, Julia in an academic, personal or professional context.
+- _You've demonstrated a mastery in functional programming_ - with languages such as Haskell, Elm, or Purescript, in a professional context.
 
 Read our _[blog](https://withflint.com/blog)_ to find out more about our _[culture](https://withflint.com/blog/culture)_.
 
