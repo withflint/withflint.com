@@ -1,4 +1,4 @@
-module Apply exposing (Applicant, Field(..), Job)
+module Apply exposing (Applicant, Candidate, Field(..), Job)
 
 import File exposing (File)
 import Text exposing (Text)
@@ -11,6 +11,14 @@ type alias Applicant =
     , phone : Text
     , resume : Maybe File
     , reason : Text
+    }
+
+
+type alias Candidate =
+    { firstName : String
+    , lastName : String
+    , email : String
+    , phone : String
     }
 
 
