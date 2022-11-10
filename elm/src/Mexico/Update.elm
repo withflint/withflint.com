@@ -1,13 +1,14 @@
 module Mexico.Update exposing (init, update)
 
-import Apply exposing (Applicant, Field(..))
+import Apply exposing (Applicant, Candidate, Field(..))
 import Browser.Navigation exposing (Key)
 import File.Select
 import Http
 import Mexico.Types exposing (Model, Msg(..))
+import Ports
 import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
-import Text exposing (Text(..))
+import Text exposing (Text(..), toString)
 import Url exposing (Url)
 
 
@@ -122,9 +123,37 @@ update msg model =
                 singleton { model | error = Just "¡Oh, no! Todos los campos son obligatorios..." }
 
         SendApplicantData result ->
+            let
+                candidate : Maybe Candidate
+                candidate =
+                    if valid then
+                        -- assumes String is not empty here
+                        { firstName = toString model.applicant.firstName
+                        , lastName = toString model.applicant.lastName
+                        , email = toString model.applicant.email
+                        , phone = toString model.applicant.phone
+                        }
+                            |> Just
+
+                    else
+                        Nothing
+
+                valid =
+                    List.all Text.isValid
+                        [ model.applicant.firstName
+                        , model.applicant.lastName
+                        , model.applicant.email
+                        , model.applicant.phone
+                        , model.applicant.reason
+                        ]
+            in
             case result of
                 Ok _ ->
-                    singleton { model | success = Just "Gracias por tu aplicación." }
+                    return
+                        { model | success = Just "Gracias por tu aplicación." }
+                        (Maybe.map Ports.candidateApply candidate
+                            |> Maybe.withDefault Cmd.none
+                        )
 
                 Err _ ->
                     singleton { model | error = Just "Ocurrió un error. Intente aplicar de nuevo. Si el problema persiste, envíenos un correo electrónico con su solicitud a apply@withflint.com" }
