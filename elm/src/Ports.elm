@@ -4,12 +4,12 @@ import Apply exposing (Candidate)
 import Json.Encode as E
 
 
-port candidateApplyEvent : E.Value -> Cmd msg
+port candidateApplyEvent : () -> Cmd msg
 
 
-candidateApply : Candidate -> Cmd msg
-candidateApply candidate =
-    candidateApplyEvent <| encodeCandidate candidate
+candidateApply : Cmd msg
+candidateApply =
+    candidateApplyEvent ()
 
 
 encodeCandidate : Candidate -> E.Value

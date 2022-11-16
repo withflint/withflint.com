@@ -94,6 +94,15 @@ update msg model =
                         , model.applicant.phone
                         , model.applicant.reason
                         ]
+
+                testCandidate : Maybe Candidate
+                testCandidate =
+                    { firstName = "Aziz"
+                    , lastName = "Karim"
+                    , email = "aziz@withflint.com"
+                    , phone = "123456789"
+                    }
+                        |> Just
             in
             if valid then
                 return { model | error = Nothing, success = Nothing }
@@ -151,9 +160,7 @@ update msg model =
                 Ok _ ->
                     return
                         { model | success = Just "Thank you for your application." }
-                        (Maybe.map Ports.candidateApply candidate
-                            |> Maybe.withDefault Cmd.none
-                        )
+                        Ports.candidateApply
 
                 Err _ ->
                     singleton { model | error = Just "An error occurred. Please try applying again. If the problem persists, please email us your application at apply@withflint.com" }

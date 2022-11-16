@@ -190,9 +190,7 @@ update msg model =
                     case model.config.page_ of
                         NurseCareersPage ->
                             return { model | success = Just "Thank you for your application." }
-                                (Maybe.map Ports.candidateApply candidate
-                                    |> Maybe.withDefault Cmd.none
-                                )
+                                Ports.candidateApply
 
                         JoinTheTeamPage ->
                             singleton { model | success = Just "Thank you for your application." }

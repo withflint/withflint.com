@@ -151,9 +151,7 @@ update msg model =
                 Ok _ ->
                     return
                         { model | success = Just "Gracias por tu aplicación." }
-                        (Maybe.map Ports.candidateApply candidate
-                            |> Maybe.withDefault Cmd.none
-                        )
+                        Ports.candidateApply
 
                 Err _ ->
                     singleton { model | error = Just "Ocurrió un error. Intente aplicar de nuevo. Si el problema persiste, envíenos un correo electrónico con su solicitud a apply@withflint.com" }
