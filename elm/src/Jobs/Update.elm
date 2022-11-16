@@ -1,6 +1,6 @@
 module Jobs.Update exposing (init, update)
 
-import Apply exposing (Applicant, Candidate, Field(..), Job)
+import Apply exposing (Applicant, Field(..), Job)
 import Browser.Navigation exposing (Key, pushUrl)
 import Dict exposing (Dict)
 import File.Select
@@ -10,7 +10,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Ports
 import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
-import Text exposing (Text(..), toString)
+import Text exposing (Text(..))
 import Url exposing (Url)
 import Url.Builder exposing (absolute)
 import Url.Parser exposing ((</>), Parser, parse, s, string)
@@ -161,30 +161,6 @@ update msg model =
                 singleton { model | error = Just "Oh no! All fields are required..." }
 
         SendApplicantData result ->
-            let
-                candidate : Maybe Candidate
-                candidate =
-                    if valid then
-                        -- assumes String is not empty here
-                        { firstName = toString model.applicant.firstName
-                        , lastName = toString model.applicant.lastName
-                        , email = toString model.applicant.email
-                        , phone = toString model.applicant.phone
-                        }
-                            |> Just
-
-                    else
-                        Nothing
-
-                valid =
-                    List.all Text.isValid
-                        [ model.applicant.firstName
-                        , model.applicant.lastName
-                        , model.applicant.email
-                        , model.applicant.phone
-                        , model.applicant.reason
-                        ]
-            in
             case result of
                 Ok _ ->
                     case model.config.page_ of
