@@ -5,6 +5,7 @@ import Browser.Navigation exposing (Key)
 import File.Select
 import Http
 import Mexico.Types exposing (Model, Msg(..))
+import Ports
 import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
 import Text exposing (Text(..))
@@ -124,7 +125,9 @@ update msg model =
         SendApplicantData result ->
             case result of
                 Ok _ ->
-                    singleton { model | success = Just "Gracias por tu aplicación." }
+                    return
+                        { model | success = Just "Gracias por tu aplicación." }
+                        Ports.candidateApply
 
                 Err _ ->
                     singleton { model | error = Just "Ocurrió un error. Intente aplicar de nuevo. Si el problema persiste, envíenos un correo electrónico con su solicitud a apply@withflint.com" }

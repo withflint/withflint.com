@@ -28,21 +28,48 @@ const umamiId = "61e2287e-b2c6-44e9-8446-48339059a08c"
 const umamiScript = document.querySelector(`script[data-website-id="${umamiId}"]`)
 
 if (params.has(utmToken)) {
+  // this branch will never evaluate if there is utm_source param missing
   const queryParams = params.toString()
   cookie.set('utm', queryParams)
-  sendToUmami(path)
+  sendPageView(path)
   window.history.pushState({}, '', window.location.href.split('?')[0])
 
 } else if (cookie.get('utm')) {
   const utmParams = cookie.get('utm')
   const utmUrl = `${path}${utmParams}`
-  sendToUmami(utmUrl)
+  sendPageView(utmUrl)
 
 } else {
-  sendToUmami(path)
+  sendPageView(path)
 }
 
-function sendToUmami(path_) {
+function sendPageView(path_) {
   umamiScript.addEventListener('load', () =>
     umami.trackView(path_, 'https://withflint.com', umamiId))
+}
+
+app.ports.candidateApplyEvent.subscribe(_msg => {
+  sendApplyEvent()
+})
+
+
+function sendApplyEvent() {
+  const utm = cookie.get("utm")
+  if(utm) {
+    const params = utm.split("&")
+    const utmInfo = params.map(param => param.split("=")).reduce((acc, [k,v]) => 
+      ({ ...acc, [k] : v}), {})
+    const evtData = { utm : utmInfo }
+    const evtName = "apply" + "-" + evtData.utm.utm_id
+
+    sendUmamiEvent(evtName, JSON.stringify(evtData))
+  } else {
+    sendUmamiEvent("apply-organic", "nodata")
+  }
+}
+
+// eventType - apply-{utm_id} / apply-organic
+function sendUmamiEvent(eventType, data) {
+  // param switched - refactor
+  umami.trackEvent(data, eventType)
 }

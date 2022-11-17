@@ -5,8 +5,9 @@ import Browser.Navigation exposing (Key, pushUrl)
 import Dict exposing (Dict)
 import File.Select
 import Http
-import Jobs.Types exposing (Config, Model, Msg(..), View(..))
+import Jobs.Types exposing (Config, CurrentPage(..), Model, Msg(..), View(..))
 import Json.Decode as Decode exposing (Decoder)
+import Ports
 import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
 import Text exposing (Text(..))
@@ -162,7 +163,13 @@ update msg model =
         SendApplicantData result ->
             case result of
                 Ok _ ->
-                    singleton { model | success = Just "Thank you for your application." }
+                    case model.config.page_ of
+                        NurseCareersPage ->
+                            return { model | success = Just "Thank you for your application." }
+                                Ports.candidateApply
+
+                        JoinTheTeamPage ->
+                            singleton { model | success = Just "Thank you for your application." }
 
                 Err _ ->
                     singleton { model | error = Just "An error occurred. Please try applying again. If the problem persists, please email us your application at join@withflint.com" }
