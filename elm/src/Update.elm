@@ -6,6 +6,7 @@ import Blog.Types
 import Blog.Update
 import Browser.Dom
 import Browser.Navigation exposing (Key)
+import Canada.Update
 import Device exposing (Device(..), classify)
 import FaqNurses.Update
 import Home.Update
@@ -79,6 +80,15 @@ init { article, gitVersion } url key =
                     { toMsg = MsgForMexico
                     }
 
+        -- change lp
+        ( canada, _ ) =
+            Canada.Update.init gitVersion
+                url
+                key
+                |> SubModule.init
+                    { toMsg = MsgForCanada
+                    }
+
         ( blog, initBlog ) =
             Blog.Update.init article
                 |> SubModule.init
@@ -99,6 +109,7 @@ init { article, gitVersion } url key =
         , healthcare = healthcare
         , australia = australia
         , mexico = mexico
+        , canada = canada
         , blog = blog
         , faqNurses = faqNurses
         , partnerships = Partnerships.Update.init
@@ -182,6 +193,14 @@ update msg model =
                             \mexico -> { model | mexico = mexico }
                         }
 
+            MsgForCanada canadaMsg ->
+                Canada.Update.update canadaMsg model.canada
+                    |> SubModule.update
+                        { toMsg = MsgForCanada
+                        , toModel =
+                            \canada -> { model | canada = canada }
+                        }
+
             MsgForBlog blogMsg ->
                 Blog.Update.update blogMsg model.blog
                     |> SubModule.update
@@ -260,6 +279,13 @@ update msg model =
                                 singleton
                                     { model
                                         | mexico = model.mexico |> resetPhoneMenuState
+                                    }
+
+                            -- change lp
+                            Just Router.Routes.Canada ->
+                                singleton
+                                    { model
+                                        | canada = model.canada |> resetPhoneMenuState
                                     }
 
                             Just Router.Routes.Partnerships ->

@@ -3,6 +3,7 @@ module View exposing (view)
 import About.View
 import Australia.View
 import Blog.View
+import Canada.View
 import Element
     exposing
         ( Element
@@ -67,6 +68,10 @@ renderRoute model =
 
         Mexico ->
             Element.map MsgForMexico <| layout model.device <| Mexico.View.view model.device model.mexico
+
+        -- change lp
+        Canada ->
+            Element.map MsgForCanada <| layout model.device <| Canada.View.view model.device model.canada
 
         Blog _ ->
             Element.map MsgForBlog <| layout model.device <| Blog.View.view model.device model.blog

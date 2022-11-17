@@ -14,6 +14,8 @@ type Page
     | NurseCareers String
     | Australia
     | Mexico
+      -- change lp
+    | Canada
     | Blog String
     | FaqNurses
 
@@ -30,6 +32,9 @@ routes =
         , map (NurseCareers "") (s "nurse-careers")
         , map Australia (s "australia")
         , map Mexico (s "mexico")
+
+        -- change lp
+        , map Canada (s "canada")
         , map NurseCareers (s "nurse-careers" </> string)
         , map (Blog "") (s "blog")
         , map Blog (s "blog" </> string)
@@ -63,6 +68,10 @@ toPath page =
 
         Mexico ->
             absolute [ "mexico" ] []
+
+        -- change lp
+        Canada ->
+            absolute [ "canada" ] []
 
         Blog path ->
             absolute [ "blog", path ] []

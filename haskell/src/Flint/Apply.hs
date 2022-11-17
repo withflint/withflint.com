@@ -154,7 +154,7 @@ nurseSuccessHtmlBodySpanish (Candidate {..}) = do
 
   br_ []
 
-  "Revisaremos su candidatura y nos pondremos en contacto con usted en breve."
+  "Revisaremos su aplicación y en breve nos pondremos en contacto con usted."
 
   br_ []
   br_ []
@@ -185,7 +185,7 @@ nurseSuccessTextBodySpanish (Candidate {..}) =
   [lbt|Hola #{firstName},
       |
       |Gracias por su interés en el puesto #{applicationTitle} en Flint.
-      |Revisaremos su candidatura y le responderemos en breve.
+      |Revisaremos su aplicación y en breve nos pondremos en contacto con usted.
       |
       |Saludos cordiales,
       |
