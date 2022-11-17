@@ -7,6 +7,7 @@ import About.Types
 import Australia.Types
 import Blog.Types
 import Browser.Dom exposing (Viewport)
+import Canada.Types
 import Device exposing (Device)
 import FaqNurses.Types
 import Home.Types
@@ -25,6 +26,7 @@ type alias Model =
     , healthcare : Jobs.Types.Model
     , australia : Australia.Types.Model
     , mexico : Mexico.Types.Model
+    , canada : Canada.Types.Model
     , blog : Blog.Types.Model
     , faqNurses : FaqNurses.Types.Model
     , partnerships : Partnerships.Types.Model
@@ -46,6 +48,8 @@ type Msg
     | MsgForAustralia Australia.Types.Msg
       --
     | MsgForMexico Mexico.Types.Msg
+      --
+    | MsgForCanada Canada.Types.Msg
       --
     | MsgForBlog Blog.Types.Msg
       --
