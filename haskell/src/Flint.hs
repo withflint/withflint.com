@@ -120,6 +120,11 @@ routes config@(Config {..}) static@(Static {..}) = do
 
     apply nurseSuccess candidate nurseSuccessEmailSpanish
 
+  post "/apply-chile" do
+    candidate <- getCandidate
+
+    apply nurseSuccess candidate nurseSuccessEmailSpanish
+
   notFound do
     status status200
     lucid $ index config Nothing
