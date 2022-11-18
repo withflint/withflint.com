@@ -21,6 +21,7 @@ import Return exposing (Return, return, singleton)
 import Router.Routes exposing (Page(..))
 import Router.Types
 import Router.Update
+import Singapore.Update
 import SubModule
 import Task
 import Types exposing (Model, Msg(..))
@@ -81,7 +82,6 @@ init { article, gitVersion } url key =
                     { toMsg = MsgForMexico
                     }
 
-        -- change lp
         ( canada, _ ) =
             Canada.Update.init gitVersion
                 url
@@ -96,6 +96,14 @@ init { article, gitVersion } url key =
                 key
                 |> SubModule.init
                     { toMsg = MsgForChile
+                    }
+
+        ( singapore, _ ) =
+            Singapore.Update.init gitVersion
+                url
+                key
+                |> SubModule.init
+                    { toMsg = MsgForSingapore
                     }
 
         ( blog, initBlog ) =
@@ -120,6 +128,7 @@ init { article, gitVersion } url key =
         , mexico = mexico
         , canada = canada
         , chile = chile
+        , singapore = singapore
         , blog = blog
         , faqNurses = faqNurses
         , partnerships = Partnerships.Update.init
@@ -219,6 +228,14 @@ update msg model =
                             \chile -> { model | chile = chile }
                         }
 
+            MsgForSingapore singaporeMsg ->
+                Singapore.Update.update singaporeMsg model.singapore
+                    |> SubModule.update
+                        { toMsg = MsgForSingapore
+                        , toModel =
+                            \singapore -> { model | singapore = singapore }
+                        }
+
             MsgForBlog blogMsg ->
                 Blog.Update.update blogMsg model.blog
                     |> SubModule.update
@@ -299,7 +316,6 @@ update msg model =
                                         | mexico = model.mexico |> resetPhoneMenuState
                                     }
 
-                            -- change lp
                             Just Router.Routes.Canada ->
                                 singleton
                                     { model
@@ -310,6 +326,12 @@ update msg model =
                                 singleton
                                     { model
                                         | chile = model.chile |> resetPhoneMenuState
+                                    }
+
+                            Just Router.Routes.Singapore ->
+                                singleton
+                                    { model
+                                        | singapore = model.singapore |> resetPhoneMenuState
                                     }
 
                             Just Router.Routes.Partnerships ->

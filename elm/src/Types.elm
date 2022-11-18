@@ -16,6 +16,7 @@ import Jobs.Types
 import Mexico.Types
 import Partnerships.Types
 import Router.Types
+import Singapore.Types
 import Url exposing (Url)
 
 
@@ -29,6 +30,7 @@ type alias Model =
     , mexico : Mexico.Types.Model
     , canada : Canada.Types.Model
     , chile : Chile.Types.Model
+    , singapore : Singapore.Types.Model
     , blog : Blog.Types.Model
     , faqNurses : FaqNurses.Types.Model
     , partnerships : Partnerships.Types.Model
@@ -54,6 +56,8 @@ type Msg
     | MsgForCanada Canada.Types.Msg
       --
     | MsgForChile Chile.Types.Msg
+      --
+    | MsgForSingapore Singapore.Types.Msg
       --
     | MsgForBlog Blog.Types.Msg
       --

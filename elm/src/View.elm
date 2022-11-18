@@ -32,6 +32,7 @@ import Layout exposing (layout)
 import Mexico.View
 import Partnerships.View
 import Router.Routes exposing (Page(..), toPath)
+import Singapore.View
 import Styles exposing (colors, headerGradientBackground, pt)
 import Types exposing (Model, Msg(..))
 
@@ -70,12 +71,14 @@ renderRoute model =
         Mexico ->
             Element.map MsgForMexico <| layout model.device <| Mexico.View.view model.device model.mexico
 
-        -- change lp
         Canada ->
             Element.map MsgForCanada <| layout model.device <| Canada.View.view model.device model.canada
 
         Chile ->
             Element.map MsgForChile <| layout model.device <| Chile.View.view model.device model.chile
+
+        Singapore ->
+            Element.map MsgForSingapore <| layout model.device <| Singapore.View.view model.device model.singapore
 
         Blog _ ->
             Element.map MsgForBlog <| layout model.device <| Blog.View.view model.device model.blog
