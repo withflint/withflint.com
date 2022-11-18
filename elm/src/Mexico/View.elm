@@ -118,7 +118,7 @@ Salario: $76,000.00 - $95,000.00 al mes
 job : { url : String, title : String, location : String, equity : String, experience : String, description : String }
 job =
     { url = ""
-    , title = copy.job
+    , title = "Registered Nurse - Mexico"
     , location = "USA"
     , equity = "0"
     , experience = "5 years+"

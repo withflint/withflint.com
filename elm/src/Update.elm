@@ -7,6 +7,7 @@ import Blog.Update
 import Browser.Dom
 import Browser.Navigation exposing (Key)
 import Canada.Update
+import Chile.Update
 import Device exposing (Device(..), classify)
 import FaqNurses.Update
 import Home.Update
@@ -89,6 +90,14 @@ init { article, gitVersion } url key =
                     { toMsg = MsgForCanada
                     }
 
+        ( chile, _ ) =
+            Chile.Update.init gitVersion
+                url
+                key
+                |> SubModule.init
+                    { toMsg = MsgForChile
+                    }
+
         ( blog, initBlog ) =
             Blog.Update.init article
                 |> SubModule.init
@@ -110,6 +119,7 @@ init { article, gitVersion } url key =
         , australia = australia
         , mexico = mexico
         , canada = canada
+        , chile = chile
         , blog = blog
         , faqNurses = faqNurses
         , partnerships = Partnerships.Update.init
@@ -201,6 +211,14 @@ update msg model =
                             \canada -> { model | canada = canada }
                         }
 
+            MsgForChile chileMsg ->
+                Chile.Update.update chileMsg model.chile
+                    |> SubModule.update
+                        { toMsg = MsgForChile
+                        , toModel =
+                            \chile -> { model | chile = chile }
+                        }
+
             MsgForBlog blogMsg ->
                 Blog.Update.update blogMsg model.blog
                     |> SubModule.update
@@ -286,6 +304,12 @@ update msg model =
                                 singleton
                                     { model
                                         | canada = model.canada |> resetPhoneMenuState
+                                    }
+
+                            Just Router.Routes.Chile ->
+                                singleton
+                                    { model
+                                        | chile = model.chile |> resetPhoneMenuState
                                     }
 
                             Just Router.Routes.Partnerships ->

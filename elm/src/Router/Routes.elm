@@ -16,6 +16,7 @@ type Page
     | Mexico
       -- change lp
     | Canada
+    | Chile
     | Blog String
     | FaqNurses
 
@@ -35,6 +36,7 @@ routes =
 
         -- change lp
         , map Canada (s "canada")
+        , map Chile (s "chile")
         , map NurseCareers (s "nurse-careers" </> string)
         , map (Blog "") (s "blog")
         , map Blog (s "blog" </> string)
@@ -72,6 +74,9 @@ toPath page =
         -- change lp
         Canada ->
             absolute [ "canada" ] []
+
+        Chile ->
+            absolute [ "chile" ] []
 
         Blog path ->
             absolute [ "blog", path ] []
