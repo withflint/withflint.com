@@ -116,7 +116,7 @@ Salario: $4,458,450 CLP - $6,241,830 CLP al mes.
 job : { url : String, title : String, location : String, equity : String, experience : String, description : String }
 job =
     { url = ""
-    , title = "Registered Nurse - Chile"
+    , title = copy.job
     , location = "USA"
     , equity = "0"
     , experience = "5 years+"
