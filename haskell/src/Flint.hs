@@ -105,6 +105,11 @@ routes config@(Config {..}) static@(Static {..}) = do
 
     apply careersEmail candidate careersRenderer
 
+  post "/apply-singapore" do
+    candidate <- getCandidate
+
+    apply nurseSuccess candidate nurseSuccessEmail
+
   post "/apply-australia" do
     candidate <- getCandidate
 

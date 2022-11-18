@@ -101,7 +101,7 @@ update msg model =
                         (Maybe.map
                             (\file ->
                                 Http.post
-                                    { url = "/apply-australia"
+                                    { url = "/apply-singapore"
                                     , body =
                                         Http.multipartBody
                                             [ Http.stringPart "applicationTitle" job.title
