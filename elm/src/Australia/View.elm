@@ -76,7 +76,7 @@ A Surgical/Operating Nurse uses the nursing process, to plan, evaluate, and deli
 - Provides pre and post-operative instructions and education to patients.
 
 ## Requirements
-- A registered nurse (RN) license with NCLEX
+- A registered nurse (RN) license 
 - A “4 year bachelor” degree in nursing.
 - Willing to relocate to the US.
 - Australian passport.
