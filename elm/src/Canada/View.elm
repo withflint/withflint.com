@@ -91,7 +91,7 @@ Apply to find out all the reasons you should consider becoming a Flint nurse.
 job : { url : String, title : String, location : String, equity : String, experience : String, description : String }
 job =
     { url = ""
-    , title = "Registered Nurse for Canadian"
+    , title = "Registered Nurse - Canada"
     , location = "USA"
     , equity = "0"
     , experience = "5 years+"

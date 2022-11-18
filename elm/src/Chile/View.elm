@@ -53,7 +53,7 @@ import Text
 copy =
     { why = "¿Por qué quieres trabajar en los Estados Unidos?"
     , title = "¿Quieres ser enfermero en los Estados Unidos?"
-    , job = "Enfermero registrado para mexicanos"
+    , job = "Enfermero registrado para chilenos"
     , applyNow = "Aplica ya"
     , left = "Flint ofrece ayuda a enfermeros Chilenos para obtener una licencia, un permiso de trabajo y una oferta de trabajo bien remunerada directamente en los hospitales con los que tenemos convenio en los EE. UU. Ofrecemos una transición perfecta y sin complicaciones."
     , right = "Ayudamos a nuestros enfermeros con un acercamiento personal ya que entendemos que cada enfermero es único, acompañamos a nuestros enfermeros en su desarrollo durante nuestro proceso y los ayudamos con la reubicación y la orientación en su  nuevo trabajo y su nuevo hogar. Flint está aquí para asociarse contigo."
@@ -116,7 +116,7 @@ Salario: $4,458,450 CLP - $6,241,830 CLP al mes.
 job : { url : String, title : String, location : String, equity : String, experience : String, description : String }
 job =
     { url = ""
-    , title = copy.job
+    , title = "Registered Nurse - Chile"
     , location = "USA"
     , equity = "0"
     , experience = "5 years+"
