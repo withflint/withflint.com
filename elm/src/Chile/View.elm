@@ -116,7 +116,7 @@ Salario: $4,458,450 CLP - $6,241,830 CLP al mes.
 job : { url : String, title : String, location : String, equity : String, experience : String, description : String }
 job =
     { url = ""
-    , title = "Registered Nurse - Chile"
+    , title = copy.job
     , location = "USA"
     , equity = "0"
     , experience = "5 years+"
@@ -224,7 +224,7 @@ body device model =
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
         [ column [ centerX ]
             [ paragraph titleStyle
-                [ text "Registered Nurse" ]
+                [ text "Enfermero Registrado" ]
             ]
         , rsDiv [ spacingXY 34 0, alignTop, spacingXY 40 48 ]
             [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6 ] <|
@@ -251,16 +251,16 @@ advantages : Device.Device -> Element msg
 advantages _ =
     wrappedRow [ centerX, spacingXY 64 32 ]
         [ column [ spacingXY 0 24, minW 160 ]
-            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licensing" }
-            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Licensing" ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licenciamiento" }
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Licenciamiento" ]
             ]
         , column [ spacingXY 0 24, minW 160 ]
-            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/immigration.svg", description = "Flint - Immigration" }
-            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Immigration" ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/immigration.svg", description = "Flint - Migración" }
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Migración" ]
             ]
         , column [ spacingXY 0 24, minW 160 ]
-            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/relocation.svg", description = "Flint - Relocation" }
-            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Relocation" ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/relocation.svg", description = "Flint - Reubicación" }
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Reubicación" ]
             ]
         ]
 
