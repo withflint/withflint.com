@@ -11,7 +11,7 @@ type Page
     | Partnerships
     | About
     | JoinTheTeam String
-    | NurseCareers String
+    | Partners String
     | Australia
     | Mexico
     | Canada
@@ -30,13 +30,13 @@ routes =
         , map Partnerships (s "partnerships")
         , map (JoinTheTeam "") (s "join")
         , map JoinTheTeam (s "join" </> string)
-        , map (NurseCareers "") (s "nurse-careers")
+        , map (Partners "") (s "nurse-careers")
         , map Australia (s "australia")
         , map Mexico (s "mexico")
         , map Canada (s "canada")
         , map Chile (s "chile")
         , map Singapore (s "singapore")
-        , map NurseCareers (s "nurse-careers" </> string)
+        , map Partners (s "nurse-careers" </> string)
         , map (Blog "") (s "blog")
         , map Blog (s "blog" </> string)
         , map FaqNurses (s "internationally-educated-nurses-faq")
@@ -61,7 +61,7 @@ toPath page =
         JoinTheTeam id ->
             absolute [ "join", id ] []
 
-        NurseCareers id ->
+        Partners id ->
             absolute [ "nurse-careers", id ] []
 
         Australia ->

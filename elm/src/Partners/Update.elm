@@ -1,12 +1,12 @@
-module Jobs.Update exposing (init, update)
+module Partners.Update exposing (init, update)
 
 import Apply exposing (Applicant, Field(..), Job)
 import Browser.Navigation exposing (Key, pushUrl)
 import Dict exposing (Dict)
 import File.Select
 import Http
-import Jobs.Types exposing (Config, CurrentPage(..), Model, Msg(..), View(..))
 import Json.Decode as Decode exposing (Decoder)
+import Partners.Types exposing (Config, Model, Msg(..), View(..))
 import Ports
 import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
@@ -16,7 +16,7 @@ import Url.Builder exposing (absolute)
 import Url.Parser exposing ((</>), Parser, parse, s, string)
 
 
-idParser : Config msg -> Parser (String -> b) b
+idParser : Config -> Parser (String -> b) b
 idParser config =
     s config.page </> string
 
@@ -32,17 +32,17 @@ emptyApplicant =
     }
 
 
-init : String -> Url -> Key -> Config Msg -> Return Msg Model
+init : String -> Url -> Key -> Config -> Return Msg Model
 init gitVersion url key config =
     return
         { jobs = NotAsked
         , gitVersion = gitVersion
         , applicant = emptyApplicant
         , error = Nothing
-        , title = config.copy.pageTitle
         , url = url
         , key = key
         , config = config
+        , title = ""
         , success = Nothing
         , isPhoneMenuVisible = False
         , view =
@@ -163,13 +163,8 @@ update msg model =
         SendApplicantData result ->
             case result of
                 Ok _ ->
-                    case model.config.page_ of
-                        NurseCareersPage ->
-                            return { model | success = Just "Thank you for your application." }
-                                Ports.candidateApply
-
-                        JoinTheTeamPage ->
-                            singleton { model | success = Just "Thank you for your application." }
+                    return { model | success = Just "Thank you for your application." }
+                        Ports.candidateApply
 
                 Err _ ->
                     singleton { model | error = Just "An error occurred. Please try applying again. If the problem persists, please email us your application at join@withflint.com" }

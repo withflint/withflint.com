@@ -163,7 +163,7 @@ phoneView device model =
                 , card device
                     { title = "Want to be a nurse in America?"
                     , desc = "Find support and community from start to finish"
-                    , btn = { label = "Flint for nurses", page = NurseCareers "" }
+                    , btn = { label = "Flint for nurses", page = Partners "" }
                     , bg = nursesBg
                     }
                 ]
@@ -362,7 +362,7 @@ desktopView device =
             , card device
                 { title = "Want to be a nurse in America?"
                 , desc = "Find support and community from start to finish"
-                , btn = { label = "Flint for nurses", page = NurseCareers "" }
+                , btn = { label = "Flint for nurses", page = Partners "" }
                 , bg = nursesBg
                 }
             ]

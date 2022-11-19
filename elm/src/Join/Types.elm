@@ -1,12 +1,17 @@
-module Mexico.Types exposing (Model, Msg(..))
+module Join.Types exposing (Config, Model, Msg(..), View(..))
 
-import Apply exposing (Applicant, Field, Job)
+import Apply exposing (Applicant, Job)
 import Browser.Navigation exposing (Key)
 import Dict exposing (Dict)
-import File exposing (File)
-import Http
 import RemoteData exposing (WebData)
 import Url exposing (Url)
+
+
+type alias Config =
+    { page : String
+    , endpoint : String
+    , apply : String
+    }
 
 
 type alias Model =
@@ -17,16 +22,18 @@ type alias Model =
     , title : String
     , url : Url
     , key : Key
+    , view : View
+    , config : Config
     , success : Maybe String
     , isPhoneMenuVisible : Bool
     }
 
 
 type Msg
-    = UploadResume
-    | Resume File
-    | ReceiveJobsData (WebData (Dict String Job))
-    | SendApplicantData (Result Http.Error ())
-    | Set Field String
-    | Submit Job
+    = SwitchView View
     | PhoneMenuToggle
+
+
+type View
+    = ApplyView
+    | JobsView

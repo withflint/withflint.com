@@ -12,8 +12,9 @@ import Chile.Types
 import Device exposing (Device)
 import FaqNurses.Types
 import Home.Types
-import Jobs.Types
+import Join.Types
 import Mexico.Types
+import Partners.Types
 import Partnerships.Types
 import Router.Types
 import Singapore.Types
@@ -24,8 +25,8 @@ type alias Model =
     { router : Router.Types.Model
     , aboutUs : About.Types.Model
     , home : Home.Types.Model
-    , jobs : Jobs.Types.Model
-    , healthcare : Jobs.Types.Model
+    , partners : Partners.Types.Model
+    , join : Join.Types.Model
     , australia : Australia.Types.Model
     , mexico : Mexico.Types.Model
     , canada : Canada.Types.Model
@@ -45,9 +46,10 @@ type Msg
     | EffFromRouter Router.Types.Eff
       --
     | MsgForHome Home.Types.Msg
-    | MsgForJobs Jobs.Types.Msg
       --
-    | MsgForHealthCare Jobs.Types.Msg
+    | MsgForJoin Join.Types.Msg
+      --
+    | MsgForPartners Partners.Types.Msg
       --
     | MsgForAustralia Australia.Types.Msg
       --

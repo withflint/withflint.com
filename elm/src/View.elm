@@ -27,9 +27,10 @@ import Element.Font as Font
 import FaqNurses.View
 import Home.View
 import Html exposing (Html)
-import Jobs.View
+import Join.View
 import Layout exposing (layout)
 import Mexico.View
+import Partners.View
 import Partnerships.View
 import Router.Routes exposing (Page(..), toPath)
 import Singapore.View
@@ -60,10 +61,10 @@ renderRoute model =
             Element.map MsgForPartnerships <| layout model.device <| Partnerships.View.view model.device model.partnerships
 
         JoinTheTeam _ ->
-            Element.map MsgForJobs <| layout model.device <| Jobs.View.view model.device model.jobs
+            Element.map MsgForJoin <| layout model.device <| Join.View.view model.device model.join
 
-        NurseCareers _ ->
-            Element.map MsgForHealthCare <| layout model.device <| Jobs.View.view model.device model.healthcare
+        Partners _ ->
+            Element.map MsgForPartners <| layout model.device <| Partners.View.view model.device model.partners
 
         Australia ->
             Element.map MsgForAustralia <| layout model.device <| Australia.View.view model.device model.australia

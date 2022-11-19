@@ -1,4 +1,4 @@
-module Singapore.Types exposing (Model, Msg(..), View(..))
+module Singapore.Types exposing (Model, Msg(..))
 
 import Apply exposing (Applicant, Field, Job)
 import Browser.Navigation exposing (Key)
@@ -30,8 +30,3 @@ type Msg
     | Set Field String
     | Submit Job
     | PhoneMenuToggle
-
-
-type View
-    = ApplyView String
-    | JobsView

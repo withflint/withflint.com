@@ -1,4 +1,4 @@
-module Jobs.View exposing (view)
+module Partners.View exposing (view)
 
 import Apply exposing (Field(..), Job)
 import Device
@@ -46,9 +46,9 @@ import File
 import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
-import Jobs.Types exposing (Config, CurrentPage(..), Model, Msg(..), View(..))
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
 import Mark
+import Partners.Types exposing (Model, Msg(..), View(..))
 import RemoteData exposing (RemoteData(..))
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wf, wp)
@@ -81,11 +81,9 @@ view device model =
                         [ wf
                         , Font.family [ Font.typeface "Inter" ]
                         ]
-                        [ row [ wf, hf ] [ toHeader device model ]
-                        , toView device model.config
+                        [ row [ wf, hf ] [ nurseCareerHeader device model ]
+                        , toView device
                         ]
-
-                    -- JobView
                     , column
                         ([ wf
                          , height fill
@@ -98,16 +96,13 @@ view device model =
                     ]
             , desktop =
                 render <|
-                    [ -- top header including hero title and nav bar
-                      column
+                    [ column
                         [ wf
                         , Font.family [ Font.typeface "Inter" ]
                         ]
-                        [ row [ wf, hf ] [ toHeader device model ]
-                        , toView device model.config
+                        [ row [ wf, hf ] [ nurseCareerHeader device model ]
+                        , toView device
                         ]
-
-                    -- JobView
                     , column
                         ([ wf
                          , height fill
@@ -125,11 +120,9 @@ view device model =
                         [ wf
                         , Font.family [ Font.typeface "Inter" ]
                         ]
-                        [ row [ wf, hf ] [ toHeader device model ]
-                        , toView device model.config
+                        [ row [ wf, hf ] [ nurseCareerHeader device model ]
+                        , toView device
                         ]
-
-                    -- JobView
                     , column
                         ([ wf
                          , height fill
@@ -150,7 +143,7 @@ view device model =
                         [ wf
                         , Font.family [ Font.typeface "Inter" ]
                         ]
-                        [ toHeader device model
+                        [ nurseCareerHeader device model
                         ]
                     , column
                         ([ wf
@@ -166,12 +159,11 @@ view device model =
                     ]
             , desktop =
                 render <|
-                    [ -- top header including hero title and nav bar
-                      column
+                    [ column
                         [ wf
                         , Font.family [ Font.typeface "Inter" ]
                         ]
-                        [ toHeader device model
+                        [ nurseCareerHeader device model
                         ]
                     , column
                         ([ wf
@@ -191,7 +183,7 @@ view device model =
                         [ wf
                         , Font.family [ Font.typeface "Inter" ]
                         ]
-                        [ toHeader device model
+                        [ nurseCareerHeader device model
                         ]
                     , column
                         ([ wf
@@ -208,18 +200,8 @@ view device model =
             }
 
 
-toView : Device.Device -> Config msg -> Element msg
-toView device config =
-    case config.page_ of
-        NurseCareersPage ->
-            nurseCareerView device
-
-        JoinTheTeamPage ->
-            joinTeamView device
-
-
-nurseCareerView : Device.Device -> Element msg
-nurseCareerView device =
+toView : Device.Device -> Element msg
+toView device =
     let
         sectionBg =
             [ css "background" "#FCE5D9"
@@ -253,7 +235,6 @@ states device =
             ]
 
         rsFillPortion =
-            -- responsive fillPortion
             case device of
                 Device.Phone _ ->
                     Element.none
@@ -367,7 +348,7 @@ nurseCareerBody device =
                         (link
                             (centerY :: centerX :: wf :: Font.size 15 :: Styles.btnFilled btnConfig)
                             { url = "/nurse-careers/general-health-care-application-rn-np-lpn-hsp-anywhere-usa"
-                            , label = paragraph [ Font.center ] [ text <| "Apply" ]
+                            , label = paragraph [ Font.center ] [ text <| "Apply Now" ]
                             }
                         )
                     ]
@@ -530,103 +511,6 @@ partners device =
         ]
 
 
-joinTeamView : Device.Device -> Element msg
-joinTeamView device =
-    column
-        [ Background.color colors.cremeDark
-        , wf
-        , hf
-        , Font.family [ Font.typeface "Inter" ]
-        ]
-        [ row [ wf ]
-            [ row [ width <| fillPortion 2 ] [ Element.none ]
-            , column [ width <| fillPortion 8 ] [ joinTeamBody device ]
-            , row [ width <| fillPortion 2 ] [ Element.none ]
-            ]
-        ]
-
-
-joinTeamBody : Device.Device -> Element msg
-joinTeamBody device =
-    let
-        titleStyle =
-            [ Font.center
-            , Font.size 28
-            , Font.semiBold
-            , Font.color colors.primary
-            ]
-
-        interviewProcessSm =
-            row [ centerX ]
-                [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process-sm.png", description = "Flint interview process" }
-                ]
-    in
-    column [ wf, centerX, paddingXY 0 48, spacingXY 0 56, Font.size 16 ]
-        [ column [ centerX ]
-            [ paragraph titleStyle
-                [ text "We work with the very best" ]
-            ]
-        , wrappedRow [ alignTop, spacingXY 24 20 ]
-            [ paragraph [ lineHeight 1.6, minW 300 ]
-                [ text "At Flint, we're committed to hiring the best people to build our teams. Building great products takes smart, disciplined, and empathetic individuals who understand our product goals and imagine innovative ways to achieve results. We designed a hiring process to help us identify those people." ]
-            , paragraph
-                [ wf
-                , hf
-                , lineHeight 1.6
-                , minW 300
-                ]
-                [ text "Flint fosters a culture of respect, dialogue, and growth– a home where our team members can engage in a continuous conversation about product, engineering, and learning. "
-                , Element.link [ Font.underline ]
-                    { url = toPath (Blog "culture")
-                    , label = el [ lineHeight 1.6 ] (text "Read more about our values and culture.")
-                    }
-                , paragraph
-                    [ lineHeight 1.6
-                    ]
-                    [ text " We interview and make hires within a week from our first meet – it's a commitment." ]
-                ]
-            ]
-        , case device of
-            Device.Phone _ ->
-                interviewProcessSm
-
-            Device.Tablet _ ->
-                interviewProcessSm
-
-            _ ->
-                row [ centerX ]
-                    [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process.png", description = "Flint interview process" }
-                    ]
-        ]
-
-
-toHeader : Device.Device -> Model -> Element Msg
-toHeader device model =
-    case model.config.page_ of
-        NurseCareersPage ->
-            nurseCareerHeader device model
-
-        JoinTheTeamPage ->
-            joinTeamHeader device model
-
-
-joinTeamHeader : Device.Device -> Model -> Element Msg
-joinTeamHeader device model =
-    let
-        bg =
-            [ css "background" "#FFDCC9"
-            , css "background" "linear-gradient(281.5deg, #FFDCC9 -0.43%, #C8BCC7 8.22%, #8284AF 27.81%, #6E74A9 52.4%, #6359A1 82.46%)"
-            ]
-
-        blobSrc =
-            "/static/images/header-blob-blue.svg"
-
-        title =
-            "Join the Team"
-    in
-    header device { title = title, menu = topMenu, bg = bg, blobSrc = blobSrc } model
-
-
 nurseCareerHeader : Device.Device -> Model -> Element Msg
 nurseCareerHeader device model =
     let
@@ -683,7 +567,6 @@ header device { title, menu, bg, blobSrc } model =
                     el [ Font.center ] (text label)
                 }
 
-        -- responsive size
         rs =
             case device of
                 Device.Phone _ ->
@@ -812,38 +695,25 @@ jobsView device viewer model =
                     paddingXY 100 40
 
         openJobsHeader =
-            case model.config.page_ of
-                NurseCareersPage ->
-                    column [ wf, spacingXY 10 24, Styles.pb 24 ]
-                        [ paragraph
-                            [ Font.size 26
-                            , Font.semiBold
-                            , Font.color colors.primary
-                            , Font.center
-                            ]
-                            [ text "Open Positions" ]
-                        , column [ width (fill |> Element.maximum 820), centerX ]
-                            [ paragraph
-                                [ Font.center
-                                , lineHeight 1.6
-                                , pt 12
-                                , Font.justify
-                                ]
-                                [ text "Apply now and discover what exciting new career opportunities with growth potential awaits you in America, where you will apply your existing skills and knowledge while learning new ones. Our team of experienced nurse educators will guide you and start your journey today."
-                                ]
-                            ]
+            column [ wf, spacingXY 10 24, Styles.pb 24 ]
+                [ paragraph
+                    [ Font.size 26
+                    , Font.semiBold
+                    , Font.color colors.primary
+                    , Font.center
+                    ]
+                    [ text "Open Positions" ]
+                , column [ width (fill |> Element.maximum 820), centerX ]
+                    [ paragraph
+                        [ Font.center
+                        , lineHeight 1.6
+                        , pt 12
+                        , Font.justify
                         ]
-
-                JoinTheTeamPage ->
-                    paragraph
-                        [ Font.size 24
-                        , Styles.headFont
-                        , Font.color colors.primary
-                        , Font.center
-                        , Styles.pb 24
+                        [ text "Apply now and discover what exciting new career opportunities with growth potential awaits you in America, where you will apply your existing skills and knowledge while learning new ones. Our team of experienced nurse educators will guide you and start your journey today."
                         ]
-                        [ text "Open Positions"
-                        ]
+                    ]
+                ]
     in
     case model.view of
         JobsView ->
@@ -1054,7 +924,7 @@ desktopApplyView job model =
             { onChange = Set Reason
             , text = Text.toString model.applicant.reason
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text model.config.copy.why
+            , label = Input.labelAbove textboxLabel <| text copy.why
             , spellcheck = True
             }
         , case model.error of
@@ -1128,7 +998,7 @@ phoneApplyView job model =
             { onChange = Set Reason
             , text = Text.toString model.applicant.reason
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| paragraph [] [ text model.config.copy.why ]
+            , label = Input.labelAbove textboxLabel <| paragraph [] [ text copy.why ]
             , spellcheck = True
             }
         , case model.error of
@@ -1158,3 +1028,23 @@ phoneApplyView job model =
                             }
                         ]
                )
+
+
+copy : { desktopHeader : String, phoneHeader : String, paragraph1 : String, paragraph2 : String, why : String, title : String, pageTitle : String, other : Maybe (List (Element msg)) }
+copy =
+    { desktopHeader = "We work with the very best. Quality candidates lead to quality health outcomes."
+    , phoneHeader = "We work with the very best."
+    , paragraph1 = "At Flint, we're committed to finding the best people to staff health care teams. We work with highly internationally educated health care professionals who display care for their patients, have quality communication skills, good empathy skills, are attentive to details, can solve problems, and display autonomy and compliances with the standards can think critically and improve the American healthcare system."
+    , paragraph2 = "We work with internationally educated health care workers from around the world for staffing opportunities in the United States of America. We offer an all-inclusive solution for the workers to have a seamless transition into their new life in America. Flint offers fully sponsored licensing, immigration and relocation programs. We pay for legal and processing fees, licensing and offer premium placement."
+    , why = "Why do you want to work in the United States of America?"
+    , title = "Launch your nursing career in America"
+    , pageTitle = "Nurse Success  - Flint"
+    , other =
+        Just
+            [ text " "
+            , link Styles.link
+                { url = toPath FaqNurses
+                , label = text "Learn more"
+                }
+            ]
+    }

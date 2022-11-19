@@ -38,7 +38,7 @@ import Styles exposing (colors, css, hf, palette, pt, wf)
 menu : List ( String, Page )
 menu =
     [ ( "Partnerships", Partnerships )
-    , ( "Nurse Careers", NurseCareers "" )
+    , ( "Nurse Careers", Partners "" )
     , ( "FAQ", FaqNurses )
     , ( "About", About )
     , ( "Blog", Blog "" )
@@ -48,7 +48,7 @@ menu =
 
 topMenu : List ( String, Page )
 topMenu =
-    [ ( "Partnerships", Partnerships ), ( "Nurse Careers", NurseCareers "" ), ( "Blog", Blog "" ), ( "About", About ) ]
+    [ ( "Partnerships", Partnerships ), ( "Nurse Careers", Partners "" ), ( "Blog", Blog "" ), ( "About", About ) ]
 
 
 type alias Layout msg =

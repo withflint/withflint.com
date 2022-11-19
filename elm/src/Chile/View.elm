@@ -50,6 +50,7 @@ import Styles exposing (colors, css, hf, lineHeight, minW, palette, pt, wf, wp)
 import Text
 
 
+copy : { why : String, title : String, job : String, applyNow : String, left : String, right : String, offer : String }
 copy =
     { why = "¿Por qué quieres trabajar en los Estados Unidos?"
     , title = "¿Quieres ser enfermero en los Estados Unidos?"
@@ -84,7 +85,7 @@ Flint es una empresa de innovación tecnológica que opera de manera distinta a 
 
 Flint vincula a sus enfermeros directo con el hospital para que sean contratados por el hospital. Esto es de vital importancia porque de esa manera el enfermero recibe el 100% de su sueldo, sin retención o deducciones mientras que en las agencias tradicionales les retienen hasta el 50% de su sueldo.
 
-Otra ventaja de estar contratado de manera directa es que el departamento de inmigración de los EE.UU. los protege para que reciban el mismo trato que un ciudadano Americano. 
+Otra ventaja de estar contratado de manera directa es que el departamento de inmigración de los EE.UU. los protege para que reciban el mismo trato que un ciudadano Americano.
 Nuestro programa es 100% patrocinado para el enfermero e incluye lo siguiente:
 
 Curso de Inglés para acreditar TOEFL o IELTS.

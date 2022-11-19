@@ -12,10 +12,11 @@ import Device exposing (Device(..), classify)
 import FaqNurses.Update
 import Home.Update
 import Html.Attributes exposing (width)
-import Jobs.Copy
-import Jobs.Types exposing (CurrentPage(..))
-import Jobs.Update
+import Join.Types
+import Join.Update
 import Mexico.Update
+import Partners.Types
+import Partners.Update
 import Partnerships.Update
 import Return exposing (Return, return, singleton)
 import Router.Routes exposing (Page(..))
@@ -38,32 +39,27 @@ init { article, gitVersion } url key =
                     , effectToMsg = EffFromRouter
                     }
 
-        ( jobs, initJobs ) =
-            Jobs.Update.init gitVersion
+        ( join, initJoin ) =
+            Join.Update.init gitVersion
                 url
                 key
                 { endpoint = "/j"
                 , page = "join"
-                , copy = Jobs.Copy.join
                 , apply = "/apply"
-                , page_ = JoinTheTeamPage
                 }
                 |> SubModule.init
-                    { toMsg = MsgForJobs
-                    }
+                    { toMsg = MsgForJoin }
 
-        ( healthcare, initHealthCare ) =
-            Jobs.Update.init gitVersion
+        ( partners, initPartners ) =
+            Partners.Update.init gitVersion
                 url
                 key
                 { endpoint = "/hc"
                 , page = "nurse-careers"
-                , copy = Jobs.Copy.nurse
                 , apply = "/happly"
-                , page_ = NurseCareersPage
                 }
                 |> SubModule.init
-                    { toMsg = MsgForHealthCare
+                    { toMsg = MsgForPartners
                     }
 
         ( australia, _ ) =
@@ -122,8 +118,8 @@ init { article, gitVersion } url key =
         { router = router
         , home = Home.Update.init
         , aboutUs = About.Update.init
-        , jobs = jobs
-        , healthcare = healthcare
+        , join = join
+        , partners = partners
         , australia = australia
         , mexico = mexico
         , canada = canada
@@ -138,12 +134,12 @@ init { article, gitVersion } url key =
         }
         (Task.perform Load Browser.Dom.getViewport)
         |> initRouter
-        |> initJobs
-        |> initHealthCare
+        |> initJoin
+        |> initPartners
         |> initBlog
 
 
-update : Msg -> Model -> Return Msg Model
+update : Msg -> Model -> Return.Return Msg Model
 update msg model =
     let
         resetPhoneMenuState m =
@@ -172,20 +168,20 @@ update msg model =
                             \home -> { model | home = home }
                         }
 
-            MsgForJobs jobsMsg ->
-                Jobs.Update.update jobsMsg model.jobs
+            MsgForJoin joinMsg ->
+                Join.Update.update joinMsg model.join
                     |> SubModule.update
-                        { toMsg = MsgForJobs
+                        { toMsg = MsgForJoin
                         , toModel =
-                            \jobs -> { model | jobs = jobs }
+                            \join -> { model | join = join }
                         }
 
-            MsgForHealthCare healthcareMsg ->
-                Jobs.Update.update healthcareMsg model.healthcare
+            MsgForPartners partnersMsg ->
+                Partners.Update.update partnersMsg model.partners
                     |> SubModule.update
-                        { toMsg = MsgForHealthCare
+                        { toMsg = MsgForPartners
                         , toModel =
-                            \healthcare -> { model | healthcare = healthcare }
+                            \partners -> { model | partners = partners }
                         }
 
             MsgForPartnerships partnershipsMsg ->
@@ -273,35 +269,28 @@ update msg model =
                                         }
 
                             Just (Router.Routes.JoinTheTeam "") ->
-                                Jobs.Update.update (Jobs.Types.SwitchView Jobs.Types.JobsView) model.jobs
+                                Join.Update.update (Join.Types.SwitchView Join.Types.JobsView) model.join
                                     |> SubModule.update
-                                        { toMsg = MsgForJobs
+                                        { toMsg = MsgForJoin
                                         , toModel =
-                                            \jobs -> { model | jobs = resetPhoneMenuState jobs }
+                                            \join -> { model | join = resetPhoneMenuState join }
                                         }
 
-                            Just (Router.Routes.JoinTheTeam jobId) ->
-                                Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.jobs
+
+                            Just (Router.Routes.Partners "") ->
+                                Partners.Update.update (Partners.Types.SwitchView Partners.Types.JobsView) model.partners
                                     |> SubModule.update
-                                        { toMsg = MsgForJobs
+                                        { toMsg = MsgForPartners
                                         , toModel =
-                                            \jobs -> { model | jobs = resetPhoneMenuState jobs }
+                                            \partners -> { model | partners = resetPhoneMenuState partners }
                                         }
 
-                            Just (Router.Routes.NurseCareers "") ->
-                                Jobs.Update.update (Jobs.Types.SwitchView Jobs.Types.JobsView) model.healthcare
+                            Just (Router.Routes.Partners jobId) ->
+                                Partners.Update.update (Partners.Types.SwitchView (Partners.Types.ApplyView jobId)) model.partners
                                     |> SubModule.update
-                                        { toMsg = MsgForHealthCare
+                                        { toMsg = MsgForPartners
                                         , toModel =
-                                            \healthcare -> { model | healthcare = resetPhoneMenuState healthcare }
-                                        }
-
-                            Just (Router.Routes.NurseCareers jobId) ->
-                                Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.healthcare
-                                    |> SubModule.update
-                                        { toMsg = MsgForHealthCare
-                                        , toModel =
-                                            \healthcare -> { model | healthcare = resetPhoneMenuState healthcare }
+                                            \partners -> { model | partners = resetPhoneMenuState partners }
                                         }
 
                             Just Router.Routes.Australia ->
@@ -388,10 +377,10 @@ pageTitle model =
             "404 Not Found - Flint"
 
         JoinTheTeam _ ->
-            model.jobs.title
+            model.join.title
 
-        NurseCareers _ ->
-            model.healthcare.title
+        Partners _ ->
+            model.partners.title
 
         Blog _ ->
             model.blog.title
