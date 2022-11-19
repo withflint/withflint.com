@@ -1,10 +1,10 @@
-module Australia.Update exposing (init, update)
+module Landing.Singapore.Update exposing (init, update)
 
 import Apply exposing (Applicant, Field(..))
-import Australia.Types exposing (Model, Msg(..))
 import Browser.Navigation exposing (Key)
 import File.Select
 import Http
+import Landing.Singapore.Types exposing (Model, Msg(..))
 import Ports
 import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
@@ -30,7 +30,7 @@ init gitVersion url key =
         , gitVersion = gitVersion
         , applicant = emptyApplicant
         , error = Nothing
-        , title = "Australia - Flint"
+        , title = "Singapore - Flint"
         , url = url
         , key = key
         , success = Nothing
@@ -101,7 +101,7 @@ update msg model =
                         (Maybe.map
                             (\file ->
                                 Http.post
-                                    { url = "/apply-australia"
+                                    { url = "/apply-singapore"
                                     , body =
                                         Http.multipartBody
                                             [ Http.stringPart "applicationTitle" job.title

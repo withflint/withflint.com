@@ -4,20 +4,20 @@ module Types exposing
     )
 
 import About.Types
-import Australia.Types
 import Blog.Types
 import Browser.Dom exposing (Viewport)
-import Canada.Types
-import Chile.Types
 import Device exposing (Device)
 import FaqNurses.Types
 import Home.Types
 import Join.Types
-import Mexico.Types
+import Landing.Australia.Types
+import Landing.Canada.Types
+import Landing.Chile.Types
+import Landing.Mexico.Types
+import Landing.Singapore.Types
 import Partners.Types
 import Partnerships.Types
 import Router.Types
-import Singapore.Types
 import Url exposing (Url)
 
 
@@ -27,11 +27,11 @@ type alias Model =
     , home : Home.Types.Model
     , partners : Partners.Types.Model
     , join : Join.Types.Model
-    , australia : Australia.Types.Model
-    , mexico : Mexico.Types.Model
-    , canada : Canada.Types.Model
-    , chile : Chile.Types.Model
-    , singapore : Singapore.Types.Model
+    , australia : Landing.Australia.Types.Model
+    , mexico : Landing.Mexico.Types.Model
+    , canada : Landing.Canada.Types.Model
+    , chile : Landing.Chile.Types.Model
+    , singapore : Landing.Singapore.Types.Model
     , blog : Blog.Types.Model
     , faqNurses : FaqNurses.Types.Model
     , partnerships : Partnerships.Types.Model
@@ -51,15 +51,15 @@ type Msg
       --
     | MsgForPartners Partners.Types.Msg
       --
-    | MsgForAustralia Australia.Types.Msg
+    | MsgForAustralia Landing.Australia.Types.Msg
       --
-    | MsgForMexico Mexico.Types.Msg
+    | MsgForMexico Landing.Mexico.Types.Msg
       --
-    | MsgForCanada Canada.Types.Msg
+    | MsgForCanada Landing.Canada.Types.Msg
       --
-    | MsgForChile Chile.Types.Msg
+    | MsgForChile Landing.Chile.Types.Msg
       --
-    | MsgForSingapore Singapore.Types.Msg
+    | MsgForSingapore Landing.Singapore.Types.Msg
       --
     | MsgForBlog Blog.Types.Msg
       --

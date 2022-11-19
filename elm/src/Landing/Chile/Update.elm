@@ -1,18 +1,18 @@
-module Singapore.Update exposing (init, update)
+module Landing.Chile.Update exposing (init, update)
 
 import Apply exposing (Applicant, Field(..))
 import Browser.Navigation exposing (Key)
 import File.Select
 import Http
+import Landing.Chile.Types exposing (Model, Msg(..))
 import Ports
 import RemoteData exposing (RemoteData(..))
 import Return exposing (Return, return, singleton)
-import Singapore.Types exposing (Model, Msg(..))
 import Text exposing (Text(..))
 import Url exposing (Url)
 
 
-emptyApplicant : Applicant
+emptyApplicant : Apply.Applicant
 emptyApplicant =
     { firstName = Empty
     , lastName = Empty
@@ -30,7 +30,7 @@ init gitVersion url key =
         , gitVersion = gitVersion
         , applicant = emptyApplicant
         , error = Nothing
-        , title = "Singapore - Flint"
+        , title = "Chile - Flint"
         , url = url
         , key = key
         , success = Nothing
@@ -101,7 +101,7 @@ update msg model =
                         (Maybe.map
                             (\file ->
                                 Http.post
-                                    { url = "/apply-singapore"
+                                    { url = "/apply-chile"
                                     , body =
                                         Http.multipartBody
                                             [ Http.stringPart "applicationTitle" job.title
@@ -120,14 +120,14 @@ update msg model =
                     )
 
             else
-                singleton { model | error = Just "Oh no! All fields are required..." }
+                singleton { model | error = Just "¡Oh, no! Todos los campos son obligatorios..." }
 
         SendApplicantData result ->
             case result of
                 Ok _ ->
                     return
-                        { model | success = Just "Thank you for your application." }
+                        { model | success = Just "Gracias por tu aplicación." }
                         Ports.candidateApply
 
                 Err _ ->
-                    singleton { model | error = Just "An error occurred. Please try applying again. If the problem persists, please email us your application at apply@withflint.com" }
+                    singleton { model | error = Just "Ocurrió un error. Intente aplicar de nuevo. Si el problema persiste, envíenos un correo electrónico con su solicitud a apply@withflint.com" }

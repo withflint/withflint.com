@@ -1,4 +1,4 @@
-module Chile.Types exposing (Model, Msg(..))
+module Landing.Australia.Types exposing (Model, Msg(..))
 
 import Apply exposing (Applicant, Field, Job)
 import Browser.Navigation exposing (Key)

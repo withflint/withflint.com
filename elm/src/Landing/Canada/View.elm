@@ -1,7 +1,6 @@
-module Australia.View exposing (view)
+module Landing.Canada.View exposing (view)
 
 import Apply exposing (Field(..), Job)
-import Australia.Types exposing (Model, Msg(..))
 import Device
 import Element
     exposing
@@ -43,6 +42,7 @@ import File
 import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
+import Landing.Canada.Types exposing (Model, Msg(..))
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
@@ -54,7 +54,7 @@ copy : { why : String, applyNow : String, left : String, right : String, offer :
 copy =
     { why = "Why do you want to work in America?"
     , applyNow = "Apply Now"
-    , left = "Flint offers expertise in helping **Australian Registered Nurses** obtain a license, a work permit and a profitable job offer directly from the facilities we partner with in the USA. A seamless transition without the hassle."
+    , left = "Flint offers expertise in helping **Canadian Registered Nurses** obtain a license, a work permit and a profitable job offer directly from the facilities we partner with in the USA. A seamless transition without the hassle."
     , right = "We help our nurses with a personal touch as we understand that each nurse is unique, we walk alongside our nurses in their development during our process, and we assist with relocation and orientation towards the new job and their new home. Flint is here to partner with you."
     , offer = """
 **You must be willing to relocate to USA. Flint covers the relocation.**
@@ -76,10 +76,10 @@ A Surgical/Operating Nurse uses the nursing process, to plan, evaluate, and deli
 - Provides pre and post-operative instructions and education to patients.
 
 ## Requirements
-- A registered nurse (RN) license 
+- A registered nurse (RN) license
 - A “4 year bachelor” degree in nursing.
 - Willing to relocate to the US.
-- Australian passport.
+- Canadian passport.
 
 ## Why Join the Flint Nurse Network
 If you want to find your dream job in the USA but never knew how or where to start? Flint might be just what you’re looking for. We offer relocation assistance and direct hire opportunities . This means no agency salary retention, and you get to choose where you interview and work. As a Flint nurse you’ll have new opportunities to grow professionally, gain hands-on experience as a nurse in the USA, and have ample opportunity to discover new people and places.
@@ -91,7 +91,7 @@ Apply to find out all the reasons you should consider becoming a Flint nurse.
 job : { url : String, title : String, location : String, equity : String, experience : String, description : String }
 job =
     { url = ""
-    , title = "Registered Nurse - Australia"
+    , title = "Registered Nurse - Canada"
     , location = "USA"
     , equity = "0"
     , experience = "5 years+"

@@ -1,7 +1,6 @@
-module Canada.View exposing (view)
+module Landing.Chile.View exposing (view)
 
 import Apply exposing (Field(..), Job)
-import Canada.Types exposing (Model, Msg(..))
 import Device
 import Element
     exposing
@@ -43,6 +42,7 @@ import File
 import Framework.Heading as Heading
 import Html
 import Html.Attributes as HtmlAttr
+import Landing.Chile.Types exposing (Model, Msg(..))
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
 import Mark
 import Router.Routes exposing (Page(..), toPath)
@@ -50,40 +50,66 @@ import Styles exposing (colors, css, hf, lineHeight, minW, palette, pt, wf, wp)
 import Text
 
 
-copy : { why : String, applyNow : String, left : String, right : String, offer : String }
+copy : { why : String, title : String, job : String, applyNow : String, left : String, right : String, offer : String }
 copy =
-    { why = "Why do you want to work in America?"
-    , applyNow = "Apply Now"
-    , left = "Flint offers expertise in helping **Canadian Registered Nurses** obtain a license, a work permit and a profitable job offer directly from the facilities we partner with in the USA. A seamless transition without the hassle."
-    , right = "We help our nurses with a personal touch as we understand that each nurse is unique, we walk alongside our nurses in their development during our process, and we assist with relocation and orientation towards the new job and their new home. Flint is here to partner with you."
+    { why = "¿Por qué quieres trabajar en los Estados Unidos?"
+    , title = "¿Quieres ser enfermero en los Estados Unidos?"
+    , job = "Enfermero registrado para chilenos"
+    , applyNow = "Aplica ya"
+    , left = "Flint ofrece ayuda a enfermeros Chilenos para obtener una licencia, un permiso de trabajo y una oferta de trabajo bien remunerada directamente en los hospitales con los que tenemos convenio en los EE. UU. Ofrecemos una transición perfecta y sin complicaciones."
+    , right = "Ayudamos a nuestros enfermeros con un acercamiento personal ya que entendemos que cada enfermero es único, acompañamos a nuestros enfermeros en su desarrollo durante nuestro proceso y los ayudamos con la reubicación y la orientación en su  nuevo trabajo y su nuevo hogar. Flint está aquí para asociarse contigo."
     , offer = """
-**You must be willing to relocate to USA. Flint covers the relocation.**
+**Usted debe estar dispuesto a mudarse a EE.UU. Flint cubre los gastos de su  reubicación.**
 
-## Job Description
-A Surgical/Operating Nurse uses the nursing process, to plan, evaluate, and deliver patient care that meets the identified needs of patients having operative and procedural interventions. Nurses applying to this position must have experience caring for patients in the inpatient or ambulatory surgical setting.
+## ¿Por qué escoger  EE.UU. en lugar de Europa o Canadá?
 
+1. Porque Estados Unidos paga mejor que cualquier otro país del mundo.
+1. Porque el clima es mucho más benévolo en los estados del sur de EE.UU. que en Europa o Canadá.
+1. Porque el costo de vida es mucho menor que en cualquier país Europeo o Canadá.
+1. Porque hay muchas más oportunidades de crecimiento laboral y para especializarse.
+1. Porque los impuestos a los enfermeros en Estados Unidos son menores que en cualquier país Europeo.
+1. Porque la comunidad Latina en Estados Unidos es mayor que cualquier país Europeo o Canadá.
+1. Porque los vuelos internacionales de USA permiten visitar con mayor frecuencia a sus familiares a un menor costo, comparado con Europa o Canadá.
+1. Porque es mucho más fácil para un Chileno comunicarse en Inglés que en Alemán o Francés.
+1. Porque se puede tener acceso a alimentos, ingredientes y productos latinos mucho más fácil que en Europa y Canadá.
+1. Porque las comisiones para mandar dinero de regreso a Chile son más bajas y hay mas medios para hacerlo.
 
-## Responsibilities
-- Demonstrates clinical competence in providing direct patient care in the pre, intra, and post-operative care settings.
-- Able to assess and adapt quickly to a change in patient status by choosing appropriate nursing interventions based on the situation, and American Heart Association guidelines (ACLS, PALS, BLS).
-- Follow and demonstrate competency of the Joint Commissions (JCAHO) recommendations for Patient Safety in the Surgical Setting.
-- Collaborate with physicians and nurses to plan and provide care to patients and revise the plan of care to reflect changing patient needs based on evaluation of the patient’s status.
-- Assures the appropriate orders and pre-operative diagnostic testing, and physical exam notes are completed and present.
-- Collaborate with multiple disciplines/departments to improve delivery of patient care and provide a safe environment for patients undergoing surgical and procedural intervention.
-- Assist surgeons during operations and/or physicians in various procedures.
-- Monitor and assess patients before, during, and post-operations and procedures.
-- Admit, treat, and discharge patients in the ambulatory care setting, or admit/transfer patients to an inpatient setting.
-- Provides pre and post-operative instructions and education to patients.
+## Descripción de La Vacante
+Estamos reclutando enfermeros Chilenos para desempeñarse laboralmente en los EE.UU. Nuestro programa ofrece la oportunidad a cualquier enfermero que cumpla con los requisitos para inscribirse  en nuestros cursos para completar todas las certificaciones necesarias que le permitirán  poder trabajar como enfermero de manera legal y muy bien remunerada en Estados Unidos. Nuestra promesa con los enfermeros que se unen a nuestro equipo  es que les ayudaremos a conseguir:
 
-## Requirements
-- A registered nurse (RN) license 
-- A “4 year bachelor” degree in nursing.
-- Willing to relocate to the US.
-- Canadian passport.
+1. Licencia de “Enfermero Registrado” en el estado donde acepten su puesto.
+1. Visa de trabajo temporal que se puede cambiar a una  “Residencia Permanente” (Green Card) al cumplir sus primeros 2 años.
+1. Una oferta de empleo bien remunerada en cualquiera de los hospitales con los que tenemos convenio.
 
-## Why Join the Flint Nurse Network
-If you want to find your dream job in the USA but never knew how or where to start? Flint might be just what you’re looking for. We offer relocation assistance and direct hire opportunities . This means no agency salary retention, and you get to choose where you interview and work. As a Flint nurse you’ll have new opportunities to grow professionally, gain hands-on experience as a nurse in the USA, and have ample opportunity to discover new people and places.
-Apply to find out all the reasons you should consider becoming a Flint nurse.
+Flint es una empresa de innovación tecnológica que opera de manera distinta a las agencias de reclutamiento tradicionales, en las que los enfermeros firman de manera directa con una agencia para después ser subcontratados a los hospitales.
+
+Flint vincula a sus enfermeros directo con el hospital para que sean contratados por el hospital. Esto es de vital importancia porque de esa manera el enfermero recibe el 100% de su sueldo, sin retención o deducciones mientras que en las agencias tradicionales les retienen hasta el 50% de su sueldo.
+
+Otra ventaja de estar contratado de manera directa es que el departamento de inmigración de los EE.UU. los protege para que reciban el mismo trato que un ciudadano Americano.
+Nuestro programa es 100% patrocinado para el enfermero e incluye lo siguiente:
+
+Curso de Inglés para acreditar TOEFL o IELTS.
+Tutor personalizado de Inglés.
+Curso de NCLEX 3 meses (Equivalente al Ceneval, en EE.UU.) para obtener su licencia.
+Una enfermera educadora que enseña el  curso.
+Viáticos y traslado, incluyendo boletos de  avión.
+1 mes de gastos de hospedaje (departamento/casa).
+Cuotas de todos los exámenes y certificaciones.
+Homologación de su título profesional.
+Programa de adaptación a “Tu nueva vida en EE.UU.”
+Apoyo para prepararse para entrevistas con hospitales y apoyo para negociar su contrato final.
+Asesoría legal y migratoria.
+
+**Requisitos**
+
+Título universitario y Licencia de enfermero (REgistro)
+Inglés intermedio B2 (Capaz de participar en  una entrevista en inglés)
+1-2 años de experiencia clínica en ambiente hospitalario (NO enfermería industrial u ocupacional, NO cuidadores en casa, NO enfermeros en campañas de vacunación)
+Disponibilidad de  firmar un contrato por 3 años con alguno de nuestros hospitales.
+NO haber sido nunca antes deportados o invitados a salir voluntariamente de EE.UU.
+Contar con al menos 2 vacunas de Covid.
+
+Salario: $4,458,450 CLP - $6,241,830 CLP al mes.
 """
     }
 
@@ -91,7 +117,7 @@ Apply to find out all the reasons you should consider becoming a Flint nurse.
 job : { url : String, title : String, location : String, equity : String, experience : String, description : String }
 job =
     { url = ""
-    , title = "Registered Nurse - Canada"
+    , title = copy.job
     , location = "USA"
     , equity = "0"
     , experience = "5 years+"
@@ -199,7 +225,7 @@ body device model =
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
         [ column [ centerX ]
             [ paragraph titleStyle
-                [ text "Registered Nurse" ]
+                [ text "Enfermero Registrado" ]
             ]
         , rsDiv [ spacingXY 34 0, alignTop, spacingXY 40 48 ]
             [ paragraph [ alignTop, Font.center, pt 12, rsJustify, lineHeight 1.6 ] <|
@@ -226,16 +252,16 @@ advantages : Device.Device -> Element msg
 advantages _ =
     wrappedRow [ centerX, spacingXY 64 32 ]
         [ column [ spacingXY 0 24, minW 160 ]
-            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licensing" }
-            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Licensing" ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/licensing.svg", description = "Flint - Licenciamiento" }
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Licenciamiento" ]
             ]
         , column [ spacingXY 0 24, minW 160 ]
-            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/immigration.svg", description = "Flint - Immigration" }
-            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Immigration" ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/immigration.svg", description = "Flint - Migración" }
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Migración" ]
             ]
         , column [ spacingXY 0 24, minW 160 ]
-            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/relocation.svg", description = "Flint - Relocation" }
-            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Relocation" ]
+            [ Element.image [ centerX, width (px 72), height (px 87) ] { src = "/static/images/relocation.svg", description = "Flint - Reubicación" }
+            , paragraph [ Font.center, Font.color colors.primary, Font.semiBold ] [ text "Reubicación" ]
             ]
         ]
 
@@ -395,11 +421,8 @@ header_ device model =
 
         blobSrc =
             "/static/images/header-blob-beige.svg"
-
-        title =
-            "Want to be a nurse in the USA?"
     in
-    header device { title = title, menu = topMenu, bg = bg, blobSrc = blobSrc } model
+    header device { title = copy.title, menu = topMenu, bg = bg, blobSrc = blobSrc } model
 
 
 header :
@@ -590,29 +613,29 @@ desktopApplyView job_ model =
             { onChange = Set FirstName
             , text = Text.toString model.applicant.firstName
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "First Name"
+            , label = Input.labelAbove textboxLabel <| text "Primer nombre"
             }
         , Input.username textbox
             { onChange = Set LastName
             , text = Text.toString model.applicant.lastName
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "Last Name"
+            , label = Input.labelAbove textboxLabel <| text "Apellido"
             }
         , Input.email textbox
             { onChange = Set Email
             , text = Text.toString model.applicant.email
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "Email"
+            , label = Input.labelAbove textboxLabel <| text "Correo electrónico"
             }
         , Input.text textbox
             { onChange = Set Phone
             , text = Text.toString model.applicant.phone
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "Phone"
+            , label = Input.labelAbove textboxLabel <| text "Teléfono"
             }
         , Input.button (Font.size 15 :: Styles.btnOutline)
             { onPress = Just UploadResume
-            , label = text "Upload Resume"
+            , label = text "Subir currículum"
             }
         , case model.applicant.resume of
             Just file ->
@@ -664,25 +687,25 @@ phoneApplyView job_ model =
             { onChange = Set FirstName
             , text = Text.toString model.applicant.firstName
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "First Name"
+            , label = Input.labelAbove textboxLabel <| text "Primer nombre"
             }
         , Input.username textbox
             { onChange = Set LastName
             , text = Text.toString model.applicant.lastName
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "Last Name"
+            , label = Input.labelAbove textboxLabel <| text "Apellido"
             }
         , Input.email textbox
             { onChange = Set Email
             , text = Text.toString model.applicant.email
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "Email"
+            , label = Input.labelAbove textboxLabel <| text "Correo electrónico"
             }
         , Input.text textbox
             { onChange = Set Phone
             , text = Text.toString model.applicant.phone
             , placeholder = Nothing
-            , label = Input.labelAbove textboxLabel <| text "Phone"
+            , label = Input.labelAbove textboxLabel <| text "Teléfono"
             }
         , Input.button (Font.size 15 :: Styles.btnOutline)
             { onPress = Just UploadResume

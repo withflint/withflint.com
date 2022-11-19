@@ -1,20 +1,21 @@
 module Update exposing (init, update)
 
 import About.Update
-import Australia.Update
 import Blog.Types
 import Blog.Update
 import Browser.Dom
 import Browser.Navigation exposing (Key)
-import Canada.Update
-import Chile.Update
 import Device exposing (Device(..), classify)
 import FaqNurses.Update
 import Home.Update
 import Html.Attributes exposing (width)
 import Join.Types
 import Join.Update
-import Mexico.Update
+import Landing.Australia.Update
+import Landing.Canada.Update
+import Landing.Chile.Update
+import Landing.Mexico.Update
+import Landing.Singapore.Update
 import Partners.Types
 import Partners.Update
 import Partnerships.Update
@@ -22,7 +23,6 @@ import Return exposing (Return, return, singleton)
 import Router.Routes exposing (Page(..))
 import Router.Types
 import Router.Update
-import Singapore.Update
 import SubModule
 import Task
 import Types exposing (Model, Msg(..))
@@ -63,7 +63,7 @@ init { article, gitVersion } url key =
                     }
 
         ( australia, _ ) =
-            Australia.Update.init gitVersion
+            Landing.Australia.Update.init gitVersion
                 url
                 key
                 |> SubModule.init
@@ -71,7 +71,7 @@ init { article, gitVersion } url key =
                     }
 
         ( mexico, _ ) =
-            Mexico.Update.init gitVersion
+            Landing.Mexico.Update.init gitVersion
                 url
                 key
                 |> SubModule.init
@@ -79,7 +79,7 @@ init { article, gitVersion } url key =
                     }
 
         ( canada, _ ) =
-            Canada.Update.init gitVersion
+            Landing.Canada.Update.init gitVersion
                 url
                 key
                 |> SubModule.init
@@ -87,7 +87,7 @@ init { article, gitVersion } url key =
                     }
 
         ( chile, _ ) =
-            Chile.Update.init gitVersion
+            Landing.Chile.Update.init gitVersion
                 url
                 key
                 |> SubModule.init
@@ -95,7 +95,7 @@ init { article, gitVersion } url key =
                     }
 
         ( singapore, _ ) =
-            Singapore.Update.init gitVersion
+            Landing.Singapore.Update.init gitVersion
                 url
                 key
                 |> SubModule.init
@@ -193,7 +193,7 @@ update msg model =
                         }
 
             MsgForAustralia australiaMsg ->
-                Australia.Update.update australiaMsg model.australia
+                Landing.Australia.Update.update australiaMsg model.australia
                     |> SubModule.update
                         { toMsg = MsgForAustralia
                         , toModel =
@@ -201,7 +201,7 @@ update msg model =
                         }
 
             MsgForMexico mexicoMsg ->
-                Mexico.Update.update mexicoMsg model.mexico
+                Landing.Mexico.Update.update mexicoMsg model.mexico
                     |> SubModule.update
                         { toMsg = MsgForMexico
                         , toModel =
@@ -209,7 +209,7 @@ update msg model =
                         }
 
             MsgForCanada canadaMsg ->
-                Canada.Update.update canadaMsg model.canada
+                Landing.Canada.Update.update canadaMsg model.canada
                     |> SubModule.update
                         { toMsg = MsgForCanada
                         , toModel =
@@ -217,7 +217,7 @@ update msg model =
                         }
 
             MsgForChile chileMsg ->
-                Chile.Update.update chileMsg model.chile
+                Landing.Chile.Update.update chileMsg model.chile
                     |> SubModule.update
                         { toMsg = MsgForChile
                         , toModel =
@@ -225,7 +225,7 @@ update msg model =
                         }
 
             MsgForSingapore singaporeMsg ->
-                Singapore.Update.update singaporeMsg model.singapore
+                Landing.Singapore.Update.update singaporeMsg model.singapore
                     |> SubModule.update
                         { toMsg = MsgForSingapore
                         , toModel =
@@ -275,7 +275,6 @@ update msg model =
                                         , toModel =
                                             \join -> { model | join = resetPhoneMenuState join }
                                         }
-
 
                             Just (Router.Routes.Partners "") ->
                                 Partners.Update.update (Partners.Types.SwitchView Partners.Types.JobsView) model.partners

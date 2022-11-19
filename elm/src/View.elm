@@ -1,10 +1,7 @@
 module View exposing (view)
 
 import About.View
-import Australia.View
 import Blog.View
-import Canada.View
-import Chile.View
 import Element
     exposing
         ( Element
@@ -28,12 +25,15 @@ import FaqNurses.View
 import Home.View
 import Html exposing (Html)
 import Join.View
+import Landing.Australia.View
+import Landing.Canada.View
+import Landing.Chile.View
+import Landing.Mexico.View
+import Landing.Singapore.View
 import Layout exposing (layout)
-import Mexico.View
 import Partners.View
 import Partnerships.View
 import Router.Routes exposing (Page(..), toPath)
-import Singapore.View
 import Styles exposing (colors, headerGradientBackground, pt)
 import Types exposing (Model, Msg(..))
 
@@ -67,19 +67,19 @@ renderRoute model =
             Element.map MsgForPartners <| layout model.device <| Partners.View.view model.device model.partners
 
         Australia ->
-            Element.map MsgForAustralia <| layout model.device <| Australia.View.view model.device model.australia
+            Element.map MsgForAustralia <| layout model.device <| Landing.Australia.View.view model.device model.australia
 
         Mexico ->
-            Element.map MsgForMexico <| layout model.device <| Mexico.View.view model.device model.mexico
+            Element.map MsgForMexico <| layout model.device <| Landing.Mexico.View.view model.device model.mexico
 
         Canada ->
-            Element.map MsgForCanada <| layout model.device <| Canada.View.view model.device model.canada
+            Element.map MsgForCanada <| layout model.device <| Landing.Canada.View.view model.device model.canada
 
         Chile ->
-            Element.map MsgForChile <| layout model.device <| Chile.View.view model.device model.chile
+            Element.map MsgForChile <| layout model.device <| Landing.Chile.View.view model.device model.chile
 
         Singapore ->
-            Element.map MsgForSingapore <| layout model.device <| Singapore.View.view model.device model.singapore
+            Element.map MsgForSingapore <| layout model.device <| Landing.Singapore.View.view model.device model.singapore
 
         Blog _ ->
             Element.map MsgForBlog <| layout model.device <| Blog.View.view model.device model.blog
