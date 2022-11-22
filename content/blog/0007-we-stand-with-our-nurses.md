@@ -10,7 +10,7 @@ Flint partners with American health care providers to make employment possible. 
 ---
 ## The Problem
 
-To relocate to America, nurses need to pass the NCLEX, demonstrate a professional level of English, and file for a nurse license and immigration. This requires an employment offer. It is difficult to complete these tasks while working full-time, or often 2 jobs, and supporting a family. Furthermore, the relocation costs require an investment that could take 10 years to save. This creates significant inequality in terms of opportunity for nurs vses worldwide that dream of moving to the United States. We stand with our nurses and create the necessary partnerships, financing, flexibility, support, and education required!
+To relocate to America, nurses need to pass the NCLEX, demonstrate a professional level of English, and file for a nurse license and immigration. This requires an employment offer. It is difficult to complete these tasks while working full-time, or often 2 jobs, and supporting a family. Furthermore, the relocation costs require an investment that could take 10 years to save. This creates significant inequality in terms of opportunity for nurses worldwide that dream of moving to the United States. We stand with our nurses and create the necessary partnerships, financing, flexibility, support, and education required!
 
 ## Partnerships
 
