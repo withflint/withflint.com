@@ -252,7 +252,7 @@ list =
         }
     , Member
         { name = "Fred Varas"
-        , position = "Partnerships Manager"
+        , position = "Director Product Partnerships"
         , bio = Nothing
         , linkedin = Just "https://www.linkedin.com/in/fred-varas-85862721a"
         , url = "static/headshot/fred-sm.jpg"
