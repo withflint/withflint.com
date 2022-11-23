@@ -1,5 +1,5 @@
 Simon Green
-Head of Product
+VP Product
 https://www.linkedin.com/in/sg63/
 /static/headshot/simon.jpeg
 ---

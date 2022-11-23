@@ -88,7 +88,7 @@ careersHtmlBody (Candidate {..}) = do
 
   br_ []
 
-  "Head of Product at "
+  "VP Product at "
   a_ [href_ "https://withflint.com/"] "Flint"
 
 careersTextBody :: Candidate -> Text.Lazy.Text
@@ -101,7 +101,7 @@ careersTextBody (Candidate {..}) =
       |Kind Regards,
       |Simon Green
       |
-      |Head of Product at Flint
+      |VP Product at Flint
       |https://withflint.com
       |]
 

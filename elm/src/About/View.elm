@@ -238,7 +238,7 @@ list =
         }
     , Member
         { name = "Simon Green"
-        , position = "Head of Product"
+        , position = "VP Product"
         , bio = Nothing
         , linkedin = Just "https://www.linkedin.com/in/sg63"
         , url = "static/headshot/simon-sm.jpg"
