@@ -216,13 +216,6 @@ list =
         , url = "static/headshot/neil-sm.jpg"
         }
     , Member
-        { name = "Kristi Crawford"
-        , position = "Head of Legal Affairs"
-        , bio = Nothing
-        , linkedin = Just "https://www.linkedin.com/in/kristi-l-crawford-6a1a5017"
-        , url = "static/headshot/kristi-sm.jpg"
-        }
-    , Member
         { name = "Vanessa Teed"
         , position = "Product Manager"
         , bio = Nothing
@@ -238,7 +231,7 @@ list =
         }
     , Member
         { name = "Simon Green"
-        , position = "Head of Product"
+        , position = "VP Product"
         , bio = Nothing
         , linkedin = Just "https://www.linkedin.com/in/sg63"
         , url = "static/headshot/simon-sm.jpg"
@@ -252,7 +245,7 @@ list =
         }
     , Member
         { name = "Fred Varas"
-        , position = "Partnerships Manager"
+        , position = "Director Product Partnerships"
         , bio = Nothing
         , linkedin = Just "https://www.linkedin.com/in/fred-varas-85862721a"
         , url = "static/headshot/fred-sm.jpg"
@@ -264,6 +257,7 @@ list =
         , linkedin = Just "https://www.linkedin.com/in/wonchankim"
         , url = "static/headshot/wonchan-sm.jpg"
         }
+    , Blank
     , Blank
     ]
 
