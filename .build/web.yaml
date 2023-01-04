@@ -31,7 +31,6 @@ steps:
     cachix $CACHIX_AUTH_TOKEN  >&1
 
     #nix
-    cd /workspace/withflint.com
     nix build -L --extra-experimental-features 'nix-command flakes' .#images.withflint-image --json \
         | jq -r '.[].outputs | to_entries[].value' \
         | cachix push withflint >&1
