@@ -1,0 +1,65 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_32'
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/$PROJECT_ID/secrets/AWS_ACCESS_KEY_ID/versions/latest
+      env: AWS_ACCESS_KEY_ID
+    - versionName: projects/$PROJECT_ID/secrets/AWS_SECRET_ACCESS_KEY/versions/latest
+      env: AWS_SECRET_ACCESS_KEY
+    - versionName: projects/$PROJECT_ID/secrets/AWS_ECR_REGISTRY/versions/latest
+      env: AWS_ECR_REGISTRY
+    - versionName: projects/$PROJECT_ID/secrets/CACHIX_AUTH_TOKEN/versions/latest
+      env: CACHIX_AUTH_TOKEN
+    - versionName: projects/$PROJECT_ID/secrets/CHAT_WEBHOOK/versions/latest
+      env: CHAT_WEBHOOK
+
+steps:
+- name: gcr.io/$PROJECT_ID/nix
+  id: nix
+  script: |
+    #!/usr/bin/env bash
+    echo "Failed" > /workspace/output
+
+    export GIT_VERSION=$(echo $COMMIT_SHA | cut -c1-7)
+
+    aws ecr get-login-password --region=$AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REGISTRY  >&1
+
+    #cachix
+    cachix use withflint >&1
+    cachix $CACHIX_AUTH_TOKEN  >&1
+
+    #nix
+    cd /workspace/withflint.com
+    nix build -L --extra-experimental-features 'nix-command flakes' .#images.withflint-image --json \
+        | jq -r '.[].outputs | to_entries[].value' \
+        | cachix push withflint >&1
+
+    echo "docker://$AWS_ECR_REGISTRY/withflint.com:$GIT_VERSION"
+
+    #docker push image
+    skopeo --insecure-policy copy docker-archive:result docker://$AWS_ECR_REGISTRY/withflint.com:$GIT_VERSION >&1
+
+    echo "Ok" > /workspace/output
+
+  secretEnv: [AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_ECR_REGISTRY, CHAT_WEBHOOK, CACHIX_AUTH_TOKEN]
+  env:
+    - 'COMMIT_SHA=$COMMIT_SHA'
+    - 'AWS_REGION=us-west-2'
+
+- name: gcr.io/cloud-builders/git
+  id: slack
+  script: |
+    #!/usr/bin/env bash
+    export GIT_VERSION=$(echo $COMMIT_SHA | cut -c1-7)
+    WHO=$(git show -s --format='%an' HEAD)
+    OUTPUT="$(sort -R /workspace/.build/quotes | head -n1)"
+    OUTPUT+="\n<https://github.com/withflint/withflint.com/tree/$BRANCH_NAME|withflint.com/$BRANCH_NAME> @ $GIT_VERSION by $WHO"
+    OUTPUT+="\nwithflint.com: $(cat /workspace/output)"
+    curl -X POST -H "Content-Type:application/json" --data "{ \"text\":\"$OUTPUT\"}" "$CHAT_WEBHOOK"
+
+  secretEnv: [CHAT_WEBHOOK]
+  env:
+    - 'COMMIT_SHA=$COMMIT_SHA'
+    - 'BRANCH_NAME=$BRANCH_NAME'
