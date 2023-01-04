@@ -31,9 +31,7 @@ steps:
     cachix $CACHIX_AUTH_TOKEN  || exit 1
 
     #nix
-    nix build -L --extra-experimental-features 'nix-command flakes' .#images.withflint-image --json \
-        | jq -r '.[].outputs | to_entries[].value' \
-        | cachix push withflint || exit 1
+    nix build -L --extra-experimental-features 'nix-command flakes' .#images.withflint-image --json
 
     #docker push image
     skopeo --insecure-policy copy docker-archive:result docker://$AWS_ECR_REGISTRY/withflint.com:$GIT_VERSION || exit 1
