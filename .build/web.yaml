@@ -28,7 +28,6 @@ steps:
 
     #cachix
     cachix use withflint || exit 1
-    cachix "$CACHIX_AUTH_TOKEN" || exit 1
 
     #nix
     nix build .#withflint-image --json | jq -r '.[].outputs | to_entries[].value' | cachix push withflint
