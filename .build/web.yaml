@@ -10,6 +10,8 @@ availableSecrets:
       env: AWS_SECRET_ACCESS_KEY
     - versionName: projects/$PROJECT_ID/secrets/AWS_ECR_REGISTRY/versions/latest
       env: AWS_ECR_REGISTRY
+    - versionName: projects/$PROJECT_ID/secrets/CACHIX_AUTH_TOKEN/versions/latest
+      env: CACHIX_AUTH_TOKEN
     - versionName: projects/$PROJECT_ID/secrets/CHAT_WEBHOOK/versions/latest
       env: CHAT_WEBHOOK
 
@@ -22,17 +24,21 @@ steps:
 
     export GIT_VERSION=$(echo $COMMIT_SHA | cut -c1-7)
 
-    aws ecr get-login-password --region=$AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REGISTRY || exit 1
+    aws ecr get-login-password --region=$AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REGISTRY  || exit 1
+
+    #cachix
+    cachix use withflint || exit 1
+    cachix $CACHIX_AUTH_TOKEN  || exit 1
 
     #nix
-    nix build .#withflint-image
+    (nix build .#withflint-image --json | jq -r '.[].outputs | to_entries[].value' | cachix push withflint) || exit 1
 
     #docker push image
     skopeo --insecure-policy copy docker-archive:result docker://$AWS_ECR_REGISTRY/withflint.com:$GIT_VERSION || exit 1
 
     echo "Ok" > /workspace/output
 
-  secretEnv: [AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_ECR_REGISTRY, CHAT_WEBHOOK]
+  secretEnv: [AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_ECR_REGISTRY, CHAT_WEBHOOK, CACHIX_AUTH_TOKEN]
   env:
     - 'COMMIT_SHA=$COMMIT_SHA'
     - 'AWS_REGION=us-west-2'
