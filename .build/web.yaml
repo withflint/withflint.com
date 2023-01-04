@@ -30,7 +30,7 @@ steps:
     cachix use withflint || exit 1
 
     #nix
-    nix build .#withflint-image --json | jq -r '.[].outputs | to_entries[].value' | cachix push withflint
+    (nix build .#withflint-image --json | jq -r '.[].outputs | to_entries[].value' | cachix push withflint) || exit 1
 
     #docker push image
     skopeo --insecure-policy copy docker-archive:result docker://$AWS_ECR_REGISTRY/withflint.com:$GIT_VERSION || exit 1
