@@ -50,6 +50,7 @@ import Styles exposing (colors, css, hf, lineHeight, minW, palette, pt, wf, wp)
 import Text
 
 
+copy : { why : String, title : String, job : String, applyNow : String, left : String, right : String, offer : String }
 copy =
     { why = "¿Por qué quieres trabajar en los Estados Unidos?"
     , title = "¿Quieres ser enfermero en los Estados Unidos?"

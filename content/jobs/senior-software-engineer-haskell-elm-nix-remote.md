@@ -1,5 +1,5 @@
-senior-software-engineer-haskell-elm-nix-remote-south-america
-Senior Software Engineer (Haskell/Elm) - South America
+senior-software-engineer-haskell-elm-nix-remote
+Senior Software Engineer (Haskell/Elm)
 Remote
 11+ years
 
@@ -7,7 +7,7 @@ Remote
 Remote, 11+ years
 
 ## Remote
-This is a remote position open to candidates living in South America.
+This is a remote position open to candidates living in European and American timezones.
 
 ## About the position
 You will be working closely with our Head of Product and a team of talented software and product people to take Flint to the next level. We already have a strong mission and product with traction led by our product-led growth strategy.
