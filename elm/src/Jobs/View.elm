@@ -547,7 +547,7 @@ joinTeamView device =
 
 
 joinTeamBody : Device.Device -> Element msg
-joinTeamBody device =
+joinTeamBody _ =
     let
         titleStyle =
             [ Font.center
@@ -555,11 +555,6 @@ joinTeamBody device =
             , Font.semiBold
             , Font.color colors.primary
             ]
-
-        interviewProcessSm =
-            row [ centerX ]
-                [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process-sm.png", description = "Flint interview process" }
-                ]
     in
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 56, Font.size 16 ]
         [ column [ centerX ]
@@ -586,17 +581,6 @@ joinTeamBody device =
                     [ text " We interview and make hires within a week from our first meet – it's a commitment." ]
                 ]
             ]
-        , case device of
-            Device.Phone _ ->
-                interviewProcessSm
-
-            Device.Tablet _ ->
-                interviewProcessSm
-
-            _ ->
-                row [ centerX ]
-                    [ Element.image [ css "max-width" "100%", css "height" "auto" ] { src = "/static/images/interview-process.png", description = "Flint interview process" }
-                    ]
         ]
 
 
