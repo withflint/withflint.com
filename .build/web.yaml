@@ -35,8 +35,6 @@ steps:
         | jq -r '.[].outputs | to_entries[].value' \
         | cachix push withflint >&1
 
-    echo "docker://$AWS_ECR_REGISTRY/withflint.com:$GIT_VERSION"
-
     #docker push image
     skopeo --insecure-policy copy docker-archive:result docker://$AWS_ECR_REGISTRY/withflint.com:$GIT_VERSION >&1
 
