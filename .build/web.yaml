@@ -24,19 +24,19 @@ steps:
 
     export GIT_VERSION=$(echo $COMMIT_SHA | cut -c1-7)
 
-    aws ecr get-login-password --region=$AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REGISTRY  >&1
+    aws ecr get-login-password --region=$AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REGISTRY  
 
     #cachix
-    cachix use withflint >&1
-    cachix $CACHIX_AUTH_TOKEN  >&1
+    cachix use withflint 
+    cachix $CACHIX_AUTH_TOKEN  
 
     #nix
     nix build -L --extra-experimental-features 'nix-command flakes' .#images.withflint-image --json \
         | jq -r '.[].outputs | to_entries[].value' \
-        | cachix push withflint >&1
+        | cachix push withflint 
 
     #docker push image
-    skopeo --insecure-policy copy docker-archive:result docker://$AWS_ECR_REGISTRY/withflint.com:$GIT_VERSION >&1
+    skopeo --insecure-policy copy docker-archive:result docker://$AWS_ECR_REGISTRY/withflint.com:$GIT_VERSION
 
     echo "Ok" > /workspace/output
 
