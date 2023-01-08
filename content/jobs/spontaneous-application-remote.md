@@ -7,7 +7,7 @@ Remote
 Remote
 
 
-Although Flint currently does not have open positions, we regularly open new ones as we grow. If you are interested in working in an early-stage, high-growth startup, please let us know, and we will review your profile as we hire again.
+Although Flint currently does not have open positions, we regularly open new ones as we grow. So if you are interested in working in an early-stage, high-growth startup, please let us know, and we will review your profile as we hire again.
 
 ## About you
 - _You're [disciplined](https://www.jimcollins.com/concepts/a-culture-of-discipline.html)_ - you believe in a self-disciplined organization where people self-organize, and everyone leads and initiates good customer outcomes.
@@ -35,10 +35,10 @@ Perks are nice, but we believe the most important thing is getting to work with 
 
 ## Why you should join Flint
 - We're growing faster than weeds on a lawn 🌱
-- YC Funded and backed by Tier 1 investors such Haystack, Audacious and powerful angels from the likes of Twitch, Flexport, and Airbnb 💸
-- Equity options in what’s on track to becoming a unicorn 🦄
+- YC Funded and backed by Tier 1 investors such as Haystack, Audacious and powerful angels from the likes of Twitch, Flexport, and Airbnb 💸
+- Equity options in what's on track to becoming a unicorn 🦄
 - Awesome Culture focused on freedom and responsibility 👨‍👩‍👧‍👦
-- Opportunity to shape a $8T industry and maybe have a wiki page about you one day 📜
-- DevOps: Empowered, focus on good customer outcomes and high performance teams
+- Opportunity to shape an $8T industry and maybe have a wiki page about you one day 📜
+- DevOps: Empowered, focus on good customer outcomes and high-performance teams
 - Netflix: Freedom and responsibility framework
-- Amazon: Single threaded leadership and small teams
+- Amazon: Single-threaded leadership and small teams
