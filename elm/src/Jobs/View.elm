@@ -508,11 +508,11 @@ partners device =
                         ]
                     ]
                 , column [ spacingXY 0 48, alignTop ]
-                    [ -- row [ width (px 224), height (px 95) ]
-                      -- [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/hca-logo.svg", description = "HCA Healthcare" }
-                      -- ]
-                      row [ width (px 264), height (px 65) ]
+                    [ row [ width (px 264), height (px 65) ]
                         [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/medall-logo.svg", description = "MedAll" }
+                        ]
+                    , row [ width (px 264), height (px 65) ]
+                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/sam.svg", description = "SAM" }
                         ]
                     ]
                 , column [ spacingXY 0 48 ]
