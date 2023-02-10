@@ -102,6 +102,38 @@ index Config {gitVersion} meta = do
 
         script_ [src_ [st|/static/#{gitVersion}/app.js|]] ""
 
+        script_
+          [ async_ ""
+          , defer_ ""
+          , src_ "https://www.googletagmanager.com/gtag/js?id=G-DV4LVWCB0Q"
+          ]
+          ""
+
+        script_
+          []
+          [sbt|
+              |window.dataLayer = window.dataLayer || [];
+              |function gtag(){dataLayer.push(arguments);}
+              |gtag('js', new Date());
+              |gtag('config', 'G-DV4LVWCB0Q');
+              |})
+              |]
+
+        script_
+          []
+          [sbt|
+              |!function(f,b,e,v,n,t,s)
+              |{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              |n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              |if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              |n.queue=[];t=b.createElement(e);t.async=!0;
+              |t.src=v;s=b.getElementsByTagName(e)[0];
+              |s.parentNode.insertBefore(t,s)}(window, document,'script',
+              |'https://connect.facebook.net/en_US/fbevents.js');
+              |fbq('init', '3328443680740689');
+              |fbq('track', 'PageView');
+              |]
+
 comment_ :: Text -> Html ()
 comment_ body = do
   toHtmlRaw [lt|<!-- #{body} -->|]
