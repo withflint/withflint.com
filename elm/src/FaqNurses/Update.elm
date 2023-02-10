@@ -85,13 +85,13 @@ faqs =
       , answer = [ Paragraph "A: Typically the contract is renewed when the employment arrangement is a good fit." ]
       }
     , { question = "**Q: What happens if my employment arrangement doesn’t work out before finishing my three year contract?**"
-      , answer = [ Paragraph "A: A: Typically we will help reassign you to another employer. If you have already completed more than two years with a Flint employer you will be required to work for one full year after reassignment. This is a minimum requirement from the employers." ]
+      , answer = [ Paragraph "A: Typically we will help reassign you to another employer. If you have already completed more than two years with a Flint employer you will be required to work for one full year after reassignment. This is a minimum requirement from the employers." ]
       }
     , { question = "**Q: How does Flint make money?**"
       , answer = [ Paragraph "A: The healthcare facilities pay Flint for recruitment services which include finding nurses, licensing, immigration, and relocation. Flint does not charge the nurse as part of the Sponsorship Program." ]
       }
     , { question = "**Q: How much support will I get throughout the process?**"
-      , answer = [ Paragraph "A: A: We will provide you guidance through the whole process sharing next steps along the whole journey. This includes licensing, immigration, and employment arrangements. We also connect you with a network of nurses for support. This network includes nurses who are currently going through the same step of the journey as you and international nurses who are already working in the US." ]
+      , answer = [ Paragraph "A: We will provide you guidance through the whole process sharing next steps along the whole journey. This includes licensing, immigration, and employment arrangements. We also connect you with a network of nurses for support. This network includes nurses who are currently going through the same step of the journey as you and international nurses who are already working in the US." ]
       }
     , { question = "**Q: Can I bring my family with me?**"
       , answer = [ Paragraph "A: Yes, you will have the opportunity for you to bring spouses and dependents under the age of 21 with you to begin your new life in the US. The costs associated with immigrating and relocating family members are not included in our service. However, we do offer additional financial assistance in the form of a loan to be paid off after you start working. If you want to immigrate with your family make sure to include that in your profile when you are prompted." ]
