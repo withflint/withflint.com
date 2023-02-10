@@ -9,7 +9,7 @@ import Network.Mail.Mime (Address)
 data Config = Config
   { root :: FilePath
   , gitVersion :: String
-  , env :: String
+  , environment :: String
   }
   deriving (Show)
 

@@ -10,7 +10,7 @@ import Data.Text.Lazy qualified as Text.Lazy
 import Data.Text.Lazy.Encoding qualified as Text.Lazy.Encoding
 import Flint.Types
 import Lucid
-import Network.Mail.Mime
+import Network.Mail.Mime (Address (Address), mailHeaders, renderAddress, simpleMailInMemory)
 import Network.Mail.SMTP (sendMailSTARTTLS)
 import Network.Wai
 import Network.Wai.Parse
@@ -126,7 +126,7 @@ nurseSuccessHtmlBody (Candidate {..}) = do
   br_ []
   br_ []
 
-  toHtml [st|Thank you for your interest in the #{applicationTitle} position at Flint.|]
+  toHtml [st|Thank you for your interest in the position at Flint.|]
 
   br_ []
 
@@ -150,7 +150,7 @@ nurseSuccessHtmlBodySpanish (Candidate {..}) = do
   br_ []
   br_ []
 
-  toHtml [st|Gracias por su interés en el puesto #{applicationTitle} en Flint.|]
+  toHtml [st|Gracias por su interés en el puesto en Flint.|]
 
   br_ []
 
@@ -171,7 +171,7 @@ nurseSuccessTextBody :: Candidate -> Text.Lazy.Text
 nurseSuccessTextBody (Candidate {..}) =
   [lbt|Hello #{firstName},
       |
-      |Thank you for your interest in the #{applicationTitle} position at Flint.
+      |Thank you for your interest in the position at Flint.
       |We will review your candidacy and back to you shortly.
       |
       |Kind Regards,
@@ -210,7 +210,7 @@ nurseSuccessEmailSpanish =
 nurseSuccess :: Location
 nurseSuccess =
   Location
-    { address = Address (Just "Flint Nurse Success") "success@withflint.com"
+    { address = Address (Just "Flint - Nurse Success") "success@withflint.com"
     , mailingList = Address Nothing "apply@withflint.com"
     }
 
