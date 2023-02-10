@@ -20,56 +20,48 @@ const cookie = {
   }
 }
 
-const url = new URL(window.location.href)
-const path = url.pathname + url.search
-const params = new URLSearchParams(url.search)
-const utmToken = "utm_source"
-const umamiId = "61e2287e-b2c6-44e9-8446-48339059a08c"
-const umamiScript = document.querySelector(`script[data-website-id="${umamiId}"]`)
+const gtm = f => window.gtag && f(window.gtag)
+const um = f => window.umami && f(window.umami)
+const fb = f => window.fbq && f(window.fbq)
 
-if (params.has(utmToken)) {
-  // this branch will never evaluate if there is utm_source param missing
-  const queryParams = params.toString()
-  cookie.set('utm', queryParams)
-  sendPageView(path)
-  window.history.pushState({}, '', window.location.href.split('?')[0])
+const sentToUmami = path =>
+  um(umami => {
+    const umamiId = '61e2287e-b2c6-44e9-8446-48339059a08c'
+    const element = document && document.querySelector(`script[data-website-id="${umamiId}"]`)
+    if (element)
+      element.addEventListener('load', () =>
+        umami.trackView(path, 'https://withflint.com', umamiId))
+  })
 
-} else if (cookie.get('utm')) {
-  const utmParams = cookie.get('utm')
-  const utmUrl = `${path}${utmParams}`
-  sendPageView(utmUrl)
+const load = () => {
+  if (app)
+    app.ports.candidateApplyEvent.subscribe(_msg => {
+      gtm(gtm => gtm('event', 'conversion'))
+      fb(fbq => fbq('track', 'SubmitApplication'))
 
-} else {
-  sendPageView(path)
-}
+      const utm = cookie.get('utm')
+      if (utm) {
+        const params = utm.split('&')
+        const utmInfo = params
+          .map(param => param.split('='))
+          .reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {})
 
-function sendPageView(path_) {
-  umamiScript.addEventListener('load', () =>
-    umami.trackView(path_, 'https://withflint.com', umamiId))
-}
+        um(umami => umami.trackEvent({ utm: utmInfo }, 'apply' + '-' + evtData.utm.utm_id))
+      } else {
+        um(umami => umami.trackEvent('nodata', 'apply-organic'))
+      }
+    })
 
-app.ports.candidateApplyEvent.subscribe(_msg => {
-  sendApplyEvent()
-})
+  const url = new URL(window.location.href)
+  const params = new URLSearchParams(url.search)
+  const utm = params.has('utm_source') ? params.toString() : cookie.get('utm')
 
+  sentToUmami(`${url.pathname}${utm}`)
 
-function sendApplyEvent() {
-  const utm = cookie.get("utm")
-  if(utm) {
-    const params = utm.split("&")
-    const utmInfo = params.map(param => param.split("=")).reduce((acc, [k,v]) => 
-      ({ ...acc, [k] : v}), {})
-    const evtData = { utm : utmInfo }
-    const evtName = "apply" + "-" + evtData.utm.utm_id
-
-    sendUmamiEvent(evtName, JSON.stringify(evtData))
-  } else {
-    sendUmamiEvent("apply-organic", "nodata")
+  if (params.has('utm_source')) {
+    cookie.set('utm', utm)
+    if (window) window.history.pushState({}, '', window.location.href.split('?')[0])
   }
 }
 
-// eventType - apply-{utm_id} / apply-organic
-function sendUmamiEvent(eventType, data) {
-  // param switched - refactor
-  umami.trackEvent(data, eventType)
-}
+load()

@@ -33,7 +33,7 @@ import Text.Shakespeare.Text (lt)
 import Web.Scotty
 
 routes :: Config -> Static -> ScottyM ()
-routes config@(Config {..}) static@(Static {..}) = do
+routes config@(Config {gitVersion, environment}) static@(Static {..}) = do
   let unchanged = ["/", "/blog", "/faq", "/join", "/nurse-careers"]
 
   forM_ unchanged \url -> do
@@ -64,7 +64,7 @@ routes config@(Config {..}) static@(Static {..}) = do
   get "/healthz" do
     now <- liftIO $ show <$> getCurrentTime
 
-    text [lt|Ok,#{env},#{gitVersion},#{now}|]
+    text [lt|Ok,#{environment},#{gitVersion},#{now}|]
 
   get "/team" do
     redirect "/"
@@ -152,7 +152,7 @@ dev :: IO ()
 dev = do
   let root = "../"
   let gitVersion = "dirty"
-  let env = "dev"
+  let environment = "dev"
 
   run Config {..}
 

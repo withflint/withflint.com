@@ -12,8 +12,11 @@ import Text.Shakespeare.Text (lt, sbt, st)
 dataWebsiteId_ :: Text -> Attribute
 dataWebsiteId_ = makeAttribute "data-website-id"
 
+dataCache_ :: Text -> Attribute
+dataCache_ = makeAttribute "data-cached"
+
 index :: Config -> Maybe Meta -> Html ()
-index Config {gitVersion} meta = do
+index Config {gitVersion, environment} meta = do
   doctypehtml_ do
     html_ do
       comment_
@@ -72,13 +75,7 @@ index Config {gitVersion} meta = do
               |const app = Elm.Main.init(init)
               |]
 
-        script_
-          [ async_ ""
-          , defer_ ""
-          , dataWebsiteId_ "61e2287e-b2c6-44e9-8446-48339059a08c"
-          , src_ "https://a.withflint.com/umami.js"
-          ]
-          ""
+        script_ umami ""
 
         script_
           []
@@ -90,23 +87,12 @@ index Config {gitVersion} meta = do
               |})
               |]
 
-        script_
-          [ async_ ""
-          , defer_ ""
-          , onload_ "monitor()"
-          , src_ "https://browser.sentry-cdn.com/7.0.0/bundle.tracing.min.js"
-          , integrity_ "sha384-+zViWRWnRAkk9/+V2CRRVm1tuQEGGqye3jiEC8SDdjaOyzmv86+kvpl6NnRy9QIF"
-          , crossorigin_ "anonymous"
-          ]
-          ""
+        script_ sentry ""
 
         script_ [src_ [st|/static/#{gitVersion}/app.js|]] ""
 
         script_
-          [ async_ ""
-          , defer_ ""
-          , src_ "https://www.googletagmanager.com/gtag/js?id=G-DV4LVWCB0Q"
-          ]
+          google
           ""
 
         script_
@@ -116,12 +102,46 @@ index Config {gitVersion} meta = do
               |function gtag(){dataLayer.push(arguments);}
               |gtag('js', new Date());
               |gtag('config', 'G-DV4LVWCB0Q');
-              |})
               |]
 
         script_
           []
-          [sbt|
+          facebook
+
+        script_ umami [sbt||]
+ where
+  umami =
+    if environment == "production"
+      then
+        [ async_ ""
+        , defer_ ""
+        , dataWebsiteId_ "61e2287e-b2c6-44e9-8446-48339059a08c"
+        , src_ "https://a.withflint.com/umami.js"
+        ]
+      else []
+  sentry =
+    if environment == "production"
+      then
+        [ async_ ""
+        , defer_ ""
+        , onload_ "monitor()"
+        , src_ "https://browser.sentry-cdn.com/7.0.0/bundle.tracing.min.js"
+        , integrity_ "sha384-+zViWRWnRAkk9/+V2CRRVm1tuQEGGqye3jiEC8SDdjaOyzmv86+kvpl6NnRy9QIF"
+        , crossorigin_ "anonymous"
+        ]
+      else []
+  google =
+    if environment == "production"
+      then
+        [ async_ ""
+        , defer_ ""
+        , src_ "https://www.googletagmanager.com/gtag/js?id=G-DV4LVWCB0Q"
+        ]
+      else []
+  facebook =
+    if environment == "production"
+      then
+        [sbt|
               |!function(f,b,e,v,n,t,s)
               |{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
               |n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -133,7 +153,7 @@ index Config {gitVersion} meta = do
               |fbq('init', '3328443680740689');
               |fbq('track', 'PageView');
               |]
-
+      else [sbt||]
 comment_ :: Text -> Html ()
 comment_ body = do
   toHtmlRaw [lt|<!-- #{body} -->|]
