@@ -16,7 +16,7 @@ The Intensive English Program (or IEP), launched in September, is an add-on to t
 
 The global demand for healthcare professionals continues to increase, especially after the pandemic. Working internationally for nurses is becoming more and more appealing and accessible due to a wider range of benefits, immigration assistance programs, and hospital’s acceptance of foreign workers. We, at Flint, recognize the urgent demand from both ends—the U.S. hospitals experiencing staff shortages and the international nurses wanting to improve their status.
 
-We want to help qualified international nurses overcome financial difficulties and language barriers. Currently, nurses are having a hard time immigrating to the U.S. due to their low English communication skills. Flint’s newest program, the EIP, will help international nurses improve their English proficiency and is offered entirely online to improve accessibility.
+We want to help qualified international nurses overcome financial difficulties and language barriers. Currently, nurses are having a hard time immigrating to the U.S. due to their low English communication skills. Flint’s newest program, the IEP, will help international nurses improve their English proficiency and is offered entirely online to improve accessibility.
 
 ## Flint’s Promise
 
