@@ -40,7 +40,7 @@ import Element.Font as Font
 import Element.Input as Input
 import File
 import Framework.Heading as Heading
-import Html
+import Html exposing (Html)
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
 import Mark
@@ -244,9 +244,47 @@ body device model =
             ]
         , column [ wf, spacingXY 0 44, pt 24 ]
             [ advantages device
+            , embedVideo device
             , info
             , jobsView device model
             ]
+        ]
+
+
+embedVideo : Device.Device -> Element msg
+embedVideo device =
+    let
+        responsiveDimension =
+            case device of
+                Device.Phone _ ->
+                    [ HtmlAttr.attribute "width" "100%"
+                    , HtmlAttr.attribute "height" "100%"
+                    ]
+
+                _ ->
+                    [ HtmlAttr.width 560
+                    , HtmlAttr.height 315
+                    ]
+    in
+    row [ centerX ]
+        [ Element.html <|
+            Html.iframe
+                ([ HtmlAttr.src
+                    "https://www.youtube.com/embed/Is2yyLaNeHY"
+                 , HtmlAttr.title "YouTube video player"
+                 , HtmlAttr.attribute "frameborder" "0"
+                 , HtmlAttr.attribute "allow" "accelerometer"
+                 , HtmlAttr.autoplay True
+                 , HtmlAttr.attribute "clipboard-write" ""
+                 , HtmlAttr.attribute "encrypted-media" ""
+                 , HtmlAttr.attribute "gyroscope" ""
+                 , HtmlAttr.attribute "picture-in-picture" ""
+                 , HtmlAttr.attribute "web-share" ""
+                 , HtmlAttr.attribute "allowfullscreen" ""
+                 ]
+                    ++ responsiveDimension
+                )
+                []
         ]
 
 
