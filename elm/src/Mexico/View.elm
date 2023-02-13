@@ -40,7 +40,7 @@ import Element.Font as Font
 import Element.Input as Input
 import File
 import Framework.Heading as Heading
-import Html exposing (Html)
+import Html
 import Html.Attributes as HtmlAttr
 import Layout exposing (Layout, footer, menu, phoneMenu, topMenu)
 import Mark
