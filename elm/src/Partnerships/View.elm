@@ -177,14 +177,14 @@ section0 device =
             [ el [ wf ]
                 (link
                     (centerY :: centerX :: wf :: Font.size 15 :: btn)
-                    { url = "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
+                    { url = "https://flint.cx/intro-to-flint"
                     , label = paragraph [ Font.center ] [ text <| "Partner with Flint" ]
                     }
                 )
             , el [ wf ]
                 (link
                     [ centerY, centerX, wf, Font.size 15 ]
-                    { url = "https://calendly.com/d/d4h-b72-6y9/flint-introduction?month=2022-07"
+                    { url = "https://flint.cx/intro-to-flint"
                     , label = paragraph [ Font.center, Font.underline, Font.semiBold, Font.color colors.primary ] [ text <| "Contact Us" ]
                     }
                 )
