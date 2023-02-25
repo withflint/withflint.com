@@ -162,17 +162,17 @@ section0 device =
             [ paragraph titleStyle
                 [ text "America is short on nurses." ]
             , paragraph titleStyle
-                [ text "Flint injects top international nurses into healthcare facilities nationwide." ]
+                [ text "Flint brings top international nurses into healthcare facilities nationwide." ]
             ]
-        , paragraph [ paddingE 12 18 0 18, Font.center, lineHeight 1.6 ]
-            [ text "Hiring internationally is complicated and risky. Flint makes it simple and predictable. By sourcing in 190 countries, we can service the needs of your facility. Our technology enables us to overcome immigration and hiring variables that others cannot. This means fast turnaround." ]
+        , paragraph
+            [ paddingE 12 18 0 18, Font.center, lineHeight 1.6, centerX ]
+            [ text "Hiring internationally is complicated and risky. Flint makes it simple and predictable. By sourcing in multiple countries, we can service your facility's needs. Our technology enables us to overcome immigration and hiring variables that others cannot, which means a fast turnaround." ]
         , column
             [ centerX, spacingXY 0 24 ]
             [ valueCard device experiencedNurses
             , valueCard device savings
             , valueCard device neverBeShortNurses
             ]
-
         , column [ centerX, spacingXY 0 16 ]
             [ el [ wf ]
                 (link
@@ -196,8 +196,8 @@ experiencedNurses : { iconUrl : String, iconDesc : String, heading : String, des
 experiencedNurses =
     { iconUrl = "/static/images/partnerships-nurse.svg"
     , iconDesc = "Flint - Experienced Nurses"
-    , heading = "Recruit experienced nurses who are committed for 3+ years"
-    , desc = "Our nurses have 3-10 years of clinical experience, and are looking to build a long term career at the right facility."
+    , heading = "Recruit experienced nurses who have committed for 3+ years in your position"
+    , desc = "Our nurses have years of clinical experience and are looking to build a long-term career at the right facility."
     }
 
 
@@ -205,8 +205,8 @@ savings : { iconUrl : String, iconDesc : String, heading : String, desc : String
 savings =
     { iconUrl = "/static/images/partnerships-savings.svg"
     , iconDesc = "Flint - Save costs by partnerting with Flint"
-    , heading = "Save millions by replacing agency with your own staff"
-    , desc = "On average, we help facilities save 50% in staffing costs compared with agencies. For every 10 nurses sourced through Flint, expect to save $1M/year."
+    , heading = "Save millions by replacing temporary staff with your own employees"
+    , desc = "On average, we help facilities save 50% in staffing costs compared with agencies. For every ten nurses sourced through Flint, expect to save over $1M annually."
     }
 
 
@@ -215,7 +215,7 @@ neverBeShortNurses =
     { iconUrl = "static/images/partnerships-never-short-nurses.svg"
     , iconDesc = "Flint - Never be short on nurses again"
     , heading = "Never be short on nurses again"
-    , desc = "It's not just about today, it's about tomorrow. We work with you to develop a sustainable recruiting pipeline that you can count on for years to come."
+    , desc = "It's not just about today; it's about tomorrow. We work with you to develop a sustainable recruiting pipeline that you can count on for years to come."
     }
 
 
@@ -335,8 +335,6 @@ partners device =
                 ]
             , row [ rsPortion.row3 ] []
             ]
-
-        -- ##### We partner with #####
         , column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
             [ paragraph [ Font.center, Font.size 28, Font.color colors.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
             , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
@@ -429,19 +427,14 @@ header device model title menu =
             ]
         , column
             [ alignTop, height (px 280), wf ]
-            [ -- GAP
-              case device of
+            [ case device of
                 Phone _ ->
                     row [ wf, height <| fillPortion 4 ] [ Element.none ]
 
                 _ ->
                     row [ wf, height <| fillPortion 4 ]
-                        [ -- MENU
-                          row [ wf ]
-                            [ -- GAP
-                              row [ width <| fillPortion 7 ] []
-
-                            -- MENU
+                        [ row [ wf ]
+                            [ row [ width <| fillPortion 7 ] []
                             , row
                                 [ width <| fillPortion 4
                                 , spacing 32
@@ -452,19 +445,13 @@ header device model title menu =
                                 [ row [ alignRight, spacingXY 36 0 ]
                                     (List.map (el (wf :: Styles.menu) << link) menu)
                                 ]
-
-                            -- GAP
                             , row [ width <| fillPortion 2 ] []
                             ]
                         ]
-
-            -- TITLE
             , row [ wf, height <| fillPortion 8 ]
                 [ el ([ wf, centerX, Font.size rs.titleFontSize ] ++ Styles.title ++ Heading.h1)
                     (paragraph [ paddingXY 24 0, Font.center, Font.size rs.titleFontSize ] [ text title ])
                 ]
-
-            -- GAP
             , case device of
                 Phone _ ->
                     Element.none
