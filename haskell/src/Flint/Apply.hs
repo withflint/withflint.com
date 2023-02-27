@@ -70,38 +70,29 @@ careersHtmlBody (Candidate {..}) = do
   br_ []
   br_ []
 
-  toHtml [st|Thank you for your interest in the #{applicationTitle} position at Flint.|]
+  "Thank you for your interest in the position at Flint."
 
   br_ []
 
-  "I will review your candidacy and get back to you shortly."
+  "We will review your candidacy and back to you shortly."
 
   br_ []
   br_ []
 
   "Kind Regards,"
-
   br_ []
-  br_ []
-
-  "Simon Green"
-
-  br_ []
-
-  "Head of Product at "
   a_ [href_ "https://withflint.com/"] "Flint"
 
 careersTextBody :: Candidate -> Text.Lazy.Text
 careersTextBody (Candidate {..}) =
   [lbt|Hello #{firstName},
       |
-      |Thank you for your interest in the #{applicationTitle} position at Flint.
-      |I will review your candidacy and get back to you shortly.
+      |Thank you for your interest in the position at Flint.
+      |We will review your candidacy and back to you shortly.
       |
       |Kind Regards,
-      |Simon Green
       |
-      |Head of Product at Flint
+      |Flint
       |https://withflint.com
       |]
 
@@ -115,8 +106,8 @@ careersRenderer =
 careersEmail :: Location
 careersEmail =
   Location
-    { address = Address (Just "Simon Green") "simon@withflint.com"
-    , mailingList = Address Nothing "join+ws@withflint.com"
+    { address = Address (Just "Flint") "no-reply@withflint.com"
+    , mailingList = Address Nothing "no-reply@withflint.com"
     }
 
 nurseSuccessHtmlBody :: Candidate -> Html ()
@@ -210,8 +201,8 @@ nurseSuccessEmailSpanish =
 nurseSuccess :: Location
 nurseSuccess =
   Location
-    { address = Address (Just "Flint - Nurse Success") "success@withflint.com"
-    , mailingList = Address Nothing "apply@withflint.com"
+    { address = Address (Just "Flint") "no-reply@withflint.com"
+    , mailingList = Address Nothing "no-reply@withflint.com"
     }
 
 apply :: Location -> Candidate -> MailRenderer -> ActionM ()
