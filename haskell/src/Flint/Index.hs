@@ -88,8 +88,6 @@ index Config {gitVersion, environment} meta = do
 
         link_ [rel_ "mask-icon", href_ "/static/safari-pinned-tab.svg", color_ "#44376d"]
 
-        meta_ [name_ "msapplication-TileColor", content_ "#44376d"]
-
         meta_ [name_ "theme-color", content_ "#44376d"]
 
         maybe "" generateMeta meta
