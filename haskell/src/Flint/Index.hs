@@ -5,12 +5,42 @@ module Flint.Index (index) where
 import Data.Text (Text)
 import Flint.Blog (generateMeta)
 import Flint.Types
-import Lucid
+import Lucid (
+  Attribute
+  , Html
+  , async_
+  , body_
+  , charset_
+  , content_
+  , crossorigin_
+  , defer_
+  , div_
+  , doctypehtml_
+  , head_
+  , href_
+  , html_
+  , id_
+  , integrity_
+  , link_
+  , meta_
+  , name_
+  , onload_
+  , rel_
+  , script_
+  , sizes_
+  , src_
+  , title_
+  , toHtmlRaw
+  , type_
+ )
 import Lucid.Base (makeAttribute)
 import Text.Shakespeare.Text (lt, sbt, st)
 
 dataWebsiteId_ :: Text -> Attribute
 dataWebsiteId_ = makeAttribute "data-website-id"
+
+color_ :: Text -> Attribute
+color_ = makeAttribute "color"
 
 dataCache_ :: Text -> Attribute
 dataCache_ = makeAttribute "data-cached"
@@ -47,6 +77,20 @@ index Config {gitVersion, environment} meta = do
           [ href_ "/static/fonts.css?v=1"
           , rel_ "stylesheet"
           ]
+
+        link_ [rel_ "apple-touch-icon", sizes_ "180x180", href_ "/static/apple-touch-icon.png"]
+
+        link_ [rel_ "icon", type_ "image/png", sizes_ "32x32", href_ "/static/favicon-32x32.png"]
+
+        link_ [rel_ "icon", type_ "image/png", sizes_ "16x16", href_ "/static/favicon-16x16.png"]
+
+        link_ [rel_ "manifest", href_ "/static/site.webmanifest"]
+
+        link_ [rel_ "mask-icon", href_ "/static/safari-pinned-tab.svg", color_ "#44376d"]
+
+        meta_ [name_ "msapplication-TileColor", content_ "#44376d"]
+
+        meta_ [name_ "theme-color", content_ "#44376d"]
 
         maybe "" generateMeta meta
 
@@ -154,6 +198,7 @@ index Config {gitVersion, environment} meta = do
               |fbq('track', 'PageView');
               |]
       else [sbt||]
+
 comment_ :: Text -> Html ()
 comment_ body = do
   toHtmlRaw [lt|<!-- #{body} -->|]
