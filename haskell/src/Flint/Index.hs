@@ -42,9 +42,6 @@ dataWebsiteId_ = makeAttribute "data-website-id"
 color_ :: Text -> Attribute
 color_ = makeAttribute "color"
 
-dataCache_ :: Text -> Attribute
-dataCache_ = makeAttribute "data-cached"
-
 index :: Config -> Maybe Meta -> Html ()
 index Config {gitVersion, environment} meta = do
   doctypehtml_ do
