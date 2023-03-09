@@ -2,7 +2,6 @@ module Chile.View exposing (view)
 
 import Apply exposing (Field(..), Job)
 import Chile.Types exposing (Model, Msg(..))
-import Views.LiveAndWork
 import Device
 import Element
     exposing
@@ -49,6 +48,7 @@ import Mark
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, minW, palette, pt, wf, wp)
 import Text
+import Views.LiveAndWork
 
 
 copy : { why : String, title : String, job : String, applyNow : String, left : String, right : String, offer : String }
@@ -192,7 +192,7 @@ view_ device model =
             , column [ width <| fillPortion 8 ] [ body device model ]
             , row [ width <| fillPortion 1 ] [ Element.none ]
             ]
-        , Views.LiveAndWork.view 
+        , Views.LiveAndWork.view
         , partners device
         ]
 

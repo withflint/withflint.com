@@ -56,6 +56,7 @@ import Text
 import Url.Builder exposing (absolute)
 import Views.LiveAndWork
 
+
 view : Device.Device -> Model -> Layout Msg
 view device model =
     let
