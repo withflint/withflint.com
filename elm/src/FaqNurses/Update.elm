@@ -165,6 +165,5 @@ faqs =
     , { question = "**Q: What if I do not pass the NCLEX on the first try?**"
       , answer = [ Paragraph "A: Since Flint chooses to send nurses to the exam, we take that responsibility. The National Council of State Boards of Nursing (NCSBN) requires 45 days in between exam attempts.Therefore, four weeks of remediation and education will be required before retesting. However, Flint reserves the right to end the contract and not send the nurse candidate for a retest. In this case the nurse candidates would not owe Flint money." ]
       }
-    
     ]
         |> List.indexedMap (\id faq -> Faq id faq.question faq.answer)

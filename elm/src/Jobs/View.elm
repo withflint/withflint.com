@@ -54,7 +54,7 @@ import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, minH, minW, palette, pt, wf, wp)
 import Text
 import Url.Builder exposing (absolute)
-
+import Views.LiveAndWork
 
 view : Device.Device -> Model -> Layout Msg
 view device model =
@@ -238,70 +238,7 @@ nurseCareerView device =
             , row [ width <| fillPortion 2 ] [ Element.none ]
             ]
         , partners device
-        , states device
-        ]
-
-
-states : Device.Device -> Element msg
-states device =
-    let
-        titleStyle =
-            [ Font.center
-            , Font.size 24
-            , Font.semiBold
-            , Font.color colors.primary
-            ]
-
-        rsFillPortion =
-            -- responsive fillPortion
-            case device of
-                Device.Phone _ ->
-                    Element.none
-
-                _ ->
-                    row [ width <| fillPortion 2 ] []
-    in
-    row [ wf, paddingXY 12 56 ]
-        [ rsFillPortion
-        , column [ width <| fillPortion 8, spacingXY 0 48 ]
-            [ paragraph titleStyle [ text "US states where you can live and work" ]
-            , wrappedRow
-                [ wf
-                , Font.color colors.primary
-                , spaceEvenly
-                , spacingXY 12 32
-                ]
-                [ column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
-                    [ paragraph [ Font.center ] [ text "Alaska" ]
-                    , paragraph [ Font.center ] [ text "Arizona" ]
-                    , paragraph [ Font.center ] [ text "Colorado" ]
-                    , paragraph [ Font.center ] [ text "Delaware" ]
-                    , paragraph [ Font.center ] [ text "Georgia" ]
-                    ]
-                , column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
-                    [ paragraph [ Font.center ] [ text "Iowa" ]
-                    , paragraph [ Font.center ] [ text "Maryland" ]
-                    , paragraph [ Font.center ] [ text "Missouri" ]
-                    , paragraph [ Font.center ] [ text "Nebraska" ]
-                    , paragraph [ Font.center ] [ text "New Jersey" ]
-                    ]
-                , column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
-                    [ paragraph [ Font.center ] [ text "New Mexico" ]
-                    , paragraph [ Font.center ] [ text "New York" ]
-                    , paragraph [ Font.center ] [ text "Ohio" ]
-                    , paragraph [ Font.center ] [ text "Pennsylvania" ]
-                    , paragraph [ Font.center ] [ text "South Carolina" ]
-                    ]
-                , column [ centerX, width <| fillPortion 3, spacingXY 0 22 ]
-                    [ paragraph [ Font.center ] [ text "Tennessee" ]
-                    , paragraph [ Font.center ] [ text "Texas" ]
-                    , paragraph [ Font.center ] [ text "Virginia" ]
-                    , paragraph [ Font.center ] [ text "Washington" ]
-                    , paragraph [ Font.center ] [ text "Wisconsin" ]
-                    ]
-                ]
-            ]
-        , rsFillPortion
+        , Views.LiveAndWork.view
         ]
 
 

@@ -2,6 +2,7 @@ module Chile.View exposing (view)
 
 import Apply exposing (Field(..), Job)
 import Chile.Types exposing (Model, Msg(..))
+import Views.LiveAndWork
 import Device
 import Element
     exposing
@@ -191,7 +192,7 @@ view_ device model =
             , column [ width <| fillPortion 8 ] [ body device model ]
             , row [ width <| fillPortion 1 ] [ Element.none ]
             ]
-        , states device
+        , Views.LiveAndWork.view 
         , partners device
         ]
 
@@ -270,50 +271,6 @@ info : Element msg
 info =
     column [ wf, paddingEach { top = 64, bottom = 48, right = 0, left = 0 }, spacingXY 96 40 ] <|
         Mark.default copy.offer
-
-
-states : Device.Device -> Element msg
-states device =
-    let
-        titleStyle =
-            [ Font.center
-            , Font.size 24
-            , Font.semiBold
-            , Font.color colors.primary
-            , padding 10
-            ]
-
-        space =
-            case device of
-                Device.Phone _ ->
-                    spacing 20
-
-                _ ->
-                    spacing 100
-    in
-    row [ wf, paddingXY 12 56 ]
-        [ column [ wf, spacingXY 0 48 ]
-            [ paragraph titleStyle [ text "US states where you can live and work" ]
-            , wrappedRow
-                [ wf
-                , Font.color colors.primary
-                , centerX
-                , spaceEvenly
-                , space
-                ]
-                [ column [ centerX, spacingXY 0 22, alignTop ]
-                    [ paragraph [ Font.center ] [ text "Colorado" ]
-                    , paragraph [ Font.center ] [ text "Missouri" ]
-                    , paragraph [ Font.center ] [ text "North Carolina" ]
-                    ]
-                , column [ centerX, spacingXY 0 22, alignTop ]
-                    [ paragraph [ Font.center ] [ text "Tennessee" ]
-                    , paragraph [ Font.center ] [ text "Washington" ]
-                    , paragraph [ Font.center ] [ text "Wisconsin" ]
-                    ]
-                ]
-            ]
-        ]
 
 
 partners : Device.Device -> Element msg
