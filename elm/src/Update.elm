@@ -56,18 +56,6 @@ init { article, gitVersion } url key =
         ( nurseCareers, _ ) =
             NurseCareers.Update.init
 
-        -- Jobs.Update.init gitVersion
-        --     url
-        --     key
-        --     { endpoint = "/hc"
-        --     , page = "nurse-careers"
-        --     , copy = Jobs.Copy.nurse
-        --     , apply = "/happly"
-        --     , page_ = NurseCareersPage
-        --     }
-        --     |> SubModule.init
-        --         { toMsg = MsgForHealthCare
-        --         }
         ( australia, _ ) =
             Australia.Update.init gitVersion
                 url

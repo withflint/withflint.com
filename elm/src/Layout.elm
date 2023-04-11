@@ -262,11 +262,10 @@ footer_ device =
 
 
 
--- 2023-04-10
--- Why is footer a Layout? this should be a function takes a device and choose the proper layout by pattern matching. Now
--- the pattern matching needs to be done in all call sites.
--- Why making it a list of Element? now everytime someone uses footer needs to wrap it in a column
--- this should go away in next refactoring.
+-- 2023-04-10 Jimmy
+-- Footer should just be a function takes a device and choose the proper layout by pattern matching. Now
+-- the pattern matching needs to be done in all call sites. I keep it here for now but we need to stop
+-- using it and use `footer_` instead.
 
 
 footer : Layout msg

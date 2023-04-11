@@ -35,7 +35,7 @@ update msg model =
                 Just email ->
                     let
                         url =
-                            crossOrigin "http://localhost:5001" [ "valve", "apply", "email", Base64.encode << Email.toString <| email ] []
+                            crossOrigin "https://app.withflint.com" [ "valve", "apply", "email", Base64.encode << Email.toString <| email ] []
                     in
                     singleton { model | error = Nothing }
                         |> command
@@ -52,16 +52,8 @@ update msg model =
         GotURL res ->
             Debug.log (Debug.toString res) <|
                 case res of
-                    Err err ->
-                        case err of
-                            Http.BadBody reason ->
-                                singleton { model | error = Just ("Sorry, " ++ reason) }
-
-                            Http.BadUrl url ->
-                                singleton { model | error = Just ("Sorry, bad url" ++ url) }
-
-                            _ ->
-                                singleton { model | error = Just "Sorry, we can't apply becasue of an network issue, please try again later" }
+                    Err _ ->
+                        singleton { model | error = Just "Sorry, we can't apply becasue of an network issue, please try again later" }
 
                     Ok urlString ->
                         case Url.fromString urlString of
