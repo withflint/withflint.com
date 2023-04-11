@@ -47,12 +47,12 @@ update msg model =
                             )
 
                 Nothing ->
-                    singleton { model | error = Just "please input an valid email" }
+                    singleton { model | error = Just "please input a valid email" }
 
         GotURL res ->
             case res of
                 Err _ ->
-                    singleton { model | error = Just "Sorry, we can't apply becasue of an network issue, please try again later" }
+                    singleton { model | error = Just "Sorry, we can't process your application becasue of an network issue, please try again later" }
 
                 Ok urlString ->
                     case Url.fromString urlString of
