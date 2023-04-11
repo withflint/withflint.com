@@ -13,3 +13,4 @@ type Msg
     = EmailInputChanged String
     | ApplyButtonClicked
     | GotURL (Result Http.Error String)
+    | ToggleNavMenu

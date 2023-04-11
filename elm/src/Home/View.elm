@@ -34,8 +34,8 @@ import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, pl, pt, wf)
 
 
-view : Model -> Device -> Layout Msg
-view model device =
+view : { device : Device, model : Model, showNavMenu : Bool } -> Layout Msg
+view ({ device } as props) =
     { phone =
         [ column
             [ wf
@@ -43,7 +43,7 @@ view model device =
             , css "position" "relative"
             ]
           <|
-            phoneView device model
+            phoneView props
         ]
     , tablet =
         [ column
@@ -70,8 +70,8 @@ view model device =
     }
 
 
-phoneView : Device -> Model -> List (Element Msg)
-phoneView device model =
+phoneView : { device : Device, model : Model, showNavMenu : Bool } -> List (Element Msg)
+phoneView { device, showNavMenu } =
     let
         viewport =
             case device of
@@ -123,53 +123,45 @@ phoneView device model =
         logo =
             Element.image [ width (px 110), height (px 54) ] { src = "/static/images/logo.svg?new", description = "Flint" }
     in
-    -- Phone Menu
-    if model.isPhoneMenuVisible then
-        [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible
-        ]
-
-    else
-        column [ wf, hf, Background.color colors.cremeDark, pt 36, css "position" "relative" ]
-            [ -- HERO
-              column [ wf ]
-                [ -- Hamburger Menu
-                  phoneMenu PhoneMenuToggle model.isPhoneMenuVisible
-
-                -- HERO TEXT
-                , column [ wf, spacingXY 0 14, pl 24 ]
-                    [ paragraph
-                        [ Font.color colors.primary
-                        , Font.semiBold
-                        , Font.size 42
-                        ]
-                        [ text "It's all about people, with" ]
-                    , logo
+    column [ wf, hf, Background.color colors.cremeDark, pt 36, css "position" "relative" ]
+        [ -- HERO
+          column [ wf ]
+            [ phoneMenu ToggleNavMenu showNavMenu
+            , -- HERO TEXT
+              column [ wf, spacingXY 0 14, pl 24 ]
+                [ paragraph
+                    [ Font.color colors.primary
+                    , Font.semiBold
+                    , Font.size 42
                     ]
-
-                -- HERO IMG
-                , heroImg
+                    [ text "It's all about people, with" ]
+                , logo
                 ]
 
-            -- CARD
-            , column
-                [ wf ]
-                [ -- apt name would be section instead of card
-                  card device
-                    { title = "Need a long-term nurse?"
-                    , desc = "Recreate the way you hire nurses"
-                    , btn = { label = "Flint for hospitals", page = Partnerships }
-                    , bg = industryBg
-                    }
-                , card device
-                    { title = "Want to be a nurse in America?"
-                    , desc = "Find support and community from start to finish"
-                    , btn = { label = "Flint for nurses", page = NurseCareers "" }
-                    , bg = nursesBg
-                    }
-                ]
+            -- HERO IMG
+            , heroImg
             ]
-            -- FOOTER
-            :: footer.phone
+
+        -- CARD
+        , column
+            [ wf ]
+            [ -- apt name would be section instead of card
+              card device
+                { title = "Need a long-term nurse?"
+                , desc = "Recreate the way you hire nurses"
+                , btn = { label = "Flint for hospitals", page = Partnerships }
+                , bg = industryBg
+                }
+            , card device
+                { title = "Want to be a nurse in America?"
+                , desc = "Find support and community from start to finish"
+                , btn = { label = "Flint for nurses", page = NurseCareers "" }
+                , bg = nursesBg
+                }
+            ]
+        ]
+        -- FOOTER
+        :: footer.phone
 
 
 header : Device.Device -> List (Element msg)

@@ -10,3 +10,4 @@ type alias Model =
 
 type Msg
     = PhoneMenuToggle
+    | ToggleNavMenu

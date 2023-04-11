@@ -18,6 +18,7 @@ import Jobs.Update
 import Mexico.Update
 import NurseCareers.Update
 import Partnerships.Update
+import Ports
 import Return exposing (Return, return, singleton)
 import Router.Routes exposing (Page(..))
 import Router.Types
@@ -122,6 +123,7 @@ init { article, gitVersion } url key =
         , blog = blog
         , faqNurses = faqNurses
         , partnerships = Partnerships.Update.init
+        , showNavMenu = False
         , title = "Flint - Securing Nurses for Your Future"
         , device = NotSet
         , url = url
@@ -150,7 +152,7 @@ update msg model =
                         { toMsg = MsgForRouter
                         , effectToMsg = EffFromRouter
                         , toModel =
-                            \router -> { model | router = router }
+                            \router -> { model | router = router, showNavMenu = False }
                         }
 
             MsgForHome homeMsg ->
@@ -247,6 +249,12 @@ update msg model =
                         , toModel =
                             \aboutUs -> { model | aboutUs = aboutUs }
                         }
+
+            ToggleNavMenu ->
+                return model (Ports.toggleNavMenu ())
+
+            NavMenuToggled ->
+                singleton { model | showNavMenu = not model.showNavMenu }
 
             EffFromRouter eff ->
                 case eff of

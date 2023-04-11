@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Browser
 import Browser.Events as Events
+import Ports
 import Router.Types
 import Types exposing (Msg(..))
 import Update exposing (init, update)
@@ -22,4 +23,7 @@ main =
 
 subscriptions : Types.Model -> Sub Types.Msg
 subscriptions _ =
-    Events.onResize Resize
+    Sub.batch
+        [ Events.onResize Resize
+        , Ports.navMenuToggled (always NavMenuToggled)
+        ]

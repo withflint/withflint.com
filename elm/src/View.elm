@@ -52,19 +52,43 @@ renderRoute : Types.Model -> Element Types.Msg
 renderRoute model =
     case model.router.page of
         Home ->
-            Element.map MsgForHome <| layout model.device <| Home.View.view model.home model.device
+            Element.map MsgForHome <|
+                layout model.device <|
+                    Home.View.view
+                        { device = model.device
+                        , model = model.home
+                        , showNavMenu = model.showNavMenu
+                        }
 
         About ->
-            Element.map MsgForAboutUs <| layout model.device <| About.View.view model.device model.aboutUs
+            Element.map MsgForAboutUs <|
+                layout model.device <|
+                    About.View.view
+                        { device = model.device
+                        , model = model.aboutUs
+                        , showNavMenu = model.showNavMenu
+                        }
 
         Partnerships ->
-            Element.map MsgForPartnerships <| layout model.device <| Partnerships.View.view model.device model.partnerships
+            Element.map MsgForPartnerships <|
+                layout model.device <|
+                    Partnerships.View.view
+                        { device = model.device
+                        , model = model.partnerships
+                        , showNavMenu = model.showNavMenu
+                        }
 
         JoinTheTeam _ ->
             Element.map MsgForJobs <| layout model.device <| Jobs.View.view model.device model.jobs
 
         NurseCareers _ ->
-            Element.map MsgForNurseCareers <| layout model.device <| NurseCareers.View.config model.device model.nurseCareers
+            Element.map MsgForNurseCareers <|
+                layout model.device <|
+                    NurseCareers.View.config
+                        { device = model.device
+                        , model = model.nurseCareers
+                        , showNavMenu = model.showNavMenu
+                        }
 
         Australia ->
             Element.map MsgForAustralia <| layout model.device <| Australia.View.view model.device model.australia
@@ -85,7 +109,13 @@ renderRoute model =
             Element.map MsgForBlog <| layout model.device <| Blog.View.view model.device model.blog
 
         FaqNurses ->
-            Element.map MsgForFaqNurses <| layout model.device <| FaqNurses.View.view model.device model.faqNurses
+            Element.map MsgForFaqNurses <|
+                layout model.device <|
+                    FaqNurses.View.view
+                        { device = model.device
+                        , model = model.faqNurses
+                        , showNavMenu = model.showNavMenu
+                        }
 
         NotFound ->
             notFound

@@ -1,7 +1,8 @@
 module Partnerships.Update exposing (init, update)
 
 import Partnerships.Types exposing (Model, Msg)
-import Return exposing (Return, singleton)
+import Ports
+import Return exposing (Return, return)
 
 
 init : Model
@@ -14,4 +15,4 @@ init =
 
 update : Msg -> Model -> Return Msg Model
 update _ model =
-    singleton { model | isPhoneMenuVisible = not model.isPhoneMenuVisible }
+    return model (Ports.toggleNavMenu ())

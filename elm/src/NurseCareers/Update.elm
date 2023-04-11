@@ -6,6 +6,7 @@ import Email
 import Http
 import Json.Decode as Decode
 import NurseCareers.Types exposing (Model, Msg(..))
+import Ports
 import Return exposing (..)
 import Url
 import Url.Builder exposing (crossOrigin)
@@ -61,3 +62,6 @@ update msg model =
 
                         Nothing ->
                             singleton { model | error = Just "sorry we can't process your application right now, please try again later" }
+
+        ToggleNavMenu ->
+            return model (Ports.toggleNavMenu ())

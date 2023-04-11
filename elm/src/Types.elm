@@ -35,6 +35,7 @@ type alias Model =
     , blog : Blog.Types.Model
     , faqNurses : FaqNurses.Types.Model
     , partnerships : Partnerships.Types.Model
+    , showNavMenu : Bool
     , title : String
     , device : Device
     , url : Url
@@ -67,5 +68,9 @@ type Msg
     | MsgForPartnerships Partnerships.Types.Msg
       --
     | MsgForAboutUs About.Types.Msg
+      --
+    | ToggleNavMenu
+    | NavMenuToggled
+      --
     | Load Viewport
     | Resize Int Int
