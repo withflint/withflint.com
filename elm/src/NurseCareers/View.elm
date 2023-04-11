@@ -22,7 +22,7 @@ import Element
         , inFront
         , link
         , maximum
-        , moveRight
+        , mouseOver
         , none
         , paddingEach
         , paddingXY
@@ -43,6 +43,7 @@ import Element.Input as Input
 import Html
 import Html.Attributes
 import Layout exposing (Layout)
+import Mark
 import NurseCareers.Types exposing (Model, Msg(..))
 import Router.Routes exposing (Page(..))
 import Styles exposing (colors)
@@ -164,6 +165,17 @@ content device model =
                 , advantage { src = "/static/images/relocation.svg", description = "Flint - Relocation" } (text "Relocation")
                 ]
 
+        applyNow =
+            paragraph
+                [ Font.center
+                , Font.size 28
+                , Font.semiBold
+                , Font.color colors.primary
+                , paddingXY 0 48
+                ]
+                [ text "Apply Now!"
+                ]
+
         nurseSuccessInfo =
             let
                 video =
@@ -201,22 +213,18 @@ content device model =
                         ]
                         [ text "From start to finish" ]
                     , paragraph
-                        [ Font.alignLeft ]
+                        [ Font.alignLeft
+                        , htmlAttribute <| Html.Attributes.style "line-height" (String.fromFloat 1.6)
+                        ]
                         [ text "Our talented team of nurse educators and staff will guide you through the entire process. Flint offers an NCLEX preparation course, covers the cost of taking the NCLEX, provides travel to the nearest testing center, completes your nurse license application, provides job placement, and world-class immigration services. We consider your nursing skills, experience, and goals when assessing which facilities are best suited for you." ]
                     ]
                 ]
 
         emailField =
             column
-                [ centerX
-                , case device of
-                    Device.Phone _ ->
-                        width (px 250)
-
-                    _ ->
-                        width (px 500)
+                [ width (Element.minimum 200 fill)
                 , height fill
-                , paddingXY 0 20
+                , paddingEach { top = 30, right = 0, bottom = 10, left = 0 }
                 ]
                 [ Input.email
                     [ Border.width 1
@@ -237,14 +245,38 @@ content device model =
 
         applyButton =
             Input.button
-                (Styles.btnFilled { fontColor = colors.white, bgColor = colors.carminePink }
-                    ++ [ centerX ]
-                )
+                [ Border.rounded 2
+                , Font.color colors.white
+                , Font.size 20
+                , Background.color colors.carminePink
+                , paddingEach { top = 11, right = 19, bottom = 11, left = 22 }
+                , Font.regular
+                , mouseOver
+                    [ Font.color colors.cremeLight
+                    , Background.color colors.carminePink
+                    , Border.color colors.carminePink
+                    ]
+                , alignRight
+                ]
                 { onPress = Just ApplyButtonClicked
-                , label = text "Apply Now"
+                , label = text "Apply →"
                 }
 
-        footer =
+        applicationText =
+            paragraph
+                [ Font.justify
+                , Font.alignLeft
+                ]
+                [ text "Apply now and discover what exciting new career opportunities with growth potential awaits you in America, where you will apply your existing skills and knowledge while learning new ones. Our team of experienced nurse educators will guide you and start your journey today." ]
+
+        application =
+            column
+                [ width fill ]
+                [ emailField
+                , applyButton
+                ]
+
+        partnerText =
             column [ width fill, paddingXY 28 100, spacingXY 0 24, centerX ]
                 [ paragraph [ Font.center, Font.size 28, Font.color colors.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
                 , paragraph [ centerY, centerX, Font.center, width (fill |> maximum 600) ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
@@ -259,20 +291,39 @@ content device model =
         , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(180deg, #FFFBF8 0%, #FCE5D9 102.99%)"
         ]
         [ row
-            [ width fill ]
+            [ width fill
+            , paddingXY 0 100
+            ]
             [ margin 1
             , column
                 [ width <| fillPortion 4 ]
                 [ title
                 , context
                 , advantages
-                , emailField
-                , applyButton
                 , nurseSuccessInfo
+                , case device of
+                    Device.Phone _ ->
+                        column [ width fill ]
+                            [ applyNow
+                            , applicationText
+                            , application
+                            ]
+
+                    _ ->
+                        row
+                            [ width fill ]
+                            [ margin 2
+                            , column [ width (fillPortion 3) ]
+                                [ applyNow
+                                , applicationText
+                                , application
+                                ]
+                            , margin 2
+                            ]
                 ]
             , margin 1
             ]
         , Layout.partners device
-        , footer
+        , partnerText
         , column [ width fill ] <| Layout.footer_ device
         ]
