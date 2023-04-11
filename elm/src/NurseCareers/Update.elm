@@ -50,15 +50,14 @@ update msg model =
                     singleton { model | error = Just "please input an valid email" }
 
         GotURL res ->
-            Debug.log (Debug.toString res) <|
-                case res of
-                    Err _ ->
-                        singleton { model | error = Just "Sorry, we can't apply becasue of an network issue, please try again later" }
+            case res of
+                Err _ ->
+                    singleton { model | error = Just "Sorry, we can't apply becasue of an network issue, please try again later" }
 
-                    Ok urlString ->
-                        case Url.fromString urlString of
-                            Just _ ->
-                                return { model | error = Nothing } (load urlString)
+                Ok urlString ->
+                    case Url.fromString urlString of
+                        Just _ ->
+                            return { model | error = Nothing } (load urlString)
 
-                            Nothing ->
-                                singleton { model | error = Just "sorry we can't process your application right now, please try again later" }
+                        Nothing ->
+                            singleton { model | error = Just "sorry we can't process your application right now, please try again later" }

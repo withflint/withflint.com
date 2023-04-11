@@ -264,7 +264,7 @@ footer_ device =
 
 -- 2023-04-10 Jimmy
 -- Footer should just be a function takes a device and choose the proper layout by pattern matching. Now
--- the pattern matching needs to be done in all call sites. I keep it here for now so I don't change to much 
+-- the pattern matching needs to be done in all call sites. I keep it here for now so I don't change to much
 -- code, but we need to stop using it and use `footer_` instead.
 
 
