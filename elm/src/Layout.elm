@@ -1,9 +1,10 @@
-module Layout exposing (Layout, footer, layout, menu, phoneMenu, topMenu)
+module Layout exposing (HeaderConfig, HeaderIconBgColor(..), Layout, footer, footer_, header, layout, menu, phoneMenu, topMenu)
 
 import Device exposing (Device(..))
 import Element
     exposing
-        ( Element
+        ( Attribute
+        , Element
         , alignBottom
         , alignLeft
         , alignRight
@@ -11,10 +12,17 @@ import Element
         , centerX
         , centerY
         , column
+        , el
+        , fill
         , fillPortion
         , height
+        , htmlAttribute
         , image
+        , inFront
+        , moveDown
+        , moveLeft
         , newTabLink
+        , none
         , paddingEach
         , paddingXY
         , paragraph
@@ -31,6 +39,7 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font exposing (underline)
 import Element.Input as Input
+import Html.Attributes
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, palette, pt, wf)
 
@@ -106,6 +115,158 @@ showAddress =
         , paragraph [] [ text address.city ]
         , paragraph [] [ text address.country ]
         ]
+
+
+type alias HeaderConfig msg =
+    { navigations : List ( Page, String )
+    , title : String
+    , device : Device
+    , attributes : List (Attribute msg)
+    , headerIconBg : HeaderIconBgColor
+    }
+
+
+type HeaderIconBgColor
+    = HeaderIconBgBeige
+    | HeaderIconBgBlue
+
+
+header : HeaderConfig msg -> Element msg
+header { navigations, title, device, attributes, headerIconBg } =
+    let
+        logo =
+            row
+                [ htmlAttribute <| Html.Attributes.style "position" "absolute"
+                , htmlAttribute <| Html.Attributes.style "top" "0"
+                , htmlAttribute <| Html.Attributes.style "left" "0"
+                , inFront <|
+                    Element.link
+                        [ width fill
+                        , moveLeft 30
+                        , moveDown 15
+                        ]
+                        { url = toPath Home
+                        , label =
+                            Element.image
+                                [ width (px 110), height (px 54) ]
+                                { src = "/static/images/logo.svg?new", description = "flint-logo" }
+                        }
+                ]
+                [ image
+                    [ alignTop, width (px 275), height (px 139) ]
+                    { src =
+                        case headerIconBg of
+                            HeaderIconBgBeige ->
+                                "/static/images/header-blob-beige.svg"
+
+                            HeaderIconBgBlue ->
+                                "/static/images/header-blob-blue.svg"
+                    , description = "background"
+                    }
+                ]
+
+        heading =
+            row [ width fill, paddingEach { top = 138, bottom = 0, left = 0, right = 0 } ]
+                [ paragraph
+                    [ width fill
+                    , centerX
+                    , Font.center
+                    , Font.family [ Font.typeface "Inter" ]
+                    , Font.color colors.white
+                    , Font.bold
+                    , Font.size <|
+                        case device of
+                            Device.Phone _ ->
+                                36
+
+                            Device.Tablet _ ->
+                                32
+
+                            Device.Desktop _ ->
+                                44
+
+                            Device.NotSet ->
+                                0
+                    ]
+                    [ text title ]
+                ]
+
+        navigation =
+            case device of
+                Device.Phone _ ->
+                    none
+
+                Device.Tablet _ ->
+                    none
+
+                _ ->
+                    let
+                        link ( page, label ) =
+                            Element.link
+                                [ htmlAttribute <| Html.Attributes.class "menu"
+                                , htmlAttribute <| Html.Attributes.style "z-index" "100"
+                                ]
+                                { url = toPath page
+                                , label = el [ Font.center ] (text label)
+                                }
+                    in
+                    row
+                        [ spacingXY 52 0
+                        , Font.color colors.white
+                        , Font.letterSpacing 2
+                        , Font.size 14
+                        , Border.rounded 6
+                        , Font.family [ Font.typeface "Inter" ]
+                        , Font.semiBold
+                        , alignRight
+                        , paddingEach { top = 33, bottom = 0, left = 0, right = 0 }
+                        ]
+                        (List.map link navigations)
+
+        margin n =
+            el [ width <| fillPortion n ] none
+    in
+    row
+        ([ width fill
+         , height (px 280)
+         , inFront heading
+         , inFront logo
+         ]
+            ++ attributes
+        )
+        [ margin 7
+        , column
+            [ width (fillPortion 4)
+            , alignTop
+            ]
+            [ navigation
+            ]
+        , margin 2
+        ]
+
+
+footer_ : Device -> List (Element msg)
+footer_ device =
+    case device of
+        Device.Phone _ ->
+            footer.phone
+
+        Device.Tablet _ ->
+            footer.tablet
+
+        Device.Desktop _ ->
+            footer.desktop
+
+        Device.NotSet ->
+            []
+
+
+
+-- 2023-04-10
+-- Why is footer a Layout? this should be a function takes a device and choose the proper layout by pattern matching. Now
+-- the pattern matching needs to be done in all call sites.
+-- Why making it a list of Element? now everytime someone uses footer needs to wrap it in a column
+-- this should go away in next refactoring.
 
 
 footer : Layout msg

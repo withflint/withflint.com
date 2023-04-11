@@ -10,6 +10,11 @@
         version = "1.6.1";
       };
 
+      "bellroy/elm-email" = {
+        sha256 = "0j5h9yr6b6mj27rqrl31nzq0zsv4n7vgh7h0xf4vpg5iiqxl8mx9";
+        version = "1.0.1";
+      };
+
       "dillonkearns/elm-markdown" = {
         sha256 = "05chrkn14b3yyv3sq3466ys4bhwdxva853fzbyc1dyjpk3vslqsc";
         version = "7.0.0";
@@ -98,6 +103,11 @@
       "rtfeldman/elm-iso8601-date-strings" = {
         sha256 = "1ah491kgyicgvy1c9myylqvhzb7ya9kgmn0hcsv23ymvqgaf6b1a";
         version = "1.1.4";
+      };
+
+      "truqu/elm-base64" = {
+        sha256 = "12w68b4idbs2vn0gm0lj354pm745jb7n0fj69408mpvh5r1z4m1b";
+        version = "2.0.4";
       };
 
       "uncover-co/elm-submodules" = {

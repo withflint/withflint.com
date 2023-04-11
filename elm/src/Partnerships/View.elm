@@ -14,6 +14,7 @@ import Element
         , fillPortion
         , height
         , html
+        , htmlAttribute
         , link
         , mouseOver
         , padding
@@ -35,7 +36,7 @@ import Element.Border as Border
 import Element.Font as Font
 import Framework.Heading as Heading
 import Html
-import Html.Attributes as HtmlAttr
+import Html.Attributes
 import Layout exposing (Layout, footer, phoneMenu, topMenu)
 import Partnerships.Types exposing (Model, Msg(..))
 import Router.Routes exposing (Page(..), toPath)
@@ -113,11 +114,7 @@ desktopView device model =
         , hf
         , Font.family [ Font.typeface "Inter" ]
         ]
-        [ header
-            device
-            model
-            "Recreate the way you hire nurses"
-            topMenu
+        [ header device
         , row
             [ wf ]
             [ row [ width <| fillPortion fillPortionVal ] [ Element.none ]
@@ -127,6 +124,25 @@ desktopView device model =
         , partners device
         ]
     ]
+
+
+header : Device.Device -> Element Msg
+header device =
+    Layout.header
+        { device = device
+        , title = "Recreate the way you hire nurses"
+        , navigations =
+            [ ( Partnerships, "Partnerships" )
+            , ( NurseCareers "", "Nurse Careers" )
+            , ( Blog "", "Blog" )
+            , ( About, "About" )
+            ]
+        , attributes =
+            [ htmlAttribute <| Html.Attributes.style "position" "relative"
+            , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(281.17deg, #A7C8F9 -8.91%, #8494C7 12.48%, #6E74A9 42.43%, #626297 82.36%)"
+            ]
+        , headerIconBg = Layout.HeaderIconBgBlue
+        }
 
 
 section0 : Device.Device -> Element msg
@@ -338,125 +354,5 @@ partners device =
         , column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
             [ paragraph [ Font.center, Font.size 28, Font.color colors.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
             , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
-            ]
-        ]
-
-
-header : Device -> Model -> String -> List ( String, Page ) -> Element Msg
-header device model title menu =
-    let
-        bg =
-            [ css "background" "rgb(68,55,109)"
-            , css "background" "linear-gradient(281.17deg, #A7C8F9 -8.91%, #8494C7 12.48%, #6E74A9 42.43%, #626297 82.36%)"
-            ]
-
-        blob =
-            row [ css "position" "relative" ]
-                [ row
-                    [ alignTop
-                    , css "position" "relative"
-                    , width (px 275)
-                    , height (px 139)
-                    ]
-                    [ html <|
-                        Html.img
-                            [ HtmlAttr.src "/static/images/header-blob-blue.svg"
-                            , HtmlAttr.style "width" "100%"
-                            ]
-                            []
-                    ]
-                , logo
-                ]
-
-        -- responsive size
-        rs =
-            case device of
-                Phone _ ->
-                    { titleFontSize = 36
-                    }
-
-                Tablet _ ->
-                    { titleFontSize = 32
-                    }
-
-                Desktop _ ->
-                    { titleFontSize = 44
-                    }
-
-                NotSet ->
-                    { titleFontSize = 0
-                    }
-
-        logo =
-            row
-                [ css "position" "absolute"
-                , css "left" "44px"
-                , css "top" "20px"
-                , css "z-index" "100"
-                ]
-                [ Element.link
-                    []
-                    { url = toPath Home
-                    , label =
-                        Element.image
-                            [ width (px 110), height (px 54) ]
-                            { src = "/static/images/logo.svg?new", description = "Flint" }
-                    }
-                ]
-
-        link ( label, page ) =
-            Element.link
-                []
-                { url = toPath page
-                , label =
-                    el [ Font.center ] (text label)
-                }
-
-        renderHamburgerMenu =
-            case device of
-                Device.Phone _ ->
-                    phoneMenu PhoneMenuToggle model.isPhoneMenuVisible
-
-                _ ->
-                    Element.none
-    in
-    row ([ wf, css "position" "relative" ] ++ bg)
-        [ renderHamburgerMenu
-        , column [ css "position" "absolute", css "top" "0", css "left" "0" ]
-            [ row [ css "width" "80%", css "height" "80%" ] [ blob ]
-            ]
-        , column
-            [ alignTop, height (px 280), wf ]
-            [ case device of
-                Phone _ ->
-                    row [ wf, height <| fillPortion 4 ] [ Element.none ]
-
-                _ ->
-                    row [ wf, height <| fillPortion 4 ]
-                        [ row [ wf ]
-                            [ row [ width <| fillPortion 7 ] []
-                            , row
-                                [ width <| fillPortion 4
-                                , spacing 32
-                                , Font.color colors.white
-                                , Font.letterSpacing 2
-                                , Font.size 14
-                                ]
-                                [ row [ alignRight, spacingXY 36 0 ]
-                                    (List.map (el (wf :: Styles.menu) << link) menu)
-                                ]
-                            , row [ width <| fillPortion 2 ] []
-                            ]
-                        ]
-            , row [ wf, height <| fillPortion 8 ]
-                [ el ([ wf, centerX, Font.size rs.titleFontSize ] ++ Styles.title ++ Heading.h1)
-                    (paragraph [ paddingXY 24 0, Font.center, Font.size rs.titleFontSize ] [ text title ])
-                ]
-            , case device of
-                Phone _ ->
-                    Element.none
-
-                _ ->
-                    row [ wf, height <| fillPortion 2 ] []
             ]
         ]

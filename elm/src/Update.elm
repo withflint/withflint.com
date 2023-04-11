@@ -16,6 +16,7 @@ import Jobs.Copy
 import Jobs.Types exposing (CurrentPage(..))
 import Jobs.Update
 import Mexico.Update
+import NurseCareers.Update
 import Partnerships.Update
 import Return exposing (Return, return, singleton)
 import Router.Routes exposing (Page(..))
@@ -52,20 +53,21 @@ init { article, gitVersion } url key =
                     { toMsg = MsgForJobs
                     }
 
-        ( healthcare, initHealthCare ) =
-            Jobs.Update.init gitVersion
-                url
-                key
-                { endpoint = "/hc"
-                , page = "nurse-careers"
-                , copy = Jobs.Copy.nurse
-                , apply = "/happly"
-                , page_ = NurseCareersPage
-                }
-                |> SubModule.init
-                    { toMsg = MsgForHealthCare
-                    }
+        ( nurseCareers, _ ) =
+            NurseCareers.Update.init
 
+        -- Jobs.Update.init gitVersion
+        --     url
+        --     key
+        --     { endpoint = "/hc"
+        --     , page = "nurse-careers"
+        --     , copy = Jobs.Copy.nurse
+        --     , apply = "/happly"
+        --     , page_ = NurseCareersPage
+        --     }
+        --     |> SubModule.init
+        --         { toMsg = MsgForHealthCare
+        --         }
         ( australia, _ ) =
             Australia.Update.init gitVersion
                 url
@@ -123,7 +125,7 @@ init { article, gitVersion } url key =
         , home = Home.Update.init
         , aboutUs = About.Update.init
         , jobs = jobs
-        , healthcare = healthcare
+        , nurseCareers = nurseCareers
         , australia = australia
         , mexico = mexico
         , canada = canada
@@ -139,7 +141,6 @@ init { article, gitVersion } url key =
         (Task.perform Load Browser.Dom.getViewport)
         |> initRouter
         |> initJobs
-        |> initHealthCare
         |> initBlog
 
 
@@ -180,12 +181,11 @@ update msg model =
                             \jobs -> { model | jobs = jobs }
                         }
 
-            MsgForHealthCare healthcareMsg ->
-                Jobs.Update.update healthcareMsg model.healthcare
+            MsgForNurseCareers nurseCareersMsg ->
+                NurseCareers.Update.update nurseCareersMsg model.nurseCareers
                     |> SubModule.update
-                        { toMsg = MsgForHealthCare
-                        , toModel =
-                            \healthcare -> { model | healthcare = healthcare }
+                        { toMsg = MsgForNurseCareers
+                        , toModel = \nurseCareers -> { model | nurseCareers = nurseCareers }
                         }
 
             MsgForPartnerships partnershipsMsg ->
@@ -288,22 +288,6 @@ update msg model =
                                             \jobs -> { model | jobs = resetPhoneMenuState jobs }
                                         }
 
-                            Just (Router.Routes.NurseCareers "") ->
-                                Jobs.Update.update (Jobs.Types.SwitchView Jobs.Types.JobsView) model.healthcare
-                                    |> SubModule.update
-                                        { toMsg = MsgForHealthCare
-                                        , toModel =
-                                            \healthcare -> { model | healthcare = resetPhoneMenuState healthcare }
-                                        }
-
-                            Just (Router.Routes.NurseCareers jobId) ->
-                                Jobs.Update.update (Jobs.Types.SwitchView (Jobs.Types.ApplyView jobId)) model.healthcare
-                                    |> SubModule.update
-                                        { toMsg = MsgForHealthCare
-                                        , toModel =
-                                            \healthcare -> { model | healthcare = resetPhoneMenuState healthcare }
-                                        }
-
                             Just Router.Routes.Australia ->
                                 singleton
                                     { model
@@ -391,7 +375,7 @@ pageTitle model =
             model.jobs.title
 
         NurseCareers _ ->
-            model.healthcare.title
+            "Nurse Success - Flint"
 
         Blog _ ->
             model.blog.title

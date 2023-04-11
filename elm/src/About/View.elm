@@ -34,7 +34,7 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Html
-import Html.Attributes as HtmlAttr
+import Html.Attributes
 import Layout exposing (Layout, footer, phoneMenu, topMenu)
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, maxW, minW, pb, pt, wf)
@@ -73,7 +73,7 @@ view device model =
                 , Background.color colors.cremeDark
                 , css "position" "relative"
                 ]
-                [ row [ wf, hf, css "position" "relative" ] [ header device model ]
+                [ row [ wf, hf, css "position" "relative" ] [ header device ]
                 , column [ wf, hf, paddingXY 48 0 ] [ body ]
                 , column [ wf, pt 120 ] footer.phone
                 ]
@@ -85,7 +85,7 @@ view device model =
                 , Font.family [ Font.typeface "Inter" ]
                 , css "position" "relative"
                 ]
-                [ row [ wf, hf ] [ header device model ]
+                [ row [ wf, hf ] [ header device ]
                 , column [ wf, hf, paddingXY 48 0 ] [ body ]
                 , column [ wf, pt 120 ] footer.phone
                 ]
@@ -98,7 +98,7 @@ view device model =
                 , css "position" "relative"
                 , Background.color colors.cremeLight
                 ]
-                [ row [ wf, hf ] [ header device model ]
+                [ row [ wf, hf ] [ header device ]
                 , column [ wf, hf, paddingXY 200 0, Background.color colors.cremeDark ] [ body ]
                 , column [ wf ] footer.desktop
                 ]
@@ -338,137 +338,23 @@ card p =
                 ]
 
 
-header : Device.Device -> Model -> Element Msg
-header device model =
-    let
-        gap x =
-            row [ width <| fillPortion x ] []
-
-        bg =
-            [ css "background" "#FFDCC9"
-            , css "background" "linear-gradient(281.5deg, #FFDCC9 -0.43%, #C8BCC7 8.22%, #8284AF 27.81%, #6E74A9 52.4%, #6359A1 82.46%)"
+header : Device.Device -> Element Msg
+header device =
+    Layout.header
+        { device = device
+        , title = "Freedom. Equality. Quality."
+        , navigations =
+            [ ( Partnerships, "Partnerships" )
+            , ( NurseCareers "", "Nurse Careers" )
+            , ( Blog "", "Blog" )
+            , ( About, "About" )
             ]
-
-        blobSrc =
-            "/static/images/header-blob-blue.svg"
-
-        title =
-            "Freedom. Equality. Quality."
-
-        blob =
-            row [ css "position" "relative" ]
-                [ row
-                    [ alignTop
-                    , htmlAttribute <| HtmlAttr.style "position" "relative"
-                    , width (px 275)
-                    , height (px 139)
-                    ]
-                    [ html <|
-                        Html.img
-                            [ HtmlAttr.src blobSrc
-                            , HtmlAttr.style "width" "100%"
-                            ]
-                            []
-                    ]
-                , logo
-                ]
-
-        link ( label, page ) =
-            Element.link
-                []
-                { url = toPath page
-                , label =
-                    el [ Font.center ] (text label)
-                }
-
-        responsiveFontSize =
-            case device of
-                Device.Phone _ ->
-                    { titleFontSize = 36
-                    }
-
-                Device.Tablet _ ->
-                    { titleFontSize = 32
-                    }
-
-                Device.Desktop _ ->
-                    { titleFontSize = 44
-                    }
-
-                Device.NotSet ->
-                    { titleFontSize = 0
-                    }
-
-        logo =
-            row
-                [ css "position" "absolute"
-                , css "left" "44px"
-                , css "top" "20px"
-                , css "z-index" "100"
-                ]
-                [ Element.link [ wf ]
-                    { url = toPath Home
-                    , label =
-                        Element.image
-                            [ width (px 110), height (px 54) ]
-                            { src = "/static/images/logo.svg?new", description = "Flint" }
-                    }
-                ]
-
-        renderHamburgerMenu =
-            case device of
-                Device.Phone _ ->
-                    phoneMenu PhoneMenuToggle model.isPhoneMenuVisible
-
-                _ ->
-                    Element.none
-
-        menu_ =
-            row [ wf, height <| fillPortion 4 ]
-                [ row [ wf ]
-                    [ gap 7
-                    , row
-                        [ width <| fillPortion 4
-                        , spacing 32
-                        , Font.color colors.white
-                        , Font.letterSpacing 2
-                        , Font.size 14
-                        ]
-                        [ row [ alignRight, spacingXY 36 0 ]
-                            (List.map (el (wf :: Styles.menu) << link) topMenu)
-                        ]
-                    , gap 2
-                    ]
-                ]
-
-        title_ =
-            row [ wf, height <| fillPortion 8 ]
-                [ row ([ wf, centerX, Font.size responsiveFontSize.titleFontSize ] ++ Styles.title)
-                    [ paragraph [ Font.center, Font.size responsiveFontSize.titleFontSize ] [ text title ] ]
-                ]
-    in
-    row ([ wf, css "position" "relative" ] ++ bg)
-        [ renderHamburgerMenu
-        , column [ css "position" "absolute", css "top" "0", css "left" "0" ]
-            [ row [ css "width" "80%", css "height" "80%" ] [ blob ]
+        , attributes =
+            [ htmlAttribute <| Html.Attributes.style "position" "relative"
+            , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(281.5deg, #FFDCC9 -0.43%, #C8BCC7 8.22%, #8284AF 27.81%, #6E74A9 52.4%, #6359A1 82.46%)"
             ]
-        , column
-            [ alignTop, height (px 280), wf ]
-            [ case device of
-                Device.Phone _ ->
-                    row [ wf, height <| fillPortion 4 ] [ Element.none ]
-
-                _ ->
-                    menu_
-            , title_
-            , case device of
-                Device.Phone _ ->
-                    Element.none
-
-                _ ->
-                    row [ wf, height <| fillPortion 2 ] []
-            ]
-        ]
+        , headerIconBg = Layout.HeaderIconBgBlue
+        }
 
 
 copy : { right : List String, left : List String }
