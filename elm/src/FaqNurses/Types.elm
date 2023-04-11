@@ -12,6 +12,7 @@ type alias Model =
 type Msg
     = NoOp
     | PhoneMenuToggle
+    | ToggleNavMenu
 
 
 type alias Faq =

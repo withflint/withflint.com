@@ -4,8 +4,10 @@ import Device exposing (Device)
 import Element
     exposing
         ( Element
+        , alignBottom
         , alignRight
         , alignTop
+        , below
         , centerX
         , centerY
         , column
@@ -20,18 +22,22 @@ import Element
         , inFront
         , link
         , maximum
+        , moveRight
         , none
         , paddingEach
         , paddingXY
         , paragraph
         , px
         , row
+        , spacing
         , spacingXY
         , text
         , width
         , wrappedRow
         )
+import Element.Background as Background
 import Element.Border as Border
+import Element.Events exposing (onClick)
 import Element.Font as Font
 import Element.Input as Input
 import Html
@@ -40,27 +46,28 @@ import Layout exposing (Layout)
 import NurseCareers.Types exposing (Model, Msg(..))
 import Router.Routes exposing (Page(..))
 import Styles exposing (colors)
+import Types
 
 
-config : Device -> Model -> Layout Msg
-config device model =
-    { phone = List.singleton <| view device model
-    , tablet = List.singleton <| view device model
-    , desktop = List.singleton <| view device model
+config : { device : Device, model : Model, showNavMenu : Bool } -> Layout Msg
+config props =
+    { phone = List.singleton <| view props
+    , tablet = List.singleton <| view props
+    , desktop = List.singleton <| view props
     }
 
 
-view : Device -> Model -> Element Msg
-view device model =
+view : { device : Device, model : Model, showNavMenu : Bool } -> Element Msg
+view { device, model, showNavMenu } =
     column
         [ width fill ]
-        [ header device
+        [ header device showNavMenu
         , content device model
         ]
 
 
-header : Device -> Element Msg
-header device =
+header : Device -> Bool -> Element Msg
+header device showNavMenu =
     Layout.header
         { device = device
         , title = "Your success is Flint's success"
@@ -75,6 +82,8 @@ header device =
             , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(282.96deg, #E54848 -0.52%, #BA4352 8.17%, #7E3D60 37.38%, #5D3968 66.24%)"
             ]
         , headerIconBg = Layout.HeaderIconBgBeige
+        , showMenu = showNavMenu
+        , toggleNavMenuMsg = ToggleNavMenu
         }
 
 
@@ -197,31 +206,12 @@ content device model =
                     ]
                 ]
 
-        partners =
-            let
-                partner =
-                    Element.image [ spacingXY 0 24, alignTop, width (px 210), height (px 75), centerX ]
-            in
-            wrappedRow
-                [ width fill
-                , paddingXY 0 100
-                , htmlAttribute <| Html.Attributes.style "background" "#5C4B92"
-                , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(90deg, #50417F 0%, #5C4B92 100%)"
-                ]
-                [ partner { src = "/static/images/cgfns-logo.svg", description = "CGFNS International" }
-                , partner { src = "/static/images/jsa-logo.svg", description = "JSA" }
-                , partner { src = "/static/images/medall-logo.svg", description = "MedAll" }
-                , partner { src = "/static/images/sam.svg", description = "SAM" }
-                , partner { src = "/static/images/ringmd-logo.svg", description = "RingMd" }
-                , partner { src = "/static/images/learn-with-nurses-logo.svg", description = "Learn with Nurses" }
-                ]
-
         emailField =
             column
                 [ centerX
                 , case device of
                     Device.Phone _ ->
-                        width (px 300)
+                        width (px 250)
 
                     _ ->
                         width (px 500)
@@ -282,7 +272,7 @@ content device model =
                 ]
             , margin 1
             ]
-        , partners
+        , Layout.partners device
         , footer
         , column [ width fill ] <| Layout.footer_ device
         ]

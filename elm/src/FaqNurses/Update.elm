@@ -2,7 +2,8 @@ module FaqNurses.Update exposing (init, update)
 
 import FaqNurses.Types exposing (Faq, FormattedText(..), Model, Msg(..))
 import Html.Attributes exposing (id)
-import Return exposing (Return, singleton)
+import Ports
+import Return exposing (Return, return, singleton)
 
 
 init : Return Msg Model
@@ -23,6 +24,9 @@ update msg model =
 
         PhoneMenuToggle ->
             singleton { model | isPhoneMenuVisible = not model.isPhoneMenuVisible }
+
+        ToggleNavMenu ->
+            return model (Ports.toggleNavMenu ())
 
 
 faqs : List Faq

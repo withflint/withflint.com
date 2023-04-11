@@ -1,7 +1,7 @@
 module About.View exposing (view)
 
 import About.Types exposing (Model, Msg(..))
-import Device
+import Device exposing (Device)
 import Element
     exposing
         ( Element
@@ -54,55 +54,43 @@ type Card
     | Blank
 
 
-view : Device.Device -> Model -> Layout Msg
-view device model =
-    let
-        render view_ =
-            if model.isPhoneMenuVisible then
-                column [ wf, hf, css "position" "relative" ] [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible ]
-                    |> List.singleton
-
-            else
-                view_
-    in
+view : { device : Device, model : Model, showNavMenu : Bool } -> Layout Msg
+view { device, model, showNavMenu } =
     { phone =
-        render <|
-            [ column
-                [ wf
-                , Font.family [ Font.typeface "Inter" ]
-                , Background.color colors.cremeDark
-                , css "position" "relative"
-                ]
-                [ row [ wf, hf, css "position" "relative" ] [ header device ]
-                , column [ wf, hf, paddingXY 48 0 ] [ body ]
-                , column [ wf, pt 120 ] footer.phone
-                ]
+        [ column
+            [ wf
+            , Font.family [ Font.typeface "Inter" ]
+            , Background.color colors.cremeDark
+            , css "position" "relative"
             ]
+            [ row [ wf, hf, css "position" "relative" ] [ header device showNavMenu ]
+            , column [ wf, hf, paddingXY 48 0 ] [ body ]
+            , column [ wf, pt 120 ] footer.phone
+            ]
+        ]
     , tablet =
-        render <|
-            [ column
-                [ wf
-                , Font.family [ Font.typeface "Inter" ]
-                , css "position" "relative"
-                ]
-                [ row [ wf, hf ] [ header device ]
-                , column [ wf, hf, paddingXY 48 0 ] [ body ]
-                , column [ wf, pt 120 ] footer.phone
-                ]
+        [ column
+            [ wf
+            , Font.family [ Font.typeface "Inter" ]
+            , css "position" "relative"
             ]
+            [ row [ wf, hf ] [ header device showNavMenu ]
+            , column [ wf, hf, paddingXY 48 0 ] [ body ]
+            , column [ wf, pt 120 ] footer.phone
+            ]
+        ]
     , desktop =
-        render <|
-            [ column
-                [ wf
-                , Font.family [ Font.typeface "Inter" ]
-                , css "position" "relative"
-                , Background.color colors.cremeLight
-                ]
-                [ row [ wf, hf ] [ header device ]
-                , column [ wf, hf, paddingXY 200 0, Background.color colors.cremeDark ] [ body ]
-                , column [ wf ] footer.desktop
-                ]
+        [ column
+            [ wf
+            , Font.family [ Font.typeface "Inter" ]
+            , css "position" "relative"
+            , Background.color colors.cremeLight
             ]
+            [ row [ wf, hf ] [ header device showNavMenu ]
+            , column [ wf, hf, paddingXY 200 0, Background.color colors.cremeDark ] [ body ]
+            , column [ wf ] footer.desktop
+            ]
+        ]
     }
 
 
@@ -338,8 +326,8 @@ card p =
                 ]
 
 
-header : Device.Device -> Element Msg
-header device =
+header : Device.Device -> Bool -> Element Msg
+header device showNavMenu =
     Layout.header
         { device = device
         , title = "Freedom. Equality. Quality."
@@ -354,6 +342,8 @@ header device =
             , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(281.5deg, #FFDCC9 -0.43%, #C8BCC7 8.22%, #8284AF 27.81%, #6E74A9 52.4%, #6359A1 82.46%)"
             ]
         , headerIconBg = Layout.HeaderIconBgBlue
+        , showMenu = showNavMenu
+        , toggleNavMenuMsg = ToggleNavMenu
         }
 
 

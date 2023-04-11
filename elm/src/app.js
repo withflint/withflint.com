@@ -35,6 +35,11 @@ const sentToUmami = path =>
 
 const load = () => {
   if (app)
+
+    app.ports.toggleNavMenu.subscribe(_ => {
+      app.ports.navMenuToggled.send(_)
+    })
+
     app.ports.candidateApplyEvent.subscribe(_msg => {
       gtm(gtm => gtm('event', 'conversion'))
       fb(fbq => fbq('track', 'SubmitApplication'))

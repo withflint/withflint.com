@@ -41,48 +41,36 @@ import Layout exposing (Layout, footer, phoneMenu, topMenu)
 import Partnerships.Types exposing (Model, Msg(..))
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, lineHeight, maxW, paddingE, palette, wf, wp)
+import Types
 
 
-view : Device -> Model -> Layout Msg
-view device model =
-    let
-        render view_ =
-            -- Render with phoneMenu
-            if model.isPhoneMenuVisible then
-                column [ wf, hf, css "position" "relative" ] [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible ]
-                    |> List.singleton
-
-            else
-                view_
-    in
+view : { device : Device, model : Model, showNavMenu : Bool } -> Layout Msg
+view props =
     { phone =
-        render <|
-            [ column
-                [ wf
-                , height fill
-                ]
-                (desktopView device model
-                    ++ footer.phone
-                )
+        [ column
+            [ wf
+            , height fill
             ]
+            (desktopView props
+                ++ footer.phone
+            )
+        ]
     , tablet =
-        render <|
-            [ column
-                [ wf
-                ]
-                (desktopView device model
-                    ++ footer.tablet
-                )
+        [ column
+            [ wf
             ]
+            (desktopView props
+                ++ footer.tablet
+            )
+        ]
     , desktop =
-        render <|
-            [ column
-                [ wf
-                ]
-                (desktopView device model
-                    ++ footer.desktop
-                )
+        [ column
+            [ wf
             ]
+            (desktopView props
+                ++ footer.desktop
+            )
+        ]
     }
 
 
@@ -102,8 +90,8 @@ setResponsiveVal device { phone, desktop, tablet, notSet } =
             notSet
 
 
-desktopView : Device -> Model -> List (Element Msg)
-desktopView device model =
+desktopView : { device : Device, model : Model, showNavMenu : Bool } -> List (Element Msg)
+desktopView { device, model, showNavMenu } =
     let
         fillPortionVal =
             setResponsiveVal device { phone = 0, desktop = 2, tablet = 2, notSet = 0 }
@@ -114,20 +102,20 @@ desktopView device model =
         , hf
         , Font.family [ Font.typeface "Inter" ]
         ]
-        [ header device
+        [ header device showNavMenu
         , row
             [ wf ]
             [ row [ width <| fillPortion fillPortionVal ] [ Element.none ]
             , column [ width <| fillPortion 8 ] [ section0 device ]
             , row [ width <| fillPortion fillPortionVal ] [ Element.none ]
             ]
-        , partners device
+        , Layout.partners device
         ]
     ]
 
 
-header : Device.Device -> Element Msg
-header device =
+header : Device.Device -> Bool -> Element Msg
+header device showNavMenu =
     Layout.header
         { device = device
         , title = "Recreate the way you hire nurses"
@@ -142,6 +130,8 @@ header device =
             , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(281.17deg, #A7C8F9 -8.91%, #8494C7 12.48%, #6E74A9 42.43%, #626297 82.36%)"
             ]
         , headerIconBg = Layout.HeaderIconBgBlue
+        , showMenu = showNavMenu
+        , toggleNavMenuMsg = ToggleNavMenu
         }
 
 
@@ -259,100 +249,5 @@ valueCard device { iconUrl, iconDesc, heading, desc } =
         , column [ maxW 550, spacingXY 0 12, padding 12 ]
             [ paragraph [ css "width" "100%", Font.color colors.primary, Font.bold ] [ text heading ]
             , paragraph [ css "width" "100%", Font.color (rgb255 25 21 41) ] [ text desc ]
-            ]
-        ]
-
-
-partners : Device -> Element msg
-partners device =
-    let
-        bgBlue =
-            [ css "background" "#5C4B92"
-            , css "background" "linear-gradient(90deg, #50417F 0%, #5C4B92 100%)"
-            ]
-
-        rsPortion =
-            case device of
-                Device.Phone _ ->
-                    { row1 = wf
-                    , row2 = wf
-                    , row3 = wf
-                    , spacing = spacingXY 0 32
-                    , bg = Background.color colors.white
-                    }
-
-                Device.Desktop _ ->
-                    { row1 = wp 2
-                    , row2 = wp 8
-                    , row3 = wp 2
-                    , spacing = spaceEvenly
-                    , bg = Background.color palette.cremeLight
-                    }
-
-                Device.Tablet _ ->
-                    { row1 = wp 0
-                    , row2 = wp 12
-                    , row3 = wp 0
-                    , spacing = spaceEvenly
-                    , bg = Background.color palette.cremeLight
-                    }
-
-                Device.NotSet ->
-                    { row1 = wp 1
-                    , row2 = wp 10
-                    , row3 = wp 1
-                    , spacing = spaceEvenly
-                    , bg = Background.color palette.cremeLight
-                    }
-    in
-    column [ wf ]
-        [ wrappedRow
-            ([ wf
-             , hf
-             ]
-                ++ bgBlue
-            )
-            [ row [ rsPortion.row1 ] []
-            , wrappedRow
-                [ rsPortion.row2
-                , paddingXY 32 128
-                , rsPortion.spacing
-                ]
-                [ column [ spacingXY 0 24, alignTop ]
-                    [ row [ width (px 210), height (px 75) ]
-                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/cgfns-logo.svg", description = "CGFNS International" }
-                        ]
-                    , column [ spacingXY 12 12 ]
-                        [ row [ width (px 95), height (px 83) ]
-                            [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/jsa-logo.svg", description = "JSA" }
-                            ]
-                        , column [ wf, Font.color colors.white1, Font.size 12 ]
-                            [ paragraph [] [ text "Josef Silny & Associates, Inc." ]
-                            , paragraph [] [ text "International Education Consultants" ]
-                            ]
-                        ]
-                    ]
-                , column [ spacingXY 0 48, alignTop ]
-                    [ row [ width (px 264), height (px 65) ]
-                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/medall-logo.svg", description = "MedAll" }
-                        ]
-                    , row [ width (px 264), height (px 65) ]
-                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/sam.svg", description = "SAM" }
-                        ]
-                    ]
-                , column [ spacingXY 0 48 ]
-                    [ row [ width (px 198), height (px 52) ]
-                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/ringmd-logo.svg", description = "RingMd" }
-                        ]
-                    , row [ width (px 264), height (px 65) ]
-                        [ Element.image [ centerX, css "width" "100%" ] { src = "/static/images/learn-with-nurses-logo.svg", description = "Learn with Nurses" }
-                        ]
-                    ]
-                ]
-            , row [ rsPortion.row3 ] []
-            ]
-        , column [ wf, rsPortion.bg, hf, paddingXY 28 100, spacingXY 0 24, centerX, hf ]
-            [ paragraph [ Font.center, Font.size 28, Font.color colors.primary, centerY ] [ text "We partner with the most trusted names in the business." ]
-            , paragraph [ centerY, centerX, Font.center, width (fill |> Element.maximum 600), lineHeight 1.6 ] [ text "Flint's industry partnerships mean the highest standards in nurse quality and competency." ]
             ]
         ]

@@ -1,7 +1,8 @@
 module About.Update exposing (init, update)
 
 import About.Types exposing (Model, Msg(..))
-import Return exposing (Return, singleton)
+import Ports
+import Return exposing (Return, return, singleton)
 
 
 init : Model
@@ -21,3 +22,6 @@ update msg model =
 
         ShowProfile ->
             singleton { model | isProfileVisible = not model.isProfileVisible }
+
+        ToggleNavMenu ->
+            return model (Ports.toggleNavMenu ())

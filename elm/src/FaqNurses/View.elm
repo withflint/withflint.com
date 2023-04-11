@@ -1,6 +1,6 @@
 module FaqNurses.View exposing (view)
 
-import Device
+import Device exposing (Device)
 import Element
     exposing
         ( Element
@@ -28,66 +28,53 @@ import Element.Font as Font
 import Element.Lazy exposing (lazy2)
 import FaqNurses.Types exposing (Faq, FormattedText(..), Model, Msg(..))
 import Html.Attributes
-import Layout exposing (Layout, footer, phoneMenu)
+import Layout exposing (Layout, footer)
 import Mark
 import Router.Routes exposing (Page(..))
 import Styles exposing (colors, css, hf, pt, wf)
 
 
-view : Device.Device -> Model -> Layout Msg
-view device model =
-    let
-        render view_ =
-            -- Render with phoneMenu
-            if model.isPhoneMenuVisible then
-                column [ wf, hf, css "position" "relative" ] [ phoneMenu PhoneMenuToggle model.isPhoneMenuVisible ]
-                    |> List.singleton
-
-            else
-                view_
-    in
+view : { device : Device, model : Model, showNavMenu : Bool } -> Layout Msg
+view { device, model, showNavMenu } =
     { phone =
-        render <|
-            [ column
-                [ wf
-                , Font.family [ Font.typeface "Inter" ]
-                , Background.color colors.cremeDark
-                , css "position" "relative"
-                ]
-                [ row [ wf, hf, css "position" "relative" ] [ header device ]
-                , column [ wf, hf, paddingXY 48 80 ] [ faqsView model ]
-                , column [ wf, pt 120 ] footer.phone
-                ]
+        [ column
+            [ wf
+            , Font.family [ Font.typeface "Inter" ]
+            , Background.color colors.cremeDark
+            , css "position" "relative"
             ]
+            [ row [ wf, hf, css "position" "relative" ] [ header device showNavMenu ]
+            , column [ wf, hf, paddingXY 48 80 ] [ faqsView model ]
+            , column [ wf, pt 120 ] footer.phone
+            ]
+        ]
     , tablet =
-        render <|
-            [ column
-                [ wf
-                , Font.family [ Font.typeface "Inter" ]
-                , css "position" "relative"
-                ]
-                [ row [ wf, hf ] [ header device ]
-                , column [ wf, hf, paddingXY 48 80 ] [ faqsView model ]
-                , column [ wf, pt 120 ] footer.phone
-                ]
+        [ column
+            [ wf
+            , Font.family [ Font.typeface "Inter" ]
+            , css "position" "relative"
             ]
+            [ row [ wf, hf ] [ header device showNavMenu ]
+            , column [ wf, hf, paddingXY 48 80 ] [ faqsView model ]
+            , column [ wf, pt 120 ] footer.phone
+            ]
+        ]
     , desktop =
-        render <|
-            [ column
-                [ wf
-                , Font.family [ Font.typeface "Inter" ]
-                , css "position" "relative"
-                ]
-                [ row [ wf, hf ] [ header device ]
-                , column [ wf, hf, paddingXY 0 80 ] [ faqsView model ]
-                , column [ wf, pt 120 ] footer.desktop
-                ]
+        [ column
+            [ wf
+            , Font.family [ Font.typeface "Inter" ]
+            , css "position" "relative"
             ]
+            [ row [ wf, hf ] [ header device showNavMenu ]
+            , column [ wf, hf, paddingXY 0 80 ] [ faqsView model ]
+            , column [ wf, pt 120 ] footer.desktop
+            ]
+        ]
     }
 
 
-header : Device.Device -> Element Msg
-header device =
+header : Device.Device -> Bool -> Element Msg
+header device showNavMenu =
     Layout.header
         { device = device
         , title = "FAQ for Internationally Educated Nurses"
@@ -102,6 +89,8 @@ header device =
             , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(282.96deg, #E54848 -0.52%, #BA4352 8.17%, #7E3D60 37.38%, #5D3968 66.24%)"
             ]
         , headerIconBg = Layout.HeaderIconBgBeige
+        , showMenu = showNavMenu
+        , toggleNavMenuMsg = ToggleNavMenu
         }
 
 

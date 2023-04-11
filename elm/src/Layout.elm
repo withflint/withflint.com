@@ -1,4 +1,4 @@
-module Layout exposing (HeaderConfig, HeaderIconBgColor(..), Layout, footer, footer_, header, layout, menu, phoneMenu, topMenu)
+module Layout exposing (HeaderConfig, HeaderIconBgColor(..), Layout, footer, footer_, header, layout, menu, partners, phoneMenu, topMenu)
 
 import Device exposing (Device(..))
 import Element
@@ -9,6 +9,7 @@ import Element
         , alignLeft
         , alignRight
         , alignTop
+        , below
         , centerX
         , centerY
         , column
@@ -37,11 +38,13 @@ import Element
         )
 import Element.Background as Background
 import Element.Border as Border
+import Element.Events exposing (onClick)
 import Element.Font as Font exposing (underline)
 import Element.Input as Input
 import Html.Attributes
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, palette, pt, wf)
+import Types exposing (Msg)
 
 
 menu : List ( String, Page )
@@ -121,8 +124,10 @@ type alias HeaderConfig msg =
     { navigations : List ( Page, String )
     , title : String
     , device : Device
+    , showMenu : Bool
     , attributes : List (Attribute msg)
     , headerIconBg : HeaderIconBgColor
+    , toggleNavMenuMsg : msg
     }
 
 
@@ -132,7 +137,7 @@ type HeaderIconBgColor
 
 
 header : HeaderConfig msg -> Element msg
-header { navigations, title, device, attributes, headerIconBg } =
+header { navigations, title, showMenu, device, attributes, headerIconBg, toggleNavMenuMsg } =
     let
         logo =
             row
@@ -192,41 +197,62 @@ header { navigations, title, device, attributes, headerIconBg } =
                 ]
 
         navigation =
+            let
+                link ( page, label ) =
+                    Element.link
+                        [ htmlAttribute <| Html.Attributes.class "menu"
+                        , htmlAttribute <| Html.Attributes.style "z-index" "100"
+                        ]
+                        { url = toPath page
+                        , label = el [ Font.center ] (text label)
+                        }
+            in
             case device of
                 Device.Phone _ ->
-                    none
+                    phoneMenu toggleNavMenuMsg showMenu
 
                 Device.Tablet _ ->
-                    none
+                    row [ width fill ]
+                        [ margin 8
+                        , row
+                            [ spacingXY 20 0
+                            , width (fillPortion 4)
+                            , Font.color colors.white
+                            , Font.letterSpacing 2
+                            , Font.size 14
+                            , Border.rounded 6
+                            , Font.family [ Font.typeface "Inter" ]
+                            , Font.semiBold
+                            , alignRight
+                            , paddingEach { top = 33, bottom = 0, left = 0, right = 0 }
+                            ]
+                            (List.map link navigations)
+                        , margin 2
+                        ]
 
                 _ ->
-                    let
-                        link ( page, label ) =
-                            Element.link
-                                [ htmlAttribute <| Html.Attributes.class "menu"
-                                , htmlAttribute <| Html.Attributes.style "z-index" "100"
-                                ]
-                                { url = toPath page
-                                , label = el [ Font.center ] (text label)
-                                }
-                    in
-                    row
-                        [ spacingXY 52 0
-                        , Font.color colors.white
-                        , Font.letterSpacing 2
-                        , Font.size 14
-                        , Border.rounded 6
-                        , Font.family [ Font.typeface "Inter" ]
-                        , Font.semiBold
-                        , alignRight
-                        , paddingEach { top = 33, bottom = 0, left = 0, right = 0 }
+                    row [ width fill ]
+                        [ margin 8
+                        , row
+                            [ spacingXY 52 0
+                            , width (fillPortion 4)
+                            , Font.color colors.white
+                            , Font.letterSpacing 2
+                            , Font.size 14
+                            , Border.rounded 6
+                            , Font.family [ Font.typeface "Inter" ]
+                            , Font.semiBold
+                            , alignRight
+                            , paddingEach { top = 33, bottom = 0, left = 0, right = 0 }
+                            ]
+                            (List.map link navigations)
+                        , margin 2
                         ]
-                        (List.map link navigations)
 
         margin n =
             el [ width <| fillPortion n ] none
     in
-    row
+    el
         ([ width fill
          , height (px 280)
          , inFront heading
@@ -234,15 +260,104 @@ header { navigations, title, device, attributes, headerIconBg } =
          ]
             ++ attributes
         )
-        [ margin 7
-        , column
-            [ width (fillPortion 4)
-            , alignTop
-            ]
-            [ navigation
-            ]
-        , margin 2
-        ]
+        navigation
+
+
+partners : Device -> Element msg
+partners device =
+    let
+        partner =
+            Element.image [ spacingXY 0 24, alignTop, width (px 210), height (px 75), centerX ]
+
+        cgfns =
+            partner { src = "/static/images/cgfns-logo.svg", description = "CGFNS International" }
+
+        jsa =
+            el
+                [ width fill
+                , below
+                    (column
+                        [ Font.color colors.white1, Font.size 12, centerX ]
+                        [ paragraph [] [ text "Josef Silny & Associates, Inc." ]
+                        , paragraph [] [ text "International Education Consultants" ]
+                        ]
+                    )
+                ]
+            <|
+                partner { src = "/static/images/jsa-logo.svg", description = "JSA" }
+
+        medAll =
+            partner { src = "/static/images/medall-logo.svg", description = "MedAll" }
+
+        sam =
+            partner { src = "/static/images/sam.svg", description = "SAM" }
+
+        ringMd =
+            partner { src = "/static/images/ringmd-logo.svg", description = "RingMd" }
+
+        learnWithNurse =
+            partner { src = "/static/images/learn-with-nurses-logo.svg", description = "Learn with Nurses" }
+    in
+    case device of
+        Device.Phone _ ->
+            column
+                [ width fill
+                , paddingXY 20 100
+                , spacingXY 0 30
+                , htmlAttribute <| Html.Attributes.style "background" "#5C4B92"
+                , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(90deg, #50417F 0%, #5C4B92 100%)"
+                ]
+                [ cgfns, jsa, medAll, sam, ringMd, learnWithNurse ]
+
+        Device.Desktop _ ->
+            row
+                [ width fill
+                , paddingXY 100 150
+                , htmlAttribute <| Html.Attributes.style "background" "#5C4B92"
+                , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(90deg, #50417F 0%, #5C4B92 100%)"
+                ]
+                [ column [ width fill, spacingXY 0 50 ]
+                    [ cgfns
+                    , jsa
+                    ]
+                , column [ width fill, spacingXY 0 50 ]
+                    [ medAll
+                    , sam
+                    ]
+                , column [ width fill, spacingXY 0 50 ]
+                    [ ringMd
+                    , learnWithNurse
+                    ]
+                ]
+
+        Device.Tablet _ ->
+            row
+                [ width fill
+                , paddingXY 100 150
+                , htmlAttribute <| Html.Attributes.style "background" "#5C4B92"
+                , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(90deg, #50417F 0%, #5C4B92 100%)"
+                ]
+                [ column [ alignTop, width fill, spacingXY 0 50 ]
+                    [ cgfns
+                    , jsa
+                    , medAll
+                    , sam
+                    ]
+                , column [ alignTop, width fill, spacingXY 0 50 ]
+                    [ ringMd
+                    , learnWithNurse
+                    ]
+                ]
+
+        Device.NotSet ->
+            row
+                [ width fill
+                , paddingXY 50 100
+                , spacing 30
+                , htmlAttribute <| Html.Attributes.style "background" "#5C4B92"
+                , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(90deg, #50417F 0%, #5C4B92 100%)"
+                ]
+                [ cgfns, jsa, medAll, sam, ringMd, learnWithNurse ]
 
 
 footer_ : Device -> List (Element msg)
@@ -463,7 +578,7 @@ footer =
 
 
 phoneMenu : msg -> Bool -> Element msg
-phoneMenu msg isMenuVisible =
+phoneMenu msg showMenu =
     let
         hamburger =
             column [ spacingXY 0 3 ]
@@ -490,10 +605,16 @@ phoneMenu msg isMenuVisible =
             , css "background" "linear-gradient(162.39deg, #5D3968 0%, #6359A1 100%)"
             ]
     in
-    if isMenuVisible then
+    if showMenu then
         column
-            [ wf
-            , hf
+            [ css "position" "fixed"
+            , css "top" "0"
+            , css "bottom" "0"
+            , css "right" "0"
+            , css "left" "0"
+            , css "width" "100%"
+            , css "height" "100%"
+            , css "z-index" "200"
             ]
             [ column ([ wf, hf, Font.color colors.white ] ++ bg)
                 [ column [ wf, height <| fillPortion 2 ]
