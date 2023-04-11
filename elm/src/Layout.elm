@@ -619,11 +619,7 @@ phoneMenu msg showMenu =
             [ column ([ wf, hf, Font.color colors.white ] ++ bg)
                 [ column [ wf, height <| fillPortion 2 ]
                     [ row [ alignRight, centerY ]
-                        [ Input.button []
-                            { onPress = Just msg
-                            , label =
-                                paragraph [ paddingEach { top = 44, right = 56, bottom = 32, left = 32 } ] [ text "CLOSE" ]
-                            }
+                        [ el [ onClick msg ] <| paragraph [ paddingEach { top = 44, right = 56, bottom = 32, left = 32 } ] [ text "CLOSE" ]
                         ]
                     ]
                 , column [ wf, height <| fillPortion 1 ] []
