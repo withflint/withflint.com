@@ -30,6 +30,7 @@ import Html exposing (Html)
 import Jobs.View
 import Layout exposing (layout)
 import Mexico.View
+import NurseCareers.View
 import Partnerships.View
 import Router.Routes exposing (Page(..), toPath)
 import Singapore.View
@@ -63,7 +64,7 @@ renderRoute model =
             Element.map MsgForJobs <| layout model.device <| Jobs.View.view model.device model.jobs
 
         NurseCareers _ ->
-            Element.map MsgForHealthCare <| layout model.device <| Jobs.View.view model.device model.healthcare
+            Element.map MsgForNurseCareers <| layout model.device <| NurseCareers.View.config model.device model.nurseCareers
 
         Australia ->
             Element.map MsgForAustralia <| layout model.device <| Australia.View.view model.device model.australia

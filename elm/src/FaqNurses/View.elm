@@ -5,24 +5,18 @@ import Element
     exposing
         ( Element
         , alignLeft
-        , alignRight
-        , alignTop
         , centerX
         , centerY
         , column
         , el
         , fill
-        , fillPortion
         , height
-        , html
         , htmlAttribute
         , maximum
         , paddingEach
         , paddingXY
         , paragraph
-        , px
         , row
-        , spacing
         , spacingXY
         , text
         , width
@@ -33,12 +27,10 @@ import Element.Border as Border
 import Element.Font as Font
 import Element.Lazy exposing (lazy2)
 import FaqNurses.Types exposing (Faq, FormattedText(..), Model, Msg(..))
-import Framework.Heading as Heading
-import Html
-import Html.Attributes as HtmlAttr
-import Layout exposing (Layout, footer, phoneMenu, topMenu)
+import Html.Attributes
+import Layout exposing (Layout, footer, phoneMenu)
 import Mark
-import Router.Routes exposing (Page(..), toPath)
+import Router.Routes exposing (Page(..))
 import Styles exposing (colors, css, hf, pt, wf)
 
 
@@ -62,7 +54,7 @@ view device model =
                 , Background.color colors.cremeDark
                 , css "position" "relative"
                 ]
-                [ row [ wf, hf, css "position" "relative" ] [ header device model ]
+                [ row [ wf, hf, css "position" "relative" ] [ header device ]
                 , column [ wf, hf, paddingXY 48 80 ] [ faqsView model ]
                 , column [ wf, pt 120 ] footer.phone
                 ]
@@ -74,7 +66,7 @@ view device model =
                 , Font.family [ Font.typeface "Inter" ]
                 , css "position" "relative"
                 ]
-                [ row [ wf, hf ] [ header device model ]
+                [ row [ wf, hf ] [ header device ]
                 , column [ wf, hf, paddingXY 48 80 ] [ faqsView model ]
                 , column [ wf, pt 120 ] footer.phone
                 ]
@@ -86,7 +78,7 @@ view device model =
                 , Font.family [ Font.typeface "Inter" ]
                 , css "position" "relative"
                 ]
-                [ row [ wf, hf ] [ header device model ]
+                [ row [ wf, hf ] [ header device ]
                 , column [ wf, hf, paddingXY 0 80 ] [ faqsView model ]
                 , column [ wf, pt 120 ] footer.desktop
                 ]
@@ -94,141 +86,23 @@ view device model =
     }
 
 
-header : Device.Device -> Model -> Element Msg
-header device model =
-    let
-        bg =
-            [ css "background" "rgb(68,55,109)"
-            , css "background" "linear-gradient(282.96deg, #E54848 -0.52%, #BA4352 8.17%, #7E3D60 37.38%, #5D3968 66.24%)"
+header : Device.Device -> Element Msg
+header device =
+    Layout.header
+        { device = device
+        , title = "FAQ for Internationally Educated Nurses"
+        , navigations =
+            [ ( Partnerships, "Partnerships" )
+            , ( NurseCareers "", "Nurse Careers" )
+            , ( Blog "", "Blog" )
+            , ( About, "About" )
             ]
-
-        blobSrc =
-            "/static/images/header-blob-beige.svg"
-
-        title =
-            model.heroTitle
-
-        blob =
-            row [ css "position" "relative" ]
-                [ row
-                    [ alignTop
-                    , htmlAttribute <| HtmlAttr.style "position" "relative"
-                    , width (px 275)
-                    , height (px 139)
-                    ]
-                    [ html <|
-                        Html.img
-                            [ HtmlAttr.src blobSrc
-                            , HtmlAttr.style "width" "100%"
-                            ]
-                            []
-                    ]
-                , logo
-                ]
-
-        link : ( String, Page ) -> Element msg
-        link ( label, page ) =
-            Element.link
-                []
-                { url = toPath page
-                , label =
-                    el [ Font.center ] (text label)
-                }
-
-        -- responsive size
-        rs =
-            case device of
-                Device.Phone _ ->
-                    { titleFontSize = 36
-                    }
-
-                Device.Tablet _ ->
-                    { titleFontSize = 32
-                    }
-
-                Device.Desktop _ ->
-                    { titleFontSize = 44
-                    }
-
-                Device.NotSet ->
-                    { titleFontSize = 0
-                    }
-
-        logo =
-            row
-                [ css "position" "absolute"
-                , css "left" "44px"
-                , css "top" "20px"
-                , css "z-index" "100"
-                ]
-                [ Element.link [ wf ]
-                    { url = toPath Home
-                    , label =
-                        Element.image
-                            [ width (px 110), height (px 54) ]
-                            { src = "/static/images/logo.svg?new", description = "Flint" }
-                    }
-                ]
-
-        renderHamburgerMenu =
-            case device of
-                Device.Phone _ ->
-                    phoneMenu PhoneMenuToggle model.isPhoneMenuVisible
-
-                _ ->
-                    Element.none
-    in
-    row ([ wf, css "position" "relative" ] ++ bg)
-        [ renderHamburgerMenu
-        , column [ css "position" "absolute", css "top" "0", css "left" "0" ]
-            [ row [ css "width" "80%", css "height" "80%" ] [ blob ]
+        , attributes =
+            [ htmlAttribute <| Html.Attributes.style "position" "relative"
+            , htmlAttribute <| Html.Attributes.style "background" "linear-gradient(282.96deg, #E54848 -0.52%, #BA4352 8.17%, #7E3D60 37.38%, #5D3968 66.24%)"
             ]
-        , column
-            [ alignTop, height (px 280), wf ]
-            [ -- GAP
-              case device of
-                Device.Phone _ ->
-                    row [ wf, height <| fillPortion 4 ] [ Element.none ]
-
-                _ ->
-                    row [ wf, height <| fillPortion 4 ]
-                        [ -- MENU
-                          row [ wf ]
-                            [ -- GAP
-                              row [ width <| fillPortion 7 ] []
-
-                            -- MENU
-                            , row
-                                [ width <| fillPortion 4
-                                , spacing 32
-                                , Font.color colors.white
-                                , Font.letterSpacing 2
-                                , Font.size 14
-                                ]
-                                [ row [ alignRight, spacingXY 36 0 ]
-                                    (List.map (el (wf :: Styles.menu) << link) topMenu)
-                                ]
-
-                            -- GAP
-                            , row [ width <| fillPortion 2 ] []
-                            ]
-                        ]
-
-            -- TITLE
-            , row [ wf, height <| fillPortion 8 ]
-                [ el ([ wf, centerX, Font.size rs.titleFontSize ] ++ Styles.title ++ Heading.h1)
-                    (paragraph [ Font.center, Font.size rs.titleFontSize ] [ text title ])
-                ]
-
-            -- GAP
-            , case device of
-                Device.Phone _ ->
-                    Element.none
-
-                _ ->
-                    row [ wf, height <| fillPortion 2 ] []
-            ]
-        ]
+        , headerIconBg = Layout.HeaderIconBgBeige
+        }
 
 
 faqsView : Model -> Element Msg

@@ -14,6 +14,7 @@ import FaqNurses.Types
 import Home.Types
 import Jobs.Types
 import Mexico.Types
+import NurseCareers.Types
 import Partnerships.Types
 import Router.Types
 import Singapore.Types
@@ -25,7 +26,7 @@ type alias Model =
     , aboutUs : About.Types.Model
     , home : Home.Types.Model
     , jobs : Jobs.Types.Model
-    , healthcare : Jobs.Types.Model
+    , nurseCareers : NurseCareers.Types.Model
     , australia : Australia.Types.Model
     , mexico : Mexico.Types.Model
     , canada : Canada.Types.Model
@@ -47,7 +48,7 @@ type Msg
     | MsgForHome Home.Types.Msg
     | MsgForJobs Jobs.Types.Msg
       --
-    | MsgForHealthCare Jobs.Types.Msg
+    | MsgForNurseCareers NurseCareers.Types.Msg
       --
     | MsgForAustralia Australia.Types.Msg
       --
