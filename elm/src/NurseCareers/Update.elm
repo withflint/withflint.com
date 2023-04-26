@@ -39,6 +39,7 @@ update msg model =
                             crossOrigin "https://app.withflint.com" [ "valve", "apply", "email", Base64.encode << Email.toString <| email ] []
                     in
                     singleton { model | error = Nothing }
+                        |> command Ports.candidateApply
                         |> command
                             (Http.post
                                 { url = url
