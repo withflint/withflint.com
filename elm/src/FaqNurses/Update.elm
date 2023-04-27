@@ -35,7 +35,7 @@ faqs =
       , answer = [ Paragraph "A: International Educated Registered Nurses (RN) with clinical experience and a willingness to relocate to the US permanently to work as a RN in a healthcare facility setting." ]
       }
     , { question = "**Q: Is Flint a staffing company?**"
-      , answer = [ Paragraph "A: Flint is an immigration and recruiting service. We are different from a typical staffing agency because we don’t just try to fill gaps in employment, we try to match the skills of the nurse with the right employer. What we really want is for nurses to be successful and ideally find a mutually beneficial long-term fit. This is in the healthcare facilities interest as well as they want to retain their staff." ]
+      , answer = [ Paragraph "A: Flint is an international search service. We are different from typical agencies because we don't just try to fill gaps in employment; we try to match the nurse's skills with the right job and facility. We want nurses to be successful and find a mutually beneficial long-term fit. Retaining its staff is also in the partner's facility's interest." ]
       }
     , { question = "**Q: How do I apply?**"
       , answer = [ Paragraph "A: To get started you can visit [withflint.com/nurse-careers](https://withflint.com/nurse-careers/) and click the apply button." ]
@@ -92,7 +92,7 @@ faqs =
       , answer = [ Paragraph "A: Typically we will help reassign you to another employer. If you have already completed more than two years with a Flint employer you will be required to work for one full year after reassignment. This is a minimum requirement from the employers." ]
       }
     , { question = "**Q: How does Flint make money?**"
-      , answer = [ Paragraph "A: The healthcare facilities pay Flint for recruitment services which include finding nurses, licensing, immigration, and relocation. Flint does not charge the nurse as part of the Sponsorship Program." ]
+      , answer = [ Paragraph "A: The healthcare facilities pay Flint for recruitment services which include finding nurses, licensing, immigration, and relocation. Flint does not charge the nurse as part of the program." ]
       }
     , { question = "**Q: How much support will I get throughout the process?**"
       , answer = [ Paragraph "A: We will provide you guidance through the whole process sharing next steps along the whole journey. This includes licensing, immigration, and employment arrangements. We also connect you with a network of nurses for support. This network includes nurses who are currently going through the same step of the journey as you and international nurses who are already working in the US." ]
@@ -158,37 +158,16 @@ faqs =
       , answer = [ Paragraph "A: Currently we only employ RNs." ]
       }
     , { question = "**Q: What will Flint pay for?**"
-      , answer = [ Paragraph "A: Flint provides a Sponsorship Program for the nurse. This includes covering expenses associated with: visa filing fees, lawyer fees, NCLEX registration, NCLEX preparation resources and materials, travel and accommodation costs associated with taking the NCLEX (varies depending on proximity to testing centers), Language test registration, Credential evaluation reports, Nursing license application, travel to the US, and initial accommodations in the US. These expenses can total to more than $20,000. Flint doesn’t require the nurses to pay Flint back for any of these expenses after relocation." ]
+      , answer = [ Paragraph "A: Flint's Registered Nurse Program includes covering expenses associated with: visa filing fees, lawyer fees, NCLEX registration, NCLEX preparation resources and materials, travel and accommodation costs associated with taking the NCLEX (varies depending on proximity to testing centers), Language test registration, Credential evaluation reports, Nursing license application, travel to the US, and initial accommodations in the US. These expenses can total to more than $20,000. Flint doesn’t require the nurses to pay Flint back for any of these expenses after relocation." ]
       }
     , { question = "**Q: What will I need to pay for as a nurse?**"
       , answer = [ Paragraph "A: There are some services essential to immigration that you may need to pay for yourself in your home country. These services include: background check, medical examination, courier fees, and fees associated with obtaining records from both the institutions where you received your education and from your licensing authorities. The breakdown of these fees will be communicated to you before you need to make a decision. If you need help paying for expenses like these please see our Financial Assistance Program." ]
       }
     , { question = "**Q: Will I need to pay Flint money?**"
-      , answer = [ Paragraph "A: No, Flint will not ask you for money directly. In addition, Flint's Sponsorship Program doesn’t require repayment from the nurse." ]
-      }
-    , { question = "**Q: What is the Flint Financial Assistance Program?**"
-      , answer = [ Paragraph "A: This is different from the Sponsorship Program. Flint also provides an optional Financial Assistance Program in the form of a loan to be paid off after you start working. You may participate in the program to assist you with costs like initial living expenses in the US before your first paycheck. See our website for expenses Flint will cover as part of our service and to learn more about the Financial Assistance Program." ]
+      , answer = [ Paragraph "A: No, Flint will not ask you for money directly. In addition, Flint's Registered Nurse Program doesn’t require repayment from the nurse." ]
       }
     , { question = "**Q: What if I do not pass the NCLEX on the first try?**"
       , answer = [ Paragraph "A: Since Flint chooses to send nurses to the exam, we take that responsibility. The National Council of State Boards of Nursing (NCSBN) requires 45 days in between exam attempts.Therefore, four weeks of remediation and education will be required before retesting. However, Flint reserves the right to end the contract and not send the nurse candidate for a retest. In this case the nurse candidates would not owe Flint money." ]
-      }
-    , { question = "**Q: What does the process with Flint look like?**"
-      , answer =
-            [ Paragraph "A complete outline of the process is available in your online Flint account, which you can access after you apply. Here is an overview:"
-            , OrderedItem ( 1, "Apply: You can apply from the Flint website." )
-            , OrderedItem ( 2, "Welcome Meeting: Meet with a Flint representative face to face to help understand your situation and how Flint can help." )
-            , OrderedItem ( 3, "Complete your profile: You will be asked to submit information and necessary documents to determine how qualified you are for employment, immigration, and licensing." )
-            , OrderedItem ( 4, "Flint Consultation: Meet with Flint again to discuss your application, prepare you for interviewing, and answer any questions you may have." )
-            , OrderedItem ( 5, "Clinical Interview: Flint will assess your clinical skills from a US healthcare professional." )
-            , OrderedItem ( 6, "Application Approval: Flint approves your application and offers a contract to walk alongside and sponsor your journey." )
-            , OrderedItem ( 7, "English Course: An online course tailored for our english as a second language (ESL) nurses. A passing score on the TOEFL iBT or the IELTS academic language exams is required for nursing and immigration purposes. This course provides Flint nurses an opportunity to improve their english proficiency and prepare for a language exam." )
-            , OrderedItem ( 8, "NCLEX Course: This program is specifically designed to help internationally educated nurses like you prepare for the NCLEX qualifying exam." )
-            , OrderedItem ( 9, "Apply for a US Nurse License. A Nurse Success Specialist will guide you through this process." )
-            , OrderedItem ( 10, "NCLEX Exam: Take and pass the NCLEX exam at your nearest testing center." )
-            , OrderedItem ( 11, "Obtain License: After you pass the NCLEX, Flint will get your US license." )
-            , OrderedItem ( 12, "Match with Employer: Flint will help match you with your new US employer. Nurses will interview with healthcare facilities to increase the chance of a good match. From those interviews you may receive job offers, in which you have the option to select one that works best for you." )
-            , OrderedItem ( 13, "Relocation: Flint manages all the visa paperwork and immigration processing on your behalf as well as travel and other preparations to start your new life in the US." )
-            ]
       }
     ]
         |> List.indexedMap (\id faq -> Faq id faq.question faq.answer)
