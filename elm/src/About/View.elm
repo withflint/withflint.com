@@ -5,16 +5,12 @@ import Device exposing (Device)
 import Element
     exposing
         ( Element
-        , alignRight
         , alignTop
         , centerX
         , centerY
         , column
-        , el
         , fill
-        , fillPortion
         , height
-        , html
         , htmlAttribute
         , maximum
         , newTabLink
@@ -34,10 +30,9 @@ import Element
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
-import Html
 import Html.Attributes
-import Layout exposing (Layout, footer, phoneMenu, topMenu)
-import Router.Routes exposing (Page(..), toPath)
+import Layout exposing (Layout, footer)
+import Router.Routes exposing (Page(..))
 import Styles exposing (colors, css, hf, lineHeight, maxW, minW, pb, pt, wf)
 
 

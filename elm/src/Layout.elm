@@ -44,7 +44,6 @@ import Element.Input as Input
 import Html.Attributes
 import Router.Routes exposing (Page(..), toPath)
 import Styles exposing (colors, css, hf, palette, pt, wf)
-import Types exposing (Msg)
 
 
 menu : List ( String, Page )

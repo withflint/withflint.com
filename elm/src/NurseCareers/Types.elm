@@ -1,4 +1,4 @@
-module NurseCareers.Types exposing (..)
+module NurseCareers.Types exposing (Model, Msg(..))
 
 import Http
 

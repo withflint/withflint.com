@@ -1,4 +1,4 @@
-module Jobs.Copy exposing (Copy, join, nurse)
+module Jobs.Copy exposing (Copy, join)
 
 import Element exposing (Element, link, text)
 import Router.Routes exposing (Page(..), toPath)
@@ -34,25 +34,5 @@ join =
                 , label = text "Read more about our values and culture. "
                 }
             , text " "
-            ]
-    }
-
-
-nurse : Copy msg
-nurse =
-    { desktopHeader = "We work with the very best. Quality candidates lead to quality health outcomes."
-    , phoneHeader = "We work with the very best."
-    , paragraph1 = "At Flint, we're committed to finding the best people to staff health care teams. We work with highly internationally educated health care professionals who display care for their patients, have quality communication skills, good empathy skills, are attentive to details, can solve problems, and display autonomy and compliances with the standards can think critically and improve the American healthcare system."
-    , paragraph2 = "We work with internationally educated health care workers from around the world for staffing opportunities in the United States of America. We offer an all-inclusive solution for the workers to have a seamless transition into their new life in America. Flint offers fully sponsored licensing, immigration and relocation programs. We pay for legal and processing fees, licensing and offer premium placement."
-    , why = "Why do you want to work in the United States of America?"
-    , title = "Launch your nursing career in America"
-    , pageTitle = "Nurse Success  - Flint"
-    , other =
-        Just
-            [ text " "
-            , link Styles.link
-                { url = toPath FaqNurses
-                , label = text "Learn more"
-                }
             ]
     }

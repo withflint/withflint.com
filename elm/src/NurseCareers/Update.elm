@@ -1,4 +1,4 @@
-module NurseCareers.Update exposing (..)
+module NurseCareers.Update exposing (init, update)
 
 import Base64
 import Browser.Navigation exposing (load)
