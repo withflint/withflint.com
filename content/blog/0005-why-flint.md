@@ -1,7 +1,7 @@
 Simon Green
-Head of Product
+VP Product
 https://www.linkedin.com/in/sg63/
-/static/headshot/simon.jpeg
+/static/headshots/simon.jpg
 ---
 why-flint
 April 8, 2022

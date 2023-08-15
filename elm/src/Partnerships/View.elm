@@ -179,22 +179,6 @@ section0 device =
             , valueCard device savings
             , valueCard device neverBeShortNurses
             ]
-        , column [ centerX, spacingXY 0 16 ]
-            [ el [ wf ]
-                (link
-                    (centerY :: centerX :: wf :: Font.size 15 :: btn)
-                    { url = "https://flint.cx/intro-to-flint"
-                    , label = paragraph [ Font.center ] [ text <| "Partner with Flint" ]
-                    }
-                )
-            , el [ wf ]
-                (link
-                    [ centerY, centerX, wf, Font.size 15 ]
-                    { url = "https://flint.cx/intro-to-flint"
-                    , label = paragraph [ Font.center, Font.underline, Font.semiBold, Font.color colors.primary ] [ text <| "Contact Us" ]
-                    }
-                )
-            ]
         ]
 
 

@@ -1,7 +1,7 @@
 Simon Green
-Head of Product
+VP Product
 https://www.linkedin.com/in/sg63/
-/static/headshot/simon.jpeg
+/static/headshots/simon.jpg
 ---
 hiring-secret
 Dec 23, 2021
