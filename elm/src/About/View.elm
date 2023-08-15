@@ -259,7 +259,7 @@ list =
         { name = "Chelsea Mansour"
         , position = "Nurse Success Advisor"
         , bio = Just "Chelsea Mansour helps nurses achieve success in their roles, offering expert guidance and support."
-        , linkedin = Nothing
+        , linkedin = Just "https://www.linkedin.com/in/chelsea-mansour-184600206/"
         , url = "static/headshots/coming.svg"
         }
     , Member
