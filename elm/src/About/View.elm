@@ -51,7 +51,7 @@ type Card
 
 
 view : { device : Device, model : Model, showNavMenu : Bool } -> Layout Msg
-view { device, model, showNavMenu } =
+view { device, showNavMenu } =
     { phone =
         [ column
             [ wf

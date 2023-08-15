@@ -7,7 +7,7 @@ import Http
 import Json.Decode as Decode
 import NurseCareers.Types exposing (Model, Msg(..))
 import Ports
-import Return exposing (..)
+import Return exposing (Return, singleton, return)
 import Url
 import Url.Builder exposing (crossOrigin)
 
