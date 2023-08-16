@@ -77,7 +77,7 @@ setResponsiveVal device { phone, desktop, tablet, notSet } =
 
 
 desktopView : { device : Device, model : Model, showNavMenu : Bool } -> List (Element Msg)
-desktopView { device,  showNavMenu } =
+desktopView { device, showNavMenu } =
     let
         fillPortionVal =
             setResponsiveVal device { phone = 0, desktop = 2, tablet = 2, notSet = 0 }
