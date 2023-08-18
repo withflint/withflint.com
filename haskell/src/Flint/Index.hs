@@ -75,7 +75,7 @@ index Config {gitVersion, environment} meta = do
           , rel_ "stylesheet"
           ]
 
-        link_ [rel_ "icon" href_ "/favicon.ico"]
+        link_ [rel_ "icon", href_ "/favicon.ico"]
 
         maybe "" generateMeta meta
 
