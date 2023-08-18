@@ -174,147 +174,147 @@ list =
     [ Member
         { name = "Kenton Jarvie"
         , position = "CEO"
-        , bio = Just "Overseeing investor relations, finance and people operations, he ensures Flint's direction aligns with its mission and values."
+        , bio = Just "Guided by a commitment to Flint's core values and vision, Kenton effectively balances stewardship over finance, strategic investor relationships, and nurturing our people."
         , linkedin = Just "https://www.linkedin.com/in/kentonjarvie/"
         , url = "static/headshots/kenton-sm.jpg"
         }
     , Member
         { name = "Marianne Cabalida"
         , position = "Executive Assistant"
-        , bio = Just "In her role Marianne oversees  ongoing accounting and people operations, making sure that it runs smoothly and efficiently."
+        , bio = Just "With her deep-rooted expertise in administration and organizational dynamics, Marianne is the backbone of Flint's day-to-day accounting and people operations."
         , linkedin = Just "https://www.linkedin.com/in/mariannejcab/"
         , url = "static/headshots/coming.svg"
         }
     , Member
         { name = "Teresa Fisher"
         , position = "Partnership Executive"
-        , bio = Just "Teresa crafts new alliances with healthcare providers, driving Flint's business development and strategic outreach."
+        , bio = Just "Teresa pioneers Flint's collaborative frontiers, fostering pivotal connections with healthcare industry leaders to amplify our outreach."
         , linkedin = Just "https://www.linkedin.com/in/teresa-fisher"
         , url = "static/headshots/teresa-sm.jpg"
         }
     , Member
         { name = "Barry Borrilez"
         , position = "Nurse Staffing Director"
-        , bio = Just "Engaging with potential partners, the Nurse Staffing Director is at the forefront of solving staffing challenges in the healthcare landscape."
+        , bio = Just "Centered at the nexus of healthcare staffing, Barry fosters key relationships and navigates the complexities of staffing requirements with precision."
         , linkedin = Just "https://www.linkedin.com/in/barry-borrilez/"
         , url = "static/headshots/coming.svg"
         }
     , Member
         { name = "Olivia Renaud"
         , position = "Head of Product"
-        , bio = Just "As Head of Product, emphasis is placed on aligning Flint's product direction with both customer value and organizational objectives."
+        , bio = Just "Synchronizing Flint's product visions with a steadfast commitment, Olivia crafts roadmaps that strike a balance between user satisfaction and organizational goals."
         , linkedin = Just "https://www.linkedin.com/in/oliviarenaud/"
         , url = "static/headshots/coming.svg"
         }
     , Member
         { name = "Isabelle Soares"
         , position = "Product Designer"
-        , bio = Just "Crafting user-centric designs, the Product Designer plays an integral role in shaping Flint's digital experiences."
+        , bio = Just "Isabelle merges artistic vision with user needs, sculpting designs that embody Flint's digital ethos while prioritizing user experience."
         , linkedin = Just "https://www.linkedin.com/in/isabelle-soares-649805106/"
         , url = "static/headshots/isabelle-sm.jpg"
         }
     , Member
         { name = "Montse del Toro"
         , position = "Senior Nurse Success Manager"
-        , bio = Just "Championing nurses throughout their journey with Flint and its partners, the Senior Nurse Success Manager offers unparalleled support and guidance."
+        , bio = Just "With unwavering passion, Montse oversees Nurse Success and product operations, ensuring steadfast support to the nurses at every stage of their journey."
         , linkedin = Just "https://www.linkedin.com/in/montserrat-del-toro/"
         , url = "static/headshots/montse-sm.jpg"
         }
     , Member
         { name = "Katherine Hooks"
         , position = "Nursing Educator"
-        , bio = Just "With a commitment to excellence, the Nursing Educator equips nurses for success on the NCLEX examination and beyond."
+        , bio = Just "Tapping into her deep reservoir of knowledge, Katherine equips Flint's nurses with tools and insights, preparing them for both the NCLEX and their subsequent professional paths in America."
         , linkedin = Just "https://www.linkedin.com/in/katherine-hooks-7716579b/"
         , url = "static/headshots/katherine-sm.jpg"
         }
     , Member
         { name = "Samuel Adedayo"
         , position = "Nurse Success Advisor"
-        , bio = Just "Playing a pivotal role in the development and success of Flint's nurses, the Nurse Success Advisor offers valuable insights and mentorship."
+        , bio = Just "An anchor of nurse success within Flint, Samuel dispenses insights and guidance, propelling nurses towards unparalleled professional journey."
         , linkedin = Just "https://www.linkedin.com/in/samuel-adedayo-62b479145/"
         , url = "static/headshots/samuel-sm.jpg"
         }
     , Member
         { name = "Shelby LeBel"
         , position = "Nurse Success Advisor"
-        , bio = Just "Guiding nurses towards their full potential, the Nurse Success Advisor is a beacon of support and knowledge."
+        , bio = Just "Shelby, with her inherent empathy, illuminates the journey for Flint's nurses, ensuring they ascend to the pinnacle of their American careers."
         , linkedin = Nothing
         , url = "static/headshots/shelby-sm.jpg"
         }
     , Member
         { name = "Chelsea Mansour"
         , position = "Nurse Success Advisor"
-        , bio = Just "By providing tailored guidance and insights, the Nurse Success Advisor ensures Flint's nurses excel in their roles."
+        , bio = Just "Chelsea's unwavering dedication reflects in her personalized guidance, fortifying each nurse's unique trajectory within Flint."
         , linkedin = Just "https://www.linkedin.com/in/chelsea-mansour-184600206/"
         , url = "static/headshots/coming.svg"
         }
     , Member
         { name = "Jasleen Bhandal"
         , position = "Operations Associate"
-        , bio = Just "Overseeing nurse licensing operations, the Operations Associate plays a vital role in Flint's Nurse Success initiative."
+        , bio = Just "Jasleen sets a benchmark in operational excellence for nurse licensing, embodying Flint's commitment to the success of its nursing professionals."
         , linkedin = Just "https://www.linkedin.com/in/jasleen-bhandal/"
         , url = "static/headshots/jasleen-sm.jpg"
         }
     , Member
         { name = "Anson Kung"
         , position = "COO"
-        , bio = Just "Leading the charge on nurse recruitment, he is dedicated to the expansion and diversification of Flint's nursing growth."
+        , bio = Just "Anson relentlessly champions the expansion of Flint's nursing community, showcasing dedication in diversifying our impressive lineup of professionals."
         , linkedin = Just "https://www.linkedin.com/in/ansonkung/"
         , url = "static/headshots/anson-sm.jpg"
         }
     , Member
-        { name = "Neil  Prigge"
+        { name = "Neil Prigge"
         , position = "Head of Partnerships"
-        , bio = Just "Tasked with cultivating ongoing relationships, the Head of Partnerships ensures that Flint and its partners mutually thrive."
+        , bio = Just "Neil acts as Flint's envoy, forging and nurturing relationships that underpin mutual growth and prosperity with our partners."
         , linkedin = Just "https://www.linkedin.com/in/neil-prigge/"
         , url = "static/headshots/neil-sm.jpg"
         }
     , Member
         { name = "Simon Green"
         , position = "VP Product"
-        , bio = Just "As VP of Product, he oversees product strategy, development, and nurse success operations. He drives innovation, user satisfaction, and ensures the comprehensive support of nurses through product operations."
+        , bio = Just "Simon orchestrates Flint's product landscape, harmonizing innovation with strategic product development and operations."
         , linkedin = Just "https://www.linkedin.com/in/sg63"
         , url = "static/headshots/simon-sm.jpg"
         }
     , Member
         { name = "Jimmy Yao"
         , position = "Software Engineer"
-        , bio = Just "As a Software Engineer, works on developing and maintaining high-quality software products."
+        , bio = Just "Positioned at Flint's technological core, Jimmy is instrumental in shaping and maintaining our state-of-the-art software product."
         , linkedin = Just "https://www.linkedin.com/in/jimmy-yao-277a71232/"
         , url = "static/headshots/coming.svg"
         }
     , Member
         { name = "Azizul Karim"
         , position = "Software Engineer"
-        , bio = Just "Contributes to the technical development, ensuring robust and scalable solutions."
+        , bio = Just "Harnessing his technical acumen, Azizul bolsters Flint with top-tier font-end experiences that push the boundaries of excellence."
         , linkedin = Nothing
         , url = "static/headshots/coming.svg"
         }
     , Member
         { name = "Gaël Deest"
         , position = "Senior Software Engineer"
-        , bio = Just "Plays a key role in the development and maintenance of software products, ensuring excellence and innovation."
+        , bio = Just "Gaël weaves together innovative coding practices with Flint's ethos, ensuring the product is not only advanced but also align with our core values."
         , linkedin = Just "https://www.linkedin.com/in/ga%C3%ABl-deest-107a3650/"
         , url = "static/headshots/coming.svg"
         }
     , Member
         { name = "Handré Stolp"
         , position = "Senior Software Engineer"
-        , bio = Just "Plays a crucial role in developing and maintaining software applications, ensuring technical excellence and innovation."
+        , bio = Just "With an analytical approach, Handré crafts and refines Flint's product, ensuring that our applications are both technically sound and intuitively designed."
         , linkedin = Just "https://www.linkedin.com/in/hanstolpo/"
         , url = "static/headshots/coming.svg"
         }
     , Member
         { name = "Łukasz Gołębiewski"
         , position = "Senior Software Engineer"
-        , bio = Just "Focuses on creating robust and scalable software solutions, aligning with the company's technology goals."
+        , bio = Just "Łukasz's dedication lies in forging scalable and resilient products. His work consistently pushes the boundaries, aligning with Flint's mission of technological excellence."
         , linkedin = Just "https://www.linkedin.com/in/lukasz--g/"
         , url = "static/headshots/coming.svg"
         }
     , Member
         { name = "Christof Schramm"
         , position = "Senior Software Engineer"
-        , bio = Just "Is instrumental in designing, coding, and testing software products, ensuring quality and alignment with the company’s objectives."
+        , bio = Just "Christof, with his meticulous attention to detail, ensures that every line of code contributes to the broader vision of Flint, driving value and operational efficiency."
         , linkedin = Just "https://www.linkedin.com/in/christof-schramm-534731b9/"
         , url = "static/headshots/coming.svg"
         }
