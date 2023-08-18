@@ -1,4 +1,4 @@
-module NurseCareers.Update exposing (..)
+module NurseCareers.Update exposing (init, update)
 
 import Base64
 import Browser.Navigation exposing (load)
@@ -7,7 +7,7 @@ import Http
 import Json.Decode as Decode
 import NurseCareers.Types exposing (Model, Msg(..))
 import Ports
-import Return exposing (..)
+import Return exposing (Return, command, return, singleton)
 import Url
 import Url.Builder exposing (crossOrigin)
 

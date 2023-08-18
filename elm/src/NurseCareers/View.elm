@@ -1,13 +1,11 @@
-module NurseCareers.View exposing (..)
+module NurseCareers.View exposing (config)
 
 import Device exposing (Device)
 import Element
     exposing
         ( Element
-        , alignBottom
         , alignRight
         , alignTop
-        , below
         , centerX
         , centerY
         , column
@@ -18,9 +16,6 @@ import Element
         , height
         , html
         , htmlAttribute
-        , image
-        , inFront
-        , link
         , maximum
         , mouseOver
         , none
@@ -29,7 +24,6 @@ import Element
         , paragraph
         , px
         , row
-        , spacing
         , spacingXY
         , text
         , width
@@ -37,17 +31,14 @@ import Element
         )
 import Element.Background as Background
 import Element.Border as Border
-import Element.Events exposing (onClick)
 import Element.Font as Font
 import Element.Input as Input
 import Html
 import Html.Attributes
 import Layout exposing (Layout)
-import Mark
 import NurseCareers.Types exposing (Model, Msg(..))
 import Router.Routes exposing (Page(..))
 import Styles exposing (colors)
-import Types
 
 
 config : { device : Device, model : Model, showNavMenu : Bool } -> Layout Msg

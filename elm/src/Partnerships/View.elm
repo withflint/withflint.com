@@ -1,47 +1,33 @@
 module Partnerships.View exposing (view)
 
-import Device exposing (Device(..))
+import Device exposing (Device)
 import Element
     exposing
         ( Element
-        , alignRight
-        , alignTop
         , centerX
-        , centerY
         , column
-        , el
         , fill
         , fillPortion
         , height
-        , html
         , htmlAttribute
-        , link
-        , mouseOver
         , padding
-        , paddingEach
         , paddingXY
         , paragraph
         , px
         , rgb255
         , row
-        , spaceEvenly
-        , spacing
         , spacingXY
         , text
         , width
-        , wrappedRow
         )
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
-import Framework.Heading as Heading
-import Html
 import Html.Attributes
-import Layout exposing (Layout, footer, phoneMenu, topMenu)
+import Layout exposing (Layout, footer)
 import Partnerships.Types exposing (Model, Msg(..))
-import Router.Routes exposing (Page(..), toPath)
-import Styles exposing (colors, css, hf, lineHeight, maxW, paddingE, palette, wf, wp)
-import Types
+import Router.Routes exposing (Page(..))
+import Styles exposing (colors, css, hf, lineHeight, maxW, paddingE, wf)
 
 
 view : { device : Device, model : Model, showNavMenu : Bool } -> Layout Msg
@@ -91,7 +77,7 @@ setResponsiveVal device { phone, desktop, tablet, notSet } =
 
 
 desktopView : { device : Device, model : Model, showNavMenu : Bool } -> List (Element Msg)
-desktopView { device, model, showNavMenu } =
+desktopView { device, showNavMenu } =
     let
         fillPortionVal =
             setResponsiveVal device { phone = 0, desktop = 2, tablet = 2, notSet = 0 }
@@ -144,24 +130,6 @@ section0 device =
             , Font.semiBold
             , Font.color colors.primary
             ]
-
-        btn =
-            [ Border.rounded 8
-            , Border.color colors.primary
-            , Border.width 1
-            , padding 10
-            , Font.color colors.white
-            , Background.color colors.primary
-            , Font.semiBold
-            , Font.size 16
-            , paddingEach { top = 10, right = 19, bottom = 10, left = 22 }
-            , Font.regular
-            , mouseOver
-                [ Font.color colors.cremeLight
-                , Background.color colors.carminePink
-                , Border.color colors.carminePink
-                ]
-            ]
     in
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 48 ]
         [ column [ spacingXY 0 12, centerX ]
@@ -178,22 +146,6 @@ section0 device =
             [ valueCard device experiencedNurses
             , valueCard device savings
             , valueCard device neverBeShortNurses
-            ]
-        , column [ centerX, spacingXY 0 16 ]
-            [ el [ wf ]
-                (link
-                    (centerY :: centerX :: wf :: Font.size 15 :: btn)
-                    { url = "https://flint.cx/intro-to-flint"
-                    , label = paragraph [ Font.center ] [ text <| "Partner with Flint" ]
-                    }
-                )
-            , el [ wf ]
-                (link
-                    [ centerY, centerX, wf, Font.size 15 ]
-                    { url = "https://flint.cx/intro-to-flint"
-                    , label = paragraph [ Font.center, Font.underline, Font.semiBold, Font.color colors.primary ] [ text <| "Contact Us" ]
-                    }
-                )
             ]
         ]
 

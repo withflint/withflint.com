@@ -1,7 +1,7 @@
 Simon Green
-Head of Product
+VP Product
 https://www.linkedin.com/in/sg63/
-/static/headshot/simon.jpeg
+/static/headshots/simon.jpg
 ---
 interviewing-for-engineering-roles
 Dec 25, 2021

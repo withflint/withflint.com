@@ -5,20 +5,17 @@ import Device exposing (Device)
 import Element
     exposing
         ( Element
-        , alignRight
         , alignTop
         , centerX
         , centerY
         , column
-        , el
         , fill
-        , fillPortion
         , height
-        , html
         , htmlAttribute
         , maximum
         , newTabLink
         , none
+        , padding
         , paddingXY
         , paragraph
         , px
@@ -33,10 +30,9 @@ import Element
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
-import Html
 import Html.Attributes
-import Layout exposing (Layout, footer, phoneMenu, topMenu)
-import Router.Routes exposing (Page(..), toPath)
+import Layout exposing (Layout, footer)
+import Router.Routes exposing (Page(..))
 import Styles exposing (colors, css, hf, lineHeight, maxW, minW, pb, pt, wf)
 
 
@@ -55,7 +51,7 @@ type Card
 
 
 view : { device : Device, model : Model, showNavMenu : Bool } -> Layout Msg
-view { device, model, showNavMenu } =
+view { device, showNavMenu } =
     { phone =
         [ column
             [ wf
@@ -118,7 +114,7 @@ whoWeAre =
     column [ wf, centerX, paddingXY 0 48, spacingXY 0 56, Font.size 16 ]
         [ column [ centerX ]
             [ paragraph titleStyle
-                [ text "Working on the future of nursing" ]
+                [ text "Shaping the Future of Nursing" ]
             ]
         , wrappedRow [ alignTop, spacingXY 24 20 ]
             [ aboutFlint
@@ -178,73 +174,151 @@ list =
     [ Member
         { name = "Kenton Jarvie"
         , position = "CEO"
-        , bio = Nothing
-        , linkedin = Just "https://www.linkedin.com/in/kentonjarvie"
-        , url = "static/headshot/kenton-sm.jpg"
+        , bio = Just "Guided by a commitment to Flint's core values and vision, Kenton effectively balances stewardship over finance, strategic investor relationships, and nurturing our people."
+        , linkedin = Just "https://www.linkedin.com/in/kentonjarvie/"
+        , url = "static/headshots/kenton-sm.jpg"
         }
     , Member
-        { name = "Anson Kung"
-        , position = "COO"
-        , bio = Nothing
-        , linkedin = Just "https://www.linkedin.com/in/ansonkung"
-        , url = "static/headshot/anson-sm.jpg"
+        { name = "Marianne Cabalida"
+        , position = "Executive Assistant"
+        , bio = Just "With her deep-rooted expertise in administration and organizational dynamics, Marianne is the backbone of Flint's day-to-day accounting and people operations."
+        , linkedin = Just "https://www.linkedin.com/in/mariannejcab/"
+        , url = "static/headshots/coming.svg"
         }
     , Member
         { name = "Teresa Fisher"
         , position = "Partnership Executive"
-        , bio = Nothing
+        , bio = Just "Teresa pioneers Flint's collaborative frontiers, fostering pivotal connections with healthcare industry leaders to amplify our outreach."
         , linkedin = Just "https://www.linkedin.com/in/teresa-fisher"
-        , url = "static/headshot/teresa-sm.jpg"
+        , url = "static/headshots/teresa-sm.jpg"
+        }
+    , Member
+        { name = "Barry Borrilez"
+        , position = "Nurse Staffing Director"
+        , bio = Just "Centered at the nexus of healthcare staffing, Barry fosters key relationships and navigates the complexities of staffing requirements with precision."
+        , linkedin = Just "https://www.linkedin.com/in/barry-borrilez/"
+        , url = "static/headshots/coming.svg"
+        }
+    , Member
+        { name = "Olivia Renaud"
+        , position = "Head of Product"
+        , bio = Just "Synchronizing Flint's product visions with a steadfast commitment, Olivia crafts roadmaps that strike a balance between user satisfaction and organizational goals."
+        , linkedin = Just "https://www.linkedin.com/in/oliviarenaud/"
+        , url = "static/headshots/coming.svg"
+        }
+    , Member
+        { name = "Isabelle Soares"
+        , position = "Product Designer"
+        , bio = Just "Isabelle merges artistic vision with user needs, sculpting designs that embody Flint's digital ethos while prioritizing user experience."
+        , linkedin = Just "https://www.linkedin.com/in/isabelle-soares-649805106/"
+        , url = "static/headshots/isabelle-sm.jpg"
+        }
+    , Member
+        { name = "Montse del Toro"
+        , position = "Senior Nurse Success Manager"
+        , bio = Just "With unwavering passion, Montse oversees Nurse Success and product operations, ensuring steadfast support to the nurses at every stage of their journey."
+        , linkedin = Just "https://www.linkedin.com/in/montserrat-del-toro/"
+        , url = "static/headshots/montse-sm.jpg"
+        }
+    , Member
+        { name = "Katherine Hooks"
+        , position = "Nursing Educator"
+        , bio = Just "Tapping into her deep reservoir of knowledge, Katherine equips Flint's nurses with tools and insights, preparing them for both the NCLEX and their subsequent professional paths in America."
+        , linkedin = Just "https://www.linkedin.com/in/katherine-hooks-7716579b/"
+        , url = "static/headshots/katherine-sm.jpg"
+        }
+    , Member
+        { name = "Samuel Adedayo"
+        , position = "Nurse Success Advisor"
+        , bio = Just "An anchor of nurse success within Flint, Samuel dispenses insights and guidance, propelling nurses towards unparalleled professional journey."
+        , linkedin = Just "https://www.linkedin.com/in/samuel-adedayo-62b479145/"
+        , url = "static/headshots/samuel-sm.jpg"
+        }
+    , Member
+        { name = "Shelby LeBel"
+        , position = "Nurse Success Advisor"
+        , bio = Just "Shelby, with her inherent empathy, illuminates the journey for Flint's nurses, ensuring they ascend to the pinnacle of their American careers."
+        , linkedin = Nothing
+        , url = "static/headshots/shelby-sm.jpg"
+        }
+    , Member
+        { name = "Chelsea Mansour"
+        , position = "Nurse Success Advisor"
+        , bio = Just "Chelsea's unwavering dedication reflects in her personalized guidance, fortifying each nurse's unique trajectory within Flint."
+        , linkedin = Just "https://www.linkedin.com/in/chelsea-mansour-184600206/"
+        , url = "static/headshots/coming.svg"
+        }
+    , Member
+        { name = "Jasleen Bhandal"
+        , position = "Operations Associate"
+        , bio = Just "Jasleen sets a benchmark in operational excellence for nurse licensing, embodying Flint's commitment to the success of its nursing professionals."
+        , linkedin = Just "https://www.linkedin.com/in/jasleen-bhandal/"
+        , url = "static/headshots/jasleen-sm.jpg"
+        }
+    , Member
+        { name = "Anson Kung"
+        , position = "COO"
+        , bio = Just "Anson relentlessly champions the expansion of Flint's nursing community, showcasing dedication in diversifying our impressive lineup of professionals."
+        , linkedin = Just "https://www.linkedin.com/in/ansonkung/"
+        , url = "static/headshots/anson-sm.jpg"
         }
     , Member
         { name = "Neil Prigge"
         , position = "Head of Partnerships"
-        , bio = Nothing
-        , linkedin = Just "https://www.linkedin.com/in/neil-prigge"
-        , url = "static/headshot/neil-sm.jpg"
-        }
-    , Member
-        { name = "Vanessa Teed"
-        , position = "Product Manager"
-        , bio = Nothing
-        , linkedin = Just "https://www.linkedin.com/in/vanessa-teed-38b160248"
-        , url = "static/headshot/vanessa-sm.jpg"
-        }
-    , Member
-        { name = "Katherine Hooks"
-        , position = "Nurse Educator"
-        , bio = Nothing
-        , linkedin = Just "https://www.linkedin.com/in/katherine-hooks-7716579b"
-        , url = "static/headshot/katherine-sm.jpg"
+        , bio = Just "Neil acts as Flint's envoy, forging and nurturing relationships that underpin mutual growth and prosperity with our partners."
+        , linkedin = Just "https://www.linkedin.com/in/neil-prigge/"
+        , url = "static/headshots/neil-sm.jpg"
         }
     , Member
         { name = "Simon Green"
         , position = "VP Product"
-        , bio = Nothing
+        , bio = Just "Simon orchestrates Flint's product landscape, harmonizing innovation with strategic product development and operations."
         , linkedin = Just "https://www.linkedin.com/in/sg63"
-        , url = "static/headshot/simon-sm.jpg"
+        , url = "static/headshots/simon-sm.jpg"
         }
     , Member
-        { name = "Montserrat del Toro"
-        , position = "Nurse Success Manager"
-        , bio = Nothing
-        , linkedin = Just "https://www.linkedin.com/in/montserrat-del-toro"
-        , url = "static/headshot/montse-sm.jpg"
+        { name = "Jimmy Yao"
+        , position = "Software Engineer"
+        , bio = Just "Positioned at Flint's technological core, Jimmy is instrumental in shaping and maintaining our state-of-the-art software product."
+        , linkedin = Just "https://www.linkedin.com/in/jimmy-yao-277a71232/"
+        , url = "static/headshots/coming.svg"
         }
     , Member
-        { name = "Fred Varas"
-        , position = "Director Product Partnerships"
-        , bio = Nothing
-        , linkedin = Just "https://www.linkedin.com/in/fred-varas-85862721a"
-        , url = "static/headshot/fred-sm.jpg"
+        { name = "Azizul Karim"
+        , position = "Software Engineer"
+        , bio = Just "Harnessing his technical acumen, Azizul bolsters Flint with top-tier font-end experiences that push the boundaries of excellence."
+        , linkedin = Nothing
+        , url = "static/headshots/coming.svg"
         }
     , Member
-        { name = "Wonchan Kim"
-        , position = "Special Projects"
-        , bio = Nothing
-        , linkedin = Just "https://www.linkedin.com/in/wonchankim"
-        , url = "static/headshot/wonchan-sm.jpg"
+        { name = "Gaël Deest"
+        , position = "Senior Software Engineer"
+        , bio = Just "Gaël weaves together innovative coding practices with Flint's ethos, ensuring the product is not only advanced but also align with our core values."
+        , linkedin = Just "https://www.linkedin.com/in/ga%C3%ABl-deest-107a3650/"
+        , url = "static/headshots/coming.svg"
         }
+    , Member
+        { name = "Handré Stolp"
+        , position = "Senior Software Engineer"
+        , bio = Just "With an analytical approach, Handré crafts and refines Flint's product, ensuring that our applications are both technically sound and intuitively designed."
+        , linkedin = Just "https://www.linkedin.com/in/hanstolpo/"
+        , url = "static/headshots/coming.svg"
+        }
+    , Member
+        { name = "Łukasz Gołębiewski"
+        , position = "Senior Software Engineer"
+        , bio = Just "Łukasz's dedication lies in forging scalable and resilient products. His work consistently pushes the boundaries, aligning with Flint's mission of technological excellence."
+        , linkedin = Just "https://www.linkedin.com/in/lukasz--g/"
+        , url = "static/headshots/coming.svg"
+        }
+    , Member
+        { name = "Christof Schramm"
+        , position = "Senior Software Engineer"
+        , bio = Just "Christof, with his meticulous attention to detail, ensures that every line of code contributes to the broader vision of Flint, driving value and operational efficiency."
+        , linkedin = Just "https://www.linkedin.com/in/christof-schramm-534731b9/"
+        , url = "static/headshots/coming.svg"
+        }
+    , Blank
     , Blank
     , Blank
     ]
@@ -260,14 +334,6 @@ card p =
 
                 name =
                     paragraph [ Font.size 18, Font.semiBold, Font.color colors.black ] [ text profile.name ]
-
-                bio =
-                    case profile.bio of
-                        Just t ->
-                            paragraph [ Font.size 16, lineHeight 1.4, Font.letterSpacing 1.8 ] [ text t ]
-
-                        Nothing ->
-                            none
 
                 linkedin =
                     case profile.linkedin of
@@ -307,11 +373,16 @@ card p =
                             , description = String.concat <| [ "Headshot picture of ", profile.name ]
                             }
                         ]
-                    , column [ paddingXY 24 24, spacingXY 0 12, wf ]
+                    , column [ paddingXY 16 16, spacingXY 0 12, wf ]
                         [ row [ wf, spaceEvenly ] [ name, linkedin ]
                         , position
                         ]
-                    , bio
+                    , case profile.bio of
+                        Just bio ->
+                            paragraph [ wf, padding 16, Font.size 14 ] [ text bio ]
+
+                        Nothing ->
+                            none
                     ]
                 ]
 
@@ -349,6 +420,6 @@ header device showNavMenu =
 
 copy : { right : List String, left : List String }
 copy =
-    { right = [ "Flint is on a mission to fix American Healthcare by solving their biggest problem: not enough nurses. We do this by removing barriers for international nurses to immigrate and build a career in the United States, and we are on track to help a 1,000+ nurses immigrate by the end of next year (2023)." ]
-    , left = [ "We’re a Y Combinator tech startup, with over $10M raised, and backed by Tier 1 investors such as Haystack, Audacious, and a list of powerful angels from company greats like Airbnb, Twitch and Flexport. Our team is fully remote across multiple countries, and comprised of industry veterans from technology, healthcare, and immigration." ]
+    { right = [ "Flint is driven by a bold mission to revolutionize American healthcare by addressing its most pressing challenge: the shortage of nurses. Our purpose is to dismantle the obstacles that hinder international nurses from embarking on a transformative journey to establish their careers in the United States. Our unwavering commitment aims to assist more than a thousand nurses in making this transition by the culmination of the upcoming year." ]
+    , left = [ "Our geographically diverse team operates remotely, spanning multiple nations, and is comprised of seasoned professionals hailing from diverse sectors like technology, healthcare, and immigration. At Flint, our focus transcends the conventional. We are resolute in reshaping the landscape of nursing, envisioning a future where barriers are dismantled, opportunities are boundless, and the foundation of healthcare is fortified by a thriving community of nurses from around the world." ]
     }

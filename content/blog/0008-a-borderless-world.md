@@ -1,7 +1,7 @@
 Vanessa Teed
 Product Manager
 https://www.linkedin.com/in/vanessa-teed-38b160248
-/static/headshot/vanessa-sm.jpg
+/static/headshots/vanessa-sm.jpg
 ---
 a-borderless-world
 Nov 22, 2022

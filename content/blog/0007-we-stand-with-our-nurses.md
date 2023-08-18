@@ -1,7 +1,7 @@
 Kenton Jarvie
 CEO
 https://www.linkedin.com/in/kentonjarvie/
-/static/headshot/kenton.jpeg
+/static/headshots/kenton.jpg
 ---
 we-stand-with-our-nurses
 May 21, 2022
