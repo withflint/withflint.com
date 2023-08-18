@@ -5,34 +5,34 @@ module Flint.Index (index) where
 import Data.Text (Text)
 import Flint.Blog (generateMeta)
 import Flint.Types
-import Lucid
-  ( Attribute,
-    Html,
-    async_,
-    body_,
-    charset_,
-    content_,
-    crossorigin_,
-    defer_,
-    div_,
-    doctypehtml_,
-    head_,
-    href_,
-    html_,
-    id_,
-    integrity_,
-    link_,
-    meta_,
-    name_,
-    onload_,
-    rel_,
-    script_,
-    sizes_,
-    src_,
-    title_,
-    toHtmlRaw,
-    type_,
-  )
+import Lucid (
+  Attribute
+  , Html
+  , async_
+  , body_
+  , charset_
+  , content_
+  , crossorigin_
+  , defer_
+  , div_
+  , doctypehtml_
+  , head_
+  , href_
+  , html_
+  , id_
+  , integrity_
+  , link_
+  , meta_
+  , name_
+  , onload_
+  , rel_
+  , script_
+  , sizes_
+  , src_
+  , title_
+  , toHtmlRaw
+  , type_
+ )
 import Lucid.Base (makeAttribute)
 import Text.Shakespeare.Text (lt, sbt, st)
 
@@ -61,18 +61,18 @@ index Config {gitVersion, environment} meta = do
         title_ "Flint - Securing Nurses for Your Future"
 
         meta_
-          [ name_ "viewport",
-            content_ "width=device-width, initial-scale=1.0"
+          [ name_ "viewport"
+          , content_ "width=device-width, initial-scale=1.0"
           ]
 
         link_
-          [ href_ "/static/style.css?v=1",
-            rel_ "stylesheet"
+          [ href_ "/static/style.css?v=1"
+          , rel_ "stylesheet"
           ]
 
         link_
-          [ href_ "/static/fonts.css?v=1",
-            rel_ "stylesheet"
+          [ href_ "/static/fonts.css?v=1"
+          , rel_ "stylesheet"
           ]
 
         link_ [rel_ "icon" href_ "/favicon.ico"]
@@ -132,39 +132,39 @@ index Config {gitVersion, environment} meta = do
         script_ [] facebook
 
         script_ umami [sbt||]
-  where
-    umami =
-      if environment == "production"
-        then
-          [ async_ "",
-            defer_ "",
-            dataWebsiteId_ "61e2287e-b2c6-44e9-8446-48339059a08c",
-            src_ "https://a.withflint.com/umami.js"
-          ]
-        else []
-    sentry =
-      if environment == "production"
-        then
-          [ async_ "",
-            defer_ "",
-            onload_ "monitor()",
-            src_ "https://browser.sentry-cdn.com/7.0.0/bundle.tracing.min.js",
-            integrity_ "sha384-+zViWRWnRAkk9/+V2CRRVm1tuQEGGqye3jiEC8SDdjaOyzmv86+kvpl6NnRy9QIF",
-            crossorigin_ "anonymous"
-          ]
-        else []
-    google =
-      if environment == "production"
-        then
-          [ async_ "",
-            defer_ "",
-            src_ "https://www.googletagmanager.com/gtag/js?id=G-DV4LVWCB0Q"
-          ]
-        else []
-    facebook =
-      if environment == "production"
-        then
-          [sbt|
+ where
+  umami =
+    if environment == "production"
+      then
+        [ async_ ""
+        , defer_ ""
+        , dataWebsiteId_ "61e2287e-b2c6-44e9-8446-48339059a08c"
+        , src_ "https://a.withflint.com/umami.js"
+        ]
+      else []
+  sentry =
+    if environment == "production"
+      then
+        [ async_ ""
+        , defer_ ""
+        , onload_ "monitor()"
+        , src_ "https://browser.sentry-cdn.com/7.0.0/bundle.tracing.min.js"
+        , integrity_ "sha384-+zViWRWnRAkk9/+V2CRRVm1tuQEGGqye3jiEC8SDdjaOyzmv86+kvpl6NnRy9QIF"
+        , crossorigin_ "anonymous"
+        ]
+      else []
+  google =
+    if environment == "production"
+      then
+        [ async_ ""
+        , defer_ ""
+        , src_ "https://www.googletagmanager.com/gtag/js?id=G-DV4LVWCB0Q"
+        ]
+      else []
+  facebook =
+    if environment == "production"
+      then
+        [sbt|
               |!function(f,b,e,v,n,t,s)
               |{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
               |n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -176,7 +176,7 @@ index Config {gitVersion, environment} meta = do
               |fbq('init', '3328443680740689');
               |fbq('track', 'PageView');
               |]
-        else [sbt||]
+      else [sbt||]
 
 comment_ :: Text -> Html ()
 comment_ body = do
