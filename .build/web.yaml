@@ -41,7 +41,7 @@ steps:
   secretEnv: [AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_ECR_REGISTRY, CHAT_WEBHOOK, CACHIX_AUTH_TOKEN]
   env:
     - 'COMMIT_SHA=$COMMIT_SHA'
-    - 'AWS_REGION=us-west-2'
+    - 'AWS_REGION=eu-west-1'
 
 - name: gcr.io/cloud-builders/git
   id: slack
