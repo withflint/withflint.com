@@ -75,17 +75,7 @@ index Config {gitVersion, environment} meta = do
           , rel_ "stylesheet"
           ]
 
-        link_ [rel_ "apple-touch-icon", sizes_ "180x180", href_ "/static/apple-touch-icon.png"]
-
-        link_ [rel_ "icon", type_ "image/png", sizes_ "32x32", href_ "/static/favicon-32x32.png"]
-
-        link_ [rel_ "icon", type_ "image/png", sizes_ "16x16", href_ "/static/favicon-16x16.png"]
-
-        link_ [rel_ "manifest", href_ "/static/site.webmanifest"]
-
-        link_ [rel_ "mask-icon", href_ "/static/safari-pinned-tab.svg", color_ "#44376d"]
-
-        meta_ [name_ "theme-color", content_ "#44376d"]
+        link_ [rel_ "icon", href_ "/favicon.ico"]
 
         maybe "" generateMeta meta
 
@@ -114,8 +104,6 @@ index Config {gitVersion, environment} meta = do
               |const app = Elm.Main.init(init)
               |]
 
-        script_ umami ""
-
         script_
           []
           [sbt|
@@ -130,9 +118,7 @@ index Config {gitVersion, environment} meta = do
 
         script_ [src_ [st|/static/#{gitVersion}/app.js|]] ""
 
-        script_
-          google
-          ""
+        script_ google ""
 
         script_
           []
@@ -143,9 +129,7 @@ index Config {gitVersion, environment} meta = do
               |gtag('config', 'G-DV4LVWCB0Q');
               |]
 
-        script_
-          []
-          facebook
+        script_ [] facebook
 
         script_ umami [sbt||]
  where
