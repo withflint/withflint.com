@@ -51,7 +51,7 @@ const load = () => {
           .map(param => param.split('='))
           .reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {})
 
-        um(umami => umami.trackEvent({ utm: utmInfo }, 'apply' + '-' + evtData.utm.utm_id))
+        um(umami => umami.trackEvent({ utm: utmInfo }, 'apply' + '-' + utmInfo.utm_id))
       } else {
         um(umami => umami.trackEvent('nodata', 'apply-organic'))
       }
