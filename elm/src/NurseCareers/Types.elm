@@ -10,7 +10,6 @@ type alias Model =
 
 
 type Msg
-    = EmailInputChanged String
-    | ApplyButtonClicked
+    = ApplyButtonClicked
     | GotURL (Result Http.Error String)
     | ToggleNavMenu

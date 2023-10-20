@@ -1,15 +1,10 @@
 module NurseCareers.Update exposing (init, update)
 
-import Base64
 import Browser.Navigation exposing (load)
-import Email
-import Http
-import Json.Decode as Decode
 import NurseCareers.Types exposing (Model, Msg(..))
 import Ports
-import Return exposing (Return, command, return, singleton)
+import Return exposing (Return, return, singleton)
 import Url
-import Url.Builder exposing (crossOrigin)
 
 
 init : Return Msg Model
@@ -23,33 +18,9 @@ init =
 update : Msg -> Model -> Return Msg Model
 update msg model =
     case msg of
-        EmailInputChanged email ->
-            case email of
-                "" ->
-                    singleton { model | email = Nothing }
-
-                other ->
-                    singleton { model | email = Just other }
-
         ApplyButtonClicked ->
-            case model.email |> Maybe.andThen Email.fromString of
-                Just email ->
-                    let
-                        url =
-                            crossOrigin "https://app.withflint.com" [ "valve", "apply", "email", Base64.encode << Email.toString <| email ] []
-                    in
-                    singleton { model | error = Nothing }
-                        |> command Ports.candidateApply
-                        |> command
-                            (Http.post
-                                { url = url
-                                , body = Http.emptyBody
-                                , expect = Http.expectJson GotURL Decode.string
-                                }
-                            )
-
-                Nothing ->
-                    singleton { model | error = Just "please input a valid email" }
+            singleton model
+                |> Return.command (load "https://docs.google.com/forms/d/e/1FAIpQLSc4EJ7dU87Yuss7zBxtm3vAMyAdVlA2sTSvd05A3dBVlsgQAA/viewform?usp=sf_link")
 
         GotURL res ->
             case res of
