@@ -12,7 +12,6 @@ import Element
         , el
         , fill
         , fillPortion
-        , focused
         , height
         , html
         , htmlAttribute
@@ -211,29 +210,6 @@ content device model =
                     ]
                 ]
 
-        emailField =
-            column
-                [ width (Element.minimum 200 fill)
-                , height fill
-                , paddingEach { top = 30, right = 0, bottom = 10, left = 0 }
-                ]
-                [ Input.email
-                    [ Border.width 1
-                    , focused [ Border.color colors.primary ]
-                    ]
-                    { onChange = EmailInputChanged
-                    , text = model.email |> Maybe.withDefault ""
-                    , placeholder = Nothing
-                    , label = Input.labelAbove [ Font.size 15, alignTop, width fill ] <| text "Email"
-                    }
-                , case model.error of
-                    Just err ->
-                        paragraph [ Font.size 15 ] [ text err ]
-
-                    Nothing ->
-                        none
-                ]
-
         applyButton =
             Input.button
                 [ Border.rounded 2
@@ -262,9 +238,8 @@ content device model =
 
         application =
             column
-                [ width fill ]
-                [ emailField
-                , applyButton
+                [ width fill, paddingXY 0 20 ]
+                [ applyButton
                 ]
 
         partnerText =
