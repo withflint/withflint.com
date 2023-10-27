@@ -241,6 +241,13 @@ list =
         , linkedin = Just "https://www.linkedin.com/in/neil-prigge/"
         , url = "static/headshots/neil-sm.jpg"
         }
+    , Member
+        { name = "Rovina D'Souza"
+        , position = "Chief of Staff"
+        , bio = Just "Operating as a Swiss army knife,  heading strategic projects within Flint, Rovina is dedicated to ensuring all strategic initiatives are executed with precision and efficiency."
+        , linkedin = Just "https://www.linkedin.com/in/rovinadsouza/"
+        , url = "static/headshots/rovina.jpg"
+        }
     , Blank
     , Blank
     , Blank
