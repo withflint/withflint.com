@@ -118,7 +118,7 @@ content device model =
                     [ alignTop
                     , htmlAttribute <| Html.Attributes.style "line-height" (String.fromFloat 1.6)
                     ]
-                    [ text "We partner with respected American hospitals.  We offer an all-inclusive solution for nurses to seamlessly transition into their new life in America. Flint provides fully sponsored licensing, immigration, and relocation programs. We pay for legal and processing fees, licensing, and offer premium placement. "
+                    [ text "We partner with respected American hospitals to offer a seamless solution for nurses to transition into their new life in America. Flint provides fully sponsored endorsement, immigration, and relocation programs. We pay for legal and processing fees, licensing, and offer premium placement."
                     , Element.link
                         [ width fill ]
                         { url = "/internationally-educated-nurses-faq/"
@@ -167,22 +167,6 @@ content device model =
                 ]
 
         nurseSuccessInfo =
-            let
-                video =
-                    el
-                        [ height fill
-                        , width (fillPortion 1)
-                        , Border.color colors.primary
-                        ]
-                    <|
-                        html <|
-                            Html.video
-                                [ Html.Attributes.style "width" "100%"
-                                , Html.Attributes.style "height" "100%"
-                                , Html.Attributes.controls True
-                                ]
-                                [ Html.source [ Html.Attributes.src "/static/videos/nurse-success.mp4" ] [] ]
-            in
             (case device of
                 Device.Phone _ ->
                     column [ centerX, spacingXY 20 32, paddingXY 0 50 ]
@@ -190,8 +174,7 @@ content device model =
                 _ ->
                     wrappedRow [ width fill, spacingXY 64 0, paddingEach { top = 64, bottom = 48, right = 0, left = 0 } ]
             )
-                [ video
-                , column
+                [ column
                     [ width <| fillPortion 1
                     , spacingXY 0 24
                     ]
@@ -206,7 +189,7 @@ content device model =
                         [ Font.alignLeft
                         , htmlAttribute <| Html.Attributes.style "line-height" (String.fromFloat 1.6)
                         ]
-                        [ text "Our talented team of nurse educators and staff will guide you through the entire process. Flint offers an NCLEX preparation course, covers the cost of taking the NCLEX, provides travel to the nearest testing center, completes your nurse license application, provides job placement, and world-class immigration services. We consider your nursing skills, experience, and goals when assessing which facilities are best suited for you." ]
+                        [ text "Our talented team will guide you through the entire process. Flint completes your nurse license endorsement application, provides job placement, and world-class immigration services. We consider your nursing skills, experience, and goals when assessing which facilities are best suited for you." ]
                     ]
                 ]
 

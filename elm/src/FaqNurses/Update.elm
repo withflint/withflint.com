@@ -32,7 +32,7 @@ update msg model =
 faqs : List Faq
 faqs =
     [ { question = "**Q: Who is this for?**"
-      , answer = [ Paragraph "A: International Educated Registered Nurses (RN) with clinical experience and a willingness to relocate to the US permanently to work as a RN in a healthcare facility setting." ]
+      , answer = [ Paragraph "A: International Educated Registered Nurses (RN) who have passed the NCLEX with clinical experience and a willingness to relocate to the US permanently to work as a RN in a healthcare facility setting." ]
       }
     , { question = "**Q: Is Flint a staffing company?**"
       , answer = [ Paragraph "A: Flint is an international search service. We are different from typical agencies because we don't just try to fill gaps in employment; we try to match the nurse's skills with the right job and facility. We want nurses to be successful and find a mutually beneficial long-term fit. Retaining its staff is also in the partner's facility's interest." ]
@@ -43,6 +43,7 @@ faqs =
     , { question = "**Q: What do I need to apply?**"
       , answer =
             [ Paragraph "To apply you need:"
+            , ListItem "Passed NCLEX-RN exam"
             , ListItem "A valid Registered Nursing license in any country"
             , ListItem "A 4-year Bachelors of Science in Nursing as an RN"
             , ListItem "At least 1 year of Registered Nursing clinical experience (Post-graduation)"
@@ -127,8 +128,8 @@ faqs =
     , { question = "**Q: What is the NCLEX exam?**"
       , answer = [ Paragraph "A: In order to become licensed to work in the US as a registered nurse (RN), nurses must take and pass a qualifying exam called the NCLEX. You must pass the NCLEX qualifying exam before we can start the immigration process. If you’ve already passed it you won’t need to take it again." ]
       }
-    , { question = "**Q: How should I prepare for the NCLEX?**"
-      , answer = [ Paragraph "A: Flint provides an extensive NCLEX course specifically designed to help internationally educated nurses like you prepare for the NCLEX qualifying exam. As part of the program we have a Nurse Educator to prepare materials, help advise on learning strategies, and answer NCLEX related questions. Flint will also provides the opportunity connect you with other nurses who are preparing for the test for support through a discussion board." ]
+    , { question = "**Q: Do I need t o pass NCLEX to apply**"
+      , answer = [ Paragraph "A: Yes, you need to pass NCELX. We currently don't provide service to nurses without a NCLEX certificate" ]
       }
     , { question = "**Q: What happens if I fail the NCLEX on my first attempt?**"
       , answer = [ Paragraph "A: A failed NCLEX exam will prolong the process so it’s important you do your best to pass the first time. The exam is difficult and requires dedication to studying, Flint’s NCLEX course will help you with this. You may take the test again in 45 days at the earliest. This is a rule set by the testing authority." ]
@@ -158,16 +159,13 @@ faqs =
       , answer = [ Paragraph "A: Currently we only employ RNs." ]
       }
     , { question = "**Q: What will Flint pay for?**"
-      , answer = [ Paragraph "A: Flint's Registered Nurse Program includes covering expenses associated with: visa filing fees, lawyer fees, NCLEX registration, NCLEX preparation resources and materials, travel and accommodation costs associated with taking the NCLEX (varies depending on proximity to testing centers), Language test registration, Credential evaluation reports, Nursing license application, travel to the US, and initial accommodations in the US. These expenses can total to more than $20,000. Flint doesn’t require the nurses to pay Flint back for any of these expenses after relocation." ]
+      , answer = [ Paragraph "A: Flint's Registered Nurse Program includes covering expenses associated with: visa filing fees, lawyer fees, Credential evaluation reports, Nursing license application, travel to the US, and initial accommodations in the US. These expenses can total to more than $20,000. Flint doesn’t require the nurses to pay Flint back for any of these expenses after relocation." ]
       }
     , { question = "**Q: What will I need to pay for as a nurse?**"
       , answer = [ Paragraph "A: There are some services essential to immigration that you may need to pay for yourself in your home country. These services include: background check, medical examination, courier fees, and fees associated with obtaining records from both the institutions where you received your education and from your licensing authorities. The breakdown of these fees will be communicated to you before you need to make a decision. If you need help paying for expenses like these please see our Financial Assistance Program." ]
       }
     , { question = "**Q: Will I need to pay Flint money?**"
-      , answer = [ Paragraph "A: No, Flint will not ask you for money directly. In addition, Flint's Registered Nurse Program doesn’t require repayment from the nurse." ]
-      }
-    , { question = "**Q: What if I do not pass the NCLEX on the first try?**"
-      , answer = [ Paragraph "A: Since Flint chooses to send nurses to the exam, we take that responsibility. The National Council of State Boards of Nursing (NCSBN) requires 45 days in between exam attempts.Therefore, four weeks of remediation and education will be required before retesting. However, Flint reserves the right to end the contract and not send the nurse candidate for a retest. In this case the nurse candidates would not owe Flint money." ]
+      , answer = [ Paragraph "A: No, Flint will not ask you for money directly." ]
       }
     ]
         |> List.indexedMap (\id faq -> Faq id faq.question faq.answer)
