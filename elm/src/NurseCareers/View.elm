@@ -189,7 +189,7 @@ content device model =
                         [ Font.alignLeft
                         , htmlAttribute <| Html.Attributes.style "line-height" (String.fromFloat 1.6)
                         ]
-                        [ text "Our talented team will guide you through the entire process. Flint completes your nurse license endorsement application, provides job placement, and world-class immigration services. We consider your nursing skills, experience, and goals when assessing which facilities are best suited for you." ]
+                        [ text "Our experienced team will guide you through the entire process. Flint completes your nurse license endorsement application, provides job placement, and world-class immigration services. We consider your nursing skills, experience, and goals when assessing which facilities are best suited for you." ]
                     ]
                 ]
 
