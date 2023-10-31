@@ -65,12 +65,6 @@ faqs =
     , { question = "**Q: Who does Flint work with?**"
       , answer = [ Paragraph "A: On our website you will also find the list of healthcare partners that work with us." ]
       }
-    , { question = "**Q: How do I know Flint will follow through with the process?**"
-      , answer = [ Paragraph "A: Early on Flint invests in your success by financing your NCLEX education and licensing. Therefore we both have interest to follow through to complete the process. Before starting we will sign agreements with you that legally binds us to our obligations." ]
-      }
-    , { question = "**Q: How much experience does the Flint team have?**"
-      , answer = [ Paragraph "A: Our team collectively has 20+ years of immigration industry experience placing hundreds in 20+ states. We have experience with many different visas and situations." ]
-      }
     , { question = "**Q: What are the working conditions for an immigrant nurse in the US?**"
       , answer = [ Paragraph "A: The working conditions for an immigrant are the same as every American nurse in the US. Some of these benefits include paid overtime, paid work breaks, and paid vacation every year." ]
       }
@@ -130,9 +124,6 @@ faqs =
       }
     , { question = "**Q: Do I need t o pass NCLEX to apply**"
       , answer = [ Paragraph "A: Yes, you need to pass NCELX. We currently don't provide service to nurses without a NCLEX certificate" ]
-      }
-    , { question = "**Q: What happens if I fail the NCLEX on my first attempt?**"
-      , answer = [ Paragraph "A: A failed NCLEX exam will prolong the process so it’s important you do your best to pass the first time. The exam is difficult and requires dedication to studying, Flint’s NCLEX course will help you with this. You may take the test again in 45 days at the earliest. This is a rule set by the testing authority." ]
       }
     , { question = "**Q: If I’m already in the immigration and licensing process can I work with Flint?**"
       , answer = [ Paragraph "A: We usually can work with you. Reach out to our team to learn more." ]
