@@ -174,7 +174,7 @@ list =
     [ Member
         { name = "Kenton Jarvie"
         , position = "CEO"
-        , bio = Just "Guided by a commitment to Flint's core values and vision, Kenton effectively balances stewardship over finance, strategic investor relationships, and nurturing our people."
+        , bio = Just "That's the guy who opens the meetings. No one really knows what he's doing, really. Mostly planning his next surf retreat it seems."
         , linkedin = Just "https://www.linkedin.com/in/kentonjarvie/"
         , url = "static/headshots/kenton-sm.jpg"
         }
@@ -183,13 +183,6 @@ list =
         , position = "Executive Assistant"
         , bio = Just "With her deep-rooted expertise in administration and organizational dynamics, Marianne is the backbone of Flint's day-to-day accounting and people operations."
         , linkedin = Just "https://www.linkedin.com/in/mariannejcab/"
-        , url = "static/headshots/coming.svg"
-        }
-    , Member
-        { name = "Barry Borrilez"
-        , position = "Nurse Staffing Director"
-        , bio = Just "Centered at the nexus of healthcare staffing, Barry fosters key relationships and navigates the complexities of staffing requirements with precision."
-        , linkedin = Just "https://www.linkedin.com/in/barry-borrilez/"
         , url = "static/headshots/coming.svg"
         }
     , Member
@@ -207,13 +200,6 @@ list =
         , url = "static/headshots/samuel-sm.jpg"
         }
     , Member
-        { name = "Shelby LeBel"
-        , position = "Nurse Success Advisor"
-        , bio = Just "Shelby, with her inherent empathy, illuminates the journey for Flint's nurses, ensuring they ascend to the pinnacle of their American careers."
-        , linkedin = Nothing
-        , url = "static/headshots/shelby-sm.jpg"
-        }
-    , Member
         { name = "Chelsea Mansour"
         , position = "Nurse Success Advisor"
         , bio = Just "Chelsea's unwavering dedication reflects in her personalized guidance, fortifying each nurse's unique trajectory within Flint."
@@ -221,23 +207,16 @@ list =
         , url = "static/headshots/coming.svg"
         }
     , Member
-        { name = "Jasleen Bhandal"
-        , position = "Operations Associate"
-        , bio = Just "Jasleen sets a benchmark in operational excellence for nurse licensing, embodying Flint's commitment to the success of its nursing professionals."
-        , linkedin = Just "https://www.linkedin.com/in/jasleen-bhandal/"
-        , url = "static/headshots/jasleen-sm.jpg"
-        }
-    , Member
         { name = "Anson Kung"
         , position = "COO"
-        , bio = Just "Anson relentlessly champions the expansion of Flint's nursing community, showcasing dedication in diversifying our impressive lineup of professionals."
+        , bio = Just "Anson relentlessly champions quality of sleep by giving the most hollow speeches. When he starts talking, it's nap time: just nod and pretend to be interested, he's mostly talking to hilmself anyway."
         , linkedin = Just "https://www.linkedin.com/in/ansonkung/"
         , url = "static/headshots/anson-sm.jpg"
         }
     , Member
         { name = "Neil Prigge"
         , position = "Head of Partnerships"
-        , bio = Just "Neil acts as Flint's envoy, forging and nurturing relationships that underpin mutual growth and prosperity with our partners."
+        , bio = Just "Neil is the live embodiment of Flint's spirit: he will stab you in the back, but he'll do it with a smile."
         , linkedin = Just "https://www.linkedin.com/in/neil-prigge/"
         , url = "static/headshots/neil-sm.jpg"
         }
