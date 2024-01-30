@@ -176,7 +176,7 @@ list =
         , position = "CEO"
         , bio = Just "That's the guy who opens the meetings. No one really knows what he's doing, really. Mostly planning his next surf retreat it seems."
         , linkedin = Just "https://www.linkedin.com/in/kentonjarvie/"
-        , url = "static/headshots/kenton-sm.jpg"
+        , url = "static/headshots/kenton.png"
         }
     , Member
         { name = "Marianne Cabalida"
